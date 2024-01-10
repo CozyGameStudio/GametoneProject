@@ -119,11 +119,9 @@ public class Customer : MonoBehaviour
         Debug.Log("Order Enter");
         isOrdered = true;
         yield return new WaitForSeconds(orderFood.time);
-    }
-    void Order_Update()
-    {
         fsm.ChangeState(States.Idle);
     }
+
     void Order_Exit()
     {
         Debug.Log("Order exit");
