@@ -52,4 +52,11 @@ TagManager:
     locked: 0
   - name: Food
     uniqueID: 3334417043
+    uniqueID: 792731293
+    locked: 0
+  - name: Middleground
+    uniqueID: 938981639
+    locked: 0
+  - name: Foreground
+    uniqueID: 895783351
     locked: 0
