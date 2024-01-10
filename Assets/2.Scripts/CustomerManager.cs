@@ -6,8 +6,9 @@ using UnityEngine;
 public class CustomerManager : MonoBehaviour
 {
     private static CustomerManager instance;
-    public GameObject[] customerPlace;
-    public bool[] customerPresent;
+    public GameObject[] customerTablePlace;
+    public GameObject customerBackPlace;
+    public bool[] customerTablePresent;
 
     /*싱글톤으로 손님매니저를 구성*/
     public static CustomerManager Instance
@@ -24,10 +25,10 @@ public class CustomerManager : MonoBehaviour
     public void Awake()
     {
         /*손님 장소 개수에 맞추어 손님존재여부 배열을 초기화*/
-        int numberOfPlaces = customerPlace.Length;
-        customerPresent = new bool[numberOfPlaces];
+        int numberOfPlaces = customerTablePlace.Length;
+        customerTablePresent = new bool[numberOfPlaces];
         for(int i = 0; i < numberOfPlaces; i++) {
-            customerPresent[i] = false;
+            customerTablePresent[i] = false;
         }
 
         if(Instance != this) {
@@ -37,7 +38,7 @@ public class CustomerManager : MonoBehaviour
 
     /*손님 장소가 가득찾는지 판단*/
     public bool IsCustomerFull() {
-        foreach (var p in customerPresent)
+        foreach (var p in customerTablePresent)
         {
             if (p == false)
                 return false;

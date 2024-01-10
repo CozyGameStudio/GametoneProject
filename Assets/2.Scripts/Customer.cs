@@ -16,16 +16,19 @@ public class Customer : MonoBehaviour
 
     StateMachine<States, StateDriverUnity> fsm;
 
-    [Header("PlaceHolder")]
 
     [Header("Character")]
     public float speed = 5f;
 
-    private GameObject customerPlace;
-    private int customerPlaceLength;
+    private GameObject customerTablePlace;
+    private GameObject customerBackPlace;
+    private int customerTablePlaceLength;
+    private FoodTest orderFood;
+    private bool isOrdered = false;
 
     private void Awake()
     {
+        orderFood = DataManager.Instance.Food;
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
     }
@@ -39,20 +42,30 @@ public class Customer : MonoBehaviour
     }
     void Idle_Update() 
     {
-        Debug.Log(CustomerManager.Instance.IsCustomerFull());
-        if (!CustomerManager.Instance.IsCustomerFull())
+        if (!isOrdered)
         {
-            customerPlaceLength = CustomerManager.Instance.customerPlace.Length;
-            for(int i = 0; i < customerPlaceLength; i++)
+            Debug.Log(CustomerManager.Instance.IsCustomerFull());
+            if (!CustomerManager.Instance.IsCustomerFull())
             {
-                if (!CustomerManager.Instance.customerPresent[i])
+                customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
+                for (int i = 0; i < customerTablePlaceLength; i++)
                 {
-                    customerPlace = CustomerManager.Instance.customerPlace[i];
+                    if (!CustomerManager.Instance.customerTablePresent[i])
+                    {
+                        customerTablePlace = CustomerManager.Instance.customerTablePlace[i];
+                    }
+                    CustomerManager.Instance.customerTablePresent[i] = true;
                 }
-                CustomerManager.Instance.customerPresent[i] = true;
-            }
-            fsm.ChangeState(States.Walk);
+                fsm.ChangeState(States.Walk);
 
+            }
+        }
+        else
+        {
+            Debug.Log(1);
+            Debug.Log("+" + orderFood.money);
+            customerBackPlace = CustomerManager.Instance.customerBackPlace;
+            fsm.ChangeState(States.Walk);
         }
     }
     void Idle_Exit()
@@ -65,29 +78,45 @@ public class Customer : MonoBehaviour
     }
     void Walk_Update()
     {
-        //Until chef arrives cook Place
-        if (Vector2.Distance(transform.position, customerPlace.transform.position) > 0.1f)
+        if (!isOrdered)
         {
-            transform.position = Vector2.MoveTowards(transform.position, customerPlace.transform.position, speed * Time.deltaTime);
-
+            if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > 0.1f)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, customerTablePlace.transform.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                fsm.ChangeState(States.Order);
+            }
         }
         else
         {
-            fsm.ChangeState(States.Order);
+            if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.1f)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, customerBackPlace.transform.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                Debug.Log("Destory");
+                Destroy(gameObject);
+            }
         }
+        
     }
     void Walk_Exit()
     {
         Debug.Log("walk exit");
     }
 
-    void Order_Enter()
+    IEnumerator Order_Enter()
     {
         Debug.Log("Order Enter");
+        isOrdered = true;
+        yield return new WaitForSeconds(3);
     }
     void Order_Update()
     {
-
+        fsm.ChangeState(States.Idle);
     }
     void Order_Exit()
     {
