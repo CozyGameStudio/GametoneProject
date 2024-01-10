@@ -16,7 +16,6 @@ public class Customer : MonoBehaviour
 
     StateMachine<States, StateDriverUnity> fsm;
 
-
     [Header("Character")]
     public float speed = 5f;
 
@@ -25,6 +24,7 @@ public class Customer : MonoBehaviour
     private int customerTablePlaceLength;
     private FoodTest orderFood;
     private bool isOrdered = false;
+    private int tableNumber;
 
     private void Awake()
     {
@@ -42,6 +42,7 @@ public class Customer : MonoBehaviour
     }
     void Idle_Update() 
     {
+        /* 주문을 하지 않았을 경우 테이블 위치를 받아 이동 호출*/
         if (!isOrdered)
         {
             Debug.Log(CustomerManager.Instance.IsCustomerFull());
@@ -52,17 +53,19 @@ public class Customer : MonoBehaviour
                 {
                     if (!CustomerManager.Instance.customerTablePresent[i])
                     {
+                        tableNumber = i;
                         customerTablePlace = CustomerManager.Instance.customerTablePlace[i];
+                        CustomerManager.Instance.customerTablePresent[i] = true;
+                        break;
                     }
-                    CustomerManager.Instance.customerTablePresent[i] = true;
                 }
                 fsm.ChangeState(States.Walk);
 
             }
         }
+        /* 주문을 했을 경우 돈을 추가하고 되돌아가는 위치를 받아 이동 호출*/
         else
         {
-            Debug.Log(1);
             Debug.Log("+" + orderFood.money);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
@@ -78,6 +81,7 @@ public class Customer : MonoBehaviour
     }
     void Walk_Update()
     {
+        /* 주문을 안했을 경우 테이블로 이동*/
         if (!isOrdered)
         {
             if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > 0.1f)
@@ -89,6 +93,7 @@ public class Customer : MonoBehaviour
                 fsm.ChangeState(States.Order);
             }
         }
+        /* 주문을 했을 경우 되돌아가는 위치로 이동*/
         else
         {
             if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.1f)
@@ -97,6 +102,7 @@ public class Customer : MonoBehaviour
             }
             else
             {
+                CustomerManager.Instance.customerTablePresent[tableNumber] = false;
                 Debug.Log("Destory");
                 Destroy(gameObject);
             }
@@ -112,7 +118,7 @@ public class Customer : MonoBehaviour
     {
         Debug.Log("Order Enter");
         isOrdered = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(orderFood.time);
     }
     void Order_Update()
     {

@@ -10,7 +10,7 @@ public class CustomerManager : MonoBehaviour
     public GameObject customerBackPlace;
     public bool[] customerTablePresent;
 
-    /*싱글톤으로 손님매니저를 구성*/
+    /*싱글톤으로 손님매니저를 구성하고 캡슐화*/
     public static CustomerManager Instance
     {
         get

@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviour
 
     public FoodTest Food;
 
-    /*싱글톤으로 데이터매니저를 구성*/
+    /*싱글톤으로 데이터매니저를 구성하고 캡슐화*/
     public static DataManager Instance
     {
         get
