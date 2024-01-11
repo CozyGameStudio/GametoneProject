@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Draggable
   layers:
   - Default
   - TransparentFX
@@ -52,7 +53,6 @@ TagManager:
     locked: 0
   - name: Food
     uniqueID: 3334417043
-    uniqueID: 792731293
     locked: 0
   - name: Middleground
     uniqueID: 938981639
