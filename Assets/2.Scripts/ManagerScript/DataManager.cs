@@ -29,7 +29,7 @@ public class DataManager : MonoBehaviour
     }
     public string RandomFood(){
         int index=Random.Range(0,Food.Length);
-        Debug.Log(index);
+        //Debug.Log(index);
         return Food[index].FoodData.FoodName;
     }
     public FoodMain FindFoodWithName(string foodName){

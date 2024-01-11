@@ -32,7 +32,6 @@ public class ChefScript : MonoBehaviour
 
     public bool IsAvailable => fsm.State.Equals(States.Idle);
     private Machine nowUsing;
-    private bool isTakenPlace=false;
     private bool isHolding=false;
     private Transform placeToMove; //Chef cook place
     private GameObject serveHolder;
@@ -61,7 +60,7 @@ public class ChefScript : MonoBehaviour
     void Idle_Enter()
     {
         //playanimation(idle)
-        Debug.Log("Idle Enter");
+        //Debug.Log("Idle Enter");
         OnChefAvailable?.Invoke();
     }
     void Idle_Update()
@@ -73,7 +72,7 @@ public class ChefScript : MonoBehaviour
                     nowUsing= machines[i];
                     placeToMove =nowUsing.gameObject.transform;
                     nowUsing.switchTakenPlace();//make it Taken
-                    Debug.Log(nowUsing.gameObject.ToString());
+                    //Debug.Log(nowUsing.gameObject.ToString());
                     break;
                 }
             }
@@ -82,7 +81,7 @@ public class ChefScript : MonoBehaviour
     }
     void Idle_Exit()
     {
-        Debug.Log("Idle Exit");
+        //Debug.Log("Idle Exit");
     }
     public void NewOrderAvailable(OrderBoard order)
     {
@@ -97,7 +96,7 @@ public class ChefScript : MonoBehaviour
     {
         
         //playanimation(walk)
-        Debug.Log("Walk Enter");
+        //Debug.Log("Walk Enter");
     }
     void Walk_Update()
     {
@@ -119,12 +118,12 @@ public class ChefScript : MonoBehaviour
         }
     }
     void Walk_Exit(){
-        Debug.Log("walk exit");
+        //Debug.Log("walk exit");
     }
     void Cook_Enter(){
         string foodName = currentMenu.name;
-        Debug.Log("Cook Enter");
-        Debug.Log($"He is cooking {foodName}");
+        //Debug.Log("Cook Enter");
+        //Debug.Log($"He is cooking {foodName}");
         StartCoroutine(cookCoroutine(foodName,3));
     }
     IEnumerator cookCoroutine(string foodName,int cooktime){
@@ -154,11 +153,11 @@ public class ChefScript : MonoBehaviour
         isHolding=true;
         nowUsing.switchTakenPlace();
 
-        Debug.Log("cook exit");
+        //Debug.Log("cook exit");
     }
     void Serve_Enter()
     {
-        Debug.Log("Serve Enter");
+        //Debug.Log("Serve Enter");
         GameObject comFood= foodHolder.transform.GetChild(0).gameObject;
         // comFood.transform.parent = serveHolder.transform;
         comFood.transform.position= serveHolder.transform.position;
@@ -168,6 +167,6 @@ public class ChefScript : MonoBehaviour
     void Serve_Exit()
     {
         isHolding=false;
-        Debug.Log("Serve Exit");
+        //Debug.Log("Serve Exit");
     }
 }

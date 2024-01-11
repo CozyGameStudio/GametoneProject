@@ -52,14 +52,14 @@ public class Customer : MonoBehaviour
     }
     void Idle_Enter()
     {
-        Debug.Log("Idle Enter");
+        //Debug.Log("Idle Enter");
     }
     void Idle_Update() 
     {
         /* �ֹ��� ���� �ʾ��� ��� ���̺� ��ġ�� �޾� �̵� ȣ��*/
         if (!isOrdered)
         {
-            Debug.Log(CustomerManager.Instance.IsCustomerFull());
+            //Debug.Log(CustomerManager.Instance.IsCustomerFull());
             if (!CustomerManager.Instance.IsCustomerFull())
             {
                 customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
@@ -87,11 +87,11 @@ public class Customer : MonoBehaviour
     }
     void Idle_Exit()
     {
-        Debug.Log("Idle Exit");
+        //Debug.Log("Idle Exit");
     }
     void Walk_Enter()
     {
-        Debug.Log("Walk Enter");
+        //Debug.Log("Walk Enter");
     }
     void Walk_Update()
     {
@@ -117,20 +117,20 @@ public class Customer : MonoBehaviour
             else
             {
                 CustomerManager.Instance.customerTablePresent[tableNumber-1] = false;
-                Debug.Log("Destory");
+                //Debug.Log("Destory");
                 Destroy(gameObject);
             }
         }
     }
     void Walk_Exit()
     {
-        Debug.Log("walk exit");
+        //Debug.Log("walk exit");
     }
 
     void Order_Enter()
     {
         transform.SetParent(customerTablePlace.transform);
-        Debug.Log("Order Enter");
+        //Debug.Log("Order Enter");
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.putOrderInQueue(newOrder);
@@ -149,22 +149,14 @@ public class Customer : MonoBehaviour
     {
         transform.SetParent(null);
         orderBubble.SetActive(false);
-        Debug.Log("Order exit");
+        //Debug.Log("Order exit");
     }
     public void GetMenu(GameObject menu)
     {
-        if (menu == null)
-        {
-            Debug.LogError("Received menu is null");
-        }
-        if (foodHolder == null)
-        {
-            Debug.LogError("foodHolder is null");
-        }
-
         menu.transform.SetParent(foodHolder);
+        menu.transform.position=foodHolder.position;
         receiveOrder = true;
-        Debug.Log("Menu received");
+        //Debug.Log("Menu received");
     }
 
 }

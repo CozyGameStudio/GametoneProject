@@ -44,11 +44,11 @@ public class Server : MonoBehaviour
     void Idle_Enter()
     {
         //playanimation(idle)w
-        Debug.Log("Server Idle Enter");
+        //Debug.Log("Server Idle Enter");
     }
     void Idle_Update()
     {
-        Debug.Log("Server Idle Enter");
+        //Debug.Log("Server Idle Enter");
         if (isThereMenuToServe&&IsAvailable)
         {
             placeToMove=menuToServe.transform;
@@ -58,12 +58,12 @@ public class Server : MonoBehaviour
     void Idle_Exit()
     {
         IsAvailable=false;
-        Debug.Log("Server Idle Exit");
+        //Debug.Log("Server Idle Exit");
     }
     void Walk_Enter()
     {
         //playanimation(Walk)
-        Debug.Log("Server Walk Enter"); 
+        //Debug.Log("Server Walk Enter"); 
     }
     void Walk_Update()
     {
@@ -74,11 +74,11 @@ public class Server : MonoBehaviour
         else{
             fsm.ChangeState(States.Serve);
         }
-        Debug.Log("Server Walk Update");
+        //Debug.Log("Server Walk Update");
     }
     void Walk_Exit()
     {
-        Debug.Log("Server Walk Exit");
+        //Debug.Log("Server Walk Exit");
     }
     
     void Serve_Enter()
@@ -99,12 +99,12 @@ public class Server : MonoBehaviour
             }
         }
         //playanimation(Serve)
-        Debug.Log("Server Serve Enter");
+        //Debug.Log("Server Serve Enter");
     }
     void Serve_Update()
     {
-        Debug.Log(menuToServe);
-        if (Vector2.Distance(transform.position, placeToMove.position) > 0.1f)
+        //Debug.Log(menuToServe);
+        if (Vector2.Distance(transform.position, placeToMove.position) > 1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
         }
@@ -112,18 +112,18 @@ public class Server : MonoBehaviour
         {
             if (currentCustomer == null)
             {
-                Debug.LogError("Customer component not found");
+                //Debug.LogError("Customer component not found");
                 return; // 이후 코드 실행을 중단
             }
             currentCustomer.GetMenu(menuToServe);
             fsm.ChangeState(States.Idle);
         }
-        Debug.Log("Server Serve Update");
+        //Debug.Log("Server Serve Update");
     }
     void Serve_Exit()
     {
         SetAvailable();
-        Debug.Log("Server Serve Exit");
+        //Debug.Log("Server Serve Exit");
     }
     // 서버 상태를 사용 가능으로 변경하는 메소드
     public void SetAvailable()

@@ -11,7 +11,7 @@ public class OrderManager : MonoBehaviour
     public delegate void OrderHandler(OrderBoard order);
 
     // Create an event based on the delegate
-    public event OrderHandler OnNewOrder;
+    public event OrderHandler OnNewOrder;//chefScript reference
 
     private List<ChefScript> chefs = new List<ChefScript>();
 
@@ -68,12 +68,12 @@ public class OrderManager : MonoBehaviour
         if (availableChef != null)
         {
             availableChef.HandleNewOrder(order);
-            Debug.Log("you cook");
+            //Debug.Log("you cook");
         }
         else//put in queue
         {
             orderQueue.Enqueue(order);
-            Debug.Log("no available");
+            //Debug.Log("no available");
         }
         
     }
