@@ -31,17 +31,16 @@ public class ChefScript : MonoBehaviour
     public GameObject foodHolder;
 
     public bool IsAvailable => fsm.State.Equals(States.Idle);
+    private Machine nowUsing;
     private bool isTakenPlace=false;
     private bool isHolding=false;
     private Transform placeToMove; //Chef cook place
     private GameObject serveHolder;
-    private string currentMenu="";
+    private OrderBoard currentMenu =default;
     private bool isCooking=false;
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
-        
-        
     }
     private void Start() {
         if (OrderManager.Instance != null)
@@ -55,7 +54,7 @@ public class ChefScript : MonoBehaviour
     {
         fsm.Driver.Update.Invoke();
     }
-    public void HandleNewOrder(string order)
+    public void HandleNewOrder(OrderBoard order)
     {
         currentMenu=order;
     }
@@ -67,12 +66,14 @@ public class ChefScript : MonoBehaviour
     }
     void Idle_Update()
     {
-        if (this.IsAvailable&&!currentMenu.Equals(""))
+        if (this.IsAvailable&&currentMenu.name!=null)
         { 
             for(int i=0;i<machines.Length;i++){
                 if(!machines[i].isTakenPlace){
-                    placeToMove=machines[i].gameObject.transform;
-                    Debug.Log(machines[i].gameObject.ToString());
+                    nowUsing= machines[i];
+                    placeToMove =nowUsing.gameObject.transform;
+                    nowUsing.switchTakenPlace();//make it Taken
+                    Debug.Log(nowUsing.gameObject.ToString());
                     break;
                 }
             }
@@ -83,7 +84,7 @@ public class ChefScript : MonoBehaviour
     {
         Debug.Log("Idle Exit");
     }
-    public void NewOrderAvailable(string order)
+    public void NewOrderAvailable(OrderBoard order)
     {
         if (this.IsAvailable)
         {
@@ -121,7 +122,7 @@ public class ChefScript : MonoBehaviour
         Debug.Log("walk exit");
     }
     void Cook_Enter(){
-        string foodName = currentMenu;
+        string foodName = currentMenu.name;
         Debug.Log("Cook Enter");
         Debug.Log($"He is cooking {foodName}");
         StartCoroutine(cookCoroutine(foodName,3));
@@ -130,17 +131,18 @@ public class ChefScript : MonoBehaviour
         isCooking=true;
         yield return new WaitForSeconds(cooktime);
         GameObject food = Instantiate(Resources.Load<GameObject>(foodName), foodHolder.transform.position, Quaternion.identity);
+        food.GetComponent<FoodMain>().orderstatus=currentMenu;
         food.transform.parent = foodHolder.transform;
         isCooking=false;
-        currentMenu="";
+        currentMenu=default;
     }
     void Cook_Update(){
         if(!isCooking){
             for (int i = 0; i < foodPlace.Length; i++)
             {
-                if (foodPlace[i].transform.childCount == 0)
+                if (foodPlace[i].GetComponent<FoodPlace>().IsAvailable)
                 {
-                    serveHolder = foodPlace[i];
+                    serveHolder = foodPlace[i].gameObject;
                     placeToMove = servePlace[i].transform;
                     break;
                 }
@@ -150,14 +152,17 @@ public class ChefScript : MonoBehaviour
     }
     void Cook_Exit(){
         isHolding=true;
+        nowUsing.switchTakenPlace();
+
         Debug.Log("cook exit");
     }
     void Serve_Enter()
     {
         Debug.Log("Serve Enter");
         GameObject comFood= foodHolder.transform.GetChild(0).gameObject;
-        comFood.transform.parent = serveHolder.transform;
+        // comFood.transform.parent = serveHolder.transform;
         comFood.transform.position= serveHolder.transform.position;
+        serveHolder.GetComponent<FoodPlace>().AddChild(comFood);
         fsm.ChangeState(States.Idle);
     }
     void Serve_Exit()

@@ -5,10 +5,10 @@ using UnityEngine;
 public class OrderManager : MonoBehaviour
 {
     private static OrderManager instance;
-    Queue<string> orderQueue;
+    Queue<OrderBoard> orderQueue;
 
     // Define a delegate
-    public delegate void OrderHandler(string order);
+    public delegate void OrderHandler(OrderBoard order);
 
     // Create an event based on the delegate
     public event OrderHandler OnNewOrder;
@@ -28,7 +28,7 @@ public class OrderManager : MonoBehaviour
     }
     public void Awake()
     {
-        orderQueue = new Queue<string>();
+        orderQueue = new Queue<OrderBoard>();
         if (null == instance)
         {
             instance = this;
@@ -53,7 +53,7 @@ public class OrderManager : MonoBehaviour
         // Assign order to available chef
         if (!isQueueEmpty())
         {
-            string order = takeOrderInQueue();
+            OrderBoard order = takeOrderInQueue();
             ChefScript availableChef = FindAvailableChef();
             if (availableChef != null)
             {
@@ -61,7 +61,7 @@ public class OrderManager : MonoBehaviour
             }
         }
     }
-    public void putOrderInQueue(string order)
+    public void putOrderInQueue(OrderBoard order)
     {
         ChefScript availableChef = FindAvailableChef();
         //if there's available chef, give order directly
@@ -87,7 +87,7 @@ public class OrderManager : MonoBehaviour
     {
         return (orderQueue.Count == 0) ? true : false;
     }
-    public string takeOrderInQueue()
+    public OrderBoard takeOrderInQueue()
     {
         return orderQueue.Dequeue();
     }
