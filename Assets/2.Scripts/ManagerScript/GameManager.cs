@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
@@ -21,15 +21,18 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 전환 시에도 파괴되지 않도록 설정
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
+        Input.multiTouchEnabled=false;
     }
     public int money=0;
     public void AddMoney(int moneyAmount){
         money+=moneyAmount;
+    }
+    public void ChangeScene(string scene){
+        SceneManager.LoadScene(scene);
     }
 }
