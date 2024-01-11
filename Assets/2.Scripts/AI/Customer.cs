@@ -6,6 +6,14 @@ using UnityEngine.AI;
 using UnityEditor.Rendering;
 using Unity.VisualScripting;
 
+public struct OrderBoard{
+    public string name{get;private set;}
+    public int tableNumber { get; private set;}
+    public OrderBoard(string nam,int num){
+        name=nam;
+        tableNumber=num;
+    }
+}
 public class Customer : MonoBehaviour
 { 
     public enum States { 
@@ -15,22 +23,28 @@ public class Customer : MonoBehaviour
     }
 
     StateMachine<States, StateDriverUnity> fsm;
-
+    public GameObject orderBubble;
+    public SpriteRenderer foodRenderer;
+    public Transform foodHolder;
     [Header("Character")]
     public float speed = 5f;
 
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
     private int customerTablePlaceLength;
-    private FoodTest orderFood;
+    private string orderFood;
     private bool isOrdered = false;
-    private int tableNumber;
+    public int tableNumber{get;private set;}
+    private bool receiveOrder=false;
+    FoodMain receivedFood;
 
     private void Awake()
     {
-        orderFood = DataManager.Instance.Food;
+        orderFood = DataManager.Instance.RandomFood();//receive name from data manaager
+        receivedFood= DataManager.Instance.FindFoodWithName(orderFood);
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
+        orderBubble.SetActive(false);
     }
     private void Update()
     {
@@ -38,14 +52,14 @@ public class Customer : MonoBehaviour
     }
     void Idle_Enter()
     {
-        Debug.Log("Idle Enter");
+        //Debug.Log("Idle Enter");
     }
     void Idle_Update() 
     {
-        /* ÁÖ¹®À» ÇÏÁö ¾Ê¾ÒÀ» °æ¿ì Å×ÀÌºí À§Ä¡¸¦ ¹Þ¾Æ ÀÌµ¿ È£Ãâ*/
+        /* ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½Ìµï¿½ È£ï¿½ï¿½*/
         if (!isOrdered)
         {
-            Debug.Log(CustomerManager.Instance.IsCustomerFull());
+            //Debug.Log(CustomerManager.Instance.IsCustomerFull());
             if (!CustomerManager.Instance.IsCustomerFull())
             {
                 customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
@@ -53,7 +67,7 @@ public class Customer : MonoBehaviour
                 {
                     if (!CustomerManager.Instance.customerTablePresent[i])
                     {
-                        tableNumber = i;
+                        tableNumber = i+1;
                         customerTablePlace = CustomerManager.Instance.customerTablePlace[i];
                         CustomerManager.Instance.customerTablePresent[i] = true;
                         break;
@@ -63,25 +77,25 @@ public class Customer : MonoBehaviour
 
             }
         }
-        /* ÁÖ¹®À» ÇßÀ» °æ¿ì µ·À» Ãß°¡ÇÏ°í µÇµ¹¾Æ°¡´Â À§Ä¡¸¦ ¹Þ¾Æ ÀÌµ¿ È£Ãâ*/
+        /* ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï°ï¿½ ï¿½Çµï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½Ìµï¿½ È£ï¿½ï¿½*/
         else
         {
-            Debug.Log("+" + orderFood.money);
+            GameManager.Instance.AddMoney(receivedFood.FoodData.Money);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
     }
     void Idle_Exit()
     {
-        Debug.Log("Idle Exit");
+        //Debug.Log("Idle Exit");
     }
     void Walk_Enter()
     {
-        Debug.Log("Walk Enter");
+        //Debug.Log("Walk Enter");
     }
     void Walk_Update()
     {
-        /* ÁÖ¹®À» ¾ÈÇßÀ» °æ¿ì Å×ÀÌºí·Î ÀÌµ¿*/
+        /* ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ìµï¿½*/
         if (!isOrdered)
         {
             if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > 0.1f)
@@ -93,7 +107,7 @@ public class Customer : MonoBehaviour
                 fsm.ChangeState(States.Order);
             }
         }
-        /* ÁÖ¹®À» ÇßÀ» °æ¿ì µÇµ¹¾Æ°¡´Â À§Ä¡·Î ÀÌµ¿*/
+        /* ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½*/
         else
         {
             if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.1f)
@@ -102,28 +116,47 @@ public class Customer : MonoBehaviour
             }
             else
             {
-                CustomerManager.Instance.customerTablePresent[tableNumber] = false;
-                Debug.Log("Destory");
+                CustomerManager.Instance.customerTablePresent[tableNumber-1] = false;
+                //Debug.Log("Destory");
                 Destroy(gameObject);
             }
         }
-        
     }
     void Walk_Exit()
     {
-        Debug.Log("walk exit");
+        //Debug.Log("walk exit");
     }
 
-    IEnumerator Order_Enter()
+    void Order_Enter()
     {
-        Debug.Log("Order Enter");
+        transform.SetParent(customerTablePlace.transform);
+        //Debug.Log("Order Enter");
         isOrdered = true;
-        yield return new WaitForSeconds(orderFood.time);
-        fsm.ChangeState(States.Idle);
+        OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
+        OrderManager.Instance.putOrderInQueue(newOrder);
+        orderBubble.SetActive(true);
+        foodRenderer.sprite=receivedFood.FoodData.Icon;
+;    }
+    void Order_Update()
+    {
+        if(receiveOrder)
+        {
+            fsm.ChangeState(States.Idle);
+        }
     }
 
     void Order_Exit()
     {
-        Debug.Log("Order exit");
+        transform.SetParent(null);
+        orderBubble.SetActive(false);
+        //Debug.Log("Order exit");
     }
+    public void GetMenu(GameObject menu)
+    {
+        menu.transform.SetParent(foodHolder);
+        menu.transform.position=foodHolder.position;
+        receiveOrder = true;
+        //Debug.Log("Menu received");
+    }
+
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class CustomerSpawner : MonoBehaviour
 {
     public Customer customerPrefab;
-    private int n = 0;
     public int createCustomerTime;
     private List<Customer> customers = new List<Customer>();
 

@@ -6,9 +6,9 @@ public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
 
-    public FoodTest Food;
+    public FoodMain[] Food;
 
-    /*½Ì±ÛÅæÀ¸·Î µ¥ÀÌÅÍ¸Å´ÏÀú¸¦ ±¸¼ºÇÏ°í Ä¸½¶È­*/
+    /*ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Ä¸ï¿½ï¿½È­*/
     public static DataManager Instance
     {
         get
@@ -27,5 +27,18 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public string RandomFood(){
+        int index=Random.Range(0,Food.Length);
+        //Debug.Log(index);
+        return Food[index].FoodData.FoodName;
+    }
+    public FoodMain FindFoodWithName(string foodName){
+        for(int i=0;i<Food.Length;i++){
+            if(Food[i].FoodData.FoodName.Equals(foodName)){
+                return Food[i];
+            }
+        }
+        return null;
 
+    }
 }
