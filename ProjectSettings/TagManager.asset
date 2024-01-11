@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1346137351
+    locked: 0
+  - name: Furnitures
+    uniqueID: 3064362685
+    locked: 0
+  - name: Character
+    uniqueID: 2457262627
+    locked: 0
+  - name: Food
+    uniqueID: 3334417043
+    locked: 0
+  - name: Middleground
+    uniqueID: 938981639
+    locked: 0
+  - name: Foreground
+    uniqueID: 895783351
+    locked: 0
+  - name: Icon
+    uniqueID: 1536395471
+    locked: 0
