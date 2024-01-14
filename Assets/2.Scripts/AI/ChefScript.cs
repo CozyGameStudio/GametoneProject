@@ -22,7 +22,6 @@ public class ChefScript : MonoBehaviour
     public event AvailableHandler OnChefAvailable;
 
     [Header("PlaceHolder")]
-    public Machine[] machines;
     public GameObject[] foodPlace;
     public GameObject[] servePlace;
 
@@ -30,58 +29,35 @@ public class ChefScript : MonoBehaviour
     public float speed=5f;
     public GameObject foodHolder;
 
-    public bool IsAvailable => fsm.State.Equals(States.Idle);
+    public bool IsAvailable { get; private set; } = true;
     private Machine nowUsing;
     private bool isHolding=false;
     private Transform placeToMove; //Chef cook place
     private GameObject serveHolder;
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
+    
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
     }
     private void Start() {
-        if (OrderManager.Instance != null)
-        {
-            OrderManager.Instance.RegisterChef(this);
-            OrderManager.Instance.OnNewOrder += HandleNewOrder;
-        }
         fsm.ChangeState(States.Idle);
+    }
+    void OnEnable(){
+        IsAvailable=true;
+    }
+    void OnDisable(){
+        IsAvailable = false;
     }
     void Update()
     {
         fsm.Driver.Update.Invoke();
     }
-    public void HandleNewOrder(OrderBoard order)
-    {
-        currentMenu=order;
-    }
     void Idle_Enter()
     {
         //playanimation(idle)
         //Debug.Log("Idle Enter");
-        OnChefAvailable?.Invoke();
-    }
-    void Idle_Update()
-    {
-        if (this.IsAvailable&&currentMenu.name!=null)
-        { 
-            for(int i=0;i<machines.Length;i++){
-                if(!machines[i].isTakenPlace){
-                    nowUsing= machines[i];
-                    placeToMove =nowUsing.gameObject.transform;
-                    nowUsing.switchTakenPlace();//make it Taken
-                    //Debug.Log(nowUsing.gameObject.ToString());
-                    break;
-                }
-            }
-            fsm.ChangeState(States.Walk);
-        }
-    }
-    void Idle_Exit()
-    {
-        //Debug.Log("Idle Exit");
     }
     public void NewOrderAvailable(OrderBoard order)
     {
@@ -151,8 +127,8 @@ public class ChefScript : MonoBehaviour
     }
     void Cook_Exit(){
         isHolding=true;
-        nowUsing.switchTakenPlace();
-
+        nowUsing.SwitchTakenPlace();
+        serveHolder.GetComponent<FoodPlace>().IsAvailable=false;
         //Debug.Log("cook exit");
     }
     void Serve_Enter()
@@ -167,6 +143,23 @@ public class ChefScript : MonoBehaviour
     void Serve_Exit()
     {
         isHolding=false;
+        SetAvailable();
         //Debug.Log("Serve Exit");
+    }
+    // 서버 상태를 사용 가능으로 변경하는 메소드
+    public void ReceiveOrder(OrderBoard order,Machine appropriateMachine)
+    {
+        Debug.Log("ReceiveOrder called. Order: " + order + ", Machine: " + appropriateMachine);
+        currentMenu = order;
+        nowUsing= appropriateMachine;
+        nowUsing.SwitchTakenPlace();
+        placeToMove=nowUsing.transform;
+        IsAvailable=false;
+        fsm.ChangeState(States.Walk); // 예시로, 상태를 변경하여 셰프가 오더를 처리하도록 합니다.
+    }
+
+    public void SetAvailable(){
+        IsAvailable=true;
+        OrderManager.Instance.ChefAvailable();
     }
 }

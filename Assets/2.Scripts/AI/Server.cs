@@ -5,6 +5,7 @@ using MonsterLove.StateMachine;
 using System;
 public class Server : MonoBehaviour
 {
+    
     public enum States //state enum
     {
         Idle,
@@ -21,7 +22,7 @@ public class Server : MonoBehaviour
     private Transform placeToMove; //Server bring food place
     private Customer currentCustomer;
     public event Action OnAvailable;
-
+    
     
     void Awake()
     {
@@ -33,11 +34,18 @@ public class Server : MonoBehaviour
     {
         fsm.Driver.Update.Invoke();
     }
-
+    private void OnEnable() {
+        IsAvailable=true;    
+    }
+    private void OnDisable()
+    {
+        IsAvailable = false;
+    }
     public void HandleNewServeTask(Transform child)
     {
         isThereMenuToServe=true;
         menuToServe = child.gameObject;
+        IsAvailable=false;
         // 이후 서버 상태를 업데이트 (예: IsAvailable = false)
     }
 
@@ -49,7 +57,7 @@ public class Server : MonoBehaviour
     void Idle_Update()
     {
         //Debug.Log("Server Idle Enter");
-        if (isThereMenuToServe&&IsAvailable)
+        if (isThereMenuToServe)
         {
             placeToMove=menuToServe.transform;
             fsm.ChangeState(States.Walk);
@@ -57,7 +65,6 @@ public class Server : MonoBehaviour
     }
     void Idle_Exit()
     {
-        IsAvailable=false;
         //Debug.Log("Server Idle Exit");
     }
     void Walk_Enter()
@@ -130,6 +137,7 @@ public class Server : MonoBehaviour
     {
         IsAvailable = true;
         isThereMenuToServe=false;
+        Debug.Log("Server is now available. Invoking OnAvailable event.");
         OnAvailable?.Invoke();
     }
 }

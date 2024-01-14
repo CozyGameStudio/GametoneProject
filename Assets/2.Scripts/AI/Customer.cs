@@ -134,7 +134,7 @@ public class Customer : MonoBehaviour
         //Debug.Log("Order Enter");
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
-        OrderManager.Instance.putOrderInQueue(newOrder);
+        OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
         foodRenderer.sprite=receivedFood.FoodData.Icon;
 ;    }
