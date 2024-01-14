@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/1.Scenes/ServerFeature.unity
+    path: Assets/1.Scenes/Main.unity
     guid: 094bc3bc7867fb944837508fe6f62a97
   - enabled: 1
-    path: Assets/1.Scenes/DecorationFeature.unity
+    path: Assets/1.Scenes/Decorate.unity
     guid: c43c308b70883d04bb1dfad07b7d543c
   m_configObjects: {}
