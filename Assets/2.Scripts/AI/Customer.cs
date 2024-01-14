@@ -120,6 +120,7 @@ public class Customer : MonoBehaviour
                 //Debug.Log("Destory");
                 Destroy(gameObject);
             }
+            //hey
         }
     }
     void Walk_Exit()
