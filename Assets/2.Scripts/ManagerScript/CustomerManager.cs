@@ -10,7 +10,6 @@ public class CustomerManager : MonoBehaviour
     public GameObject customerBackPlace;
     public bool[] customerTablePresent;
 
-    /*싱글톤으로 손님매니저를 구성하고 캡슐화*/
     public static CustomerManager Instance
     {
         get
@@ -24,7 +23,7 @@ public class CustomerManager : MonoBehaviour
     }
     public void Awake()
     {
-        /*손님 장소 개수에 맞추어 손님존재여부 배열을 초기화*/
+        // Initialize the numberOfPlaces array according to the number of guest chairs
         int numberOfPlaces = customerTablePlace.Length;
         customerTablePresent = new bool[numberOfPlaces];
         for(int i = 0; i < numberOfPlaces; i++) {
@@ -36,7 +35,7 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
-    /*손님 장소가 가득찾는지 판단*/
+    // Determine if the guest chairs are fully occupied
     public bool IsCustomerFull() {
         foreach (var p in customerTablePresent)
         {

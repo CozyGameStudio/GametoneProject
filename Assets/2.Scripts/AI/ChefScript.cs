@@ -146,7 +146,6 @@ public class ChefScript : MonoBehaviour
         SetAvailable();
         //Debug.Log("Serve Exit");
     }
-    // 서버 상태를 사용 가능으로 변경하는 메소드
     public void ReceiveOrder(OrderBoard order,Machine appropriateMachine)
     {
         Debug.Log("ReceiveOrder called. Order: " + order + ", Machine: " + appropriateMachine);
@@ -155,7 +154,7 @@ public class ChefScript : MonoBehaviour
         nowUsing.SwitchTakenPlace();
         placeToMove=nowUsing.transform;
         IsAvailable=false;
-        fsm.ChangeState(States.Walk); // 예시로, 상태를 변경하여 셰프가 오더를 처리하도록 합니다.
+        fsm.ChangeState(States.Walk);
     }
 
     public void SetAvailable(){

@@ -46,12 +46,12 @@ public class ServerManager : MonoBehaviour
         {
             if (i < currentEnabledServer)
             {
-                // 필요한 서버를 활성화
+                // Activate the required server
                 servers[i].gameObject.SetActive(true);
             }
             else
             {
-                // 나머지 서버를 비활성화
+                // Deactivate unnecessary servers
                 servers[i].gameObject.SetActive(false);
             }
         }
@@ -60,7 +60,7 @@ public class ServerManager : MonoBehaviour
     private void OnChildAddedToFoodPlace(Transform child)
     {
         //Debug.Log("Event Added");
-        // 사용 가능한 서버 찾기
+        // Find available servers
         Server availableServer = FindAvailableServer();
         if (availableServer != null)
         {
@@ -69,7 +69,7 @@ public class ServerManager : MonoBehaviour
         }
         else
         {
-            // 사용 가능한 서버가 없다면 큐에 작업 추가
+            // If there are no available servers, add the task to the queue
             serveTasksQueue.Enqueue(child);
             Debug.Log(child);
             //Debug.Log("Task added to queue");
