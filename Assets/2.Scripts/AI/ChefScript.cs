@@ -36,13 +36,17 @@ public class ChefScript : MonoBehaviour
     private GameObject serveHolder;
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
-    
+    private NavMeshAgent agent;
+
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
     }
     private void Start() {
         fsm.ChangeState(States.Idle);
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
     void OnEnable(){
         IsAvailable=true;
@@ -77,10 +81,9 @@ public class ChefScript : MonoBehaviour
     void Walk_Update()
     {
         //Until chef arrives cook Place
-        if(Vector2.Distance(transform.position,placeToMove.position)>0.1f)
+        if(Vector2.Distance(transform.position,placeToMove.position)>1f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
-        
+            agent.SetDestination(placeToMove.position);
         }
         else
         {

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2321026688695459691}
   - component: {fileID: 6658836719789723450}
   - component: {fileID: 8887087462073090416}
+  - component: {fileID: 7501801521212256522}
   m_Layer: 0
   m_Name: cat
   m_TagString: Untagged
@@ -187,6 +188,28 @@ MonoBehaviour:
   foodRenderer: {fileID: 1117074821428851304}
   foodHolder: {fileID: 2399255687589508418}
   speed: 5
+--- !u!195 &7501801521212256522
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505835316973965328}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 2
+  m_Acceleration: 150
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.2
+  m_BaseOffset: 0.7575
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6966245263067442637
 GameObject:
   m_ObjectHideFlags: 0

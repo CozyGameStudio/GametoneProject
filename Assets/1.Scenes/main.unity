@@ -166,6 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9203163}
   - component: {fileID: 9203164}
+  - component: {fileID: 9203165}
   m_Layer: 0
   m_Name: floorTile (2)
   m_TagString: Untagged
@@ -186,7 +187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &9203164
 SpriteRenderer:
@@ -240,6 +241,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9203165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &49141944
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +436,7 @@ GameObject:
   - component: {fileID: 104193173}
   - component: {fileID: 104193172}
   - component: {fileID: 104193174}
+  - component: {fileID: 104193175}
   m_Layer: 0
   m_Name: cooking cat
   m_TagString: Untagged
@@ -518,6 +536,28 @@ MonoBehaviour:
   - {fileID: 808226783}
   speed: 2
   foodHolder: {fileID: 1211440713}
+--- !u!195 &104193175
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104193171}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 2
+  m_Acceleration: 150
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.95
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &114020001
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +742,7 @@ Transform:
   m_GameObject: {fileID: 143764598}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.58, y: 5.72, z: 0}
+  m_LocalPosition: {x: -2.58, y: 6.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -718,6 +758,8 @@ GameObject:
   m_Component:
   - component: {fileID: 166290754}
   - component: {fileID: 166290753}
+  - component: {fileID: 166290755}
+  - component: {fileID: 166290756}
   m_Layer: 0
   m_Name: wallImage (2)
   m_TagString: Untagged
@@ -790,8 +832,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166290755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166290752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &166290756
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166290752}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &197532340
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 197532341}
   - component: {fileID: 197532342}
+  - component: {fileID: 197532343}
   m_Layer: 0
   m_Name: floorTile (13)
   m_TagString: Untagged
@@ -822,7 +926,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &197532342
 SpriteRenderer:
@@ -876,6 +980,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &197532343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197532340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &218466935
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +1006,8 @@ GameObject:
   m_Component:
   - component: {fileID: 218466937}
   - component: {fileID: 218466936}
+  - component: {fileID: 218466938}
+  - component: {fileID: 218466939}
   m_Layer: 0
   m_Name: wallImage (6)
   m_TagString: Untagged
@@ -958,8 +1080,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218466938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218466935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &218466939
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218466935}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &225418399
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1154,7 @@ GameObject:
   - component: {fileID: 225418402}
   - component: {fileID: 225418401}
   - component: {fileID: 225418400}
+  - component: {fileID: 225418403}
   m_Layer: 0
   m_Name: ServerCat
   m_TagString: Untagged
@@ -1061,6 +1245,28 @@ Transform:
   - {fileID: 1693394565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &225418403
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225418399}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 2
+  m_Acceleration: 150
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.7575
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &243523683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 243523684}
   - component: {fileID: 243523685}
+  - component: {fileID: 243523686}
   m_Layer: 0
   m_Name: floorTile (39)
   m_TagString: Untagged
@@ -1091,7 +1298,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &243523685
 SpriteRenderer:
@@ -1145,6 +1352,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &243523686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243523683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &258135873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1443,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950fa5a58d6a7d4eb5a51d6df5ba4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsAvailable: 1
+--- !u!1 &271282082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 271282085}
+  - component: {fileID: 271282084}
+  - component: {fileID: 271282083}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &271282083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271282082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideByGrid: 0
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 0
+  m_OverrideVector: {x: 1, y: 1, z: 1}
+--- !u!114 &271282084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271282082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 23800000, guid: 3ad571b298d3c6e4f8fb4947d15794a2, type: 2}
+--- !u!4 &271282085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271282082}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.74119645, y: -0.6886878, z: -0.01378235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314029724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 314029725}
   - component: {fileID: 314029726}
+  - component: {fileID: 314029727}
   m_Layer: 0
   m_Name: floorTile (6)
   m_TagString: Untagged
@@ -1250,7 +1554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &314029726
 SpriteRenderer:
@@ -1304,6 +1608,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &314029727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314029724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &334163224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,6 +1634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 334163225}
   - component: {fileID: 334163226}
+  - component: {fileID: 334163227}
   m_Layer: 0
   m_Name: floorTile (15)
   m_TagString: Untagged
@@ -1334,7 +1655,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &334163226
 SpriteRenderer:
@@ -1388,6 +1709,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &334163227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334163224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &363591197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1736,7 @@ GameObject:
   - component: {fileID: 363591199}
   - component: {fileID: 363591198}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1579,6 +1916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 417847440}
   - component: {fileID: 417847441}
+  - component: {fileID: 417847442}
   m_Layer: 0
   m_Name: floorTile (37)
   m_TagString: Untagged
@@ -1599,7 +1937,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &417847441
 SpriteRenderer:
@@ -1653,6 +1991,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &417847442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417847439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &418969809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,6 +2166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 423516348}
   - component: {fileID: 423516349}
+  - component: {fileID: 423516350}
   m_Layer: 0
   m_Name: floorTile (44)
   m_TagString: Untagged
@@ -1832,7 +2187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &423516349
 SpriteRenderer:
@@ -1886,6 +2241,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &423516350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423516347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &457424541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +2268,7 @@ GameObject:
   - component: {fileID: 457424542}
   - component: {fileID: 457424543}
   - component: {fileID: 457424545}
+  - component: {fileID: 457424546}
   m_Layer: 0
   m_Name: table2
   m_TagString: Untagged
@@ -2003,7 +2375,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.2397303, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2014,8 +2386,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.025, y: 1.115}
+  m_Size: {x: 4.154053, y: 1.115}
   m_EdgeRadius: 0
+--- !u!114 &457424546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457424541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &485621430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 524818019}
   - component: {fileID: 524818020}
+  - component: {fileID: 524818021}
   m_Layer: 0
   m_Name: floorTile (7)
   m_TagString: Untagged
@@ -2267,7 +2656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &524818020
 SpriteRenderer:
@@ -2321,6 +2710,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &524818021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524818018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &528729212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,6 +2736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 528729213}
   - component: {fileID: 528729214}
+  - component: {fileID: 528729215}
   m_Layer: 0
   m_Name: floorTile (17)
   m_TagString: Untagged
@@ -2351,7 +2757,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &528729214
 SpriteRenderer:
@@ -2405,6 +2811,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &528729215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528729212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &546321198
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,6 +2916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950fa5a58d6a7d4eb5a51d6df5ba4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsAvailable: 1
 --- !u!1 &561135363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,6 +2927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561135364}
   - component: {fileID: 561135365}
+  - component: {fileID: 561135366}
   m_Layer: 0
   m_Name: floorTile (19)
   m_TagString: Untagged
@@ -2524,7 +2948,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &561135365
 SpriteRenderer:
@@ -2578,6 +3002,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &561135366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561135363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &587301887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,6 +3028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 587301888}
   - component: {fileID: 587301889}
+  - component: {fileID: 587301890}
   m_Layer: 0
   m_Name: floorTile (24)
   m_TagString: Untagged
@@ -2608,7 +3049,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &587301889
 SpriteRenderer:
@@ -2662,6 +3103,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &587301890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587301887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &610950131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,6 +3129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 610950132}
   - component: {fileID: 610950133}
+  - component: {fileID: 610950134}
   m_Layer: 0
   m_Name: floorTile (23)
   m_TagString: Untagged
@@ -2692,7 +3150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &610950133
 SpriteRenderer:
@@ -2746,6 +3204,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &610950134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610950131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2838,6 +3312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635200165}
   - component: {fileID: 635200166}
+  - component: {fileID: 635200167}
   m_Layer: 0
   m_Name: floorTile (4)
   m_TagString: Untagged
@@ -2858,7 +3333,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &635200166
 SpriteRenderer:
@@ -2912,6 +3387,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &635200167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635200164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &645781628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,6 +3413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 645781629}
   - component: {fileID: 645781630}
+  - component: {fileID: 645781631}
   m_Layer: 0
   m_Name: floorTile (11)
   m_TagString: Untagged
@@ -2942,7 +3434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &645781630
 SpriteRenderer:
@@ -2996,6 +3488,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &645781631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645781628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &646721164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,6 +3515,7 @@ GameObject:
   - component: {fileID: 646721167}
   - component: {fileID: 646721166}
   - component: {fileID: 646721165}
+  - component: {fileID: 646721168}
   m_Layer: 0
   m_Name: ServerCat (1)
   m_TagString: Untagged
@@ -3097,6 +3606,28 @@ Transform:
   - {fileID: 1785904778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &646721168
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646721164}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 2
+  m_Acceleration: 150
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.7575
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &651297829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 651297830}
   - component: {fileID: 651297831}
+  - component: {fileID: 651297832}
   m_Layer: 0
   m_Name: floorTile
   m_TagString: Untagged
@@ -3127,7 +3659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &651297831
 SpriteRenderer:
@@ -3181,6 +3713,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &651297832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651297829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &654704136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3357,6 +3905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 679243528}
   - component: {fileID: 679243529}
+  - component: {fileID: 679243530}
   m_Layer: 0
   m_Name: floorTile (35)
   m_TagString: Untagged
@@ -3377,7 +3926,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &679243529
 SpriteRenderer:
@@ -3431,6 +3980,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &679243530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679243527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &704872628
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,6 +4006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 704872629}
   - component: {fileID: 704872630}
+  - component: {fileID: 704872631}
   m_Layer: 0
   m_Name: floorTile (8)
   m_TagString: Untagged
@@ -3461,7 +4027,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &704872630
 SpriteRenderer:
@@ -3515,6 +4081,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &704872631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704872628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &771589364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3525,6 +4107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 771589365}
   - component: {fileID: 771589366}
+  - component: {fileID: 771589367}
   m_Layer: 0
   m_Name: floorTile (45)
   m_TagString: Untagged
@@ -3545,7 +4128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &771589366
 SpriteRenderer:
@@ -3599,6 +4182,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &771589367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771589364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &774899994
 GameObject:
   m_ObjectHideFlags: 0
@@ -3693,6 +4292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779410353}
   - component: {fileID: 779410354}
+  - component: {fileID: 779410355}
   m_Layer: 0
   m_Name: floorTile (36)
   m_TagString: Untagged
@@ -3713,7 +4313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &779410354
 SpriteRenderer:
@@ -3767,6 +4367,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &779410355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779410352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &791882000
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,6 +4393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 791882001}
   - component: {fileID: 791882002}
+  - component: {fileID: 791882003}
   m_Layer: 0
   m_Name: floorTile (42)
   m_TagString: Untagged
@@ -3797,7 +4414,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &791882002
 SpriteRenderer:
@@ -3851,6 +4468,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &791882003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791882000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &794122790
 GameObject:
   m_ObjectHideFlags: 0
@@ -3861,6 +4494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 794122791}
   - component: {fileID: 794122792}
+  - component: {fileID: 794122793}
   m_Layer: 0
   m_Name: floorTile (26)
   m_TagString: Untagged
@@ -3881,7 +4515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &794122792
 SpriteRenderer:
@@ -3935,6 +4569,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &794122793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794122790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &801099624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,6 +4729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804553177}
   - component: {fileID: 804553178}
+  - component: {fileID: 804553179}
   m_Layer: 0
   m_Name: floorTile (49)
   m_TagString: Untagged
@@ -4099,7 +4750,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &804553178
 SpriteRenderer:
@@ -4153,6 +4804,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &804553179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804553176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &804853801
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,6 +4991,7 @@ GameObject:
   - component: {fileID: 894314640}
   - component: {fileID: 894314639}
   - component: {fileID: 894314638}
+  - component: {fileID: 894314641}
   m_Layer: 0
   m_Name: cooking cat (1)
   m_TagString: Untagged
@@ -4423,6 +5091,28 @@ Transform:
   - {fileID: 1428834921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &894314641
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894314637}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 2
+  m_Acceleration: 150
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.95
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &902547037
 GameObject:
   m_ObjectHideFlags: 0
@@ -4433,6 +5123,8 @@ GameObject:
   m_Component:
   - component: {fileID: 902547039}
   - component: {fileID: 902547038}
+  - component: {fileID: 902547040}
+  - component: {fileID: 902547041}
   m_Layer: 0
   m_Name: wallImage (1)
   m_TagString: Untagged
@@ -4505,8 +5197,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &902547040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902547037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &902547041
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902547037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &910272939
 GameObject:
   m_ObjectHideFlags: 0
@@ -4517,6 +5270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910272940}
   - component: {fileID: 910272941}
+  - component: {fileID: 910272942}
   m_Layer: 0
   m_Name: floorTile (12)
   m_TagString: Untagged
@@ -4537,7 +5291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &910272941
 SpriteRenderer:
@@ -4591,6 +5345,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &910272942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910272939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &911350227
 GameObject:
   m_ObjectHideFlags: 0
@@ -4658,7 +5428,7 @@ MonoBehaviour:
   - {fileID: 774899994}
   - {fileID: 2082273374}
   - {fileID: 1187397963}
-  customerBackPlace: {fileID: 935114823}
+  customerBackPlace: {fileID: 143764598}
   customerTablePresent: 
 --- !u!4 &935114825
 Transform:
@@ -4669,7 +5439,7 @@ Transform:
   m_GameObject: {fileID: 935114823}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalPosition: {x: -2.28, y: 5.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4716,6 +5486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961382053}
   - component: {fileID: 961382054}
+  - component: {fileID: 961382055}
   m_Layer: 0
   m_Name: floorTile (46)
   m_TagString: Untagged
@@ -4736,7 +5507,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &961382054
 SpriteRenderer:
@@ -4790,6 +5561,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &961382055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961382052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &961388566
 GameObject:
   m_ObjectHideFlags: 0
@@ -4800,6 +5587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961388567}
   - component: {fileID: 961388568}
+  - component: {fileID: 961388569}
   m_Layer: 0
   m_Name: floorTile (3)
   m_TagString: Untagged
@@ -4820,7 +5608,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &961388568
 SpriteRenderer:
@@ -4874,6 +5662,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &961388569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961388566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &999484783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,6 +5688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 999484784}
   - component: {fileID: 999484785}
+  - component: {fileID: 999484786}
   m_Layer: 0
   m_Name: floorTile (48)
   m_TagString: Untagged
@@ -4904,7 +5709,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &999484785
 SpriteRenderer:
@@ -4958,6 +5763,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &999484786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999484783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1006693070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4968,6 +5789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1006693071}
   - component: {fileID: 1006693072}
+  - component: {fileID: 1006693073}
   m_Layer: 0
   m_Name: floorTile (20)
   m_TagString: Untagged
@@ -4988,7 +5810,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1006693072
 SpriteRenderer:
@@ -5042,6 +5864,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1006693073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006693070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1094162194
 GameObject:
   m_ObjectHideFlags: 0
@@ -5083,6 +5921,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1097806643}
   - component: {fileID: 1097806642}
+  - component: {fileID: 1097806644}
+  - component: {fileID: 1097806645}
   m_Layer: 0
   m_Name: wallImage (3)
   m_TagString: Untagged
@@ -5155,8 +5995,170 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1097806644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097806641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &1097806645
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097806641}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
+--- !u!1 &1128370480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1128370481}
+  - component: {fileID: 1128370483}
+  - component: {fileID: 1128370482}
+  m_Layer: 0
+  m_Name: floorTile (50)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1128370481
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128370480}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.7070693, w: 0.7071443}
+  m_LocalPosition: {x: -3.8388684, y: 6.7580233, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1746258019}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
+--- !u!114 &1128370482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128370480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!212 &1128370483
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128370480}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1346137351
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: d791d441904a8eb4f98b4b5b28f10d49, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 6.4, y: 6.4}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1148618216
 GameObject:
   m_ObjectHideFlags: 0
@@ -5168,6 +6170,7 @@ GameObject:
   - component: {fileID: 1148618219}
   - component: {fileID: 1148618218}
   - component: {fileID: 1148618217}
+  - component: {fileID: 1148618220}
   m_Layer: 0
   m_Name: cooking cat (2)
   m_TagString: Untagged
@@ -5267,6 +6270,28 @@ Transform:
   - {fileID: 1094162195}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &1148618220
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148618216}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 2
+  m_Acceleration: 150
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.95
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1163002180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,6 +6302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1163002181}
   - component: {fileID: 1163002182}
+  - component: {fileID: 1163002183}
   m_Layer: 0
   m_Name: floorTile (10)
   m_TagString: Untagged
@@ -5297,7 +6323,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1163002182
 SpriteRenderer:
@@ -5351,6 +6377,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1163002183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163002180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1174183844
 GameObject:
   m_ObjectHideFlags: 0
@@ -5361,6 +6403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1174183845}
   - component: {fileID: 1174183846}
+  - component: {fileID: 1174183847}
   m_Layer: 0
   m_Name: floorTile (21)
   m_TagString: Untagged
@@ -5381,7 +6424,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1174183846
 SpriteRenderer:
@@ -5435,6 +6478,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1174183847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174183844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1187235003
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,6 +6504,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1187235005}
   - component: {fileID: 1187235004}
+  - component: {fileID: 1187235006}
+  - component: {fileID: 1187235007}
   m_Layer: 0
   m_Name: wallImage (7)
   m_TagString: Untagged
@@ -5517,8 +6578,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1187235006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187235003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &1187235007
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187235003}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &1187397963
 GameObject:
   m_ObjectHideFlags: 0
@@ -5679,6 +6801,107 @@ Transform:
   m_Children: []
   m_Father: {fileID: 104193173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1225235472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1225235473}
+  - component: {fileID: 1225235475}
+  - component: {fileID: 1225235474}
+  m_Layer: 0
+  m_Name: floorTile (51)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1225235473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225235472}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.7070693, w: 0.7071443}
+  m_LocalPosition: {x: -1.7055349, y: 6.7577972, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1746258019}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
+--- !u!114 &1225235474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225235472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!212 &1225235475
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225235472}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1346137351
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: d791d441904a8eb4f98b4b5b28f10d49, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 6.4, y: 6.4}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1247679892
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,6 +6982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1286587097}
   - component: {fileID: 1286587098}
+  - component: {fileID: 1286587099}
   m_Layer: 0
   m_Name: floorTile (43)
   m_TagString: Untagged
@@ -5779,7 +7003,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1286587098
 SpriteRenderer:
@@ -5833,6 +7057,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1286587099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286587096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1328681470
 GameObject:
   m_ObjectHideFlags: 0
@@ -5965,6 +7205,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8668449, y: 2.185}
   m_EdgeRadius: 0
+--- !u!1 &1356616662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1356616663}
+  m_Layer: 0
+  m_Name: Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1356616663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356616662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1844787781}
+  - {fileID: 902547039}
+  - {fileID: 218466937}
+  - {fileID: 166290754}
+  - {fileID: 1187235005}
+  - {fileID: 1097806643}
+  - {fileID: 1742501534}
+  - {fileID: 1581393153}
+  m_Father: {fileID: 2041309276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1364457052
 GameObject:
   m_ObjectHideFlags: 0
@@ -5975,6 +7254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1364457053}
   - component: {fileID: 1364457054}
+  - component: {fileID: 1364457055}
   m_Layer: 0
   m_Name: floorTile (18)
   m_TagString: Untagged
@@ -5995,7 +7275,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1364457054
 SpriteRenderer:
@@ -6049,6 +7329,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1364457055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364457052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1391526325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6059,6 +7355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1391526326}
   - component: {fileID: 1391526327}
+  - component: {fileID: 1391526328}
   m_Layer: 0
   m_Name: floorTile (9)
   m_TagString: Untagged
@@ -6079,7 +7376,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1391526327
 SpriteRenderer:
@@ -6133,6 +7430,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1391526328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391526325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1414467990
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,6 +7532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1432714323}
   - component: {fileID: 1432714324}
+  - component: {fileID: 1432714325}
   m_Layer: 0
   m_Name: floorTile (25)
   m_TagString: Untagged
@@ -6239,7 +7553,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1432714324
 SpriteRenderer:
@@ -6293,6 +7607,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1432714325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432714322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1440143029
 GameObject:
   m_ObjectHideFlags: 0
@@ -6303,6 +7633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1440143030}
   - component: {fileID: 1440143031}
+  - component: {fileID: 1440143032}
   m_Layer: 0
   m_Name: floorTile (40)
   m_TagString: Untagged
@@ -6323,7 +7654,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1440143031
 SpriteRenderer:
@@ -6377,6 +7708,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1440143032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440143029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1455959257
 GameObject:
   m_ObjectHideFlags: 0
@@ -6387,6 +7734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1455959258}
   - component: {fileID: 1455959259}
+  - component: {fileID: 1455959260}
   m_Layer: 0
   m_Name: floorTile (27)
   m_TagString: Untagged
@@ -6407,7 +7755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1455959259
 SpriteRenderer:
@@ -6461,6 +7809,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1455959260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455959257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1473866731
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,6 +7835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1473866732}
   - component: {fileID: 1473866733}
+  - component: {fileID: 1473866734}
   m_Layer: 0
   m_Name: floorTile (38)
   m_TagString: Untagged
@@ -6491,7 +7856,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1473866733
 SpriteRenderer:
@@ -6545,6 +7910,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1473866734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473866731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1500535494
 GameObject:
   m_ObjectHideFlags: 0
@@ -6555,6 +7936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1500535495}
   - component: {fileID: 1500535496}
+  - component: {fileID: 1500535497}
   m_Layer: 0
   m_Name: floorTile (32)
   m_TagString: Untagged
@@ -6575,7 +7957,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1500535496
 SpriteRenderer:
@@ -6629,6 +8011,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1500535497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500535494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1512915097
 GameObject:
   m_ObjectHideFlags: 0
@@ -6857,6 +8255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1534173544}
   - component: {fileID: 1534173545}
+  - component: {fileID: 1534173546}
   m_Layer: 0
   m_Name: floorTile (41)
   m_TagString: Untagged
@@ -6877,7 +8276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1534173545
 SpriteRenderer:
@@ -6931,6 +8330,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1534173546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534173543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1535153169
 GameObject:
   m_ObjectHideFlags: 0
@@ -6942,6 +8357,7 @@ GameObject:
   - component: {fileID: 1535153170}
   - component: {fileID: 1535153172}
   - component: {fileID: 1535153171}
+  - component: {fileID: 1535153173}
   m_Layer: 0
   m_Name: customerTable
   m_TagString: Untagged
@@ -7066,6 +8482,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1535153173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535153169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1581393151
 GameObject:
   m_ObjectHideFlags: 0
@@ -7076,6 +8508,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1581393153}
   - component: {fileID: 1581393152}
+  - component: {fileID: 1581393154}
+  - component: {fileID: 1581393155}
   m_Layer: 0
   m_Name: wallImage (4)
   m_TagString: Untagged
@@ -7148,8 +8582,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581393154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581393151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &1581393155
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581393151}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &1593879701
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,6 +8770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1637624549}
   - component: {fileID: 1637624550}
+  - component: {fileID: 1637624551}
   m_Layer: 0
   m_Name: floorTile (47)
   m_TagString: Untagged
@@ -7295,7 +8791,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1637624550
 SpriteRenderer:
@@ -7349,6 +8845,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1637624551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637624548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1649993958
 GameObject:
   m_ObjectHideFlags: 0
@@ -7359,6 +8871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1649993959}
   - component: {fileID: 1649993960}
+  - component: {fileID: 1649993961}
   m_Layer: 0
   m_Name: floorTile (22)
   m_TagString: Untagged
@@ -7379,7 +8892,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1649993960
 SpriteRenderer:
@@ -7433,6 +8946,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1649993961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649993958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1662955209
 GameObject:
   m_ObjectHideFlags: 0
@@ -7443,6 +8972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1662955210}
   - component: {fileID: 1662955211}
+  - component: {fileID: 1662955212}
   m_Layer: 0
   m_Name: floorTile (33)
   m_TagString: Untagged
@@ -7463,7 +8993,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1662955211
 SpriteRenderer:
@@ -7517,6 +9047,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1662955212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662955209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1675664218
 GameObject:
   m_ObjectHideFlags: 0
@@ -7561,6 +9107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950fa5a58d6a7d4eb5a51d6df5ba4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsAvailable: 1
 --- !u!1 &1693394564
 GameObject:
   m_ObjectHideFlags: 0
@@ -7602,6 +9149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1695626945}
   - component: {fileID: 1695626946}
+  - component: {fileID: 1695626947}
   m_Layer: 0
   m_Name: floorTile (29)
   m_TagString: Untagged
@@ -7622,7 +9170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1695626946
 SpriteRenderer:
@@ -7676,6 +9224,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1695626947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695626944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1730558613
 GameObject:
   m_ObjectHideFlags: 0
@@ -7733,6 +9297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732714531}
   - component: {fileID: 1732714532}
+  - component: {fileID: 1732714533}
   m_Layer: 0
   m_Name: floorTile (34)
   m_TagString: Untagged
@@ -7753,7 +9318,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1732714532
 SpriteRenderer:
@@ -7807,6 +9372,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1732714533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732714530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1742501532
 GameObject:
   m_ObjectHideFlags: 0
@@ -7817,6 +9398,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1742501534}
   - component: {fileID: 1742501533}
+  - component: {fileID: 1742501535}
+  - component: {fileID: 1742501536}
   m_Layer: 0
   m_Name: wallImage (8)
   m_TagString: Untagged
@@ -7889,8 +9472,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1742501535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742501532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &1742501536
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742501532}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &1742982196
 GameObject:
   m_ObjectHideFlags: 0
@@ -7901,6 +9545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1742982197}
   - component: {fileID: 1742982198}
+  - component: {fileID: 1742982199}
   m_Layer: 0
   m_Name: floorTile (28)
   m_TagString: Untagged
@@ -7921,7 +9566,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1742982198
 SpriteRenderer:
@@ -7975,6 +9620,105 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1742982199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742982196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!1 &1746258018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746258019}
+  m_Layer: 0
+  m_Name: FloorTile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746258019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746258018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 651297830}
+  - {fileID: 1163002181}
+  - {fileID: 1006693071}
+  - {fileID: 1962304021}
+  - {fileID: 1440143030}
+  - {fileID: 1892757326}
+  - {fileID: 645781629}
+  - {fileID: 1174183845}
+  - {fileID: 2118872376}
+  - {fileID: 1534173544}
+  - {fileID: 9203163}
+  - {fileID: 910272940}
+  - {fileID: 1649993959}
+  - {fileID: 1500535495}
+  - {fileID: 791882001}
+  - {fileID: 961388567}
+  - {fileID: 197532341}
+  - {fileID: 610950132}
+  - {fileID: 1662955210}
+  - {fileID: 1286587097}
+  - {fileID: 314029725}
+  - {fileID: 2032648836}
+  - {fileID: 587301888}
+  - {fileID: 1732714531}
+  - {fileID: 423516348}
+  - {fileID: 1128370481}
+  - {fileID: 1391526326}
+  - {fileID: 334163225}
+  - {fileID: 1432714323}
+  - {fileID: 679243528}
+  - {fileID: 771589365}
+  - {fileID: 635200165}
+  - {fileID: 1886499497}
+  - {fileID: 794122791}
+  - {fileID: 779410353}
+  - {fileID: 961382053}
+  - {fileID: 524818019}
+  - {fileID: 528729213}
+  - {fileID: 1455959258}
+  - {fileID: 417847440}
+  - {fileID: 1637624549}
+  - {fileID: 2105970829}
+  - {fileID: 1364457053}
+  - {fileID: 1742982197}
+  - {fileID: 1473866732}
+  - {fileID: 999484784}
+  - {fileID: 1225235473}
+  - {fileID: 704872629}
+  - {fileID: 561135364}
+  - {fileID: 1695626945}
+  - {fileID: 243523684}
+  - {fileID: 804553177}
+  m_Father: {fileID: 2041309276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1785904777
 GameObject:
   m_ObjectHideFlags: 0
@@ -8016,6 +9760,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1844787781}
   - component: {fileID: 1844787780}
+  - component: {fileID: 1844787782}
+  - component: {fileID: 1844787783}
   m_Layer: 0
   m_Name: wallImage
   m_TagString: Untagged
@@ -8088,8 +9834,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1356616663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1844787782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844787779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!61 &1844787783
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844787779}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.368, y: 2.368}
+    newSize: {x: 11.84, y: 11.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.368, y: 2.368}
+  m_EdgeRadius: 0
 --- !u!1 &1850786143
 GameObject:
   m_ObjectHideFlags: 0
@@ -8164,6 +9971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1886499497}
   - component: {fileID: 1886499498}
+  - component: {fileID: 1886499499}
   m_Layer: 0
   m_Name: floorTile (16)
   m_TagString: Untagged
@@ -8184,7 +9992,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1886499498
 SpriteRenderer:
@@ -8238,6 +10046,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1886499499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886499496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1892757325
 GameObject:
   m_ObjectHideFlags: 0
@@ -8248,6 +10072,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1892757326}
   - component: {fileID: 1892757327}
+  - component: {fileID: 1892757328}
   m_Layer: 0
   m_Name: floorTile (1)
   m_TagString: Untagged
@@ -8268,7 +10093,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1892757327
 SpriteRenderer:
@@ -8322,6 +10147,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1892757328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892757325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1920714963
 GameObject:
   m_ObjectHideFlags: 0
@@ -8415,6 +10256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1962304021}
   - component: {fileID: 1962304022}
+  - component: {fileID: 1962304023}
   m_Layer: 0
   m_Name: floorTile (30)
   m_TagString: Untagged
@@ -8435,7 +10277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &1962304022
 SpriteRenderer:
@@ -8489,6 +10331,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1962304023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962304020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1965953406
 GameObject:
   m_ObjectHideFlags: 0
@@ -8500,6 +10358,7 @@ GameObject:
   - component: {fileID: 1965953407}
   - component: {fileID: 1965953409}
   - component: {fileID: 1965953408}
+  - component: {fileID: 1965953410}
   m_Layer: 0
   m_Name: table4
   m_TagString: Untagged
@@ -8565,7 +10424,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.025, y: 1.115}
+  m_Size: {x: 4.5134935, y: 1.115}
   m_EdgeRadius: 0
 --- !u!212 &1965953409
 SpriteRenderer:
@@ -8619,6 +10478,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1965953410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965953406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1982936800
 GameObject:
   m_ObjectHideFlags: 0
@@ -8797,6 +10672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950fa5a58d6a7d4eb5a51d6df5ba4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsAvailable: 1
 --- !u!1 &2032648835
 GameObject:
   m_ObjectHideFlags: 0
@@ -8807,6 +10683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2032648836}
   - component: {fileID: 2032648837}
+  - component: {fileID: 2032648838}
   m_Layer: 0
   m_Name: floorTile (14)
   m_TagString: Untagged
@@ -8827,7 +10704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &2032648837
 SpriteRenderer:
@@ -8881,6 +10758,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2032648838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032648835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &2041309275
 GameObject:
   m_ObjectHideFlags: 0
@@ -8912,64 +10805,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 651297830}
-  - {fileID: 1163002181}
-  - {fileID: 1006693071}
-  - {fileID: 1962304021}
-  - {fileID: 1440143030}
-  - {fileID: 1892757326}
-  - {fileID: 645781629}
-  - {fileID: 1174183845}
-  - {fileID: 2118872376}
-  - {fileID: 1534173544}
-  - {fileID: 9203163}
-  - {fileID: 910272940}
-  - {fileID: 1649993959}
-  - {fileID: 1500535495}
-  - {fileID: 791882001}
-  - {fileID: 961388567}
-  - {fileID: 197532341}
-  - {fileID: 610950132}
-  - {fileID: 1662955210}
-  - {fileID: 1286587097}
-  - {fileID: 314029725}
-  - {fileID: 2032648836}
-  - {fileID: 587301888}
-  - {fileID: 1732714531}
-  - {fileID: 423516348}
-  - {fileID: 1391526326}
-  - {fileID: 334163225}
-  - {fileID: 1432714323}
-  - {fileID: 679243528}
-  - {fileID: 771589365}
-  - {fileID: 635200165}
-  - {fileID: 1886499497}
-  - {fileID: 794122791}
-  - {fileID: 779410353}
-  - {fileID: 961382053}
-  - {fileID: 524818019}
-  - {fileID: 528729213}
-  - {fileID: 1455959258}
-  - {fileID: 417847440}
-  - {fileID: 1637624549}
-  - {fileID: 2105970829}
-  - {fileID: 1364457053}
-  - {fileID: 1742982197}
-  - {fileID: 1473866732}
-  - {fileID: 999484784}
-  - {fileID: 704872629}
-  - {fileID: 561135364}
-  - {fileID: 1695626945}
-  - {fileID: 243523684}
-  - {fileID: 1844787781}
-  - {fileID: 902547039}
-  - {fileID: 218466937}
-  - {fileID: 166290754}
-  - {fileID: 1187235005}
-  - {fileID: 1097806643}
-  - {fileID: 1742501534}
-  - {fileID: 1581393153}
-  - {fileID: 804553177}
+  - {fileID: 1746258019}
+  - {fileID: 1356616663}
   m_Father: {fileID: 363591199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &2041309277
@@ -9153,6 +10990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2105970829}
   - component: {fileID: 2105970830}
+  - component: {fileID: 2105970831}
   m_Layer: 0
   m_Name: floorTile (5)
   m_TagString: Untagged
@@ -9173,7 +11011,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &2105970830
 SpriteRenderer:
@@ -9227,6 +11065,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2105970831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105970828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &2118872375
 GameObject:
   m_ObjectHideFlags: 0
@@ -9237,6 +11091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2118872376}
   - component: {fileID: 2118872377}
+  - component: {fileID: 2118872378}
   m_Layer: 0
   m_Name: floorTile (31)
   m_TagString: Untagged
@@ -9257,7 +11112,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2041309276}
+  m_Father: {fileID: 1746258019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.994}
 --- !u!212 &2118872377
 SpriteRenderer:
@@ -9311,6 +11166,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2118872378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118872375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9336,3 +11207,4 @@ SceneRoots:
   - {fileID: 1947416112}
   - {fileID: 114835208}
   - {fileID: 363591199}
+  - {fileID: 271282085}

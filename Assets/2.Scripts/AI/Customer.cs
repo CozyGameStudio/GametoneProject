@@ -36,6 +36,7 @@ public class Customer : MonoBehaviour
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
+    private NavMeshAgent agent;
     FoodMain receivedFood;
 
     private void Awake()
@@ -45,6 +46,11 @@ public class Customer : MonoBehaviour
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
         orderBubble.SetActive(false);
+    }
+    void Start(){
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
     private void Update()
     {
@@ -98,9 +104,9 @@ public class Customer : MonoBehaviour
         /* �ֹ��� ������ ��� ���̺��� �̵�*/
         if (!isOrdered)
         {
-            if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > 0.1f)
+            if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > .3f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, customerTablePlace.transform.position, speed * Time.deltaTime);
+                agent.SetDestination(customerTablePlace.transform.position);
             }
             else
             {
@@ -110,9 +116,9 @@ public class Customer : MonoBehaviour
         /* �ֹ��� ���� ��� �ǵ��ư��� ��ġ�� �̵�*/
         else
         {
-            if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.1f)
+            if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.3f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, customerBackPlace.transform.position, speed * Time.deltaTime);
+                agent.SetDestination(customerBackPlace.transform.position);
             }
             else
             {
@@ -137,7 +143,7 @@ public class Customer : MonoBehaviour
         OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
         foodRenderer.sprite=receivedFood.FoodData.Icon;
-;    }
+    }
     void Order_Update()
     {
         if(receiveOrder)

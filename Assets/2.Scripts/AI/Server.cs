@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using System;
+using UnityEngine.AI;
 public class Server : MonoBehaviour
 {
     
@@ -21,6 +22,7 @@ public class Server : MonoBehaviour
     private GameObject menuToServe;
     private Transform placeToMove; //Server bring food place
     private Customer currentCustomer;
+    private NavMeshAgent agent;
     public event Action OnAvailable;
     
     
@@ -28,6 +30,11 @@ public class Server : MonoBehaviour
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
+    }
+    void Start(){
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     void Update()
@@ -74,9 +81,9 @@ public class Server : MonoBehaviour
     }
     void Walk_Update()
     {
-        if (Vector2.Distance(transform.position, placeToMove.position) > 0.1f)
+        if (Vector2.Distance(transform.position, placeToMove.position) > 1.5f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
+            agent.SetDestination(placeToMove.position);
         }
         else{
             fsm.ChangeState(States.Serve);
@@ -96,6 +103,7 @@ public class Server : MonoBehaviour
             foodPlace.RemoveChild(menuToServe);
         }
         menuToServe.transform.parent=foodHolder.transform;
+        menuToServe.transform.position=foodHolder.transform.position;
         int tableNum=menuToServe.GetComponent<FoodMain>().orderstatus.tableNumber;
         foreach(var chair in CustomerManager.Instance.customerTablePlace)
         {
@@ -113,7 +121,7 @@ public class Server : MonoBehaviour
         //Debug.Log(menuToServe);
         if (Vector2.Distance(transform.position, placeToMove.position) > 1f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
+            agent.SetDestination(placeToMove.position);
         }
         else
         {
