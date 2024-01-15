@@ -49,7 +49,8 @@ public class ChefScript : MonoBehaviour
         agent.updateUpAxis = false;
     }
     void OnEnable(){
-        IsAvailable=true;
+        SetAvailable();
+
     }
     void OnDisable(){
         IsAvailable = false;
@@ -74,7 +75,6 @@ public class ChefScript : MonoBehaviour
 
     void Walk_Enter()
     {
-        
         //playanimation(walk)
         //Debug.Log("Walk Enter");
     }

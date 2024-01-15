@@ -42,7 +42,7 @@ public class Server : MonoBehaviour
         fsm.Driver.Update.Invoke();
     }
     private void OnEnable() {
-        IsAvailable=true;    
+        SetAvailable();    
     }
     private void OnDisable()
     {
@@ -108,22 +108,19 @@ public class Server : MonoBehaviour
         foreach(var chair in CustomerManager.Instance.customerTablePlace)
         {
             if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
-                placeToMove=chair.transform.GetChild(0).transform;//guest place
-                currentCustomer = placeToMove.gameObject.GetComponent<Customer>();
+                placeToMove=chair.transform.parent;//guest place
+                currentCustomer = chair.transform.GetChild(0).GetComponent<Customer>();
                 break;
             }
         }
+        agent.SetDestination(placeToMove.position);
         //playanimation(Serve)
         //Debug.Log("Server Serve Enter");
     }
     void Serve_Update()
     {
         //Debug.Log(menuToServe);
-        if (Vector2.Distance(transform.position, placeToMove.position) > 1f)
-        {
-            agent.SetDestination(placeToMove.position);
-        }
-        else
+        if (Vector2.Distance(transform.position, placeToMove.position) < .1f)
         {
             if (currentCustomer == null)
             {
@@ -133,7 +130,7 @@ public class Server : MonoBehaviour
             currentCustomer.GetMenu(menuToServe);
             fsm.ChangeState(States.Idle);
         }
-        //Debug.Log("Server Serve Update");
+
     }
     void Serve_Exit()
     {
