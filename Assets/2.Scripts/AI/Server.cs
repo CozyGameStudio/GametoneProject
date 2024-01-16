@@ -35,6 +35,8 @@ public class Server : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
     }
 
     void Update()
@@ -58,43 +60,31 @@ public class Server : MonoBehaviour
 
     void Idle_Enter()
     {
+        
         //playanimation(idle)w
-        //Debug.Log("Server Idle Enter");
+        
     }
     void Idle_Update()
     {
-        //Debug.Log("Server Idle Enter");
+        
         if (isThereMenuToServe)
         {
             placeToMove=menuToServe.transform;
             fsm.ChangeState(States.Walk);
         }
     }
-    void Idle_Exit()
-    {
-        //Debug.Log("Server Idle Exit");
-    }
     void Walk_Enter()
     {
-        //playanimation(Walk)
-        //Debug.Log("Server Walk Enter"); 
+        agent.SetDestination(placeToMove.position);
     }
     void Walk_Update()
     {
-        if (Vector2.Distance(transform.position, placeToMove.position) > 1.5f)
+        if (Vector2.Distance(transform.position, placeToMove.position) < 1.5f)
         {
-            agent.SetDestination(placeToMove.position);
-        }
-        else{
             fsm.ChangeState(States.Serve);
         }
-        //Debug.Log("Server Walk Update");
+        
     }
-    void Walk_Exit()
-    {
-        //Debug.Log("Server Walk Exit");
-    }
-    
     void Serve_Enter()
     {
         FoodPlace foodPlace = menuToServe.GetComponentInParent<FoodPlace>();
@@ -115,16 +105,16 @@ public class Server : MonoBehaviour
         }
         agent.SetDestination(placeToMove.position);
         //playanimation(Serve)
-        //Debug.Log("Server Serve Enter");
+        
     }
     void Serve_Update()
     {
-        //Debug.Log(menuToServe);
+        
         if (Vector2.Distance(transform.position, placeToMove.position) < .1f)
         {
             if (currentCustomer == null)
             {
-                //Debug.LogError("Customer component not found");
+                
                 return; // 이후 코드 실행을 중단
             }
             currentCustomer.GetMenu(menuToServe);
@@ -135,14 +125,13 @@ public class Server : MonoBehaviour
     void Serve_Exit()
     {
         SetAvailable();
-        //Debug.Log("Server Serve Exit");
+        
     }
     // 서버 상태를 사용 가능으로 변경하는 메소드
     public void SetAvailable()
     {
         IsAvailable = true;
         isThereMenuToServe=false;
-        Debug.Log("Server is now available. Invoking OnAvailable event.");
         OnAvailable?.Invoke();
     }
 }

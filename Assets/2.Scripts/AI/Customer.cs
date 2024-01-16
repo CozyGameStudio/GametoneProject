@@ -51,6 +51,8 @@ public class Customer : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
     }
     private void Update()
     {
@@ -58,14 +60,14 @@ public class Customer : MonoBehaviour
     }
     void Idle_Enter()
     {
-        //Debug.Log("Idle Enter");
+        
     }
     void Idle_Update() 
     {
         /* �ֹ��� ���� �ʾ��� ��� ���̺� ��ġ�� �޾� �̵� ȣ��*/
         if (!isOrdered)
         {
-            //Debug.Log(CustomerManager.Instance.IsCustomerFull());
+            
             if (!CustomerManager.Instance.IsCustomerFull())
             {
                 customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
@@ -93,11 +95,11 @@ public class Customer : MonoBehaviour
     }
     void Idle_Exit()
     {
-        //Debug.Log("Idle Exit");
+        
     }
     void Walk_Enter()
     {
-        //Debug.Log("Walk Enter");
+        
     }
     void Walk_Update()
     {
@@ -123,7 +125,7 @@ public class Customer : MonoBehaviour
             else
             {
                 CustomerManager.Instance.customerTablePresent[tableNumber-1] = false;
-                //Debug.Log("Destory");
+                
                 Destroy(gameObject);
             }
             //hey
@@ -131,13 +133,13 @@ public class Customer : MonoBehaviour
     }
     void Walk_Exit()
     {
-        //Debug.Log("walk exit");
+        
     }
 
     void Order_Enter()
     {
         transform.SetParent(customerTablePlace.transform);
-        //Debug.Log("Order Enter");
+        
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
@@ -156,14 +158,14 @@ public class Customer : MonoBehaviour
     {
         transform.SetParent(null);
         orderBubble.SetActive(false);
-        //Debug.Log("Order exit");
+        
     }
     public void GetMenu(GameObject menu)
     {
         menu.transform.SetParent(foodHolder);
         menu.transform.position=foodHolder.position;
         receiveOrder = true;
-        //Debug.Log("Menu received");
+        
     }
 
 }
