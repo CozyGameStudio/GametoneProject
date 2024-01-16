@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using System;
+using UnityEngine.AI;
 public class Server : MonoBehaviour
 {
     
@@ -21,6 +22,7 @@ public class Server : MonoBehaviour
     private GameObject menuToServe;
     private Transform placeToMove; //Server bring food place
     private Customer currentCustomer;
+    private NavMeshAgent agent;
     public event Action OnAvailable;
     
     
@@ -29,13 +31,20 @@ public class Server : MonoBehaviour
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
     }
+    void Start(){
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
+    }
 
     void Update()
     {
         fsm.Driver.Update.Invoke();
     }
     private void OnEnable() {
-        IsAvailable=true;    
+        SetAvailable();    
     }
     private void OnDisable()
     {
@@ -50,43 +59,31 @@ public class Server : MonoBehaviour
 
     void Idle_Enter()
     {
+        
         //playanimation(idle)w
-        //Debug.Log("Server Idle Enter");
+        
     }
     void Idle_Update()
     {
-        //Debug.Log("Server Idle Enter");
+        
         if (isThereMenuToServe)
         {
             placeToMove=menuToServe.transform;
             fsm.ChangeState(States.Walk);
         }
     }
-    void Idle_Exit()
-    {
-        //Debug.Log("Server Idle Exit");
-    }
     void Walk_Enter()
     {
-        //playanimation(Walk)
-        //Debug.Log("Server Walk Enter"); 
+        agent.SetDestination(placeToMove.position);
     }
     void Walk_Update()
     {
-        if (Vector2.Distance(transform.position, placeToMove.position) > 0.1f)
+        if (Vector2.Distance(transform.position, placeToMove.position) < 1.5f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
-        }
-        else{
             fsm.ChangeState(States.Serve);
         }
-        //Debug.Log("Server Walk Update");
+        
     }
-    void Walk_Exit()
-    {
-        //Debug.Log("Server Walk Exit");
-    }
-    
     void Serve_Enter()
     {
         FoodPlace foodPlace = menuToServe.GetComponentInParent<FoodPlace>();
@@ -95,48 +92,44 @@ public class Server : MonoBehaviour
             foodPlace.RemoveChild(menuToServe);
         }
         menuToServe.transform.parent=foodHolder.transform;
+        menuToServe.transform.position=foodHolder.transform.position;
         int tableNum=menuToServe.GetComponent<FoodMain>().orderstatus.tableNumber;
         foreach(var chair in CustomerManager.Instance.customerTablePlace)
         {
             if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
-                placeToMove=chair.transform.GetChild(0).transform;//guest place
-                currentCustomer = placeToMove.gameObject.GetComponent<Customer>();
+                placeToMove=chair.transform.parent;//guest place
+                currentCustomer = chair.transform.GetChild(0).GetComponent<Customer>();
                 break;
             }
         }
+        agent.SetDestination(placeToMove.position);
         //playanimation(Serve)
-        //Debug.Log("Server Serve Enter");
+        
     }
     void Serve_Update()
     {
-        //Debug.Log(menuToServe);
-        if (Vector2.Distance(transform.position, placeToMove.position) > 1f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
-        }
-        else
+        
+        if (Vector2.Distance(transform.position, placeToMove.position) < .1f)
         {
             if (currentCustomer == null)
             {
-                //Debug.LogError("Customer component not found");
                 return; // Stop execution of subsequent code
             }
             currentCustomer.GetMenu(menuToServe);
             fsm.ChangeState(States.Idle);
         }
-        //Debug.Log("Server Serve Update");
+
     }
     void Serve_Exit()
     {
         SetAvailable();
-        //Debug.Log("Server Serve Exit");
+        
     }
     // Change server status to available
     public void SetAvailable()
     {
         IsAvailable = true;
         isThereMenuToServe=false;
-        Debug.Log("Server is now available. Invoking OnAvailable event.");
         OnAvailable?.Invoke();
     }
 }
