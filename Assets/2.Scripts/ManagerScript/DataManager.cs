@@ -8,7 +8,6 @@ public class DataManager : MonoBehaviour
 
     public FoodMain[] Food;
 
-    /*�̱������� �����͸Ŵ����� �����ϰ� ĸ��ȭ*/
     public static DataManager Instance
     {
         get

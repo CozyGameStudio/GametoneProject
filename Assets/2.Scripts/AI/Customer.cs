@@ -64,7 +64,7 @@ public class Customer : MonoBehaviour
     }
     void Idle_Update() 
     {
-        /* �ֹ��� ���� �ʾ��� ��� ���̺� ��ġ�� �޾� �̵� ȣ��*/
+        // If no order is placed, receive the table location for a move call
         if (!isOrdered)
         {
             
@@ -85,7 +85,7 @@ public class Customer : MonoBehaviour
 
             }
         }
-        /* �ֹ��� ���� ��� ���� �߰��ϰ� �ǵ��ư��� ��ġ�� �޾� �̵� ȣ��*/
+        // If an order is placed, add money and receive the return location for a move call 
         else
         {
             GameManager.Instance.AddMoney(receivedFood.FoodData.Money);
@@ -103,7 +103,7 @@ public class Customer : MonoBehaviour
     }
     void Walk_Update()
     {
-        /* �ֹ��� ������ ��� ���̺��� �̵�*/
+        // Move to the table if no order is placed
         if (!isOrdered)
         {
             if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > .3f)
@@ -115,7 +115,7 @@ public class Customer : MonoBehaviour
                 fsm.ChangeState(States.Order);
             }
         }
-        /* �ֹ��� ���� ��� �ǵ��ư��� ��ġ�� �̵�*/
+        // Move to the return location if an order is placed
         else
         {
             if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.3f)

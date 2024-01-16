@@ -17,7 +17,7 @@ public class Server : MonoBehaviour
     StateMachine<States, StateDriverUnity> fsm;
     public GameObject foodHolder;
     public float speed=2f;
-    public bool IsAvailable { get; private set; } = true; // 서버의 사용 가능 여부
+    public bool IsAvailable { get; private set; } = true; // Check the server's availability
     private bool isThereMenuToServe=false;
     private GameObject menuToServe;
     private Transform placeToMove; //Server bring food place
@@ -55,7 +55,6 @@ public class Server : MonoBehaviour
         isThereMenuToServe=true;
         menuToServe = child.gameObject;
         IsAvailable=false;
-        // 이후 서버 상태를 업데이트 (예: IsAvailable = false)
     }
 
     void Idle_Enter()
@@ -114,8 +113,7 @@ public class Server : MonoBehaviour
         {
             if (currentCustomer == null)
             {
-                
-                return; // 이후 코드 실행을 중단
+                return; // Stop execution of subsequent code
             }
             currentCustomer.GetMenu(menuToServe);
             fsm.ChangeState(States.Idle);
@@ -127,7 +125,7 @@ public class Server : MonoBehaviour
         SetAvailable();
         
     }
-    // 서버 상태를 사용 가능으로 변경하는 메소드
+    // Change server status to available
     public void SetAvailable()
     {
         IsAvailable = true;
