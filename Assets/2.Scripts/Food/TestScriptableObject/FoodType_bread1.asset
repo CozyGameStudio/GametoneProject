@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 1
   foodName: bread1
-  foodPrice: 10
-  cookTime: 3
-  stageToUse: 1
+  foodPrice: 25
+  cookTime: 5
+  stageToUse: 4

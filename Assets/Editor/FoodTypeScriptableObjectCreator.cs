@@ -13,20 +13,24 @@ public static class FoodTypeScriptableObjectCreator
 
         foreach (var foodType in foodTypes)
         {
-            FoodTypeData dataObject = ScriptableObject.CreateInstance<FoodTypeData>();
-            Debug.Log(dataObject);
+            string assetPath = $"Assets/2.Scripts/Food/TestScriptableObject/FoodType_{foodType.foodName}.asset";
+#if UNITY_EDITOR
+            FoodTypeData dataObject = AssetDatabase.LoadAssetAtPath<FoodTypeData>(assetPath);
+#endif
+            if (dataObject == null)
+            {
+                dataObject = ScriptableObject.CreateInstance<FoodTypeData>();
+                AssetDatabase.CreateAsset(dataObject, assetPath);
+            }
+
             dataObject.index = foodType.index;
             dataObject.foodName = foodType.foodName;
             dataObject.foodPrice = foodType.foodPrice;
             dataObject.cookTime = foodType.cookTime;
-            dataObject.stageToUse=foodType.stageToUse;
+            dataObject.stageToUse = foodType.stageToUse;
 
-#if UNITY_EDITOR
-            string assetPath = $"Assets/2.Scripts/Food/TestScriptableObject/FoodType_{foodType.foodName}.asset";
-            AssetDatabase.CreateAsset(dataObject, assetPath);
-#endif
+            EditorUtility.SetDirty(dataObject);
         }
-
 #if UNITY_EDITOR
         AssetDatabase.SaveAssets();
 #endif

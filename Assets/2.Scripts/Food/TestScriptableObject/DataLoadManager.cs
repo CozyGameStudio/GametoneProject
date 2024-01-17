@@ -8,7 +8,9 @@ public class DataLoadManager : MonoBehaviour
 {
     public FoodTypeDataList foodTypeDataList; 
     public TMP_Text[] text;
-
+    void Awake(){
+        Team5DataTable_FoodType.Data.Load();
+    }
     void Start(){
         LoadOnlineData();
     }
@@ -20,10 +22,10 @@ public class DataLoadManager : MonoBehaviour
     }
     public void LoadOnlineData()
     {
-        Team5DataTable_FoodType.Data.LoadFromGoogle(OnDataLoaded, true);
+        Team5DataTable_FoodType.Data.LoadFromGoogle(OnFoodTypeDataLoaded, true);
     }
 
-    private void OnDataLoaded(List<Team5DataTable_FoodType.Data> loadedDataList, Dictionary<int, Team5DataTable_FoodType.Data> loadedDataMap)
+    private void OnFoodTypeDataLoaded(List<Team5DataTable_FoodType.Data> loadedDataList, Dictionary<int, Team5DataTable_FoodType.Data> loadedDataMap)
     {
         Dictionary<int, FoodTypeData> existingDataMap = new Dictionary<int, FoodTypeData>();
         foreach (var existingData in foodTypeDataList.foodTypeDataList)
@@ -35,7 +37,6 @@ public class DataLoadManager : MonoBehaviour
         {
             if (existingDataMap.TryGetValue(loadedData.index, out FoodTypeData existingFoodTypeData))
             {
-                // 기존 데이터 업데이트
                 existingFoodTypeData.foodName = loadedData.foodName;
                 existingFoodTypeData.foodPrice = loadedData.foodPrice;
                 existingFoodTypeData.cookTime = loadedData.cookTime;
@@ -43,17 +44,7 @@ public class DataLoadManager : MonoBehaviour
             }
             else
             {
-                // 새 데이터 추가
-                FoodTypeData newFoodTypeData = new FoodTypeData
-                {
-                    index = loadedData.index,
-                    foodName = loadedData.foodName,
-                    foodPrice = loadedData.foodPrice,
-                    cookTime = loadedData.cookTime,
-                    stageToUse = loadedData.stageToUse
-                };
-
-                foodTypeDataList.foodTypeDataList.Add(newFoodTypeData);
+                Debug.Log("not Existing object");
             }
         }
     }

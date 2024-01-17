@@ -109,8 +109,6 @@ public class ChefScript : MonoBehaviour
     }
     void Cook_Enter(){
         string foodName = currentMenu.name;
-        
-        
         StartCoroutine(cookCoroutine(foodName,3));
     }
     IEnumerator cookCoroutine(string foodName,int cooktime){

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e24824e63f695c43b508b1451fbee3d, type: 3}
-  m_Name: FoodType_bread2
+  m_Name: FoodType_pizza
   m_EditorClassIdentifier: 
-  index: 2
-  foodName: bread2
-  foodPrice: 12
-  cookTime: 9
-  stageToUse: 12
+  index: 3
+  foodName: pizza
+  foodPrice: 128
+  cookTime: 24
+  stageToUse: 78
