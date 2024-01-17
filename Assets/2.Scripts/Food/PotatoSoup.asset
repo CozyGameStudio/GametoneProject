@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PotatoSoup
   m_EditorClassIdentifier: 
   foodName: PotatoSoup
-  money: 10
-  cookTime: 3
-  icon: {fileID: 21300000, guid: d1f2ae60dfdab774f8ac5684c906c858, type: 3}
+  foodPrice: 050000000a0000000f00000014000000
+  upgradeMoney: 6400000096000000c80000002c010000
+  foodIcon: {fileID: 21300000, guid: d1f2ae60dfdab774f8ac5684c906c858, type: 3}
   foodPrefab: {fileID: 4780401146087181791, guid: 23ba4aacb08dfc8488bbea82af2d7544, type: 3}
+  foodLevel: 02000000030000000400000005000000
+  stage: 1

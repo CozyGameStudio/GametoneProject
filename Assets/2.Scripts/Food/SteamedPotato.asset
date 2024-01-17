@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SteamedPotato
   m_EditorClassIdentifier: 
   foodName: SteamedPotato
-  money: 15
-  cookTime: 5
-  icon: {fileID: 21300000, guid: d250e923263635243ad2d58e9d467a8d, type: 3}
+  foodPrice: 64000000c8000000
+  upgradeMoney: f4010000e8030000
+  foodIcon: {fileID: 21300000, guid: d250e923263635243ad2d58e9d467a8d, type: 3}
   foodPrefab: {fileID: 4780401146087181791, guid: 23ba4aacb08dfc8488bbea82af2d7544, type: 3}
+  foodLevel: 0200000003000000
+  stage: 1

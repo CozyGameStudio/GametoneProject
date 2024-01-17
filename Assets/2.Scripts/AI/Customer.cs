@@ -88,7 +88,7 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            GameManager.Instance.AddMoney(receivedFood.FoodData.Money);
+            GameManager.Instance.AddMoney(receivedFood.FoodData.foodPrice[0]);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
@@ -144,8 +144,8 @@ public class Customer : MonoBehaviour
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
-        foodRenderer.sprite=receivedFood.FoodData.Icon;
-    }
+        foodRenderer.sprite=receivedFood.FoodData.foodIcon;
+;    }
     void Order_Update()
     {
         if(receiveOrder)
