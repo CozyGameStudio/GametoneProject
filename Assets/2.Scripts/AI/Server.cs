@@ -18,7 +18,6 @@ public class Server : MonoBehaviour
     public GameObject foodHolder;
     public float speed=2f;
     public bool IsAvailable { get; private set; } = true; // Check the server's availability
-    public bool IsAvailable { get; private set; } = true; // Check the server's availability
     private bool isThereMenuToServe=false;
     private GameObject menuToServe;
     private Transform placeToMove; //Server bring food place
