@@ -36,16 +36,25 @@ public class ChefScript : MonoBehaviour
     private GameObject serveHolder;
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
-    
+    private NavMeshAgent agent;
+    private SpriteRenderer spriteRenderer;
+
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
     }
     private void Start() {
         fsm.ChangeState(States.Idle);
+        agent = GetComponent<NavMeshAgent>();
+        spriteRenderer=GetComponent<SpriteRenderer>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
     }
     void OnEnable(){
-        IsAvailable=true;
+        SetAvailable();
+
     }
     void OnDisable(){
         IsAvailable = false;
@@ -53,11 +62,17 @@ public class ChefScript : MonoBehaviour
     void Update()
     {
         fsm.Driver.Update.Invoke();
+        Vector3 currentVelocity = agent.velocity;
+        if (currentVelocity.magnitude > 0.1f)
+        {
+            transform.localScale= currentVelocity.x < 0?new Vector3(-1,1,1): new Vector3(1, 1, 1);
+        }
+    
     }
     void Idle_Enter()
     {
         //playanimation(idle)
-        //Debug.Log("Idle Enter");
+        
     }
     public void NewOrderAvailable(OrderBoard order)
     {
@@ -70,36 +85,30 @@ public class ChefScript : MonoBehaviour
 
     void Walk_Enter()
     {
-        
         //playanimation(walk)
-        //Debug.Log("Walk Enter");
+        
+        agent.SetDestination(placeToMove.position);
     }
     void Walk_Update()
     {
         //Until chef arrives cook Place
-        if(Vector2.Distance(transform.position,placeToMove.position)>0.1f)
+        if(Vector2.Distance(transform.position,placeToMove.position)<.5f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, placeToMove.position, speed * Time.deltaTime);
-        
-        }
-        else
-        {
-            if(!isHolding){
+            if (!isHolding)
+            {
                 fsm.ChangeState(States.Cook);
             }
-            else{
+            else
+            {
                 fsm.ChangeState(States.Serve);
             }
-            
         }
     }
     void Walk_Exit(){
-        //Debug.Log("walk exit");
+        
     }
     void Cook_Enter(){
         string foodName = currentMenu.name;
-        //Debug.Log("Cook Enter");
-        //Debug.Log($"He is cooking {foodName}");
         StartCoroutine(cookCoroutine(foodName,3));
     }
     IEnumerator cookCoroutine(string foodName,int cooktime){
@@ -129,11 +138,11 @@ public class ChefScript : MonoBehaviour
         isHolding=true;
         nowUsing.SwitchTakenPlace();
         serveHolder.GetComponent<FoodPlace>().IsAvailable=false;
-        //Debug.Log("cook exit");
+        
     }
     void Serve_Enter()
     {
-        //Debug.Log("Serve Enter");
+        
         GameObject comFood= foodHolder.transform.GetChild(0).gameObject;
         // comFood.transform.parent = serveHolder.transform;
         comFood.transform.position= serveHolder.transform.position;
@@ -144,18 +153,16 @@ public class ChefScript : MonoBehaviour
     {
         isHolding=false;
         SetAvailable();
-        //Debug.Log("Serve Exit");
+        
     }
-    // 서버 상태를 사용 가능으로 변경하는 메소드
     public void ReceiveOrder(OrderBoard order,Machine appropriateMachine)
     {
-        Debug.Log("ReceiveOrder called. Order: " + order + ", Machine: " + appropriateMachine);
         currentMenu = order;
         nowUsing= appropriateMachine;
         nowUsing.SwitchTakenPlace();
         placeToMove=nowUsing.transform;
         IsAvailable=false;
-        fsm.ChangeState(States.Walk); // 예시로, 상태를 변경하여 셰프가 오더를 처리하도록 합니다.
+        fsm.ChangeState(States.Walk);
     }
 
     public void SetAvailable(){

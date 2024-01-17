@@ -15,7 +15,7 @@ public class OrderManager : MonoBehaviour
 
     public List<ChefScript> chefs = new List<ChefScript>();
     public Machine[] machines;
-    private int currentEnabledChef=2;//it will be controled by datamanager
+    private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
         get
@@ -66,20 +66,20 @@ public class OrderManager : MonoBehaviour
     {
         while (!isQueueEmpty())
         {
-            OrderBoard order = orderQueue.Peek(); // 큐의 첫 번째 주문 확인
+            OrderBoard order = orderQueue.Peek(); // Check the first order in the queue
             Machine appropriateMachine = FindMachineForOrder(order);
             ChefScript availableChef = FindAvailableChef();
 
             if (availableChef != null && appropriateMachine != null)
             {
-                order = orderQueue.Dequeue(); // 큐에서 주문 제거
+                order = orderQueue.Dequeue(); // Remove the order from the queue
                 availableChef.ReceiveOrder(order, appropriateMachine);
-                yield break; // Coroutine 종료
+                yield break; // Coroutine termination
             }
             else
             {
                 orderQueue.Enqueue(orderQueue.Dequeue());
-                yield return new WaitForSeconds(1); // 1초 동안 기다린 후 다시 시도
+                yield return new WaitForSeconds(1); // Retry after waiting for 1 second
             }
         }
     }
@@ -108,26 +108,26 @@ public class OrderManager : MonoBehaviour
                 // if find chef to enable, exit the function
                 chef.gameObject.SetActive(true);
                 currentEnabledChef++;
-                Debug.Log($"{chef.gameObject.name} has been activated.");
+
                 return; 
             }
         }
 
         // if every server is all activatd
-        Debug.Log("All servers are already activated.");
+
     }
     public void AddOrder(OrderBoard order)
     {
-        // 새 오더를 대기열에 추가
+        // Add a new order to the queue
         orderQueue.Enqueue(order);
 
-        // 주문 할당 시도
+        // Attempt order allocation
         TryAssignOrder();
     }
 
     private Machine FindMachineForOrder(OrderBoard order)
     {
-        // 주문에 맞는 기계 찾기
+        // Find a machine that matches the order
         foreach (var machine in machines)
         {
             if (machine.foodToMake.Equals(order.name) && machine.IsAvailable)
@@ -135,19 +135,19 @@ public class OrderManager : MonoBehaviour
                 return machine;
             }
         }
-        return null; // 적절한 기계가 없는 경우
+        return null; // If there is no suitable machine
     }
 
    
     public void ChefAvailable()
     {
-        // 셰프가 사용 가능할 때 주문 할당 시도
+        // Attempt order allocation when the chef is available
         TryAssignOrder();
     }
 
     public void MachineAvailable()
     {
-        // 머신이 사용 가능할 때 주문 할당 시도
+        // Attempt order allocation when the machine is available
         TryAssignOrder();
     }
 }

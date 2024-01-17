@@ -36,6 +36,7 @@ public class Customer : MonoBehaviour
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
+    private NavMeshAgent agent;
     FoodMain receivedFood;
 
     private void Awake()
@@ -46,20 +47,27 @@ public class Customer : MonoBehaviour
         fsm.ChangeState(States.Idle);
         orderBubble.SetActive(false);
     }
+    void Start(){
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
+    }
     private void Update()
     {
         fsm.Driver.Update.Invoke();
     }
     void Idle_Enter()
     {
-        //Debug.Log("Idle Enter");
+        
     }
     void Idle_Update() 
     {
-        /* �ֹ��� ���� �ʾ��� ��� ���̺� ��ġ�� �޾� �̵� ȣ��*/
+        // If no order is placed, receive the table location for a move call
         if (!isOrdered)
         {
-            //Debug.Log(CustomerManager.Instance.IsCustomerFull());
+            
             if (!CustomerManager.Instance.IsCustomerFull())
             {
                 customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
@@ -77,7 +85,7 @@ public class Customer : MonoBehaviour
 
             }
         }
-        /* �ֹ��� ���� ��� ���� �߰��ϰ� �ǵ��ư��� ��ġ�� �޾� �̵� ȣ��*/
+        // If an order is placed, add money and receive the return location for a move call 
         else
         {
             GameManager.Instance.AddMoney(receivedFood.FoodData.Money);
@@ -87,37 +95,37 @@ public class Customer : MonoBehaviour
     }
     void Idle_Exit()
     {
-        //Debug.Log("Idle Exit");
+        
     }
     void Walk_Enter()
     {
-        //Debug.Log("Walk Enter");
+        
     }
     void Walk_Update()
     {
-        /* �ֹ��� ������ ��� ���̺��� �̵�*/
+        // Move to the table if no order is placed
         if (!isOrdered)
         {
-            if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > 0.1f)
+            if (Vector2.Distance(transform.position, customerTablePlace.transform.position) > .3f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, customerTablePlace.transform.position, speed * Time.deltaTime);
+                agent.SetDestination(customerTablePlace.transform.position);
             }
             else
             {
                 fsm.ChangeState(States.Order);
             }
         }
-        /* �ֹ��� ���� ��� �ǵ��ư��� ��ġ�� �̵�*/
+        // Move to the return location if an order is placed
         else
         {
-            if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.1f)
+            if (Vector2.Distance(transform.position, customerBackPlace.transform.position) > 0.3f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, customerBackPlace.transform.position, speed * Time.deltaTime);
+                agent.SetDestination(customerBackPlace.transform.position);
             }
             else
             {
                 CustomerManager.Instance.customerTablePresent[tableNumber-1] = false;
-                //Debug.Log("Destory");
+                
                 Destroy(gameObject);
             }
             //hey
@@ -125,19 +133,19 @@ public class Customer : MonoBehaviour
     }
     void Walk_Exit()
     {
-        //Debug.Log("walk exit");
+        
     }
 
     void Order_Enter()
     {
         transform.SetParent(customerTablePlace.transform);
-        //Debug.Log("Order Enter");
+        
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
         foodRenderer.sprite=receivedFood.FoodData.Icon;
-;    }
+    }
     void Order_Update()
     {
         if(receiveOrder)
@@ -150,14 +158,14 @@ public class Customer : MonoBehaviour
     {
         transform.SetParent(null);
         orderBubble.SetActive(false);
-        //Debug.Log("Order exit");
+        
     }
     public void GetMenu(GameObject menu)
     {
         menu.transform.SetParent(foodHolder);
         menu.transform.position=foodHolder.position;
         receiveOrder = true;
-        //Debug.Log("Menu received");
+        
     }
 
 }
