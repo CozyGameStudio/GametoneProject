@@ -16,7 +16,7 @@ public class OrderManager : MonoBehaviour
 
     public List<ChefScript> chefs = new List<ChefScript>();
     public Machine[] machines;
-    private int currentEnabledChef=2;//it will be controled by datamanager
+    private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
         get
@@ -109,13 +109,13 @@ public class OrderManager : MonoBehaviour
                 // if find chef to enable, exit the function
                 chef.gameObject.SetActive(true);
                 currentEnabledChef++;
-                Debug.Log($"{chef.gameObject.name} has been activated.");
+
                 return; 
             }
         }
 
         // if every server is all activatd
-        Debug.Log("All servers are already activated.");
+
     }
     public void AddOrder(OrderBoard order)
     {
