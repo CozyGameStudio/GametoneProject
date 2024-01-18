@@ -9,7 +9,7 @@ public class FoodPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FoodData = BusinessManager.Instance.foodData;
+        FoodData = DataManager.Instance.foodData;
         for (int i = 0; i < FoodData.Length; i++)
         {
             GameObject imageObj = Instantiate(BoxPrefab);

@@ -10,7 +10,7 @@ public class MachinePanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        machineData = BusinessManager.Instance.machineData;
+        machineData = DataManager.Instance.machineData;
         for(int i = 0; i < machineData.Length; i++)
         {
             GameObject imageObj = Instantiate(BoxPrefab);

@@ -5,7 +5,9 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
-
+    public ScriptableMachine[] machineData;
+    public ScriptableFood[] foodData;
+    
     public FoodMain[] Food;
 
     public static DataManager Instance
