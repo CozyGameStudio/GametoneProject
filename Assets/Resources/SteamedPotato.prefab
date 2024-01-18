@@ -97,4 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50016c83f95c5b5439eb1984b0d7d641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodData: {fileID: 11400000, guid: de131617ac55c5b488511578bce33b42, type: 2}
+  FoodData: {fileID: 11400000, guid: de131617ac55c5b488511578bce33b42, type: 2}

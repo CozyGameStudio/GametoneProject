@@ -14,7 +14,7 @@ public class OrderManager : MonoBehaviour
     public event OrderHandler OnNewOrder;//chefScript reference
 
     public List<ChefScript> chefs = new List<ChefScript>();
-    public Machine[] machines;
+    public List<Machine> machines=new List<Machine>();
     private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {

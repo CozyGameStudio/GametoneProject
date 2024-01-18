@@ -37,7 +37,7 @@ public class Customer : MonoBehaviour
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
     private NavMeshAgent agent;
-    FoodMain receivedFood;
+    Food receivedFood;
 
     private void Awake()
     {
@@ -88,7 +88,7 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            GameManager.Instance.AddMoney(receivedFood.FoodData.foodPrice[0]);
+            GameManager.Instance.AddMoney(receivedFood.foodData.foodPrice[0]);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
@@ -144,7 +144,7 @@ public class Customer : MonoBehaviour
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
-        foodRenderer.sprite=receivedFood.FoodData.foodIcon;
+        foodRenderer.sprite=receivedFood.foodData.foodIcon;
 ;    }
     void Order_Update()
     {

@@ -1159,6 +1159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineData: {fileID: 0}
+  foodData: {fileID: 0}
   foodToMake: SteamedPotato
 --- !u!1 &143764598
 GameObject:
@@ -5201,6 +5203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineData: {fileID: 0}
+  foodData: {fileID: 0}
   foodToMake: PotatoSoup
 --- !u!1 &554433949
 GameObject:
@@ -7165,6 +7169,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670276900}
   m_CullTransparentMesh: 1
+--- !u!1 &671493237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671493238}
+  m_Layer: 0
+  m_Name: DataLoadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &671493238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671493237}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 856.7079, y: 517.0155, z: -4.84647}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &679243527
 GameObject:
   m_ObjectHideFlags: 0
@@ -8684,6 +8719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineData: {fileID: 0}
+  foodData: {fileID: 0}
   foodToMake: SteamedPotato
 --- !u!1 &806657573
 GameObject:
@@ -11607,6 +11644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineData: {fileID: 0}
+  foodData: {fileID: 0}
   foodToMake: PotatoSoup
 --- !u!1 &1210131334
 GameObject:
@@ -15942,16 +15981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa51adafc1c016b45a92fb95db3615f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  machineData:
-  - {fileID: 11400000, guid: c89c2d6d5a84a2143af2bc892c3b1aa2, type: 2}
-  - {fileID: 11400000, guid: 41e1b62f0a0dc4a4b9e3d5b28042e492, type: 2}
-  - {fileID: 11400000, guid: 911179da2e6f78249ab2da9f63ee6c34, type: 2}
-  foodData:
-  - {fileID: 11400000, guid: 5f78693a6667c92418407f3d124c94d2, type: 2}
-  - {fileID: 11400000, guid: de131617ac55c5b488511578bce33b42, type: 2}
-  Food:
-  - {fileID: 1128867990266837139, guid: 23ba4aacb08dfc8488bbea82af2d7544, type: 3}
-  - {fileID: 6867876125556574855, guid: 10279b2184979464cbc5c13f71dcfc58, type: 3}
+  foods: []
+  machines: []
 --- !u!4 &1730558615
 Transform:
   m_ObjectHideFlags: 0
@@ -19522,3 +19553,4 @@ SceneRoots:
   - {fileID: 114835208}
   - {fileID: 363591199}
   - {fileID: 271282085}
+  - {fileID: 671493238}

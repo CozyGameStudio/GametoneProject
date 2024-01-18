@@ -115,7 +115,7 @@ public class ChefScript : MonoBehaviour
         isCooking=true;
         yield return new WaitForSeconds(cooktime);
         GameObject food = Instantiate(Resources.Load<GameObject>(foodName), foodHolder.transform.position, Quaternion.identity);
-        food.GetComponent<FoodMain>().orderstatus=currentMenu;
+        food.GetComponent<Food>().orderstatus=currentMenu;
         food.transform.parent = foodHolder.transform;
         isCooking=false;
         currentMenu=default;

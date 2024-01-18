@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50016c83f95c5b5439eb1984b0d7d641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 10
-  money: 100
+  foodData: {fileID: 11400000, guid: 2bdc1e0ce09448b48bb960e49f7e3de9, type: 2}
