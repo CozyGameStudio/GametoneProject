@@ -75,7 +75,7 @@ public class DataLoadManager : MonoBehaviour
             if (i < text.Length)
             {
                 ScriptableFood data = foodDataList.foodDataList[i];
-                text[i].text = data.ToString();
+                text[i].text = data.foodName+" "+data.foodNameInKorean+" "+data.stageToUse;
             }
             else
             {

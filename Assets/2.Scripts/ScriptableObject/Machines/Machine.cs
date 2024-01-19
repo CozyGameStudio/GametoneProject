@@ -7,7 +7,6 @@ public class Machine : MonoBehaviour
     public bool IsAvailable { get { return !isTakenPlace; } }
     public ScriptableMachine machineData;
     public ScriptableFood foodData;
-    public string foodToMake = "potatoSoup";
     private bool isTakenPlace = false;
     public int currentLevel{get;private set;}=1;
     public float currentCookTime { get; private set;}

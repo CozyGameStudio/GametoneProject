@@ -27,10 +27,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Input.multiTouchEnabled=false;
+        UIManager.Instance.UpdateMoneyUI();
     }
     public int money=0;
     public void AddMoney(int moneyAmount){
         money+=moneyAmount;
+        UIManager.Instance.UpdateMoneyUI();
+    }
+    public void DecreaseMoney(int moneyAmount)
+    {
+        money -= moneyAmount;
+        UIManager.Instance.UpdateMoneyUI();
     }
     public void ChangeScene(string scene){
         SceneManager.LoadScene(scene);

@@ -27,9 +27,9 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public string RandomFood(){
+    public Food RandomFood(){
         int index=Random.Range(0,foods.Count);
-        return foods[index].foodData.foodName;
+        return foods[index];
     }
     public Food FindFoodWithName(string foodName){
         for(int i=0;i<foods.Count;i++){

@@ -12,7 +12,6 @@ public class FoodBox : MonoBehaviour
     TMP_Text foodUpgrade;
     Button FoodUpgradeButton;
     Transform FoodUpgradeTransform;
-    int upgradeCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -139,7 +138,7 @@ public class FoodBox : MonoBehaviour
 
     public void UpgradeButtonClick()
     {
-        GameManager.Instance.AddMoney(-food.currentUpgradeMoney);
+        GameManager.Instance.DecreaseMoney(food.currentUpgradeMoney);
         food.LevelUp();
         if (food.currentUpgradeMoney == 0)
         {

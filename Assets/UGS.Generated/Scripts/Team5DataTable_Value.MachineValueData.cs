@@ -57,7 +57,6 @@ namespace Team5DataTable_Value
 /* Fields. */
 
 		public System.String machineName;
-		public System.Int32 level;
 		public System.Single cookTime;
 		public System.Int32 upgradeValue;
   

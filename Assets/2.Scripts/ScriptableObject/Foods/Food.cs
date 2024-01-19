@@ -21,5 +21,6 @@ public class Food : MonoBehaviour
     void SetValue(int level){
         currentValue = foodData.foodPrice[level - 1];
         currentUpgradeMoney = foodData.upgradeMoney[level - 1];
+        Debug.Log(currentValue+" "+currentUpgradeMoney);
     }
 }

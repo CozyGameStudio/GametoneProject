@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 
 public static class ScriptableObjectCreator
 {
@@ -54,44 +55,48 @@ public static class ScriptableObjectCreator
     #endif
     }
 
-//     [MenuItem("SrpObject/CreateMachineByDatabase")]
-//     public static void CreateScriptableMachineObjects()
-//     {
-//         List<Team5DataTable_Type.MachineTypeData> machineTypes = Team5DataTable_Type.MachineTypeData.MachineTypeDataList;
-//         List<Team5DataTable_Value.MachineValueData> machineValues = Team5DataTable_Value.MachineValueData.MachineValueDataList;
+    [MenuItem("SrpObject/CreateMachineByDatabase")]
+    public static void CreateScriptableMachineObjects()
+    {
+        Team5DataTable_Type.MachineTypeData.Load();
+        Team5DataTable_Value.MachineValueData.Load();
+        List<Team5DataTable_Type.MachineTypeData> machineTypes = Team5DataTable_Type.MachineTypeData.MachineTypeDataList;
+        List<Team5DataTable_Value.MachineValueData> machineValues = Team5DataTable_Value.MachineValueData.MachineValueDataList;
 
-//         foreach (var machineType in machineTypes)
-//         {
-//             string assetPath = $"Assets/2.Scripts/ScriptableObject/Machines/SO_{machineType.foodName}.asset";
-// #if UNITY_EDITOR
-//             ScriptableMachine dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMachine>(assetPath);
-// #endif
-//             if (dataObject == null)
-//             {
-//                 dataObject = ScriptableObject.CreateInstance<ScriptableMachine>();
-//                 AssetDatabase.CreateAsset(dataObject, assetPath);
-//             }
+        foreach (var machineType in machineTypes)
+        {
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Machines/SO_{machineType.machineName}.asset";
+#if UNITY_EDITOR
+            ScriptableMachine dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMachine>(assetPath);
+#endif
+            if (dataObject == null)
+            {
+                dataObject = ScriptableObject.CreateInstance<ScriptableMachine>();
+                AssetDatabase.CreateAsset(dataObject, assetPath);
+            }
 
-//             dataObject.index = machineType.index;
-//             dataObject.machineName = machineType.foodName;
-//             dataObject.machineNameInKorean = machineType.machineNameInKorean; // 필요한 경우 추가
-//             dataObject.stageToUse = machineType.stageToUse;
+            dataObject.index = machineType.index;
+            dataObject.machineName = machineType.machineName;
+            dataObject.machineNameInKorean = machineType.machineNameInKorean; // 필요한 경우 추가
+            dataObject.stageToUse = machineType.stageToUse;
 
-//             // machineValues를 필터링하여 dataObject에 저장
-//             var filteredValues = machineValues.Where(v => v.machineName == machineType.machineName).ToList();
-//             dataObject.cookTime = new int[filteredValues.Count];
-//             dataObject.upgradeMoney = new int[filteredValues.Count];
+            // foodValues를 필터링하여 dataObject에 저장
+            var filteredValues = machineValues.Where(v => v.machineName.StartsWith(machineType.machineName)).ToList();
+            dataObject.cookTime = new float[filteredValues.Count];
+            dataObject.upgradeMoney = new int[filteredValues.Count];
 
-//             for (int i = 0; i < filteredValues.Count; i++)
-//             {
-//                 dataObject.foodPrice[i] = filteredValues[i].cookTime;
-//                 dataObject.upgradeMoney[i] = filteredValues[i].upgradeValue;
-//             }
+            foreach (var value in filteredValues)
+            {
+                string[] split = value.machineName.Split('_');
+                int levelIndex = int.Parse(split[1]) - 1;  // 레벨이 1부터 시작한다고 가정
+                dataObject.cookTime[levelIndex] = value.cookTime;
+                dataObject.upgradeMoney[levelIndex] = value.upgradeValue;
+            }
 
-//             EditorUtility.SetDirty(dataObject);
-//         }
-// #if UNITY_EDITOR
-//         AssetDatabase.SaveAssets();
-// #endif
-//     }
+            EditorUtility.SetDirty(dataObject);
+        }
+#if UNITY_EDITOR
+        AssetDatabase.SaveAssets();
+#endif
+    }
 }

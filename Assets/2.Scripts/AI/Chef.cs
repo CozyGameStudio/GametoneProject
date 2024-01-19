@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
-public class ChefScript : MonoBehaviour
+public class Chef : MonoBehaviour
 {
     public enum States //state enum
     {
@@ -22,8 +22,10 @@ public class ChefScript : MonoBehaviour
     public event AvailableHandler OnChefAvailable;
 
     [Header("PlaceHolder")]
-    public GameObject[] foodPlace;
-    public GameObject[] servePlace;
+    public List<GameObject> serveTables;
+
+    private List<GameObject> foodPlaces;
+    private List<GameObject> servePlaces;
 
     [Header("Character")]
     public float speed=5f;
@@ -50,7 +52,27 @@ public class ChefScript : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
+        foreach (var serveTable in serveTables){
+            AddChildrenWithName(serveTable, "FoodHolder");
+        }
+        
+    }
+    public void AddChildrenWithName(GameObject parent, string nameToFind)
+    {
+        if (foodPlaces == null)
+            foodPlaces = new List<GameObject>();
+        if (servePlaces == null)
+            servePlaces = new List<GameObject>();
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            Transform child = parent.transform.GetChild(i);
+            if (child.name.Contains(nameToFind))
+            {
+                Debug.Log(child.name);
+                foodPlaces.Add(child.GetChild(0).gameObject);
+                servePlaces.Add(child.GetChild(1).gameObject);
+            }
+        }
     }
     void OnEnable(){
         SetAvailable();
@@ -104,30 +126,27 @@ public class ChefScript : MonoBehaviour
             }
         }
     }
-    void Walk_Exit(){
-        
-    }
     void Cook_Enter(){
-        string foodName = currentMenu.name;
-        StartCoroutine(cookCoroutine(foodName,3));
+        Food foodToMake = currentMenu.foodData;
+        StartCoroutine(cookCoroutine(foodToMake, nowUsing.currentCookTime));
     }
-    IEnumerator cookCoroutine(string foodName,int cooktime){
+    IEnumerator cookCoroutine(Food foodToMake, float cooktime){
         isCooking=true;
         yield return new WaitForSeconds(cooktime);
-        GameObject food = Instantiate(Resources.Load<GameObject>(foodName), foodHolder.transform.position, Quaternion.identity);
-        food.GetComponent<Food>().orderstatus=currentMenu;
-        food.transform.parent = foodHolder.transform;
+        GameObject foodMade = Instantiate(foodToMake.gameObject, foodHolder.transform.position, Quaternion.identity);
+        foodMade.GetComponent<Food>().orderstatus=currentMenu;
+        foodMade.transform.parent = foodHolder.transform;
         isCooking=false;
         currentMenu=default;
     }
     void Cook_Update(){
         if(!isCooking){
-            for (int i = 0; i < foodPlace.Length; i++)
+            for (int i = 0; i < foodPlaces.Count; i++)
             {
-                if (foodPlace[i].GetComponent<FoodPlace>().IsAvailable)
+                if (foodPlaces[i].GetComponent<FoodPlace>().IsAvailable)
                 {
-                    serveHolder = foodPlace[i].gameObject;
-                    placeToMove = servePlace[i].transform;
+                    serveHolder = foodPlaces[i].gameObject;
+                    placeToMove = servePlaces[i].transform;
                     break;
                 }
             }

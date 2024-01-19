@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 509334}
   m_Layer: 0
-  m_Name: FoodHolder4
+  m_Name: FoodHolder7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,14 +147,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509333}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.29, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.00007134676, w: 1}
+  m_LocalPosition: {x: 0.6200214, y: -0.14991154, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 265259350}
   - {fileID: 808226784}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 1965953407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9203162
 GameObject:
@@ -524,18 +524,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68038324}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1210131335}
-  m_Father: {fileID: 421935994}
+  - {fileID: 1332782784}
+  - {fileID: 303708869}
+  m_Father: {fileID: 793764533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1744.4858, y: -805.63806}
-  m_SizeDelta: {x: 150, y: 60}
+  m_AnchoredPosition: {x: -615, y: -390}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &68038326
 MonoBehaviour:
@@ -631,6 +633,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68038324}
   m_CullTransparentMesh: 1
+--- !u!1 &69947448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 69947449}
+  - component: {fileID: 69947450}
+  m_Layer: 0
+  m_Name: bread2CookPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &69947449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69947448}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.0599996, y: -0.06999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1633415811}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &69947450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69947448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machineData: {fileID: 11400000, guid: 4e09211b88f51734c947606022f97dec, type: 2}
+  foodData: {fileID: 11400000, guid: 4e78d6973cfaa3f4d85da9429ffd73ee, type: 2}
 --- !u!1 &88258978
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,24 +907,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd15cee52475459419dedc1876dbfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPlace:
-  - {fileID: 1675664218}
-  - {fileID: 554433949}
-  - {fileID: 1999764802}
-  - {fileID: 265259349}
-  - {fileID: 88258978}
-  - {fileID: 497147082}
-  - {fileID: 1914886467}
-  - {fileID: 28780883}
-  servePlace:
-  - {fileID: 485621430}
-  - {fileID: 1850786143}
-  - {fileID: 1593879701}
-  - {fileID: 808226783}
-  - {fileID: 258175631}
-  - {fileID: 488825120}
-  - {fileID: 1638671859}
-  - {fileID: 49425896}
+  serveTables:
+  - {fileID: 457424541}
+  - {fileID: 1965953406}
   speed: 2
   foodHolder: {fileID: 1211440713}
 --- !u!195 &104193175
@@ -1115,53 +1148,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1880747176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &125197813
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 125197814}
-  - component: {fileID: 125197815}
-  m_Layer: 0
-  m_Name: CookPlace3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &125197814
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125197813}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0599996, y: -0.06999998, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1328681471}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &125197815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125197813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineData: {fileID: 0}
-  foodData: {fileID: 0}
-  foodToMake: SteamedPotato
 --- !u!1 &143764598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,10 +2467,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Add Server
+  m_text: "\uC11C\uBC84 \uCD94\uAC00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2793,12 +2779,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 878531050}
-  m_Father: {fileID: 421935994}
+  m_Father: {fileID: 68038325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -810, y: -415}
-  m_SizeDelta: {x: 160, y: 141.6086}
+  m_AnchoredPosition: {x: -170, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &303708870
 MonoBehaviour:
@@ -3468,7 +3454,7 @@ GameObject:
   - component: {fileID: 364661566}
   - component: {fileID: 364661567}
   m_Layer: 0
-  m_Name: PotatoSoupMachine
+  m_Name: coffeeMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3488,7 +3474,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 546321199}
-  - {fileID: 1204765615}
   m_Father: {fileID: 654704137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &364661566
@@ -3598,7 +3583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 370569805}
   m_Layer: 0
-  m_Name: FoodHolder1 (1)
+  m_Name: FoodHolder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3612,14 +3597,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370569804}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.95, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.10000014, y: -0.15, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 88258979}
   - {fileID: 258175632}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 457424542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &417847439
 GameObject:
@@ -3907,8 +3892,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1332782784}
-  - {fileID: 68038325}
   - {fileID: 806657574}
   - {fileID: 1262884548}
   - {fileID: 855188414}
@@ -3918,7 +3901,7 @@ RectTransform:
   - {fileID: 1163643793}
   - {fileID: 756094549}
   - {fileID: 256717875}
-  - {fileID: 303708869}
+  - {fileID: 793764533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4243,7 +4226,7 @@ GameObject:
   - component: {fileID: 457424545}
   - component: {fileID: 457424546}
   m_Layer: 0
-  m_Name: table2
+  m_Name: serveTable1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4261,7 +4244,11 @@ Transform:
   m_LocalPosition: {x: -2.85, y: 0.15, z: -0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 911350228}
+  - {fileID: 370569805}
+  - {fileID: 1254330198}
+  - {fileID: 2033055485}
   m_Father: {fileID: 1247679893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &457424543
@@ -4651,7 +4638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 513352057}
   m_Layer: 0
-  m_Name: FoodHolder4 (1)
+  m_Name: FoodHolder8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4665,14 +4652,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513352056}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.02, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.00007134676, w: 1}
+  m_LocalPosition: {x: 1.3500215, y: -0.14980736, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 28780884}
   - {fileID: 49425897}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 1965953407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &516374519
 GameObject:
@@ -4710,9 +4697,8 @@ MonoBehaviour:
   - {fileID: 1880747175}
   machines:
   - {fileID: 546321200}
-  - {fileID: 1204765616}
-  - {fileID: 125197815}
   - {fileID: 804853803}
+  - {fileID: 69947450}
 --- !u!4 &516374521
 Transform:
   m_ObjectHideFlags: 0
@@ -5170,7 +5156,7 @@ GameObject:
   - component: {fileID: 546321199}
   - component: {fileID: 546321200}
   m_Layer: 0
-  m_Name: CookPlace1
+  m_Name: coffeeCookPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5203,9 +5189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  machineData: {fileID: 0}
-  foodData: {fileID: 0}
-  foodToMake: PotatoSoup
+  machineData: {fileID: 11400000, guid: c3c0438a368d69847940b1563abf3792, type: 2}
+  foodData: {fileID: 11400000, guid: 2bdc1e0ce09448b48bb960e49f7e3de9, type: 2}
 --- !u!1 &554433949
 GameObject:
   m_ObjectHideFlags: 0
@@ -5867,10 +5852,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collection
+  m_text: "\uB3C4\uAC10"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6328,24 +6313,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd15cee52475459419dedc1876dbfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPlace:
-  - {fileID: 1675664218}
-  - {fileID: 554433949}
-  - {fileID: 1999764802}
-  - {fileID: 265259349}
-  - {fileID: 88258978}
-  - {fileID: 497147082}
-  - {fileID: 1914886467}
-  - {fileID: 28780883}
-  servePlace:
-  - {fileID: 485621430}
-  - {fileID: 1850786143}
-  - {fileID: 1593879701}
-  - {fileID: 808226783}
-  - {fileID: 258175631}
-  - {fileID: 488825120}
-  - {fileID: 1638671859}
-  - {fileID: 49425896}
+  serveTables:
+  - {fileID: 457424541}
+  - {fileID: 1965953406}
   speed: 2
   foodHolder: {fileID: 202057957}
 --- !u!4 &626156598
@@ -7034,6 +7004,7 @@ Transform:
   m_Children:
   - {fileID: 364661565}
   - {fileID: 1328681471}
+  - {fileID: 1633415811}
   m_Father: {fileID: 363591199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.002}
 --- !u!1 &670276900
@@ -7178,6 +7149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 671493238}
+  - component: {fileID: 671493239}
   m_Layer: 0
   m_Name: DataLoadManager
   m_TagString: Untagged
@@ -7200,6 +7172,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &671493239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671493237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed6c3b5e9bec254182bc6b73b793877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodDataList: {fileID: 11400000, guid: 737e8891ea15f87419594d46620d5ef7, type: 2}
+  text: []
 --- !u!1 &679243527
 GameObject:
   m_ObjectHideFlags: 0
@@ -8381,6 +8367,42 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1333334, y: 2.1333334}
   m_EdgeRadius: 0
+--- !u!1 &793764532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793764533}
+  m_Layer: 5
+  m_Name: TestButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &793764533
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793764532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 68038325}
+  m_Father: {fileID: 421935994}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &794122790
 GameObject:
   m_ObjectHideFlags: 0
@@ -8686,7 +8708,7 @@ GameObject:
   - component: {fileID: 804853802}
   - component: {fileID: 804853803}
   m_Layer: 0
-  m_Name: CookPlace4
+  m_Name: bread1CookPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8719,9 +8741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  machineData: {fileID: 0}
-  foodData: {fileID: 0}
-  foodToMake: SteamedPotato
+  machineData: {fileID: 11400000, guid: 47d21f73347e3db45a91e275276866b1, type: 2}
+  foodData: {fileID: 11400000, guid: e35271cb3214a3946a84a33e66a54246, type: 2}
 --- !u!1 &806657573
 GameObject:
   m_ObjectHideFlags: 0
@@ -9174,10 +9195,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AddMoney
+  m_text: "\uB3C8 \uCD94\uAC00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9201,8 +9222,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 29.46
+  m_fontSizeBase: 29.46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9308,10 +9329,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AD
+  m_text: "\uAD11\uACE0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9589,12 +9610,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Business
-
-'
+  m_text: "\uACBD\uC601\uAD00\uB9AC"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9839,14 +9858,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911350227}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.68, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.83000016, y: -0.14999977, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1675664219}
   - {fileID: 485621431}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 457424542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &935114823
 GameObject:
@@ -10583,10 +10602,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main
+  m_text: "\uBA54\uC778"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11600,53 +11619,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1204765614
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1204765615}
-  - component: {fileID: 1204765616}
-  m_Layer: 0
-  m_Name: CookPlace2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &1204765615
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204765614}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0399996, y: 0.51, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 364661565}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1204765616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204765614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3944b0ea0d9d6cc44b2eed974ff693a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machineData: {fileID: 0}
-  foodData: {fileID: 0}
-  foodToMake: PotatoSoup
 --- !u!1 &1210131334
 GameObject:
   m_ObjectHideFlags: 0
@@ -11704,10 +11676,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Add Chef
+  m_text: "\uC694\uB9AC\uC0AC \uCD94\uAC00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11990,14 +11962,6 @@ Transform:
   m_Children:
   - {fileID: 457424542}
   - {fileID: 1965953407}
-  - {fileID: 911350228}
-  - {fileID: 370569805}
-  - {fileID: 1254330198}
-  - {fileID: 2033055485}
-  - {fileID: 1862509375}
-  - {fileID: 1256692710}
-  - {fileID: 509334}
-  - {fileID: 513352057}
   m_Father: {fileID: 363591199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.998}
 --- !u!1 &1254330197
@@ -12010,7 +11974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1254330198}
   m_Layer: 0
-  m_Name: FoodHolder2
+  m_Name: FoodHolder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12024,14 +11988,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254330197}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.97, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.87999976, y: -0.15000013, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 554433950}
   - {fileID: 1850786144}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 457424542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1256692709
 GameObject:
@@ -12043,7 +12007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256692710}
   m_Layer: 0
-  m_Name: FoodHolder3 (1)
+  m_Name: FoodHolder6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12057,14 +12021,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256692709}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.15, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.00007134676, w: 1}
+  m_LocalPosition: {x: -0.5199786, y: -0.15007433, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1914886468}
   - {fileID: 1638671860}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 1965953407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1262884547
 GameObject:
@@ -12199,10 +12163,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Setting
+  m_text: "\uC138\uD305"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12501,7 +12465,7 @@ GameObject:
   - component: {fileID: 1328681472}
   - component: {fileID: 1328681473}
   m_Layer: 0
-  m_Name: SteamedPotatoMachine
+  m_Name: bread1Machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12516,11 +12480,10 @@ Transform:
   m_GameObject: {fileID: 1328681470}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 2.06, z: 0}
+  m_LocalPosition: {x: 0.04, y: 3.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 125197814}
   - {fileID: 804853802}
   m_Father: {fileID: 654704137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12647,18 +12610,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332782783}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 268391444}
-  m_Father: {fileID: 421935994}
+  m_Father: {fileID: 68038325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1941, y: -806}
-  m_SizeDelta: {x: 180, y: 60}
+  m_AnchoredPosition: {x: -344, y: 3}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1332782785
 MonoBehaviour:
@@ -14092,12 +14055,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'cooking
-
-'
+  m_text: "\uC694\uB9AC"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14524,12 +14485,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Exit
-
-'
+  m_text: X
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15089,6 +15048,137 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616188549}
   m_CullTransparentMesh: 1
+--- !u!1 &1633415810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1633415811}
+  - component: {fileID: 1633415814}
+  - component: {fileID: 1633415813}
+  m_Layer: 0
+  m_Name: bread2Machine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1633415811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633415810}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 0.88, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 69947449}
+  m_Father: {fileID: 654704137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1633415813
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633415810}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.06907755, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.005, y: 2.185}
+    newSize: {x: 0.67, y: 1.4566667}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8668449, y: 2.185}
+  m_EdgeRadius: 0
+--- !u!212 &1633415814
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633415810}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1230604611
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 760d384c64f4d304c99d3c2c6974195e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.67, y: 1.4566667}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1637405811
 GameObject:
   m_ObjectHideFlags: 0
@@ -15981,8 +16071,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa51adafc1c016b45a92fb95db3615f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foods: []
-  machines: []
+  foods:
+  - {fileID: 947796154288194672, guid: 198dfc2a7cc541143bf9891aa1d99186, type: 3}
+  - {fileID: 947796154288194672, guid: 249fa857cf6280740a364c90d7f0cafd, type: 3}
+  - {fileID: 947796154288194672, guid: a6ca767d44c2df149975bf6bbd5d726d, type: 3}
+  machines:
+  - {fileID: 546321200}
+  - {fileID: 804853803}
+  - {fileID: 69947450}
 --- !u!4 &1730558615
 Transform:
   m_ObjectHideFlags: 0
@@ -16202,10 +16298,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: machine
+  m_text: "\uC7A5\uBE44"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17181,7 +17277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862509375}
   m_Layer: 0
-  m_Name: FoodHolder3
+  m_Name: FoodHolder5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17195,14 +17291,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862509374}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.42, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.00007134676, w: 1}
+  m_LocalPosition: {x: -1.2499785, y: -0.1501782, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1999764803}
   - {fileID: 1593879702}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 1965953407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1871061902
 GameObject:
@@ -17270,24 +17366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd15cee52475459419dedc1876dbfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPlace:
-  - {fileID: 1675664218}
-  - {fileID: 554433949}
-  - {fileID: 1999764802}
-  - {fileID: 265259349}
-  - {fileID: 88258978}
-  - {fileID: 497147082}
-  - {fileID: 1914886467}
-  - {fileID: 28780883}
-  servePlace:
-  - {fileID: 485621430}
-  - {fileID: 1850786143}
-  - {fileID: 1593879701}
-  - {fileID: 808226783}
-  - {fileID: 258175631}
-  - {fileID: 488825120}
-  - {fileID: 1638671859}
-  - {fileID: 49425896}
+  serveTables:
+  - {fileID: 457424541}
+  - {fileID: 1965953406}
   speed: 2
   foodHolder: {fileID: 119165065}
 --- !u!4 &1880747176
@@ -17558,24 +17639,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd15cee52475459419dedc1876dbfc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPlace:
-  - {fileID: 1675664218}
-  - {fileID: 554433949}
-  - {fileID: 1999764802}
-  - {fileID: 265259349}
-  - {fileID: 88258978}
-  - {fileID: 497147082}
-  - {fileID: 1914886467}
-  - {fileID: 28780883}
-  servePlace:
-  - {fileID: 485621430}
-  - {fileID: 1850786143}
-  - {fileID: 1593879701}
-  - {fileID: 808226783}
-  - {fileID: 258175631}
-  - {fileID: 488825120}
-  - {fileID: 1638671859}
-  - {fileID: 49425896}
+  serveTables:
+  - {fileID: 457424541}
+  - {fileID: 1965953406}
   speed: 2
   foodHolder: {fileID: 1777129860}
 --- !u!4 &1892367485
@@ -17874,8 +17940,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 99999999999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18398,7 +18464,7 @@ GameObject:
   - component: {fileID: 1965953408}
   - component: {fileID: 1965953410}
   m_Layer: 0
-  m_Name: table4
+  m_Name: serveTable2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18416,7 +18482,11 @@ Transform:
   m_LocalPosition: {x: 1.67, y: 0.15, z: -0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1862509375}
+  - {fileID: 1256692710}
+  - {fileID: 509334}
+  - {fileID: 513352057}
   m_Father: {fileID: 1247679893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.008}
 --- !u!61 &1965953408
@@ -18589,10 +18659,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: employment
+  m_text: "\uACE0\uC6A9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
+  m_sharedMaterial: {fileID: 2382209755210989440, guid: 9190de54dd415ab4b849d9cecf16268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18868,7 +18938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2033055485}
   m_Layer: 0
-  m_Name: FoodHolder2 (1)
+  m_Name: FoodHolder4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18882,14 +18952,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033055484}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.24, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.6099999, y: -0.15, z: 0.060263768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 497147083}
   - {fileID: 488825121}
-  m_Father: {fileID: 1247679893}
+  m_Father: {fileID: 457424542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2035027353
 GameObject:
@@ -19550,7 +19620,7 @@ SceneRoots:
   - {fileID: 1414467992}
   - {fileID: 418969810}
   - {fileID: 1947416112}
+  - {fileID: 671493238}
   - {fileID: 114835208}
   - {fileID: 363591199}
   - {fileID: 271282085}
-  - {fileID: 671493238}
