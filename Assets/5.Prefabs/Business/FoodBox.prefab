@@ -990,6 +990,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afef68c6181b5eb44b669de34a1690b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foodImage: {fileID: 2943138897386535672}
+  foodName: {fileID: 6010033948533754185}
+  foodLevel: {fileID: 2901055388028616254}
+  foodPrice: {fileID: 5300781964013164959}
+  foodUpgrade: {fileID: 5839721417540359412}
+  FoodUpgradeButton: {fileID: 6424045908391637725}
 --- !u!1 &8414445574234622467
 GameObject:
   m_ObjectHideFlags: 0

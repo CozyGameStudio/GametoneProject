@@ -8,23 +8,17 @@ using UnityEngine.UI;
 public class MachineBox : MonoBehaviour
 {
     Machine machine;
-    Image machineImage;
-    TMP_Text machineName;
-    TMP_Text machineLevel;
-    TMP_Text CookingSpeed;
-    TMP_Text machineUpgrade;
-    Button machineUpgradeButton;
-    Transform machineUpgradeTransform;
+    public Image machineImage;
+    public TMP_Text machineName;
+    public TMP_Text machineLevel;
+    public TMP_Text CookingSpeed;
+    public TMP_Text machineUpgrade;
+    public Button machineUpgradeButton;
     int upgradeCount = 0;
     // Start is called before the first frame update
     void Start()
     {
-        machineUpgradeTransform = transform.Find("MachineUpgrade");
-        machineUpgradeButton = machineUpgradeTransform.GetComponent<Button>();
-        if(machineUpgrade == null)
-        {
-            Debug.LogError("Cannot find machineUpgradeButton");
-        }
+
     }
 
     private void Update()
@@ -48,99 +42,58 @@ public class MachineBox : MonoBehaviour
         machine= machineFromDataManager;
 
         // Init machine image
-        Transform machineImageTransform = transform.Find("MachineImage");
-        if (machineImageTransform != null)
+
+        if (machineImage != null)
         {
-            machineImage = machineImageTransform.GetComponent<Image>();
-            if (machineImage != null)
-            {
-                machineImage.sprite = machine.machineData.machineIcon;
-            }
-            else
-            {
-                Debug.LogError("Cannot find Image");
-            }
+            machineImage.sprite = machine.machineData.machineIcon;
         }
         else
         {
-            Debug.LogError("Cannot find machineImageTransform");
+            Debug.LogError("Cannot find Image");
         }
 
         // Init machine name
-        Transform machineNameTransform = transform.Find("MachineName/MachineNameText");
-        if (machineNameTransform != null)
+        if (machineName != null)
         {
-            machineName = machineNameTransform.GetComponent<TMP_Text>();
-            if (machineName != null)
-            {
-                machineName.text = machine.machineData.machineName;
-            }
-            else
-            {
-                Debug.LogError("Cannot find Name");
-            }
+            machineName.text = machine.machineData.machineName;
         }
         else
         {
-            Debug.LogError("Cannot find machineNameTextTransform");
+            Debug.LogError("Cannot find Name");
         }
 
         // Init machine Level
-        Transform machineLevelTransform = transform.Find("MachineLevel/MachineLevelText");
-        if (machineLevelTransform != null)
+        if (machineLevel != null)
         {
-            machineLevel = machineLevelTransform.GetComponent<TMP_Text>();
-            if (machineLevel != null)
-            {
-                machineLevel.text = machine.currentLevel.ToString();
-            }
-            else
-            {
-                Debug.LogError("Cannot find Level");
-            }
+            machineLevel.text = machine.currentLevel.ToString();
         }
         else
         {
-            Debug.LogError("Cannot find machineLevelTransform");
+            Debug.LogError("Cannot find Level");
         }
+
 
         // Init cooking speed
-        Transform CookingSpeedTransform = transform.Find("CookingSpeed/CookingSpeedText");
-        if (CookingSpeedTransform != null)
+        if (CookingSpeed != null)
         {
-            CookingSpeed = CookingSpeedTransform.GetComponent<TMP_Text>();
-            if (CookingSpeed != null)
-            {
-                CookingSpeed.text = machine.currentCookTime.ToString();
-            }
-            else
-            {
-                Debug.LogError("Cannot find CookingSpeed");
-            }
+            CookingSpeed.text = machine.currentCookTime.ToString();
         }
         else
         {
-            Debug.LogError("Cannot find CookingSpeedTransform");
+            Debug.LogError("Cannot find CookingSpeed");
         }
 
+
         // Init machine upgrade
-        Transform MachineUpgradeTransform = transform.Find("MachineUpgrade/MachineUpgradeText");
-        if (MachineUpgradeTransform != null)
+        if (machineUpgrade != null)
         {
-            machineUpgrade = MachineUpgradeTransform.GetComponent<TMP_Text>();
-            if (machineUpgrade != null)
-            {
-                machineUpgrade.text = machine.currentUpgradeMoney.ToString();
-            }
-            else
-            {
-                Debug.LogError("Cannot find machineUpgrade");
-            }
+            machineUpgrade.text = machine.currentUpgradeMoney.ToString();
         }
         else
         {
-            Debug.LogError("Cannot find machineUpgradeTextTransform");
+            Debug.LogError("Cannot find machineUpgrade");
         }
+
     }
 
     public void UpgradeButtonClick()

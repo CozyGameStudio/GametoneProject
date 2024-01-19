@@ -5,22 +5,15 @@ using UnityEngine.UI;
 public class FoodBox : MonoBehaviour
 {
     Food food;
-    Image foodImage;
-    TMP_Text foodName;
-    TMP_Text foodLevel;
-    TMP_Text foodPrice;
-    TMP_Text foodUpgrade;
-    Button FoodUpgradeButton;
-    Transform FoodUpgradeTransform;
+    public Image foodImage;
+    public TMP_Text foodName;
+    public TMP_Text foodLevel;
+    public TMP_Text foodPrice;
+    public TMP_Text foodUpgrade;
+    public Button FoodUpgradeButton;
     // Start is called before the first frame update
     void Start()
     {
-        FoodUpgradeTransform = transform.Find("FoodUpgrade");
-        FoodUpgradeButton = FoodUpgradeTransform.GetComponent<Button>();
-        if (foodUpgrade == null)
-        {
-            Debug.LogError("Cannot find machineUpgradeButton");
-        }
     }
 
     private void Update()
@@ -41,98 +34,53 @@ public class FoodBox : MonoBehaviour
         food = foodFromDataManager;
 
         // Init food image
-        Transform FoodImageTransform = transform.Find("FoodImage");
-        if (FoodImageTransform != null)
+        if (foodImage != null)
         {
-            foodImage = FoodImageTransform.GetComponent<Image>();
-            if (foodImage != null)
-            {
-                foodImage.sprite = food.foodData.foodIcon;
-            }
-            else
-            {
-                Debug.LogError("Cannot find Image");
-            }
+            foodImage.sprite = food.foodData.foodIcon;
         }
         else
         {
-            Debug.LogError("Cannot find foodImageTransform");
+            Debug.LogError("Cannot find Image");
         }
 
         // Init food name
-        Transform foodNameTransform = transform.Find("FoodName/FoodNameText");
-        if (foodNameTransform != null)
+        if (foodName != null)
         {
-            foodName = foodNameTransform.GetComponent<TMP_Text>();
-            if (foodName != null)
-            {
-                foodName.text = food.foodData.foodName;
-            }
-            else
-            {
-                Debug.LogError("Cannot find Name");
-            }
+            foodName.text = food.foodData.foodName;
         }
         else
         {
-            Debug.LogError("Cannot find foodNameTextTransform");
+            Debug.LogError("Cannot find Name");
         }
 
         // Init food Level
-        Transform foodLevelTransform = transform.Find("FoodLevel/FoodLevelText");
-        if (foodLevelTransform != null)
+        if (foodLevel != null)
         {
-            foodLevel = foodLevelTransform.GetComponent<TMP_Text>();
-            if (foodLevel != null)
-            {
-                foodLevel.text = food.currentLevel.ToString();
-            }
-            else
-            {
-                Debug.LogError("Cannot find Level");
-            }
+            foodLevel.text = food.currentLevel.ToString();
         }
         else
         {
-            Debug.LogError("Cannot find foodLevelTransform");
+            Debug.LogError("Cannot find Level");
         }
 
         // Init food Price
-        Transform FoodPriceTransform = transform.Find("FoodPrice/FoodPriceText");
-        if (FoodPriceTransform != null)
+        if (foodPrice != null)
         {
-            foodPrice = FoodPriceTransform.GetComponent<TMP_Text>();
-            if (foodPrice != null)
-            {
-                foodPrice.text = food.currentValue.ToString();
-            }
-            else
-            {
-                Debug.LogError("Cannot find foodPrice");
-            }
+            foodPrice.text = food.currentValue.ToString();
         }
         else
         {
-            Debug.LogError("Cannot find foodPriceTransform");
+            Debug.LogError("Cannot find foodPrice");
         }
 
         // Init cooking speed
-        Transform foodUpgradeTransform = transform.Find("FoodUpgrade/FoodUpgradeText");
-        if (foodUpgradeTransform != null)
+        if (foodUpgrade != null)
         {
-            foodUpgrade = foodUpgradeTransform.GetComponent<TMP_Text>();
-            if (foodUpgrade != null)
-            {
-                foodUpgrade.text = food.currentUpgradeMoney.ToString();
-            }
-            else
-            {
-                Debug.LogError("Cannot find foodUpgrade");
-            }
+            foodUpgrade.text = food.currentUpgradeMoney.ToString();
         }
         else
         {
-            Debug.LogError("Cannot find foodUpgradeTextTransform");
+            Debug.LogError("Cannot find foodUpgrade");
         }
     }
 

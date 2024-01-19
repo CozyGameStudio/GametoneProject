@@ -436,6 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc20c5d98343d8479a4a7f4c585bef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machineImage: {fileID: 488162142674157063}
+  machineName: {fileID: 3435447967360095632}
+  machineLevel: {fileID: 3810897762558837464}
+  CookingSpeed: {fileID: 2864824519058108415}
+  machineUpgrade: {fileID: 2983169383083335354}
+  machineUpgradeButton: {fileID: 2109600344761676407}
 --- !u!1 &3105522753740559422
 GameObject:
   m_ObjectHideFlags: 0
