@@ -16,7 +16,10 @@ public class ServerManager : MonoBehaviour
             return instance;
         }
     }
-    public List<FoodPlace> foodPlaces; // all foodplaces
+    public List<GameObject> serveTables;
+
+    private List<GameObject> foodPlaces;
+
     public List<Server> servers; // all Serves
     private Queue<Transform> serveTasksQueue = new Queue<Transform>();
     private int currentEnabledServer = 1; // it will be controled by data manager
@@ -29,13 +32,17 @@ public class ServerManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        foreach (var serveTable in serveTables)
+        {
+            AddChildrenWithName(serveTable, "FoodHolder");
+        }
     }
     void Start()
     {
         // every events for foodplace update
         foreach (var foodPlace in foodPlaces)
         {
-            foodPlace.OnChildAdded += OnChildAddedToFoodPlace;
+            foodPlace.GetComponent<FoodPlace>().OnChildAdded += OnChildAddedToFoodPlace;
         }
         foreach (var server in servers)
         {
@@ -54,14 +61,26 @@ public class ServerManager : MonoBehaviour
             }
         }
     }
-
+    public void AddChildrenWithName(GameObject parent, string nameToFind)
+    {
+        if (foodPlaces == null)
+            foodPlaces = new List<GameObject>();
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            Transform child = parent.transform.GetChild(i);
+            if (child.name.Contains(nameToFind))
+            {
+                Debug.Log(child.name);
+                foodPlaces.Add(child.GetChild(0).gameObject);
+            }
+        }
+    }
     private void OnChildAddedToFoodPlace(Transform child)
     {
         Server availableServer = FindAvailableServer();
         if (availableServer != null)
         {
             availableServer.HandleNewServeTask(child);
-
         }
         else
         {
@@ -76,7 +95,7 @@ public class ServerManager : MonoBehaviour
     public bool isTableFull()
     {
         foreach(var foodPlace in foodPlaces){
-            if(foodPlace.IsAvailable)return false;
+            if(foodPlace.GetComponent<FoodPlace>().IsAvailable)return false;
         }
         return true;
     }

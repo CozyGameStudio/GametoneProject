@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7552563904330647929}
-  - component: {fileID: 7600344031665198974}
   - component: {fileID: -6907601873445768175}
   m_Layer: 0
   m_Name: Food
@@ -33,19 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7600344031665198974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5433292225164296939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50016c83f95c5b5439eb1984b0d7d641, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodData: {fileID: 11400000, guid: 2bdc1e0ce09448b48bb960e49f7e3de9, type: 2}
 --- !u!212 &-6907601873445768175
 SpriteRenderer:
   m_ObjectHideFlags: 0

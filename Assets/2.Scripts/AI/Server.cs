@@ -93,7 +93,7 @@ public class Server : MonoBehaviour
         }
         menuToServe.transform.parent=foodHolder.transform;
         menuToServe.transform.position=foodHolder.transform.position;
-        int tableNum=menuToServe.GetComponent<Food>().orderstatus.tableNumber;
+        int tableNum=menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
         foreach(var chair in CustomerManager.Instance.customerTablePlace)
         {
             if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
@@ -115,13 +115,13 @@ public class Server : MonoBehaviour
             {
                 return; // Stop execution of subsequent code
             }
-            currentCustomer.GetMenu(menuToServe);
             fsm.ChangeState(States.Idle);
         }
 
     }
     void Serve_Exit()
     {
+        currentCustomer.GetMenu(menuToServe);
         SetAvailable();
         
     }

@@ -6,7 +6,7 @@ public class Food : MonoBehaviour
 {
     [SerializeField]
     public ScriptableFood foodData;
-    public OrderBoard orderstatus;
+
     //later, save & load Manger will change this value
     public int currentLevel{get;private set;}=1;
     public int currentValue { get; private set; }

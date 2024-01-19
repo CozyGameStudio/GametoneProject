@@ -36,10 +36,14 @@ public class GameManager : MonoBehaviour
     }
     public void DecreaseMoney(int moneyAmount)
     {
+        if(moneyAmount>money)return;
         money -= moneyAmount;
         UIManager.Instance.UpdateMoneyUI();
     }
     public void ChangeScene(string scene){
         SceneManager.LoadScene(scene);
+    }
+    public void ChangeSpeed(float multiplier){
+        Time.timeScale*=multiplier;
     }
 }

@@ -21,9 +21,7 @@ public class Chef : MonoBehaviour
     // Create an event based on the delegate
     public event AvailableHandler OnChefAvailable;
 
-    [Header("PlaceHolder")]
-    public List<GameObject> serveTables;
-
+    private List<GameObject> serveTables;
     private List<GameObject> foodPlaces;
     private List<GameObject> servePlaces;
 
@@ -49,13 +47,13 @@ public class Chef : MonoBehaviour
         fsm.ChangeState(States.Idle);
         agent = GetComponent<NavMeshAgent>();
         spriteRenderer=GetComponent<SpriteRenderer>();
+        serveTables=ServerManager.Instance.serveTables;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         foreach (var serveTable in serveTables){
             AddChildrenWithName(serveTable, "FoodHolder");
         }
-        
     }
     public void AddChildrenWithName(GameObject parent, string nameToFind)
     {
@@ -133,8 +131,8 @@ public class Chef : MonoBehaviour
     IEnumerator cookCoroutine(Food foodToMake, float cooktime){
         isCooking=true;
         yield return new WaitForSeconds(cooktime);
-        GameObject foodMade = Instantiate(foodToMake.gameObject, foodHolder.transform.position, Quaternion.identity);
-        foodMade.GetComponent<Food>().orderstatus=currentMenu;
+        GameObject foodMade = Instantiate(Resources.Load<GameObject>(foodToMake.foodData.foodName), foodHolder.transform.position, Quaternion.identity);
+        foodMade.GetComponent<FoodToServe>().orderstatus=currentMenu;
         foodMade.transform.parent = foodHolder.transform;
         isCooking=false;
         currentMenu=default;
