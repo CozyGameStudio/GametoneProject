@@ -11,10 +11,10 @@ public class OrderManager : MonoBehaviour
     public delegate void OrderHandler(OrderBoard order);
 
     // Create an event based on the delegate
-    public event OrderHandler OnNewOrder;//chefScript reference
+    public event OrderHandler OnNewOrder;//Chef reference
 
-    public List<ChefScript> chefs = new List<ChefScript>();
-    public Machine[] machines;
+    public List<Chef> chefs = new List<Chef>();
+    public List<Machine> machines=new List<Machine>();
     private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
@@ -68,7 +68,7 @@ public class OrderManager : MonoBehaviour
         {
             OrderBoard order = orderQueue.Peek(); // Check the first order in the queue
             Machine appropriateMachine = FindMachineForOrder(order);
-            ChefScript availableChef = FindAvailableChef();
+            Chef availableChef = FindAvailableChef();
 
             if (availableChef != null && appropriateMachine != null)
             {
@@ -85,7 +85,7 @@ public class OrderManager : MonoBehaviour
     }
 
 
-    private ChefScript FindAvailableChef()
+    private Chef FindAvailableChef()
     {
         // find available chef
         return chefs.Find(chef => chef.IsAvailable);
@@ -100,7 +100,7 @@ public class OrderManager : MonoBehaviour
     }
     public void ActivateOneChef()
     {
-        foreach (ChefScript chef in chefs)
+        foreach (Chef chef in chefs)
         {
             // check is chef enabled
             if (!chef.gameObject.activeSelf)
@@ -130,7 +130,7 @@ public class OrderManager : MonoBehaviour
         // Find a machine that matches the order
         foreach (var machine in machines)
         {
-            if (machine.foodToMake.Equals(order.name) && machine.IsAvailable)
+            if (machine.foodData.foodName.Equals(order.foodData.foodData.foodName) && machine.IsAvailable)
             {
                 return machine;
             }

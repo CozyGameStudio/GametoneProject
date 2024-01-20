@@ -5,8 +5,9 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
-
-    public FoodMain[] Food;
+    public List<Food> foods;
+    public List<Machine> machines;
+    //public List<Character> characters;
 
     public static DataManager Instance
     {
@@ -26,18 +27,16 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public string RandomFood(){
-        int index=Random.Range(0,Food.Length);
-        //Debug.Log(index);
-        return Food[index].FoodData.FoodName;
+    public Food RandomFood(){
+        int index=Random.Range(0,foods.Count);
+        return foods[index];
     }
-    public FoodMain FindFoodWithName(string foodName){
-        for(int i=0;i<Food.Length;i++){
-            if(Food[i].FoodData.FoodName.Equals(foodName)){
-                return Food[i];
+    public Food FindFoodWithName(string foodName){
+        for(int i=0;i<foods.Count;i++){
+            if(foods[i].foodData.foodName.Equals(foodName)){
+                return foods[i];
             }
         }
         return null;
-
     }
 }

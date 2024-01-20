@@ -4,11 +4,21 @@ using UnityEngine;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
+    private static UIManager instance;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<UIManager>();
+            }
+            return instance;
+        }
+    }
     public TMP_Text moneyText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        moneyText.text= GameManager.Instance.money.ToString();
+    public void UpdateMoneyUI(){
+        moneyText.text = GameManager.Instance.money.ToString();
     }
 }

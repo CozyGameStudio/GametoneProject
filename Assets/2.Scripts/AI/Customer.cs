@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
-using UnityEditor.Rendering;
-using Unity.VisualScripting;
 
 public struct OrderBoard{
-    public string name{get;private set;}
+    public Food foodData{get;private set;}
     public int tableNumber { get; private set;}
-    public OrderBoard(string nam,int num){
-        name=nam;
+    public OrderBoard(Food food, int num){
+        foodData=food;
         tableNumber=num;
     }
 }
@@ -32,27 +28,25 @@ public class Customer : MonoBehaviour
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
     private int customerTablePlaceLength;
-    private string orderFood;
+    private Food orderFood;
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
     private NavMeshAgent agent;
-    FoodMain receivedFood;
 
     private void Awake()
     {
-        orderFood = DataManager.Instance.RandomFood();//receive name from data manaager
-        receivedFood= DataManager.Instance.FindFoodWithName(orderFood);
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
         orderBubble.SetActive(false);
     }
     void Start(){
+        orderFood = DataManager.Instance.RandomFood();
+        Debug.Log(orderFood.foodData.foodName);
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
     }
     private void Update()
     {
@@ -88,19 +82,13 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            GameManager.Instance.AddMoney(receivedFood.FoodData.Money);
+            GameManager.Instance.AddMoney(orderFood.currentValue);
+            Debug.Log(orderFood.currentValue);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
     }
-    void Idle_Exit()
-    {
-        
-    }
-    void Walk_Enter()
-    {
-        
-    }
+
     void Walk_Update()
     {
         // Move to the table if no order is placed
@@ -144,8 +132,8 @@ public class Customer : MonoBehaviour
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
-        foodRenderer.sprite=receivedFood.FoodData.Icon;
-    }
+        foodRenderer.sprite=orderFood.foodData.foodIcon;
+;    }
     void Order_Update()
     {
         if(receiveOrder)
