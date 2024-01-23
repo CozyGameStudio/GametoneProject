@@ -15,12 +15,10 @@ public class MachineBox : MonoBehaviour
     public TMP_Text machineUpgrade;
     public Button machineUpgradeButton;
     int upgradeCount = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-
+    void Start(){
+        DataLoadManager.Instance.OnDataChanged += UpdateUI;
     }
-
+    
     private void Update()
     {
         if (upgradeCount < machine.machineData.upgradeMoney.Length)
@@ -94,6 +92,11 @@ public class MachineBox : MonoBehaviour
             Debug.LogError("Cannot find machineUpgrade");
         }
 
+    }
+    public void UpdateUI(){
+        machineLevel.text = machine.currentLevel.ToString();
+        CookingSpeed.text = machine.currentCookTime.ToString();
+        machineUpgrade.text = machine.currentUpgradeMoney.ToString();
     }
 
     public void UpgradeButtonClick()

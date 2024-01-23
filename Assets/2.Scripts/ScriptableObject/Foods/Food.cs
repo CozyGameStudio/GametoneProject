@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    [SerializeField]
     public ScriptableFood foodData;
 
     //later, save & load Manger will change this value
@@ -17,6 +16,7 @@ public class Food : MonoBehaviour
     public void LevelUp(){
         currentLevel++;
         SetValue(currentLevel);
+        StageMissionManager.Instance.LevelCheck();
     }
     void SetValue(int level){
         currentValue = foodData.foodPrice[level - 1];

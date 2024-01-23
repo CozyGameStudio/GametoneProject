@@ -11,11 +11,10 @@ public class FoodBox : MonoBehaviour
     public TMP_Text foodPrice;
     public TMP_Text foodUpgrade;
     public Button FoodUpgradeButton;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
+    private void Start(){
+        DataLoadManager.Instance.OnDataChanged += UpdateUI;
+    }
     private void Update()
     {
         if (GameManager.Instance.money >= food.currentUpgradeMoney)
@@ -28,7 +27,6 @@ public class FoodBox : MonoBehaviour
             FoodUpgradeButton.interactable = false;
         }
     }
-
     public void InitBox(Food foodFromDataManager)
     {
         food = foodFromDataManager;
@@ -95,10 +93,10 @@ public class FoodBox : MonoBehaviour
         }
         else
         {
-            SetText();
+            UpdateUI();
         }
     }
-    public void SetText(){
+    public void UpdateUI(){
         foodUpgrade.text = food.currentUpgradeMoney.ToString();
         foodPrice.text = food.currentValue.ToString();
         foodLevel.text = food.currentLevel.ToString();

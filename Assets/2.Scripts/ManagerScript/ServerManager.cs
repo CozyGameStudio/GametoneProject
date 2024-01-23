@@ -70,7 +70,6 @@ public class ServerManager : MonoBehaviour
             Transform child = parent.transform.GetChild(i);
             if (child.name.Contains(nameToFind))
             {
-                Debug.Log(child.name);
                 foodPlaces.Add(child.GetChild(0).gameObject);
             }
         }

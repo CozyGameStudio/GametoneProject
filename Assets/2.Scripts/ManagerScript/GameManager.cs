@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    public int money=0;
     public static GameManager Instance
     {
         get
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
         Input.multiTouchEnabled=false;
         UIManager.Instance.UpdateMoneyUI();
     }
-    public int money=0;
+    
     public void AddMoney(int moneyAmount){
         money+=moneyAmount;
         UIManager.Instance.UpdateMoneyUI();
@@ -44,6 +45,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
     public void ChangeSpeed(float multiplier){
+        //burning time? or just for test
         Time.timeScale*=multiplier;
+    }
+    public void TriggerObj(GameObject obj){
+        obj.SetActive(!obj.activeInHierarchy);
     }
 }

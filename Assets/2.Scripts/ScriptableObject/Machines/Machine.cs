@@ -33,6 +33,7 @@ public class Machine : MonoBehaviour
     {
         currentLevel++;
         SetValue(currentLevel);
+        StageMissionManager.Instance.LevelCheck();
     }
     void SetValue(int level)
     {

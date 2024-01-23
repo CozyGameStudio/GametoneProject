@@ -27,7 +27,7 @@ public class Customer : MonoBehaviour
 
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
-    private int customerTablePlaceLength;
+    private int customerChairPlaceLength;
     private Food orderFood;
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
@@ -64,13 +64,13 @@ public class Customer : MonoBehaviour
             
             if (!CustomerManager.Instance.IsCustomerFull())
             {
-                customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
-                for (int i = 0; i < customerTablePlaceLength; i++)
+                customerChairPlaceLength = CustomerManager.Instance.customerChair.Count;
+                for (int i = 0; i < customerChairPlaceLength; i++)
                 {
                     if (!CustomerManager.Instance.customerTablePresent[i])
                     {
                         tableNumber = i+1;
-                        customerTablePlace = CustomerManager.Instance.customerTablePlace[i];
+                        customerTablePlace = CustomerManager.Instance.customerChair[i];
                         CustomerManager.Instance.customerTablePresent[i] = true;
                         break;
                     }
@@ -83,6 +83,8 @@ public class Customer : MonoBehaviour
         else
         {
             GameManager.Instance.AddMoney(orderFood.currentValue);
+            StageMissionManager.Instance.IncreaseAccumulatedCustomer();
+            StageMissionManager.Instance.IncreaseAccumulatedSales(orderFood.currentValue);
             Debug.Log(orderFood.currentValue);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);

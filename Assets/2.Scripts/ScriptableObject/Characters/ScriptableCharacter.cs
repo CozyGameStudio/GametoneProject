@@ -5,9 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Character", menuName = "GametoneProject/Character", order = 2)]
 public class ScriptableCharacter : ScriptableObject
 {
+    public int index;
     public string characterName;
-    public float[] cookingSpeed;
+    public string characterNameInKorean;
+    public float[] priceGrowthRate;
     public int[] upgradeMoney;
-    public int stage;
-    public Sprite machineIcon;
+    public Sprite characterIcon;
 }

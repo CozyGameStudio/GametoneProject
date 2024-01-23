@@ -51,6 +51,7 @@ public class Chef : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        agent.speed=speed;
         foreach (var serveTable in serveTables){
             AddChildrenWithName(serveTable, "FoodHolder");
         }
@@ -66,7 +67,6 @@ public class Chef : MonoBehaviour
             Transform child = parent.transform.GetChild(i);
             if (child.name.Contains(nameToFind))
             {
-                Debug.Log(child.name);
                 foodPlaces.Add(child.GetChild(0).gameObject);
                 servePlaces.Add(child.GetChild(1).gameObject);
             }

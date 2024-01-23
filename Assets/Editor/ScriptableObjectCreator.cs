@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Unity.Mathematics;
 
 public static class ScriptableObjectCreator
@@ -99,4 +100,68 @@ public static class ScriptableObjectCreator
         AssetDatabase.SaveAssets();
 #endif
     }
+    [MenuItem("SrpObject/CreateMissionByDatabase")]
+    public static void CreateScriptablMissionObjects()
+    {
+        Team5DataTable_Mission.Data.Load();
+        List<Team5DataTable_Mission.Data> missionDatas = Team5DataTable_Mission.Data.DataList;
+
+        foreach (var missionData in missionDatas)
+        {
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/SO_{missionData.missionContent}.asset";
+#if UNITY_EDITOR
+            ScriptableMission dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMission>(assetPath);
+#endif
+            if (dataObject == null)
+            {
+                dataObject = ScriptableObject.CreateInstance<ScriptableMission>();
+                AssetDatabase.CreateAsset(dataObject, assetPath);
+            }
+
+            if (Enum.TryParse(missionData.missionType, true, out MissionType missionContentEnum))
+            {
+                dataObject.missionType = missionContentEnum;
+            }
+            else
+            {
+                Debug.LogError($"Invalid mission content string: {missionData.missionContent}");
+            }
+            int activatedIndex = missionData.missionContent.IndexOf("Activated");
+            int levelIndex = missionData.missionContent.IndexOf("Level");
+
+            if (activatedIndex != -1)
+            {
+                dataObject.targetName = missionData.missionContent.Substring(0, activatedIndex).Trim();
+                dataObject.missionContent = MissionContent.ActivatedCheck;
+            }
+            else if (levelIndex != -1)
+            {
+                dataObject.targetName = missionData.missionContent.Substring(0, levelIndex).Trim();
+                dataObject.missionContent = MissionContent.LevelCheck; 
+            }
+            else if (missionData.missionContent.Contains("Customer"))
+            {
+                dataObject.missionContent = MissionContent.CustomerCheck;
+            }
+            else if (missionData.missionContent.Contains("Sales"))
+            {
+                dataObject.missionContent = MissionContent.SalesCheck;
+            }
+            else
+            {
+                // "Available" 또는 "Level"이 없는 경우의 처리
+                Debug.LogError($"Invalid mission content format: {missionData.missionContent}");
+                // 추가적인 처리가 필요할 수 있습니다.
+            }
+            dataObject.criteria = missionData.criteria; // 필요한 경우 추가
+            dataObject.cost = missionData.cost; // 필요한 경우 추가
+            dataObject.stageToAppear = missionData.stageToAppear;
+
+            EditorUtility.SetDirty(dataObject);
+        }
+#if UNITY_EDITOR
+        AssetDatabase.SaveAssets();
+#endif
+    }
+   
 }

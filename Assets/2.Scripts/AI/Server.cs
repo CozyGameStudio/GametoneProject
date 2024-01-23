@@ -6,7 +6,6 @@ using System;
 using UnityEngine.AI;
 public class Server : MonoBehaviour
 {
-    
     public enum States //state enum
     {
         Idle,
@@ -94,7 +93,7 @@ public class Server : MonoBehaviour
         menuToServe.transform.parent=foodHolder.transform;
         menuToServe.transform.position=foodHolder.transform.position;
         int tableNum=menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
-        foreach(var chair in CustomerManager.Instance.customerTablePlace)
+        foreach(var chair in CustomerManager.Instance.customerChair)
         {
             if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
                 placeToMove=chair.transform.parent;//guest place

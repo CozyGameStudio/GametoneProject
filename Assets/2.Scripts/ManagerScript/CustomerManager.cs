@@ -6,9 +6,10 @@ using UnityEngine;
 public class CustomerManager : MonoBehaviour
 {
     private static CustomerManager instance;
-    public GameObject[] customerTablePlace;
+    public List<GameObject> customerTable;
+    public List<GameObject> customerChair{get;private set;}
     public GameObject customerBackPlace;
-    public bool[] customerTablePresent;
+    public bool[] customerTablePresent{get;private set;}
 
     public static CustomerManager Instance
     {
@@ -21,10 +22,17 @@ public class CustomerManager : MonoBehaviour
             return instance;
         }
     }
-    public void Awake()
+    public void Start()
     {
+        customerChair=new List<GameObject>();
+        foreach (var table in customerTable)
+        {
+            for(int i=0;i<table.transform.GetChild(0).childCount;i++){
+                customerChair.Add(table.transform.GetChild(0).GetChild(i).gameObject);
+            }
+        }
         // Initialize the numberOfPlaces array according to the number of guest chairs
-        int numberOfPlaces = customerTablePlace.Length;
+        int numberOfPlaces = customerChair.Count;
         customerTablePresent = new bool[numberOfPlaces];
         for(int i = 0; i < numberOfPlaces; i++) {
             customerTablePresent[i] = false;
