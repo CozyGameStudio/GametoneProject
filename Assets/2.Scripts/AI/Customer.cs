@@ -67,11 +67,11 @@ public class Customer : MonoBehaviour
                 customerChairPlaceLength = CustomerManager.Instance.customerChair.Count;
                 for (int i = 0; i < customerChairPlaceLength; i++)
                 {
-                    if (!CustomerManager.Instance.customerTablePresent[i])
+                    if (!CustomerManager.Instance.customerChairPresent[i])
                     {
                         tableNumber = i+1;
                         customerTablePlace = CustomerManager.Instance.customerChair[i];
-                        CustomerManager.Instance.customerTablePresent[i] = true;
+                        CustomerManager.Instance.customerChairPresent[i] = true;
                         break;
                     }
                 }
@@ -82,7 +82,7 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            GameManager.Instance.AddMoney(orderFood.currentValue);
+            BusinessGameManager.Instance.AddMoney(orderFood.currentValue);
             StageMissionManager.Instance.IncreaseAccumulatedCustomer();
             StageMissionManager.Instance.IncreaseAccumulatedSales(orderFood.currentValue);
             Debug.Log(orderFood.currentValue);
@@ -114,7 +114,7 @@ public class Customer : MonoBehaviour
             }
             else
             {
-                CustomerManager.Instance.customerTablePresent[tableNumber-1] = false;
+                CustomerManager.Instance.customerChairPresent[tableNumber-1] = false;
                 
                 Destroy(gameObject);
             }

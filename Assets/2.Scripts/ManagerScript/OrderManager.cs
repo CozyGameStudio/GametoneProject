@@ -13,8 +13,8 @@ public class OrderManager : MonoBehaviour
     // Create an event based on the delegate
     public event OrderHandler OnNewOrder;//Chef reference
 
-    public List<Chef> chefs = new List<Chef>();
-    public List<Machine> machines=new List<Machine>();
+    public List<Chef> chefs;
+    public List<Machine> machines;
     private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
@@ -55,8 +55,11 @@ public class OrderManager : MonoBehaviour
                 chefs[i].gameObject.SetActive(false);
             }
         }
+        MachineListRenew();
     }
-    
+    public void MachineListRenew(){
+        machines = DataManager.Instance.activeMachines;
+    }
     public void PutOrderInQueue(OrderBoard order)
     {
         orderQueue.Enqueue(order);
@@ -116,21 +119,13 @@ public class OrderManager : MonoBehaviour
         // if every server is all activatd
 
     }
-    public void AddOrder(OrderBoard order)
-    {
-        // Add a new order to the queue
-        orderQueue.Enqueue(order);
-
-        // Attempt order allocation
-        TryAssignOrder();
-    }
 
     private Machine FindMachineForOrder(OrderBoard order)
     {
         // Find a machine that matches the order
         foreach (var machine in machines)
         {
-            if (machine.foodData.foodName.Equals(order.foodData.foodData.foodName) && machine.IsAvailable)
+            if (machine.unlockedFood.foodData.foodName.Equals(order.foodData.foodData.foodName) && machine.IsAvailable)
             {
                 return machine;
             }

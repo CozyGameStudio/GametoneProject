@@ -8,6 +8,7 @@ public class ScriptableMachine : ScriptableObject
     public int index;
     public string machineName;
     public string machineNameInKorean;
+    public int machineUnlockCost;
     public float[] cookTime;
     public int[] upgradeMoney;
     public int stageToUse;

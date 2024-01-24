@@ -15,6 +15,7 @@ MonoBehaviour:
   index: 2
   machineName: bread2Machine
   machineNameInKorean: "\uC0CC\uB4DC\uC704\uCE58\uAE30\uACC4"
+  machineUnlockCost: 200
   cookTime:
   - 5
   - 4.8

@@ -6,7 +6,10 @@ public class Machine : MonoBehaviour
 {
     public bool IsAvailable { get { return !isTakenPlace; } }
     public ScriptableMachine machineData;
-    public ScriptableFood foodData;
+    public Food unlockedFood; 
+    public bool isPurchased=false; 
+
+    //public ScriptableFood foodData;
     private bool isTakenPlace = false;
     public int currentLevel{get;private set;}=1;
     public float currentCookTime { get; private set;}
@@ -17,7 +20,13 @@ public class Machine : MonoBehaviour
         isTakenPlace = false;
         SetValue(currentLevel);
     }
-
+    public void UnlockFood()
+    {
+        if (unlockedFood != null)
+        {
+            unlockedFood.Unlock();
+        }
+    }
     public void SwitchTakenPlace()
     {
         isTakenPlace = !isTakenPlace;

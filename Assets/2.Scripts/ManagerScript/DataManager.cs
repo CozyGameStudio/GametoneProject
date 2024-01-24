@@ -8,10 +8,12 @@ public class DataManager : MonoBehaviour
     private static DataManager instance;
     public List<Food> foods;
     public List<Machine> machines;
+    public List<Character> characters;
 
-    public int currentActivatedFoods=1;
-    public int currentActivatedMachines=1;
-    public int currentActivatedCharacters = 1;
+    public List<Food> activeFoods { get; private set; } = new List<Food>();
+    public List<Machine> activeMachines{get;private set;}=new List<Machine>();
+    public List<Character> activeCharacters { get; private set; } = new List<Character>();
+
     //public List<Character> characters;
 
     public static DataManager Instance
@@ -32,9 +34,27 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Start(){
+        foreach (Machine machine in machines)
+        {
+            machine.transform.parent.gameObject.SetActive(false);
+        }
+        addActiveFoods();
+        addActiveMachines();
+    }
+    void addActiveFoods(){
+        activeFoods = foods.Where(food => food.isUnlocked).ToList();
+    }
+    void addActiveMachines()
+    {
+        activeMachines = machines.Where(machine => machine.isPurchased).ToList();
+        foreach (Machine activeMachine in activeMachines)
+        {
+            activeMachine.transform.parent.gameObject.SetActive(true);
+        }
+        OrderManager.Instance.MachineListRenew();
+    }
     public Food RandomFood(){
-        List<Food> activeFoods = foods.Where(food => food.gameObject.activeSelf).ToList();
-
         if (activeFoods.Count > 0)
         {
             int index = UnityEngine.Random.Range(0, activeFoods.Count);
@@ -43,6 +63,12 @@ public class DataManager : MonoBehaviour
         }
         Debug.Log("no Activated Food");
         return null;
+    }
+    public bool HasUnlockedFood(){
+        if (activeFoods.Count > 0)
+            return true;
+        else
+            return false;
     }
     public T FindWithCondition<T>(List<T> items, Predicate<T> match)
     {
@@ -55,6 +81,25 @@ public class DataManager : MonoBehaviour
         }
         return default(T);
     }
-    
+    public void PurchaseMachine(Machine machineToPurchase)
+    {
+        if (!machineToPurchase.isPurchased)
+        {
+            machineToPurchase.isPurchased = true;
+            machineToPurchase.UnlockFood();
+            addActiveFoods();
+            addActiveMachines();
+        }
+        else
+        {
+            AddAdditionalMachine(machineToPurchase);
+        }
+    }
+
+    private void AddAdditionalMachine(Machine machine)
+    {
+        Debug.Log("Additional machine added: " + machine.name);
+        addActiveMachines();
+    }
 
 }

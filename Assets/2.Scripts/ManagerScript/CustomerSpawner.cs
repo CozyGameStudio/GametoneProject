@@ -18,7 +18,7 @@ public class CustomerSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(createCustomerTime);
-            if (!CustomerManager.Instance.IsCustomerFull())
+            if (!CustomerManager.Instance.IsCustomerFull()&&DataManager.Instance.HasUnlockedFood())
             {
                 CreateCustomer();
             }

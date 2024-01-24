@@ -1,17 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-public class StageMissionManager : Singleton<StageMissionManager>
+public class StageMissionManager : MonoBehaviour
 {
-    public GameObject missionPanel;
-    public int accumulatedCustomer=0;
-    public int accumulatedSales=0;
-    public int currentCompletedMission=0;
 
+    public GameObject missionPanel;
+    public TMP_Text WhenAllMissionCompleted;
+    public int accumulatedCustomer{get;private set;}=0;
+    public int accumulatedSales { get; private set; } = 0;
+    public int currentCompletedMission { get; private set; } = 0;
+    private static StageMissionManager instance;
+    public static StageMissionManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
     private List<Mission> missions;
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start(){
+        WhenAllMissionCompleted.gameObject.SetActive(false);
         Debug.Log("StageMission manager started");
         missions=new List<Mission>();
         for(int i=0;i<missionPanel.transform.childCount;i++){
@@ -20,7 +46,7 @@ public class StageMissionManager : Singleton<StageMissionManager>
         foreach(var mission in missions){
             mission.InitMissionBox();
         }
-        UpdateCompletedMissionsCount();
+        CompletedMissionsCount();
     }
     
     public void IncreaseAccumulatedCustomer(){
@@ -72,7 +98,7 @@ public class StageMissionManager : Singleton<StageMissionManager>
             mission.SetUI();
         }
     }
-    public void UpdateCompletedMissionsCount()
+    public void CompletedMissionsCount()
     {
         currentCompletedMission = 0;
 
@@ -83,5 +109,10 @@ public class StageMissionManager : Singleton<StageMissionManager>
                 currentCompletedMission++;
             }
         }
+        Debug.Log(currentCompletedMission);
+        if(currentCompletedMission >= missions.Count){
+            WhenAllMissionCompleted.gameObject.SetActive(true);
+        }
+
     }
 }

@@ -13,32 +13,17 @@ public class MachineBox : MonoBehaviour
     public TMP_Text machineLevel;
     public TMP_Text CookingSpeed;
     public TMP_Text machineUpgrade;
+    public TMP_Text machineUpgradeComplete;
     public Button machineUpgradeButton;
-    int upgradeCount = 0;
+    public GameObject lockPanel;
     void Start(){
         DataLoadManager.Instance.OnDataChanged += UpdateUI;
-    }
-    
-    private void Update()
-    {
-        if (upgradeCount < machine.machineData.upgradeMoney.Length)
-        {
-            if (GameManager.Instance.money >= machine.machineData.upgradeMoney[upgradeCount])
-            {
-                machineUpgradeButton.interactable = true;
-
-            }
-            else
-            {
-                machineUpgradeButton.interactable = false;
-            }
-        }
     }
 
     public void InitBox(Machine machineFromDataManager)
     {
         machine= machineFromDataManager;
-
+        lockPanel.SetActive(!machine.isPurchased);
         // Init machine image
 
         if (machineImage != null)
@@ -91,29 +76,40 @@ public class MachineBox : MonoBehaviour
         {
             Debug.LogError("Cannot find machineUpgrade");
         }
-
+        
+        lockPanel.GetComponentInChildren<TMP_Text>().text=$"{machine.machineData.machineUnlockCost}";
     }
-    public void UpdateUI(){
+    public void UpgradeButtonClick()
+    {
+        if (BusinessGameManager.Instance.money <= machine.currentUpgradeMoney)
+        {
+            Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            return;
+        }
+        BusinessGameManager.Instance.DecreaseMoney(machine.currentUpgradeMoney);
+        machine.LevelUp();
+        UpdateUI();
+    }
+    public void UpdateUI()
+    {
         machineLevel.text = machine.currentLevel.ToString();
         CookingSpeed.text = machine.currentCookTime.ToString();
         machineUpgrade.text = machine.currentUpgradeMoney.ToString();
-    }
-
-    public void UpgradeButtonClick()
-    {
-        GameManager.Instance.AddMoney(-machine.currentUpgradeMoney);
-        machine.LevelUp();
-        if (machine.currentUpgradeMoney==0)
+        if (machine.currentUpgradeMoney == 0)
         {
-            machineUpgradeButton.interactable = false;
-            machineUpgrade.text = "Max";
+            machineUpgradeButton.gameObject.SetActive(false);
+            machineUpgradeComplete.gameObject.SetActive(true);
         }
-        else
-        {
-            machineUpgrade.text = machine.currentUpgradeMoney.ToString();
-            CookingSpeed.text = machine.currentCookTime.ToString();
-            machineLevel.text = machine.currentLevel.ToString();
-            
+    }
+    public void BuyMachine(){
+        if(machine.machineData.machineUnlockCost<=BusinessGameManager.Instance.money){
+            DataManager.Instance.PurchaseMachine(machine);
+            BusinessGameManager.Instance.DecreaseMoney(machine.machineData.machineUnlockCost);
+            StageMissionManager.Instance.ActivatedCheck();
+            lockPanel.SetActive(false);
+        }
+        else{
+            Debug.Log($"돈이 부족해요....필요한 돈 : {machine.machineData.machineUnlockCost-BusinessGameManager.Instance.money}");
         }
     }
 }

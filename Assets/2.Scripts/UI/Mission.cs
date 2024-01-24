@@ -61,26 +61,26 @@ public class Mission : MonoBehaviour
         }
     }
     public void WhenMachineUpgradeCompleted(Machine machine){
-        GameManager.Instance.DecreaseMoney(scriptableMission.cost);
-        StageMissionManager.Instance.UpdateCompletedMissionsCount();
+        BusinessGameManager.Instance.DecreaseMoney(scriptableMission.cost);
+        StageMissionManager.Instance.CompletedMissionsCount();
         gameObject.SetActive(false);
     }
     public void WhenCharacterUpgradeCompleted(Character character)
     {
-        GameManager.Instance.DecreaseMoney(scriptableMission.cost);
-        StageMissionManager.Instance.UpdateCompletedMissionsCount();
+        BusinessGameManager.Instance.DecreaseMoney(scriptableMission.cost);
+        StageMissionManager.Instance.CompletedMissionsCount();
         gameObject.SetActive(false);
     }
     public void WhenAccCustomerUpgradeCompleted()
     {
-        GameManager.Instance.DecreaseMoney(scriptableMission.cost);
-        StageMissionManager.Instance.UpdateCompletedMissionsCount();
+        BusinessGameManager.Instance.DecreaseMoney(scriptableMission.cost);
+        StageMissionManager.Instance.CompletedMissionsCount();
         gameObject.SetActive(false);
     }
     public void WhenRewardCompleted()
     {
-        GameManager.Instance.AddMoney(scriptableMission.cost);
-        StageMissionManager.Instance.UpdateCompletedMissionsCount();
+        BusinessGameManager.Instance.AddMoney(scriptableMission.cost);
+        StageMissionManager.Instance.CompletedMissionsCount();
         gameObject.SetActive(false);
     }
     public void SetUI()

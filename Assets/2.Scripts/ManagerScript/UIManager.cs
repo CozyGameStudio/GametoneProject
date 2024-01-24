@@ -16,9 +16,24 @@ public class UIManager : MonoBehaviour
             return instance;
         }
     }
+    void Awake(){
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     public TMP_Text moneyText;
+    public TMP_Text moneyMultiplierText;
 
     public void UpdateMoneyUI(){
-        moneyText.text = GameManager.Instance.money.ToString();
+        moneyText.text = BusinessGameManager.Instance.money.ToString();
+    }
+    public void UpdateMoneyMultiplierUI()
+    {
+        moneyMultiplierText.text = BusinessGameManager.Instance.moneyMultiplier.ToString();
     }
 }

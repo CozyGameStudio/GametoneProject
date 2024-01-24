@@ -10,27 +10,29 @@ public class FoodBox : MonoBehaviour
     public TMP_Text foodLevel;
     public TMP_Text foodPrice;
     public TMP_Text foodUpgrade;
-    public Button FoodUpgradeButton;
+    public Button foodUpgradeButton;
+    public TMP_Text foodUpgradeCompleted;
+    public GameObject lockPanel;
 
     private void Start(){
         DataLoadManager.Instance.OnDataChanged += UpdateUI;
     }
-    private void Update()
+    private void HandleFoodUnlocked(Food unlockedFood)
     {
-        if (GameManager.Instance.money >= food.currentUpgradeMoney)
+        // Food가 해금될 때 lock panel 비활성화
+        if (lockPanel != null)
         {
-            FoodUpgradeButton.interactable = true;
-
+            lockPanel.SetActive(false);
         }
-        else
+        if (food != null)
         {
-            FoodUpgradeButton.interactable = false;
+            food.OnFoodUnlocked -= HandleFoodUnlocked;
         }
     }
     public void InitBox(Food foodFromDataManager)
     {
         food = foodFromDataManager;
-
+        food.OnFoodUnlocked += HandleFoodUnlocked;
         // Init food image
         if (foodImage != null)
         {
@@ -84,21 +86,23 @@ public class FoodBox : MonoBehaviour
 
     public void UpgradeButtonClick()
     {
-        GameManager.Instance.DecreaseMoney(food.currentUpgradeMoney);
+        if (BusinessGameManager.Instance.money <= food.currentUpgradeMoney)
+        {
+            Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            return;
+        }
+        BusinessGameManager.Instance.DecreaseMoney(food.currentUpgradeMoney);
         food.LevelUp();
-        if (food.currentUpgradeMoney == 0)
-        {
-            FoodUpgradeButton.interactable = false;
-            foodUpgrade.text = "Max";
-        }
-        else
-        {
-            UpdateUI();
-        }
+        UpdateUI();
     }
     public void UpdateUI(){
         foodUpgrade.text = food.currentUpgradeMoney.ToString();
         foodPrice.text = food.currentValue.ToString();
         foodLevel.text = food.currentLevel.ToString();
+        if (food.currentUpgradeMoney == 0)
+        {
+            foodUpgradeButton.gameObject.SetActive(false);
+            foodUpgradeCompleted.gameObject.SetActive(true);
+        }
     }
 }

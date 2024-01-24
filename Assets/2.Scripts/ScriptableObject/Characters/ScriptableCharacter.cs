@@ -8,7 +8,7 @@ public class ScriptableCharacter : ScriptableObject
     public int index;
     public string characterName;
     public string characterNameInKorean;
-    public float[] priceGrowthRate;
+    public float[] profitGrowthRate;
     public int[] upgradeMoney;
     public Sprite characterIcon;
 }

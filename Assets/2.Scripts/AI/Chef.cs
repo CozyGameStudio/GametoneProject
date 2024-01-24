@@ -26,6 +26,7 @@ public class Chef : MonoBehaviour
     private List<GameObject> servePlaces;
 
     [Header("Character")]
+    public Character character;
     public float speed=5f;
     public GameObject foodHolder;
 
@@ -74,7 +75,6 @@ public class Chef : MonoBehaviour
     }
     void OnEnable(){
         SetAvailable();
-
     }
     void OnDisable(){
         IsAvailable = false;

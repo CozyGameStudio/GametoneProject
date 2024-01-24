@@ -32,7 +32,7 @@ public static class ScriptableObjectCreator
 
             dataObject.index = foodType.index;
             dataObject.foodName = foodType.foodName;
-            dataObject.foodNameInKorean = foodType.foodNameInKorean; // 필요한 경우 추가
+            dataObject.foodNameInKorean = foodType.foodNameInKorean;
             dataObject.stageToUse = foodType.stageToUse;
 
             // foodValues를 필터링하여 dataObject에 저장
@@ -43,7 +43,7 @@ public static class ScriptableObjectCreator
             foreach (var value in filteredValues)
             {
                 string[] split = value.foodName.Split('_');
-                int levelIndex = int.Parse(split[1]) - 1;  // 레벨이 1부터 시작한다고 가정
+                int levelIndex = int.Parse(split[1]) - 1; 
                 dataObject.foodPrice[levelIndex] = value.saleValue;
                 dataObject.upgradeMoney[levelIndex] = value.upgradeValue;
             }
@@ -78,7 +78,7 @@ public static class ScriptableObjectCreator
 
             dataObject.index = machineType.index;
             dataObject.machineName = machineType.machineName;
-            dataObject.machineNameInKorean = machineType.machineNameInKorean; // 필요한 경우 추가
+            dataObject.machineNameInKorean = machineType.machineNameInKorean;
             dataObject.stageToUse = machineType.stageToUse;
 
             // foodValues를 필터링하여 dataObject에 저장
@@ -89,7 +89,7 @@ public static class ScriptableObjectCreator
             foreach (var value in filteredValues)
             {
                 string[] split = value.machineName.Split('_');
-                int levelIndex = int.Parse(split[1]) - 1;  // 레벨이 1부터 시작한다고 가정
+                int levelIndex = int.Parse(split[1]) - 1;  // level starts with 1
                 dataObject.cookTime[levelIndex] = value.cookTime;
                 dataObject.upgradeMoney[levelIndex] = value.upgradeValue;
             }
@@ -100,7 +100,50 @@ public static class ScriptableObjectCreator
         AssetDatabase.SaveAssets();
 #endif
     }
-    [MenuItem("SrpObject/CreateMissionByDatabase")]
+    [MenuItem("SrpObject/CreateCharacterByDatabase")]
+    public static void CreateScriptablCharacterObjects()
+    {
+        Team5DataTable_Type.CharacterTypeData.Load();
+        Team5DataTable_Value.CharacterValueData.Load();
+        List<Team5DataTable_Type.CharacterTypeData> characterTypes = Team5DataTable_Type.CharacterTypeData.CharacterTypeDataList;
+        List<Team5DataTable_Value.CharacterValueData> characterValues = Team5DataTable_Value.CharacterValueData.CharacterValueDataList;
+        foreach (var characterType in characterTypes)
+        {
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Characters/SO_{characterType.characterName}.asset";
+#if UNITY_EDITOR
+            ScriptableCharacter dataObject = AssetDatabase.LoadAssetAtPath<ScriptableCharacter>(assetPath);
+#endif
+            if (dataObject == null)
+            {
+                dataObject = ScriptableObject.CreateInstance<ScriptableCharacter>();
+                AssetDatabase.CreateAsset(dataObject, assetPath);
+            }
+
+            dataObject.index = characterType.index;
+            dataObject.characterName = characterType.characterName;
+            dataObject.characterNameInKorean = characterType.characterNameInKorean; 
+
+            // foodValues를 필터링하여 dataObject에 저장
+            var filteredValues = characterValues.Where(v => v.characterName.StartsWith(characterType.characterName)).ToList();
+            dataObject.profitGrowthRate = new float[filteredValues.Count];
+            dataObject.upgradeMoney = new int[filteredValues.Count];
+
+            foreach (var value in filteredValues)
+            {
+                string[] split = value.characterName.Split('_');
+                int levelIndex = int.Parse(split[1]) - 1;  // Level Starts with 1
+                dataObject.profitGrowthRate[levelIndex] = value.profitGrowthRate;
+                dataObject.upgradeMoney[levelIndex] = value.upgradeValue;
+            }
+
+            EditorUtility.SetDirty(dataObject);
+        }
+#if UNITY_EDITOR
+        AssetDatabase.SaveAssets();
+#endif
+    }
+
+        [MenuItem("SrpObject/CreateMissionByDatabase")]
     public static void CreateScriptablMissionObjects()
     {
         Team5DataTable_Mission.Data.Load();
@@ -163,5 +206,5 @@ public static class ScriptableObjectCreator
         AssetDatabase.SaveAssets();
 #endif
     }
-   
+    
 }

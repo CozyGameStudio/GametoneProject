@@ -100,7 +100,6 @@ public class ServerManager : MonoBehaviour
     }
     private void OnServerAvailable()
     {
-
         // if Queue has task
         if (serveTasksQueue.Count > 0)
         {
