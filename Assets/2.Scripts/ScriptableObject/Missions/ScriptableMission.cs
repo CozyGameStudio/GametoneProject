@@ -15,8 +15,12 @@ public enum MissionContent
     CustomerCheck,
     SalesCheck,
     LevelCheck,
-    ActivatedCheck
+    ActivatedCheck,
+    TableAdd,
+    Speedup,
+    MachineAdd
 }
+
 [CreateAssetMenu(fileName = "NewMission", menuName = "GametoneProject/Mission", order = 4)]
 public class ScriptableMission : ScriptableObject
 {

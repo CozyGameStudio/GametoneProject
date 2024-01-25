@@ -13,23 +13,22 @@ public class Character : MonoBehaviour
     public int currentUpgradeMoney { get; private set; }
     public string position;
     public bool isUnlocked{get;private set;}=false;
-    public int maxLevel{get;private set;}
     private void Start()
     {
-        maxLevel= characterData.profitGrowthRate.Length;
-        Debug.Log(maxLevel);
-        SetValue(currentLevel);
+        DataLoadManager.Instance.OnDataChanged += SetValue;
+        SetValue();
     }
     public void LevelUp()
     {
         currentLevel++;
-        SetValue(currentLevel);
+        SetValue();
         StageMissionManager.Instance.LevelCheck();
         OnProfitChanged?.Invoke(this,currentProfitGrowthRate);
     }
-    void SetValue(int level)
+    void SetValue()
     {
-        currentProfitGrowthRate = characterData.profitGrowthRate[level - 1];
-        currentUpgradeMoney = characterData.upgradeMoney[level - 1];
+        currentProfitGrowthRate = characterData.profitGrowthRate[currentLevel - 1];
+        currentUpgradeMoney = characterData.upgradeMoney[currentLevel - 1];
     }
+    
 }

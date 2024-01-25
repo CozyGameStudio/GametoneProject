@@ -105,4 +105,5 @@ public class FoodBox : MonoBehaviour
             foodUpgradeCompleted.gameObject.SetActive(true);
         }
     }
+    
 }

@@ -20,15 +20,17 @@ public class Food : MonoBehaviour
         OnFoodUnlocked?.Invoke(this);
     }
     private void Start() {
-        SetValue(currentLevel);
+        SetValue();
+        DataLoadManager.Instance.OnDataChanged += SetValue;
     }
     public void LevelUp(){
         currentLevel++;
-        SetValue(currentLevel);
+        SetValue();
         StageMissionManager.Instance.LevelCheck();
     }
-    void SetValue(int level){
-        currentValue = foodData.foodPrice[level - 1];
-        currentUpgradeMoney = foodData.upgradeMoney[level - 1];
+    void SetValue(){
+        currentValue = foodData.foodPrice[currentLevel - 1];
+        currentUpgradeMoney = foodData.upgradeMoney[currentLevel - 1];
     }
+    
 }

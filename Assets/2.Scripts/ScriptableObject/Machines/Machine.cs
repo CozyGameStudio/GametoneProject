@@ -18,7 +18,8 @@ public class Machine : MonoBehaviour
     void Start()
     {
         isTakenPlace = false;
-        SetValue(currentLevel);
+        DataLoadManager.Instance.OnDataChanged += SetValue;
+        SetValue();
     }
     public void UnlockFood()
     {
@@ -41,12 +42,13 @@ public class Machine : MonoBehaviour
     public void LevelUp()
     {
         currentLevel++;
-        SetValue(currentLevel);
+        SetValue();
         StageMissionManager.Instance.LevelCheck();
     }
-    void SetValue(int level)
+    void SetValue()
     {
-        currentCookTime = machineData.cookTime[level - 1];
-        currentUpgradeMoney = machineData.upgradeMoney[level - 1];
+        currentCookTime = machineData.cookTime[currentLevel - 1];
+        currentUpgradeMoney = machineData.upgradeMoney[currentLevel - 1];
     }
+    
 }

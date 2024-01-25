@@ -4,10 +4,9 @@ using TMPro;
 using UnityEngine.UI;
 
 
-public class Mission : MonoBehaviour
+public class MissionBox : MonoBehaviour
 {
-    public ScriptableMission scriptableMission;
-    
+    public ScriptableMission missionData;
     public TMP_Text mission;
     public Image titleImage;
     private string description;
@@ -22,7 +21,7 @@ public class Mission : MonoBehaviour
 
     public void InitMissionBox()
     {
-        missionContent=scriptableMission.missionContent;
+        missionContent=missionData.missionContent;
         Debug.Log("init mission box started");
         SetButton();
         if (missionContent==MissionContent.LevelCheck||missionContent==MissionContent.ActivatedCheck)
@@ -30,29 +29,42 @@ public class Mission : MonoBehaviour
         SetUI();
         button.gameObject.SetActive(true);
         button.interactable = false;
-        titleImage.sprite= scriptableMission.sprite;
+        titleImage.sprite= missionData.sprite;
     }
     public void SetButton(){
-        switch (scriptableMission.missionType)
+        switch (missionData.missionType)
         {
             case MissionType.Upgrade:
                 button = upgradeButton;
+                if(missionData.missionContent==MissionContent.TableAdd){
+                    button.onClick.AddListener(TableUpgrade);
+                }
+                else if(missionData.missionContent == MissionContent.Speedup)
+                {
+                    button.onClick.AddListener(SpeedUpgrade);
+                }
+                else if(missionData.missionContent == MissionContent.MachineAdd)
+                {
+                    button.onClick.AddListener(MachineUpgrade);
+                }
                 break;
             case MissionType.Reward:
                 button = rewardButton;
+                button.onClick.AddListener(Reward);
                 break;
         }
     }
     public void MatchContentObj(){
-        string target= scriptableMission.targetName;
+        string target= missionData.targetName;
         if (target.Contains("Machine"))
         {
             Predicate<Machine> machineCondition = (Machine m) => m.machineData.machineName == target;
             obj = DataManager.Instance.FindWithCondition(DataManager.Instance.machines, machineCondition);
         }
-        else if (scriptableMission.targetName.Contains("Character"))
+        else if (missionData.targetName.Contains("Character"))
         {
-
+            Predicate<Character> characterCondition = (Character c) => c.characterData.characterName == target;
+            obj = DataManager.Instance.FindWithCondition(DataManager.Instance.characters, characterCondition);
         }
         else
         {
@@ -60,26 +72,36 @@ public class Mission : MonoBehaviour
             obj = DataManager.Instance.FindWithCondition(DataManager.Instance.foods, foodCondition);
         }
     }
-    public void WhenMachineUpgradeCompleted(Machine machine){
-        BusinessGameManager.Instance.DecreaseMoney(scriptableMission.cost);
+    public void MachineUpgrade(){
+        BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
         StageMissionManager.Instance.CompletedMissionsCount();
+        DataManager.Instance.AddAdditionalMachine();
         gameObject.SetActive(false);
     }
-    public void WhenCharacterUpgradeCompleted(Character character)
+    public void SpeedUpgrade()
     {
-        BusinessGameManager.Instance.DecreaseMoney(scriptableMission.cost);
+        BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
         StageMissionManager.Instance.CompletedMissionsCount();
+        foreach (Chef chef in OrderManager.Instance.chefs)
+        {
+            chef.MultSpeed(1.4f);
+        }
+        foreach (Server server in ServerManager.Instance.servers)
+        {
+            server.MultSpeed(1.4f);
+        }
         gameObject.SetActive(false);
     }
-    public void WhenAccCustomerUpgradeCompleted()
+    public void TableUpgrade()
     {
-        BusinessGameManager.Instance.DecreaseMoney(scriptableMission.cost);
+        BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
         StageMissionManager.Instance.CompletedMissionsCount();
+        CustomerManager.Instance.AddOneTable();
         gameObject.SetActive(false);
     }
-    public void WhenRewardCompleted()
+    public void Reward()
     {
-        BusinessGameManager.Instance.AddMoney(scriptableMission.cost);
+        BusinessGameManager.Instance.AddMoney(missionData.cost);
         StageMissionManager.Instance.CompletedMissionsCount();
         gameObject.SetActive(false);
     }
@@ -91,19 +113,19 @@ public class Mission : MonoBehaviour
         switch (missionContent)
         {
             case MissionContent.CustomerCheck:
-                description = $"누적손님 {StageMissionManager.Instance.accumulatedCustomer} / {scriptableMission.criteria}";
+                description = $"누적손님 {StageMissionManager.Instance.accumulatedCustomer} / {missionData.criteria}";
                 break;
             case MissionContent.SalesCheck:
-                description = $"누적 판매 금액 {StageMissionManager.Instance.accumulatedSales} / {scriptableMission.criteria}";
+                description = $"누적 판매 금액 {StageMissionManager.Instance.accumulatedSales} / {missionData.criteria}";
                 break;
             case MissionContent.LevelCheck:
                 if (obj is Food parsedFood)
                 {
-                    description = $"{parsedFood.foodData.foodNameInKorean} {parsedFood.currentLevel} / {scriptableMission.criteria}";
+                    description = $"{parsedFood.foodData.foodNameInKorean} {parsedFood.currentLevel} / {missionData.criteria}";
                 }
                 else if (obj is Machine parsedMachine)
                 {
-                    description = $"{parsedMachine.machineData.machineNameInKorean} {parsedMachine.currentLevel} / {scriptableMission.criteria}";
+                    description = $"{parsedMachine.machineData.machineNameInKorean} {parsedMachine.currentLevel} / {missionData.criteria}";
                 }
                 break;
             case MissionContent.ActivatedCheck:
@@ -112,9 +134,18 @@ public class Mission : MonoBehaviour
                     description = $"{machine.machineData.machineNameInKorean} 설치하기";
                 }
                 break;
+            case MissionContent.TableAdd:
+                description = "테이블 설치하기";
+                break;
+            case MissionContent.MachineAdd:
+                description = "기계 설치하기";
+                break;
+            case MissionContent.Speedup:
+                description = "직원 속도 2배로 올리기";
+                break;
+
         }
         mission.text = description;
-        
     }
     
 }

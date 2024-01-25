@@ -33,7 +33,7 @@ public class Customer : MonoBehaviour
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
     private NavMeshAgent agent;
-
+    private float initSpeed;
     private void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -51,6 +51,16 @@ public class Customer : MonoBehaviour
     private void Update()
     {
         fsm.Driver.Update.Invoke();
+    }
+    public void MultSpeed(float mult)
+    {
+        speed *= mult;
+        agent.speed = speed;
+    }
+    public void BackToNormalSpeed()
+    {
+        speed = initSpeed;
+        agent.speed = speed;
     }
     void Idle_Enter()
     {

@@ -6,13 +6,18 @@ using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 public class StageMissionManager : MonoBehaviour
 {
-
+    
     public GameObject missionPanel;
     public TMP_Text WhenAllMissionCompleted;
+
     public int accumulatedCustomer{get;private set;}=0;
     public int accumulatedSales { get; private set; } = 0;
     public int currentCompletedMission { get; private set; } = 0;
     private static StageMissionManager instance;
+    private List<ScriptableMission> currentStageMissions;
+    private List<MissionBox> missions;
+    private MissionDataList missionDataList;
+    private GameObject missionBoxPrefab;
     public static StageMissionManager Instance
     {
         get
@@ -24,7 +29,6 @@ public class StageMissionManager : MonoBehaviour
             return instance;
         }
     }
-    private List<Mission> missions;
     public void Awake()
     {
         if (instance == null)
@@ -37,13 +41,25 @@ public class StageMissionManager : MonoBehaviour
         }
     }
     void Start(){
+        missionDataList=Resources.Load<MissionDataList>("MissionDataList");
+        missionBoxPrefab=Resources.Load<GameObject>("MissionBox");
+        currentStageMissions =new List<ScriptableMission>();
+        missions=new List<MissionBox>();
         WhenAllMissionCompleted.gameObject.SetActive(false);
         Debug.Log("StageMission manager started");
-        missions=new List<Mission>();
-        for(int i=0;i<missionPanel.transform.childCount;i++){
-            missions.Add(missionPanel.transform.GetChild(i).GetComponent<Mission>());
+        foreach(var currentStageMission in missionDataList.missionDataList)
+        {
+            if(currentStageMission.stageToAppear==BusinessGameManager.Instance.currentBusinessStage){
+                currentStageMissions.Add(currentStageMission);
+            }
         }
-        foreach(var mission in missions){
+        foreach(var currentStageMission in currentStageMissions)
+        {
+            GameObject missionBox=Instantiate(missionBoxPrefab);
+            missionBox.transform.SetParent(missionPanel.transform, false);
+            MissionBox mission= missionBox.GetComponent<MissionBox>();
+            mission.missionData= currentStageMission;
+            missions.Add(missionBox.GetComponent<MissionBox>());
             mission.InitMissionBox();
         }
         CompletedMissionsCount();
@@ -63,6 +79,9 @@ public class StageMissionManager : MonoBehaviour
     public void ActivatedCheck(){
         UpdateMissionStatus();
     }
+    public void CostCheck(){
+        UpdateMissionStatus();
+    }
     private void UpdateMissionStatus()
     {
         foreach (var mission in missions)
@@ -70,22 +89,22 @@ public class StageMissionManager : MonoBehaviour
             switch (mission.missionContent)
             {
                 case MissionContent.CustomerCheck:
-                    if (accumulatedCustomer >= mission.scriptableMission.criteria)
+                    if (accumulatedCustomer >= mission.missionData.criteria)
                     {
                         mission.button.interactable=true;
                     }
                     break;
                 case MissionContent.SalesCheck:
-                    mission.button.interactable = accumulatedSales >= mission.scriptableMission.criteria;
+                    mission.button.interactable = accumulatedSales >= mission.missionData.criteria;
                     break;
                 case MissionContent.LevelCheck:
                     if (mission.obj is Food food)
                     {
-                        mission.button.interactable=food.currentLevel>= mission.scriptableMission.criteria;
+                        mission.button.interactable=food.currentLevel>= mission.missionData.criteria;
                     }
                     else if (mission.obj is Machine machine)
                     {
-                        mission.button.interactable = machine.currentLevel >= mission.scriptableMission.criteria;
+                        mission.button.interactable = machine.currentLevel >= mission.missionData.criteria;
                     }
                     break;
                 case MissionContent.ActivatedCheck:
@@ -94,6 +113,14 @@ public class StageMissionManager : MonoBehaviour
                         mission.button.interactable = machineActivatedCheck.gameObject.activeInHierarchy;
                     }
                     break;
+                default :
+                    if (BusinessGameManager.Instance.money > mission.missionData.cost)
+                    {
+                        mission.button.interactable = true;
+                    }
+                    else mission.button.interactable = false;
+                    break;
+
             }
             mission.SetUI();
         }

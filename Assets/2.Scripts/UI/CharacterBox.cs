@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Team5DataTable_Mission;
 public class CharacterBox : MonoBehaviour
 {
     Character character;
@@ -15,6 +16,9 @@ public class CharacterBox : MonoBehaviour
     public TMP_Text characterUpgradeComplete;
     public Button characterUpgradeButton;
 
+    void Start(){
+        DataLoadManager.Instance.OnDataChanged+=UpdateUI;
+    }
     public void InitBox(Character characterFromDataManager)
     {
         character = characterFromDataManager;
@@ -100,4 +104,5 @@ public class CharacterBox : MonoBehaviour
             characterUpgradeComplete.gameObject.SetActive(true);
         }
     }
+    
 }

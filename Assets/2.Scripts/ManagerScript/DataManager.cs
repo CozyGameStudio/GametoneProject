@@ -92,13 +92,13 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            AddAdditionalMachine(machineToPurchase);
+            AddAdditionalMachine();
         }
     }
 
-    private void AddAdditionalMachine(Machine machine)
+    public void AddAdditionalMachine()
     {
-        Debug.Log("Additional machine added: " + machine.name);
+        Debug.Log("Additional machine added: ");
         addActiveMachines();
     }
 

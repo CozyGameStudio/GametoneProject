@@ -112,4 +112,5 @@ public class MachineBox : MonoBehaviour
             Debug.Log($"돈이 부족해요....필요한 돈 : {machine.machineData.machineUnlockCost-BusinessGameManager.Instance.money}");
         }
     }
+    
 }

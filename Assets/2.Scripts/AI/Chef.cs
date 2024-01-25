@@ -39,12 +39,13 @@ public class Chef : MonoBehaviour
     private bool isCooking=false;
     private NavMeshAgent agent;
     private SpriteRenderer spriteRenderer;
-
+    private float initSpeed;
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
     }
     private void Start() {
+        initSpeed=speed;
         fsm.ChangeState(States.Idle);
         agent = GetComponent<NavMeshAgent>();
         spriteRenderer=GetComponent<SpriteRenderer>();
@@ -72,6 +73,14 @@ public class Chef : MonoBehaviour
                 servePlaces.Add(child.GetChild(1).gameObject);
             }
         }
+    }
+    public void MultSpeed(float mult){
+        speed*=mult;
+        agent.speed=speed;
+    }
+    public void BackToNormalSpeed(){
+        speed=initSpeed;
+        agent.speed = speed;
     }
     void OnEnable(){
         SetAvailable();

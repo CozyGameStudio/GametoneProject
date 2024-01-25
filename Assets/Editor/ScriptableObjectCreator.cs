@@ -161,45 +161,57 @@ public static class ScriptableObjectCreator
                 AssetDatabase.CreateAsset(dataObject, assetPath);
             }
 
-            if (Enum.TryParse(missionData.missionType, true, out MissionType missionContentEnum))
+            if (Enum.TryParse(missionData.missionType, true, out MissionType missionTypeEnum))
             {
-                dataObject.missionType = missionContentEnum;
+                dataObject.missionType = missionTypeEnum;
+                Debug.Log(missionData.missionType+" "+missionTypeEnum);
             }
             else
             {
                 Debug.LogError($"Invalid mission content string: {missionData.missionContent}");
             }
-            int activatedIndex = missionData.missionContent.IndexOf("Activated");
-            int levelIndex = missionData.missionContent.IndexOf("Level");
+            string[] content = missionData.missionContent.Split('_');
+            dataObject.stageToAppear = Convert.ToInt32(content[1]);
+            
+            if (dataObject.missionType==MissionType.Reward){
+                int activatedIndex = content[0].IndexOf("Activated");
+                int levelIndex = content[0].IndexOf("Level");
 
-            if (activatedIndex != -1)
-            {
-                dataObject.targetName = missionData.missionContent.Substring(0, activatedIndex).Trim();
-                dataObject.missionContent = MissionContent.ActivatedCheck;
+                if (activatedIndex != -1)
+                {
+                    dataObject.targetName = content[0].Substring(0, activatedIndex).Trim();
+                    dataObject.missionContent = MissionContent.ActivatedCheck;
+                }
+                else if (levelIndex != -1)
+                {
+                    dataObject.targetName = content[0].Substring(0, levelIndex).Trim();
+                    dataObject.missionContent = MissionContent.LevelCheck;
+                }
+                else if (content[0].Contains("Customer"))
+                {
+                    dataObject.missionContent = MissionContent.CustomerCheck;
+                }
+                else if (content[0].Contains("Sales"))
+                {
+                    dataObject.missionContent = MissionContent.SalesCheck;
+                }
+                else
+                {
+                    // "Available" 또는 "Level"이 없는 경우의 처리
+                    Debug.LogError($"Invalid mission content format: {missionData.missionContent}");
+                    // 추가적인 처리가 필요할 수 있습니다.
+                }
+                dataObject.criteria = missionData.criteria; // 필요한 경우 추가
+                
+                
             }
-            else if (levelIndex != -1)
-            {
-                dataObject.targetName = missionData.missionContent.Substring(0, levelIndex).Trim();
-                dataObject.missionContent = MissionContent.LevelCheck; 
+            else{
+                if (Enum.TryParse(content[0], true, out MissionContent missionContentEnum))
+                {
+                    dataObject.missionContent = missionContentEnum;
+                }
             }
-            else if (missionData.missionContent.Contains("Customer"))
-            {
-                dataObject.missionContent = MissionContent.CustomerCheck;
-            }
-            else if (missionData.missionContent.Contains("Sales"))
-            {
-                dataObject.missionContent = MissionContent.SalesCheck;
-            }
-            else
-            {
-                // "Available" 또는 "Level"이 없는 경우의 처리
-                Debug.LogError($"Invalid mission content format: {missionData.missionContent}");
-                // 추가적인 처리가 필요할 수 있습니다.
-            }
-            dataObject.criteria = missionData.criteria; // 필요한 경우 추가
             dataObject.cost = missionData.cost; // 필요한 경우 추가
-            dataObject.stageToAppear = missionData.stageToAppear;
-
             EditorUtility.SetDirty(dataObject);
         }
 #if UNITY_EDITOR

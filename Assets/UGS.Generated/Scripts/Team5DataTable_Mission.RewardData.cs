@@ -17,10 +17,10 @@ using UnityEngine;
 namespace Team5DataTable_Mission
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Data : ITable
+    public partial class RewardData : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Data> loadedList, Dictionary<string, Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<RewardData> loadedList, Dictionary<string, RewardData> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1o9JMzhMVd3X1O1M7ObnyZb3kN6JQ6wHWBB9cuN3NFKE"; // it is file id
@@ -29,27 +29,27 @@ namespace Team5DataTable_Mission
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<string, Data> DataMap = new Dictionary<string, Data>();  
-        public static List<Data> DataList = new List<Data>();   
+        public static Dictionary<string, RewardData> RewardDataMap = new Dictionary<string, RewardData>();  
+        public static List<RewardData> RewardDataList = new List<RewardData>();   
 
         /// <summary>
-        /// Get Data List 
+        /// Get RewardData List 
         /// Auto Load
         /// </summary>
-        public static List<Data> GetList()
+        public static List<RewardData> GetList()
         {{
            if (isLoaded == false) Load();
-           return DataList;
+           return RewardDataList;
         }}
 
         /// <summary>
-        /// Get Data Dictionary, keyType is your sheet A1 field type.
+        /// Get RewardData Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<string, Data>  GetDictionary()
+        public static Dictionary<string, RewardData>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return DataMap;
+           return RewardDataMap;
         }}
 
     
@@ -70,7 +70,7 @@ namespace Team5DataTable_Mission
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Data is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("RewardData is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -86,7 +86,7 @@ namespace Team5DataTable_Mission
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Data>, Dictionary<string, Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<RewardData>, Dictionary<string, RewardData>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -114,14 +114,14 @@ namespace Team5DataTable_Mission
                
 
 
-    public static (List<Data> list, Dictionary<string, Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<string, Data> Map = new Dictionary<string, Data>();
-            List<Data> List = new List<Data>();     
+    public static (List<RewardData> list, Dictionary<string, RewardData> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<string, RewardData> Map = new Dictionary<string, RewardData>();
+            List<RewardData> List = new List<RewardData>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(RewardData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Data"];
+            var sheet = jsonObject["RewardData"];
 
             foreach (var column in sheet.Keys)
             {
@@ -140,7 +140,7 @@ namespace Team5DataTable_Mission
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Data instance = new Data();
+                            RewardData instance = new RewardData();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -181,8 +181,8 @@ namespace Team5DataTable_Mission
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            DataList = List;
-                            DataMap = Map;
+                            RewardDataList = List;
+                            RewardDataMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -192,10 +192,10 @@ namespace Team5DataTable_Mission
 
  
 
-        public static void Write(Data data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(RewardData data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(RewardData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

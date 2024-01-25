@@ -9,6 +9,8 @@ public class BusinessGameManager : MonoBehaviour
     private static BusinessGameManager instance;
     public int money=0;
     public float moneyMultiplier=1;
+
+    public int currentBusinessStage=1;
     public static BusinessGameManager Instance
     {
         get
@@ -71,12 +73,14 @@ public class BusinessGameManager : MonoBehaviour
     }
     public void AddMoney(int moneyAmount){
         money+=(int)Math.Floor((float)moneyAmount*moneyMultiplier);
+        StageMissionManager.Instance.CostCheck();
         UIManager.Instance.UpdateMoneyUI();
     }
     public void DecreaseMoney(int moneyAmount)
     {
         if(moneyAmount>money)return;
         money -= moneyAmount;
+        StageMissionManager.Instance.CostCheck();
         UIManager.Instance.UpdateMoneyUI();
     }
     public void ChangeScene(string scene){

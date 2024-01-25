@@ -23,7 +23,7 @@ public class Server : MonoBehaviour
     private Customer currentCustomer;
     private NavMeshAgent agent;
     public event Action OnAvailable;
-    
+    private float initSpeed;
     
     void Awake()
     {
@@ -35,7 +35,7 @@ public class Server : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
+        initSpeed=speed;
     }
 
     void Update()
@@ -55,7 +55,16 @@ public class Server : MonoBehaviour
         menuToServe = child.gameObject;
         IsAvailable=false;
     }
-
+    public void MultSpeed(float mult)
+    {
+        speed *= mult;
+        agent.speed = speed;
+    }
+    public void BackToNormalSpeed()
+    {
+        speed = initSpeed;
+        agent.speed = speed;
+    }
     void Idle_Enter()
     {
         
