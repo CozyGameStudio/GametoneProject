@@ -9,15 +9,16 @@ public class StageMissionManager : MonoBehaviour
     
     public GameObject missionPanel;
     public TMP_Text WhenAllMissionCompleted;
-
     public int accumulatedCustomer{get;private set;}=0;
     public int accumulatedSales { get; private set; } = 0;
     public int currentCompletedMission { get; private set; } = 0;
-    private static StageMissionManager instance;
-    private List<ScriptableMission> currentStageMissions;
-    private List<MissionBox> missions;
+    
+    private List<ScriptableMission> currentStageMissions = new List<ScriptableMission>();
+    private List<MissionBox> missions= new List<MissionBox>();
     private MissionDataList missionDataList;
     private GameObject missionBoxPrefab;
+
+    private static StageMissionManager instance;
     public static StageMissionManager Instance
     {
         get
@@ -43,8 +44,6 @@ public class StageMissionManager : MonoBehaviour
     void Start(){
         missionDataList=Resources.Load<MissionDataList>("MissionDataList");
         missionBoxPrefab=Resources.Load<GameObject>("MissionBox");
-        currentStageMissions =new List<ScriptableMission>();
-        missions=new List<MissionBox>();
         WhenAllMissionCompleted.gameObject.SetActive(false);
         Debug.Log("StageMission manager started");
         foreach(var currentStageMission in missionDataList.missionDataList)

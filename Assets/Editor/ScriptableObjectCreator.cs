@@ -20,7 +20,7 @@ public static class ScriptableObjectCreator
         Debug.Log($"Food Values Count: {foodValues.Count}");
         foreach (var foodType in foodTypes)
         {
-            string assetPath = $"Assets/2.Scripts/ScriptableObject/Foods/SO_{foodType.foodName}.asset";
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Foods/{foodType.stageToUse}Stage/SO_{foodType.foodName}.asset";
     #if UNITY_EDITOR
             ScriptableFood dataObject = AssetDatabase.LoadAssetAtPath<ScriptableFood>(assetPath);
     #endif
@@ -66,7 +66,7 @@ public static class ScriptableObjectCreator
 
         foreach (var machineType in machineTypes)
         {
-            string assetPath = $"Assets/2.Scripts/ScriptableObject/Machines/SO_{machineType.machineName}.asset";
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Machines/{machineType.stageToUse}Stage/SO_{machineType.machineName}.asset";
 #if UNITY_EDITOR
             ScriptableMachine dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMachine>(assetPath);
 #endif
@@ -80,6 +80,7 @@ public static class ScriptableObjectCreator
             dataObject.machineName = machineType.machineName;
             dataObject.machineNameInKorean = machineType.machineNameInKorean;
             dataObject.stageToUse = machineType.stageToUse;
+            dataObject.machineUnlockCost=machineType.costToUnlock;
 
             // foodValues를 필터링하여 dataObject에 저장
             var filteredValues = machineValues.Where(v => v.machineName.StartsWith(machineType.machineName)).ToList();

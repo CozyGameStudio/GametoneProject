@@ -31,6 +31,7 @@ public class DataLoadManager : MonoBehaviour
     public FoodDataList foodDataList; 
     public MachineDataList machineDataList;
     public CharacterDataList characterDataList;
+    public MissionDataList missionDataList;
 
     public delegate void DataChangedDelegate();
     public event DataChangedDelegate OnDataChanged;
@@ -296,4 +297,44 @@ public class DataLoadManager : MonoBehaviour
         }
         OnRequestComplete();
     }
+    // private void OnMissionDataLoaded(List<Team5DataTable_Mission.Data> loadedDataList, Dictionary<string, Team5DataTable_Mission.Data> loadedDataMap)
+    // {
+    //     Dictionary<string, ScriptableCharacter> existingDataMap = new Dictionary<string, ScriptableCharacter>();
+    //     foreach (var existingData in missionDataList.missionDataList)
+    //     {
+    //         existingDataMap[existingData.missionContent] = existingData;
+    //     }
+
+    //     foreach (var loadedData in loadedDataList)
+    //     {
+    //         string[] splitKey = loadedData.characterName.Split('_');
+    //         string characterName = splitKey[0];
+    //         int levelIndex;
+    //         if (int.TryParse(splitKey[1], out levelIndex) && levelIndex > 0)
+    //         {
+    //             levelIndex -= 1;
+    //             if (existingDataMap.TryGetValue(characterName, out ScriptableCharacter existingCharacterTypeData))
+    //             {
+    //                 if (levelIndex < existingCharacterTypeData.profitGrowthRate.Length)
+    //                 {
+    //                     existingCharacterTypeData.profitGrowthRate[levelIndex] = loadedData.profitGrowthRate;
+    //                     existingCharacterTypeData.upgradeMoney[levelIndex] = loadedData.upgradeValue;
+    //                 }
+    //                 else
+    //                 {
+    //                     Debug.LogError($"Level index {levelIndex} is out of range for character '{characterName}'.");
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 Debug.Log("Not existing object for character name: " + characterName);
+    //             }
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError("Failed to parse level index from character name: " + loadedData.characterName);
+    //         }
+    //     }
+    //     OnRequestComplete();
+    // }
 }

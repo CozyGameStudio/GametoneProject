@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
+using System;
 public class Chef : MonoBehaviour
 {
     public enum States //state enum
@@ -140,7 +141,13 @@ public class Chef : MonoBehaviour
     IEnumerator cookCoroutine(Food foodToMake, float cooktime){
         isCooking=true;
         yield return new WaitForSeconds(cooktime);
-        GameObject foodMade = Instantiate(Resources.Load<GameObject>(foodToMake.foodData.foodName), foodHolder.transform.position, Quaternion.identity);
+        string foodName= foodToMake.foodData.foodName;
+        if (!string.IsNullOrEmpty(foodName) && Char.IsUpper(foodName[foodName.Length - 1]))
+        {
+            // 마지막 문자가 대문자인 경우, 문자열에서 제거
+            foodName = foodName.Substring(0, foodName.Length - 1);
+        }
+        GameObject foodMade = Instantiate(Resources.Load<GameObject>(foodName), foodHolder.transform.position, Quaternion.identity);
         foodMade.GetComponent<FoodToServe>().orderstatus=currentMenu;
         foodMade.transform.parent = foodHolder.transform;
         isCooking=false;

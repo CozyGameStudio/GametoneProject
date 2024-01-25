@@ -14,7 +14,7 @@ public class OrderManager : MonoBehaviour
     public event OrderHandler OnNewOrder;//Chef reference
 
     public List<Chef> chefs;
-    public List<Machine> machines;
+    private List<Machine> machines;
     private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
@@ -41,6 +41,7 @@ public class OrderManager : MonoBehaviour
     }
     void Start()
     {
+        machines=DataManager.Instance.machines;
         //enable chef amount of currentEnabledChef
         for (int i = 0; i < chefs.Count; i++)
         {

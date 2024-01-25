@@ -84,11 +84,13 @@ public class MissionBox : MonoBehaviour
         StageMissionManager.Instance.CompletedMissionsCount();
         foreach (Chef chef in OrderManager.Instance.chefs)
         {
-            chef.MultSpeed(1.4f);
+            if(chef.gameObject.activeSelf)
+                chef.MultSpeed(1.4f);
         }
         foreach (Server server in ServerManager.Instance.servers)
         {
-            server.MultSpeed(1.4f);
+            if (server.gameObject.activeSelf)
+                server.MultSpeed(1.4f);
         }
         gameObject.SetActive(false);
     }

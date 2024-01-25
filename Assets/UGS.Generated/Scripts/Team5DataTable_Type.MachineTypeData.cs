@@ -60,6 +60,7 @@ namespace Team5DataTable_Type
 		public System.String machineName;
 		public System.String machineNameInKorean;
 		public System.Int32 stageToUse;
+		public System.Int32 costToUnlock;
   
 
 #region fuctions

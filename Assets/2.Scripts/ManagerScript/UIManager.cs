@@ -26,8 +26,12 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Start(){
+        UpdateCurrentStageText();
+    }
     public TMP_Text moneyText;
     public TMP_Text moneyMultiplierText;
+    public TMP_Text currentStageText;
 
     public void UpdateMoneyUI(){
         moneyText.text = BusinessGameManager.Instance.money.ToString();
@@ -35,5 +39,8 @@ public class UIManager : MonoBehaviour
     public void UpdateMoneyMultiplierUI()
     {
         moneyMultiplierText.text = BusinessGameManager.Instance.moneyMultiplier.ToString();
+    }
+    public void UpdateCurrentStageText(){
+        currentStageText.text=BusinessGameManager.Instance.currentBusinessStage.ToString();
     }
 }
