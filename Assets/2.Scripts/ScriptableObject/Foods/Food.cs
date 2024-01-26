@@ -23,6 +23,9 @@ public class Food : MonoBehaviour
         SetValue();
         DataLoadManager.Instance.OnDataChanged += SetValue;
     }
+    void OnEnable(){
+        SetValue();
+    }
     public void LevelUp(){
         currentLevel++;
         SetValue();
@@ -32,5 +35,4 @@ public class Food : MonoBehaviour
         currentValue = foodData.foodPrice[currentLevel - 1];
         currentUpgradeMoney = foodData.upgradeMoney[currentLevel - 1];
     }
-    
 }

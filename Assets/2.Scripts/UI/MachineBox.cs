@@ -38,7 +38,7 @@ public class MachineBox : MonoBehaviour
         // Init machine name
         if (machineName != null)
         {
-            machineName.text = machine.machineData.machineName;
+            machineName.text = machine.machineData.machineNameInKorean;
         }
         else
         {

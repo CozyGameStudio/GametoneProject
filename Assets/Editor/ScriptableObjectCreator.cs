@@ -149,7 +149,13 @@ public static class ScriptableObjectCreator
     {
         Team5DataTable_Mission.Data.Load();
         List<Team5DataTable_Mission.Data> missionDatas = Team5DataTable_Mission.Data.DataList;
-
+        string missionDataListPath = "Assets/Resources/MissionDataList.asset";
+        MissionDataList missionDataList = AssetDatabase.LoadAssetAtPath<MissionDataList>(missionDataListPath);
+        if (missionDataList == null)
+        {
+            Debug.LogError("MissionDataList not found!");
+            return;
+        }
         foreach (var missionData in missionDatas)
         {
             string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/SO_{missionData.missionContent}.asset";
@@ -161,7 +167,7 @@ public static class ScriptableObjectCreator
                 dataObject = ScriptableObject.CreateInstance<ScriptableMission>();
                 AssetDatabase.CreateAsset(dataObject, assetPath);
             }
-
+            
             if (Enum.TryParse(missionData.missionType, true, out MissionType missionTypeEnum))
             {
                 dataObject.missionType = missionTypeEnum;
@@ -202,7 +208,7 @@ public static class ScriptableObjectCreator
                     Debug.LogError($"Invalid mission content format: {missionData.missionContent}");
                     // 추가적인 처리가 필요할 수 있습니다.
                 }
-                dataObject.criteria = missionData.criteria; // 필요한 경우 추가
+                dataObject.criteria = missionData.criteria; 
                 
                 
             }
@@ -212,9 +218,13 @@ public static class ScriptableObjectCreator
                     dataObject.missionContent = missionContentEnum;
                 }
             }
-            dataObject.cost = missionData.cost; // 필요한 경우 추가
+            dataObject.cost = missionData.cost;
             EditorUtility.SetDirty(dataObject);
+            missionDataList.AddMission(dataObject);
         }
+        EditorUtility.SetDirty(missionDataList);
+
+
 #if UNITY_EDITOR
         AssetDatabase.SaveAssets();
 #endif

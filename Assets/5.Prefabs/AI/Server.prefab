@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2260025894199512780}
   - component: {fileID: 859428392645545094}
   m_Layer: 0
-  m_Name: ServerCat
+  m_Name: Server
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

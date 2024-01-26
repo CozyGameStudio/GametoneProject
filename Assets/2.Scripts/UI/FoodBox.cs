@@ -46,7 +46,7 @@ public class FoodBox : MonoBehaviour
         // Init food name
         if (foodName != null)
         {
-            foodName.text = food.foodData.foodName;
+            foodName.text = food.foodData.foodNameInKorean;
         }
         else
         {

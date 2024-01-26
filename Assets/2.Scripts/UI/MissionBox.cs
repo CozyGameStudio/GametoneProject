@@ -63,14 +63,15 @@ public class MissionBox : MonoBehaviour
         }
         else if (missionData.targetName.Contains("Character"))
         {
-            Predicate<Character> characterCondition = (Character c) => c.characterData.characterName == target;
-            obj = DataManager.Instance.FindWithCondition(DataManager.Instance.characters, characterCondition);
+            // Predicate<Character> characterCondition = (Character c) => c.characterData.characterName == target;
+            // obj = DataManager.Instance.FindWithCondition(DataManager.Instance.characters, characterCondition);
         }
         else
         {
             Predicate<Food> foodCondition = (Food f) => f.foodData.foodName == target;
             obj = DataManager.Instance.FindWithCondition(DataManager.Instance.foods, foodCondition);
         }
+        Debug.Log(obj.ToString());
     }
     public void MachineUpgrade(){
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
@@ -123,17 +124,20 @@ public class MissionBox : MonoBehaviour
             case MissionContent.LevelCheck:
                 if (obj is Food parsedFood)
                 {
-                    description = $"{parsedFood.foodData.foodNameInKorean} {parsedFood.currentLevel} / {missionData.criteria}";
+                    description = $"{parsedFood.foodData.foodNameInKorean} {missionData.criteria}LV 달성하기";
+                    Debug.Log("In");
                 }
                 else if (obj is Machine parsedMachine)
                 {
-                    description = $"{parsedMachine.machineData.machineNameInKorean} {parsedMachine.currentLevel} / {missionData.criteria}";
+                    description = $"{parsedMachine.machineData.machineNameInKorean} {missionData.criteria}LV 달성하기";
+                    Debug.Log("In");
                 }
                 break;
             case MissionContent.ActivatedCheck:
                 if (obj is Machine machine)
                 {
                     description = $"{machine.machineData.machineNameInKorean} 설치하기";
+                    Debug.Log("In");
                 }
                 break;
             case MissionContent.TableAdd:

@@ -21,6 +21,9 @@ public class Machine : MonoBehaviour
         DataLoadManager.Instance.OnDataChanged += SetValue;
         SetValue();
     }
+    void OnEnable(){
+        SetValue();
+    }
     public void UnlockFood()
     {
         if (unlockedFood != null)

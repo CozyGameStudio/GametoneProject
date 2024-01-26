@@ -6,4 +6,12 @@ using UnityEngine;
 public class MissionDataList : ScriptableObject
 {
     public List<ScriptableMission> missionDataList;
+
+    public void AddMission(ScriptableMission mission)
+    {
+        if (mission != null && !missionDataList.Contains(mission))
+        {
+            missionDataList.Add(mission);
+        }
+    }
 }

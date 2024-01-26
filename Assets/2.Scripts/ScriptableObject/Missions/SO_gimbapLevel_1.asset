@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8255ad9f18f867a40ba2760e7c098c82, type: 3}
-  m_Name: SO_coffeeMachineActivated_1
+  m_Name: SO_gimbapLevel_1
   m_EditorClassIdentifier: 
   missionType: 0
-  missionContent: 3
-  targetName: coffeeMachine
-  criteria: 1
-  cost: 500
+  missionContent: 2
+  targetName: gimbap
+  criteria: 3
+  cost: 700
   stageToAppear: 1
-  sprite: {fileID: 21300000, guid: ef1c87e611756c54497f706b5779ac65, type: 3}
+  sprite: {fileID: 21300000, guid: 22bfde41c5aa45b4cbfda813419431b1, type: 3}
