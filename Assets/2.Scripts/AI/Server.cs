@@ -6,7 +6,6 @@ using System;
 using UnityEngine.AI;
 public class Server : MonoBehaviour
 {
-    
     public enum States //state enum
     {
         Idle,
@@ -24,7 +23,7 @@ public class Server : MonoBehaviour
     private Customer currentCustomer;
     private NavMeshAgent agent;
     public event Action OnAvailable;
-    
+    private float initSpeed;
     
     void Awake()
     {
@@ -36,7 +35,7 @@ public class Server : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
+        initSpeed=speed;
     }
 
     void Update()
@@ -57,7 +56,16 @@ public class Server : MonoBehaviour
         IsAvailable=false;
         
     }
-
+    public void MultSpeed(float mult)
+    {
+        speed *= mult;
+        agent.speed = speed;
+    }
+    public void BackToNormalSpeed()
+    {
+        speed = initSpeed;
+        agent.speed = speed;
+    }
     void Idle_Enter()
     {
         
@@ -94,8 +102,8 @@ public class Server : MonoBehaviour
         }
         menuToServe.transform.parent=foodHolder.transform;
         menuToServe.transform.position=foodHolder.transform.position;
-        int tableNum=menuToServe.GetComponent<FoodMain>().orderstatus.tableNumber;
-        foreach(var chair in CustomerManager.Instance.customerTablePlace)
+        int tableNum=menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
+        foreach(var chair in CustomerManager.Instance.customerChair)
         {
             if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
                 placeToMove=chair.transform.parent;//guest place
@@ -116,13 +124,13 @@ public class Server : MonoBehaviour
             {
                 return; // Stop execution of subsequent code
             }
-            currentCustomer.GetMenu(menuToServe);
             fsm.ChangeState(States.Idle);
         }
 
     }
     void Serve_Exit()
     {
+        currentCustomer.GetMenu(menuToServe);
         SetAvailable();
         
     }

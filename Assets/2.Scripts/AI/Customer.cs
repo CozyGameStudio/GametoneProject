@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
-using UnityEditor.Rendering;
-using Unity.VisualScripting;
 
 public struct OrderBoard{
-    public string name{get;private set;}
+    public Food foodData{get;private set;}
     public int tableNumber { get; private set;}
-    public OrderBoard(string nam,int num){
-        name=nam;
+    public OrderBoard(Food food, int num){
+        foodData=food;
         tableNumber=num;
     }
 }
@@ -31,32 +27,40 @@ public class Customer : MonoBehaviour
 
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
-    private int customerTablePlaceLength;
-    private string orderFood;
+    private int customerChairPlaceLength;
+    private Food orderFood;
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
     private NavMeshAgent agent;
-    FoodMain receivedFood;
-
+    private float initSpeed;
     private void Awake()
     {
-        orderFood = DataManager.Instance.RandomFood();//receive name from data manaager
-        receivedFood= DataManager.Instance.FindFoodWithName(orderFood);
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
         orderBubble.SetActive(false);
     }
     void Start(){
+        orderFood = DataManager.Instance.RandomFood();
+        Debug.Log(orderFood.foodData.foodName);
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
     }
     private void Update()
     {
         fsm.Driver.Update.Invoke();
+    }
+    public void MultSpeed(float mult)
+    {
+        speed *= mult;
+        agent.speed = speed;
+    }
+    public void BackToNormalSpeed()
+    {
+        speed = initSpeed;
+        agent.speed = speed;
     }
     void Idle_Enter()
     {
@@ -70,14 +74,14 @@ public class Customer : MonoBehaviour
             
             if (!CustomerManager.Instance.IsCustomerFull())
             {
-                customerTablePlaceLength = CustomerManager.Instance.customerTablePlace.Length;
-                for (int i = 0; i < customerTablePlaceLength; i++)
+                customerChairPlaceLength = CustomerManager.Instance.customerChair.Count;
+                for (int i = 0; i < customerChairPlaceLength; i++)
                 {
-                    if (!CustomerManager.Instance.customerTablePresent[i])
+                    if (!CustomerManager.Instance.customerChairPresent[i])
                     {
                         tableNumber = i+1;
-                        customerTablePlace = CustomerManager.Instance.customerTablePlace[i];
-                        CustomerManager.Instance.customerTablePresent[i] = true;
+                        customerTablePlace = CustomerManager.Instance.customerChair[i];
+                        CustomerManager.Instance.customerChairPresent[i] = true;
                         break;
                     }
                 }
@@ -88,19 +92,15 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            GameManager.Instance.AddMoney(receivedFood.FoodData.Money);
+            BusinessGameManager.Instance.AddMoney(orderFood.currentValue);
+            StageMissionManager.Instance.IncreaseAccumulatedCustomer();
+            StageMissionManager.Instance.IncreaseAccumulatedSales(orderFood.currentValue);
+            Debug.Log(orderFood.currentValue);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
     }
-    void Idle_Exit()
-    {
-        
-    }
-    void Walk_Enter()
-    {
-        
-    }
+
     void Walk_Update()
     {
         // Move to the table if no order is placed
@@ -124,7 +124,7 @@ public class Customer : MonoBehaviour
             }
             else
             {
-                CustomerManager.Instance.customerTablePresent[tableNumber-1] = false;
+                CustomerManager.Instance.customerChairPresent[tableNumber-1] = false;
                 
                 Destroy(gameObject);
             }
@@ -144,8 +144,8 @@ public class Customer : MonoBehaviour
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
         orderBubble.SetActive(true);
-        foodRenderer.sprite=receivedFood.FoodData.Icon;
-    }
+        foodRenderer.sprite=orderFood.foodData.foodIcon;
+;    }
     void Order_Update()
     {
         if(receiveOrder)

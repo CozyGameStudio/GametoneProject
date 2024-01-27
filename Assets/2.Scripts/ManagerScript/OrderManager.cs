@@ -12,10 +12,10 @@ public class OrderManager : MonoBehaviour
     public delegate void OrderHandler(OrderBoard order);
 
     // Create an event based on the delegate
-    public event OrderHandler OnNewOrder;//chefScript reference
+    public event OrderHandler OnNewOrder;//Chef reference
 
-    public List<ChefScript> chefs = new List<ChefScript>();
-    public Machine[] machines;
+    public List<Chef> chefs;
+    private List<Machine> machines;
     private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
@@ -42,6 +42,7 @@ public class OrderManager : MonoBehaviour
     }
     void Start()
     {
+        machines=DataManager.Instance.machines;
         //enable chef amount of currentEnabledChef
         for (int i = 0; i < chefs.Count; i++)
         {
@@ -56,8 +57,11 @@ public class OrderManager : MonoBehaviour
                 chefs[i].gameObject.SetActive(false);
             }
         }
+        MachineListRenew();
     }
-    
+    public void MachineListRenew(){
+        machines = DataManager.Instance.activeMachines;
+    }
     public void PutOrderInQueue(OrderBoard order)
     {
         orderQueue.Enqueue(order);
@@ -69,7 +73,7 @@ public class OrderManager : MonoBehaviour
         {
             OrderBoard order = orderQueue.Peek(); // Check the first order in the queue
             Machine appropriateMachine = FindMachineForOrder(order);
-            ChefScript availableChef = FindAvailableChef();
+            Chef availableChef = FindAvailableChef();
 
             if (availableChef != null && appropriateMachine != null)
             {
@@ -86,7 +90,7 @@ public class OrderManager : MonoBehaviour
     }
 
 
-    private ChefScript FindAvailableChef()
+    private Chef FindAvailableChef()
     {
         // find available chef
         return chefs.Find(chef => chef.IsAvailable);
@@ -101,7 +105,7 @@ public class OrderManager : MonoBehaviour
     }
     public void ActivateOneChef()
     {
-        foreach (ChefScript chef in chefs)
+        foreach (Chef chef in chefs)
         {
             // check is chef enabled
             if (!chef.gameObject.activeSelf)
@@ -117,21 +121,13 @@ public class OrderManager : MonoBehaviour
         // if every server is all activatd
 
     }
-    public void AddOrder(OrderBoard order)
-    {
-        // Add a new order to the queue
-        orderQueue.Enqueue(order);
-
-        // Attempt order allocation
-        TryAssignOrder();
-    }
 
     private Machine FindMachineForOrder(OrderBoard order)
     {
         // Find a machine that matches the order
         foreach (var machine in machines)
         {
-            if (machine.foodToMake.Equals(order.name) && machine.IsAvailable)
+            if (machine.unlockedFood.foodData.foodName.Equals(order.foodData.foodData.foodName) && machine.IsAvailable)
             {
                 return machine;
             }
