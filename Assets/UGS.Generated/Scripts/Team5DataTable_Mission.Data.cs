@@ -20,7 +20,7 @@ namespace Team5DataTable_Mission
     public partial class Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Data> loadedList, Dictionary<string, Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Data> loadedList, Dictionary<int, Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1o9JMzhMVd3X1O1M7ObnyZb3kN6JQ6wHWBB9cuN3NFKE"; // it is file id
@@ -29,7 +29,7 @@ namespace Team5DataTable_Mission
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<string, Data> DataMap = new Dictionary<string, Data>();  
+        public static Dictionary<int, Data> DataMap = new Dictionary<int, Data>();  
         public static List<Data> DataList = new List<Data>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Team5DataTable_Mission
         /// Get Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<string, Data>  GetDictionary()
+        public static Dictionary<int, Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return DataMap;
@@ -56,10 +56,13 @@ namespace Team5DataTable_Mission
 
 /* Fields. */
 
+		public System.Int32 index;
+		public System.Int32 stageToUse;
 		public System.String missionContent;
 		public System.String missionType;
 		public System.Int32 criteria;
 		public System.Int32 cost;
+		public System.String description;
   
 
 #region fuctions
@@ -86,7 +89,7 @@ namespace Team5DataTable_Mission
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Data>, Dictionary<string, Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Data>, Dictionary<int, Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -114,8 +117,8 @@ namespace Team5DataTable_Mission
                
 
 
-    public static (List<Data> list, Dictionary<string, Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<string, Data> Map = new Dictionary<string, Data>();
+    public static (List<Data> list, Dictionary<int, Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Data> Map = new Dictionary<int, Data>();
             List<Data> List = new List<Data>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -177,7 +180,7 @@ namespace Team5DataTable_Mission
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.missionContent, instance);
+                            Map.Add(instance.index, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

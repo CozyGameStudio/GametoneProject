@@ -14,7 +14,7 @@ public class OrderManager : MonoBehaviour
     // Create an event based on the delegate
     public event OrderHandler OnNewOrder;//Chef reference
 
-    public List<Chef> chefs;
+    public List<Chef> chefs{get;private set;}
     private List<Machine> machines;
     private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
@@ -42,7 +42,13 @@ public class OrderManager : MonoBehaviour
     }
     void Start()
     {
-        machines=DataManager.Instance.machines;
+        chefs = new List<Chef>();
+        Chef[] chefObjects = FindObjectsOfType<Chef>();
+        foreach (Chef chef in chefObjects)
+        {
+            chefs.Add(chef);
+        }
+        machines =DataManager.Instance.machines;
         //enable chef amount of currentEnabledChef
         for (int i = 0; i < chefs.Count; i++)
         {

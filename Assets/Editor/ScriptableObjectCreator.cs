@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 
 public static class ScriptableObjectCreator
 {
@@ -18,6 +19,9 @@ public static class ScriptableObjectCreator
         List<Team5DataTable_Value.FoodValueData> foodValues = Team5DataTable_Value.FoodValueData.FoodValueDataList;
         Debug.Log($"Food Types Count: {foodTypes.Count}");
         Debug.Log($"Food Values Count: {foodValues.Count}");
+        string foodDataListPath = "Assets/Resources/FoodDataList.asset";
+        FoodDataList foodDataList = AssetDatabase.LoadAssetAtPath<FoodDataList>(foodDataListPath);
+        foodDataList.cleanList();
         foreach (var foodType in foodTypes)
         {
             string assetPath = $"Assets/2.Scripts/ScriptableObject/Foods/{foodType.stageToUse}Stage/SO_{foodType.foodName}.asset";
@@ -49,8 +53,10 @@ public static class ScriptableObjectCreator
             }
 
             EditorUtility.SetDirty(dataObject);
+            foodDataList.AddFood(dataObject);
         }
-    #if UNITY_EDITOR
+        EditorUtility.SetDirty(foodDataList);
+#if UNITY_EDITOR
         AssetDatabase.SaveAssets();
         Debug.Log("save Completed");
     #endif
@@ -63,7 +69,9 @@ public static class ScriptableObjectCreator
         Team5DataTable_Value.MachineValueData.Load();
         List<Team5DataTable_Type.MachineTypeData> machineTypes = Team5DataTable_Type.MachineTypeData.MachineTypeDataList;
         List<Team5DataTable_Value.MachineValueData> machineValues = Team5DataTable_Value.MachineValueData.MachineValueDataList;
-
+        string machineDataListPath= "Assets/Resources/MachineDataList.asset";
+        MachineDataList machineDataList = AssetDatabase.LoadAssetAtPath<MachineDataList>(machineDataListPath);
+        machineDataList.cleanList();
         foreach (var machineType in machineTypes)
         {
             string assetPath = $"Assets/2.Scripts/ScriptableObject/Machines/{machineType.stageToUse}Stage/SO_{machineType.machineName}.asset";
@@ -96,7 +104,9 @@ public static class ScriptableObjectCreator
             }
 
             EditorUtility.SetDirty(dataObject);
+            machineDataList.AddMachine(dataObject);
         }
+        EditorUtility.SetDirty(machineDataList);
 #if UNITY_EDITOR
         AssetDatabase.SaveAssets();
 #endif
@@ -108,6 +118,9 @@ public static class ScriptableObjectCreator
         Team5DataTable_Value.CharacterValueData.Load();
         List<Team5DataTable_Type.CharacterTypeData> characterTypes = Team5DataTable_Type.CharacterTypeData.CharacterTypeDataList;
         List<Team5DataTable_Value.CharacterValueData> characterValues = Team5DataTable_Value.CharacterValueData.CharacterValueDataList;
+        string characterDataListPath = "Assets/Resources/CharacterDataList.asset";
+        CharacterDataList characterDataList = AssetDatabase.LoadAssetAtPath<CharacterDataList>(characterDataListPath);
+        characterDataList.cleanList();
         foreach (var characterType in characterTypes)
         {
             string assetPath = $"Assets/2.Scripts/ScriptableObject/Characters/SO_{characterType.characterName}.asset";
@@ -138,7 +151,9 @@ public static class ScriptableObjectCreator
             }
 
             EditorUtility.SetDirty(dataObject);
+            characterDataList.AddCharacter(dataObject);
         }
+        EditorUtility.SetDirty(characterDataList);
 #if UNITY_EDITOR
         AssetDatabase.SaveAssets();
 #endif
@@ -149,8 +164,10 @@ public static class ScriptableObjectCreator
     {
         Team5DataTable_Mission.Data.Load();
         List<Team5DataTable_Mission.Data> missionDatas = Team5DataTable_Mission.Data.DataList;
+        Debug.Log("Data load Complete");
         string missionDataListPath = "Assets/Resources/MissionDataList.asset";
         MissionDataList missionDataList = AssetDatabase.LoadAssetAtPath<MissionDataList>(missionDataListPath);
+        missionDataList.cleanList();
         if (missionDataList == null)
         {
             Debug.LogError("MissionDataList not found!");
@@ -158,7 +175,7 @@ public static class ScriptableObjectCreator
         }
         foreach (var missionData in missionDatas)
         {
-            string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/SO_{missionData.missionContent}.asset";
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/{missionData.stageToUse}Stage/SO_{missionData.missionContent}.asset";
 #if UNITY_EDITOR
             ScriptableMission dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMission>(assetPath);
 #endif
@@ -166,6 +183,7 @@ public static class ScriptableObjectCreator
             {
                 dataObject = ScriptableObject.CreateInstance<ScriptableMission>();
                 AssetDatabase.CreateAsset(dataObject, assetPath);
+                Debug.Log("Mission Created");
             }
             
             if (Enum.TryParse(missionData.missionType, true, out MissionType missionTypeEnum))
@@ -175,37 +193,37 @@ public static class ScriptableObjectCreator
             }
             else
             {
-                Debug.LogError($"Invalid mission content string: {missionData.missionContent}");
+                Debug.LogError($"Invalid mission content string: {missionData.missionType}");
             }
-            string[] content = missionData.missionContent.Split('_');
-            dataObject.stageToAppear = Convert.ToInt32(content[1]);
             
+            dataObject.stageToAppear = missionData.stageToUse;
+            string content = missionData.missionContent;
             if (dataObject.missionType==MissionType.Reward){
-                int activatedIndex = content[0].IndexOf("Activated");
-                int levelIndex = content[0].IndexOf("Level");
+                int activatedIndex = content.IndexOf("Activated");
+                int levelIndex = content.IndexOf("Level");
 
                 if (activatedIndex != -1)
                 {
-                    dataObject.targetName = content[0].Substring(0, activatedIndex).Trim();
+                    dataObject.targetName = content.Substring(0, activatedIndex).Trim();
                     dataObject.missionContent = MissionContent.ActivatedCheck;
                 }
                 else if (levelIndex != -1)
                 {
-                    dataObject.targetName = content[0].Substring(0, levelIndex).Trim();
+                    dataObject.targetName = content.Substring(0, levelIndex).Trim();
                     dataObject.missionContent = MissionContent.LevelCheck;
                 }
-                else if (content[0].Contains("Customer"))
+                else if (content.Contains("Customer"))
                 {
                     dataObject.missionContent = MissionContent.CustomerCheck;
                 }
-                else if (content[0].Contains("Sales"))
+                else if (content.Contains("Sales"))
                 {
                     dataObject.missionContent = MissionContent.SalesCheck;
                 }
                 else
                 {
                     // "Available" 또는 "Level"이 없는 경우의 처리
-                    Debug.LogError($"Invalid mission content format: {missionData.missionContent}");
+                    Debug.LogError($"Invalid mission content format: {content}");
                     // 추가적인 처리가 필요할 수 있습니다.
                 }
                 dataObject.criteria = missionData.criteria; 
@@ -213,12 +231,13 @@ public static class ScriptableObjectCreator
                 
             }
             else{
-                if (Enum.TryParse(content[0], true, out MissionContent missionContentEnum))
+                if (Enum.TryParse(content, true, out MissionContent missionContentEnum))
                 {
                     dataObject.missionContent = missionContentEnum;
                 }
             }
             dataObject.cost = missionData.cost;
+            dataObject.description= missionData.description;
             EditorUtility.SetDirty(dataObject);
             missionDataList.AddMission(dataObject);
         }

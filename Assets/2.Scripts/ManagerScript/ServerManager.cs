@@ -20,7 +20,7 @@ public class ServerManager : MonoBehaviour
 
     private List<GameObject> foodPlaces;
 
-    public List<Server> servers; // all Serves
+    public List<Server> servers{get;private set;} = new List<Server>(); // all Serves
     private Queue<Transform> serveTasksQueue = new Queue<Transform>();
     private int currentEnabledServer = 1; // it will be controled by data manager
     void Awake(){
@@ -32,13 +32,19 @@ public class ServerManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        
+    }
+    void Start()
+    {
+        Server[] serverObjects = FindObjectsOfType<Server>();
+        foreach (Server server in serverObjects)
+        {
+            servers.Add(server);
+        }
         foreach (var serveTable in serveTables)
         {
             AddChildrenWithName(serveTable, "FoodHolder");
         }
-    }
-    void Start()
-    {
         // every events for foodplace update
         foreach (var foodPlace in foodPlaces)
         {
@@ -49,6 +55,7 @@ public class ServerManager : MonoBehaviour
             server.OnAvailable += OnServerAvailable;
 
         }
+        
         for (int i = 0; i < servers.Count; i++)
         {
             if (i < currentEnabledServer)

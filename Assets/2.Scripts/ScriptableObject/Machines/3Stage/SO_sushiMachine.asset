@@ -17,16 +17,11 @@ MonoBehaviour:
   machineNameInKorean: "\uB3C4\uB9C8"
   machineUnlockCost: 500
   cookTime:
-  - 5
-  - 4.8
-  - 4.6
-  - 4.4
-  - 4.2
-  - 4
-  - 3.8
-  - 3.6
-  - 3.4
-  - 3.2
-  upgradeMoney: 060000000f000000140000002c00000048000000730000001d0100003e020000b803000000000000
+  - 15
+  - 14
+  - 13
+  - 12
+  - 11
+  upgradeMoney: 64000000960000002c010000c201000000000000
   stageToUse: 3
   machineIcon: {fileID: 0}

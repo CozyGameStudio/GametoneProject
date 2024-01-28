@@ -6,4 +6,15 @@ using UnityEngine;
 public class FoodDataList : ScriptableObject
 {
     public List<ScriptableFood> foodDataList;
+    public void AddFood(ScriptableFood food)
+    {
+        if (food != null && !foodDataList.Contains(food))
+        {
+            foodDataList.Add(food);
+        }
+    }
+    public void cleanList()
+    {
+        foodDataList.Clear();
+    }
 }

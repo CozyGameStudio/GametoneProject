@@ -31,4 +31,5 @@ public class ScriptableMission : ScriptableObject
     public int cost;
     public int stageToAppear;
     public Sprite sprite;
+    public string description;
 }

@@ -6,9 +6,9 @@ using System.Linq;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
-    public List<Food> foods;
-    public List<Machine> machines;
-    public List<Character> characters;
+    public List<Food> foods{get;private set; } = new List<Food>();
+    public List<Machine> machines { get; private set; } = new List<Machine>();
+    public List<Character> characters { get; private set; } = new List<Character>();
 
     public List<Food> activeFoods { get; private set; } = new List<Food>();
     public List<Machine> activeMachines{get;private set;}=new List<Machine>();
@@ -35,12 +35,28 @@ public class DataManager : MonoBehaviour
         }
     }
     void Start(){
+        Food[] foodObjects = FindObjectsOfType<Food>();
+        foreach (Food food in foodObjects)
+        {
+            foods.Add(food);
+        }
+        Machine[] machineObjects = FindObjectsOfType<Machine>();
+        foreach (Machine machine in machineObjects)
+        {
+            machines.Add(machine);
+        }
+        Character[] characterObjects = FindObjectsOfType<Character>();
+        foreach (Character character in characterObjects)
+        {
+            characters.Add(character);
+        }
         foreach (Machine machine in machines)
         {
             machine.transform.parent.gameObject.SetActive(false);
         }
         addActiveFoods();
         addActiveMachines();
+       StageMissionManager.Instance.MissionInit();
     }
     void addActiveFoods(){
         activeFoods = foods.Where(food => food.isUnlocked).ToList();

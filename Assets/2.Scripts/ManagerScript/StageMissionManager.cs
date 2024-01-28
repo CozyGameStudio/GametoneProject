@@ -52,18 +52,19 @@ public class StageMissionManager : MonoBehaviour
                 currentStageMissions.Add(currentStageMission);
             }
         }
-        foreach(var currentStageMission in currentStageMissions)
+    }
+    public void MissionInit(){
+        foreach (var currentStageMission in currentStageMissions)
         {
-            GameObject missionBox=Instantiate(missionBoxPrefab);
+            GameObject missionBox = Instantiate(missionBoxPrefab);
             missionBox.transform.SetParent(missionPanel.transform, false);
-            MissionBox mission= missionBox.GetComponent<MissionBox>();
-            mission.missionData= currentStageMission;
+            MissionBox mission = missionBox.GetComponent<MissionBox>();
+            mission.missionData = currentStageMission;
             missions.Add(missionBox.GetComponent<MissionBox>());
             mission.InitMissionBox();
         }
         CompletedMissionsCount();
     }
-    
     public void IncreaseAccumulatedCustomer(){
         accumulatedCustomer++;
         UpdateMissionStatus();

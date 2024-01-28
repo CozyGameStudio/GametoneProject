@@ -18,12 +18,11 @@ public class MissionBox : MonoBehaviour
     public Button rewardButton;
 
     public object obj{get;private set;}
-
+    private bool isUnlocked=false;
     public void InitMissionBox()
     {
         missionContent=missionData.missionContent;
-        Debug.Log("init mission box started");
-        SetButton();
+        SetType();
         if (missionContent==MissionContent.LevelCheck||missionContent==MissionContent.ActivatedCheck)
             MatchContentObj();
         SetUI();
@@ -31,7 +30,7 @@ public class MissionBox : MonoBehaviour
         button.interactable = false;
         titleImage.sprite= missionData.sprite;
     }
-    public void SetButton(){
+    public void SetType(){
         switch (missionData.missionType)
         {
             case MissionType.Upgrade:
@@ -51,6 +50,7 @@ public class MissionBox : MonoBehaviour
             case MissionType.Reward:
                 button = rewardButton;
                 button.onClick.AddListener(Reward);
+                isUnlocked=true;
                 break;
         }
     }
