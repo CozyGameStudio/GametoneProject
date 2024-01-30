@@ -34,6 +34,7 @@ public class InteriorBox : MonoBehaviour, IBox<ScriptableInterior>
                 if (spriteRenderer != null)
                 {
                     spriteRenderer.sprite = Interior.icon;
+                    spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
                 }
             }
         }

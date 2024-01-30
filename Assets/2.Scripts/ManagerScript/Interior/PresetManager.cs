@@ -20,7 +20,7 @@ public class PresetManager : MonoBehaviour
     public List<List<Position>> groupPositions;
     public List<Position> choicePresetPositions;
 
-    public bool IsInitPanel = false;
+    public bool IsFirstPresetClick = false;
 
     public static PresetManager Instance
     {
@@ -124,6 +124,10 @@ public class PresetManager : MonoBehaviour
         {
             if (interior.presetNumber == presetNumber)
                 choicePresetInteriors.Add(interior);
+            else
+            {
+
+            }
         }
         if (choicePresetPositions.Any())
         {
@@ -132,7 +136,14 @@ public class PresetManager : MonoBehaviour
         foreach(var position in positions)
         {
             if(position.position.presetNumber == presetNumber)
+            {
+                position.gameObject.SetActive(true);
                 choicePresetPositions.Add(position);
+            }
+            else
+            {
+                position.gameObject.SetActive(false);
+            }
         }
     }
 }

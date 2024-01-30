@@ -18,6 +18,8 @@ public class InteriorPanel : MonoBehaviour
 
     public void InitPanel(int num)
     {
+        InteriorManager.Instance.GetPositionDatas();
+        InteriorManager.Instance.ClassifyInteriorsByPosition();
         groupInteriors = InteriorManager.Instance.groupInteriors;
 
         if (InteriorButtons.Any())
@@ -44,8 +46,6 @@ public class InteriorPanel : MonoBehaviour
             }
         }
     }
-
-
 
     // Update is called once per frame
     void Update()

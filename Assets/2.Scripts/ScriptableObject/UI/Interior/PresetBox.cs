@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
 {
@@ -19,6 +20,8 @@ public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
 
     private bool isBuy = false;
 
+    private InteriorPanel interiorPanel;
+    private PositionPanel positionPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +55,7 @@ public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
 
     public void ButtonClick()
     {
-        if(isBuy)
+        if (isBuy)
         {
             PresetManager.Instance.ChoicePreset(presets.number);
             PresetWindow = InteriorSystem.transform.Find("PresetWindow");
@@ -71,14 +74,45 @@ public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
                 InteriorWindow.gameObject.SetActive(true);
                 InteriorSceneManager.Instance.AddMoney(-presetMoney);
                 isBuy = true;
+
+                
+
             }
             else
             {
 
             }
-        }
-        
 
+            
+        }
+
+        if (PresetManager.Instance.IsFirstPresetClick)
+        {
+            PositionPanel[] pPanels = InteriorSystem.GetComponentsInChildren<PositionPanel>(true);
+            positionPanel = pPanels.FirstOrDefault(p => p.name == "PositionPanel");
+            if (positionPanel != null)
+            {
+                positionPanel.InitPanel();
+            }
+            else
+            {
+                Debug.LogError("positionPanel component not found in InteriorSystem");
+            }
+
+
+            InteriorPanel[] iPanels = InteriorSystem.GetComponentsInChildren<InteriorPanel>(true);
+            interiorPanel = iPanels.FirstOrDefault(p => p.name == "InteriorPanel");
+            if (interiorPanel != null)
+            {
+                interiorPanel.InitPanel(1);
+            }
+            else
+            {
+                Debug.LogError("InteriorPanel component not found in InteriorSystem");
+            }
+        }
+
+        PresetManager.Instance.IsFirstPresetClick = true;
     }
 
 
