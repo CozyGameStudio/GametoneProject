@@ -17,39 +17,39 @@ using UnityEngine;
 namespace Team5DataTable_Type
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class MachineTypeData : ITable
+    public partial class CharacterTypeData : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<MachineTypeData> loadedList, Dictionary<int, MachineTypeData> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<CharacterTypeData> loadedList, Dictionary<int, CharacterTypeData> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "10TtCHpjoVvrfmS7mIXQAXLDGoPnjqxK27PMUTUg2uNI"; // it is file id
-        static string sheetID = "533798744"; // it is sheet id
+        static string sheetID = "1359155847"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, MachineTypeData> MachineTypeDataMap = new Dictionary<int, MachineTypeData>();  
-        public static List<MachineTypeData> MachineTypeDataList = new List<MachineTypeData>();   
+        public static Dictionary<int, CharacterTypeData> CharacterTypeDataMap = new Dictionary<int, CharacterTypeData>();  
+        public static List<CharacterTypeData> CharacterTypeDataList = new List<CharacterTypeData>();   
 
         /// <summary>
-        /// Get MachineTypeData List 
+        /// Get CharacterTypeData List 
         /// Auto Load
         /// </summary>
-        public static List<MachineTypeData> GetList()
+        public static List<CharacterTypeData> GetList()
         {{
            if (isLoaded == false) Load();
-           return MachineTypeDataList;
+           return CharacterTypeDataList;
         }}
 
         /// <summary>
-        /// Get MachineTypeData Dictionary, keyType is your sheet A1 field type.
+        /// Get CharacterTypeData Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, MachineTypeData>  GetDictionary()
+        public static Dictionary<int, CharacterTypeData>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return MachineTypeDataMap;
+           return CharacterTypeDataMap;
         }}
 
     
@@ -57,10 +57,8 @@ namespace Team5DataTable_Type
 /* Fields. */
 
 		public System.Int32 index;
-		public System.String machineName;
-		public System.String machineNameInKorean;
-		public System.Int32 stageToUse;
-		public System.Int32 costToUnlock;
+		public System.String characterName;
+		public System.String characterNameInKorean;
   
 
 #region fuctions
@@ -71,7 +69,7 @@ namespace Team5DataTable_Type
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("MachineTypeData is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("CharacterTypeData is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -87,7 +85,7 @@ namespace Team5DataTable_Type
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<MachineTypeData>, Dictionary<int, MachineTypeData>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<CharacterTypeData>, Dictionary<int, CharacterTypeData>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -115,14 +113,14 @@ namespace Team5DataTable_Type
                
 
 
-    public static (List<MachineTypeData> list, Dictionary<int, MachineTypeData> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, MachineTypeData> Map = new Dictionary<int, MachineTypeData>();
-            List<MachineTypeData> List = new List<MachineTypeData>();     
+    public static (List<CharacterTypeData> list, Dictionary<int, CharacterTypeData> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, CharacterTypeData> Map = new Dictionary<int, CharacterTypeData>();
+            List<CharacterTypeData> List = new List<CharacterTypeData>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(MachineTypeData).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(CharacterTypeData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["MachineTypeData"];
+            var sheet = jsonObject["CharacterTypeData"];
 
             foreach (var column in sheet.Keys)
             {
@@ -141,7 +139,7 @@ namespace Team5DataTable_Type
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            MachineTypeData instance = new MachineTypeData();
+                            CharacterTypeData instance = new CharacterTypeData();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -182,8 +180,8 @@ namespace Team5DataTable_Type
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            MachineTypeDataList = List;
-                            MachineTypeDataMap = Map;
+                            CharacterTypeDataList = List;
+                            CharacterTypeDataMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -193,10 +191,10 @@ namespace Team5DataTable_Type
 
  
 
-        public static void Write(MachineTypeData data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(CharacterTypeData data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(MachineTypeData).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(CharacterTypeData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

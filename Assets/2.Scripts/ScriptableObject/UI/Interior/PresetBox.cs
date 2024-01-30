@@ -57,7 +57,7 @@ public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
     {
         if (isBuy)
         {
-            PresetManager.Instance.ChoicePreset(presets.number);
+            PresetManager.Instance.ChoicePreset(presets.presetNumber);
             PresetWindow = InteriorSystem.transform.Find("PresetWindow");
             InteriorWindow = InteriorSystem.transform.Find("InteriorWindow");
             PresetWindow.gameObject.SetActive(false);
@@ -67,7 +67,7 @@ public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
         {
             if (InteriorSceneManager.Instance.money >= presetMoney)
             {
-                PresetManager.Instance.ChoicePreset(presets.number);
+                PresetManager.Instance.ChoicePreset(presets.presetNumber);
                 PresetWindow = InteriorSystem.transform.Find("PresetWindow");
                 InteriorWindow = InteriorSystem.transform.Find("InteriorWindow");
                 PresetWindow.gameObject.SetActive(false);

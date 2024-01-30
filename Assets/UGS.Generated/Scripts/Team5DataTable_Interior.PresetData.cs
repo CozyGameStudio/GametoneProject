@@ -14,42 +14,42 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace Team5DataTable_Type
+namespace Team5DataTable_Interior
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class MachineTypeData : ITable
+    public partial class PresetData : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<MachineTypeData> loadedList, Dictionary<int, MachineTypeData> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<PresetData> loadedList, Dictionary<int, PresetData> loadedDictionary);
 
         static bool isLoaded = false;
-        static string spreadSheetID = "10TtCHpjoVvrfmS7mIXQAXLDGoPnjqxK27PMUTUg2uNI"; // it is file id
-        static string sheetID = "533798744"; // it is sheet id
+        static string spreadSheetID = "16WTecGpY3Q3I1-fERJZ0fOEtWLCq6ZhKweSUqLxZJJA"; // it is file id
+        static string sheetID = "499683860"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, MachineTypeData> MachineTypeDataMap = new Dictionary<int, MachineTypeData>();  
-        public static List<MachineTypeData> MachineTypeDataList = new List<MachineTypeData>();   
+        public static Dictionary<int, PresetData> PresetDataMap = new Dictionary<int, PresetData>();  
+        public static List<PresetData> PresetDataList = new List<PresetData>();   
 
         /// <summary>
-        /// Get MachineTypeData List 
+        /// Get PresetData List 
         /// Auto Load
         /// </summary>
-        public static List<MachineTypeData> GetList()
+        public static List<PresetData> GetList()
         {{
            if (isLoaded == false) Load();
-           return MachineTypeDataList;
+           return PresetDataList;
         }}
 
         /// <summary>
-        /// Get MachineTypeData Dictionary, keyType is your sheet A1 field type.
+        /// Get PresetData Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, MachineTypeData>  GetDictionary()
+        public static Dictionary<int, PresetData>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return MachineTypeDataMap;
+           return PresetDataMap;
         }}
 
     
@@ -57,10 +57,9 @@ namespace Team5DataTable_Type
 /* Fields. */
 
 		public System.Int32 index;
-		public System.String machineName;
-		public System.String machineNameInKorean;
 		public System.Int32 stageToUse;
-		public System.Int32 costToUnlock;
+		public System.Int32 presetNumber;
+		public System.Int32 money;
   
 
 #region fuctions
@@ -71,12 +70,12 @@ namespace Team5DataTable_Type
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("MachineTypeData is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("PresetData is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
 
-            string text = reader.ReadData("Team5DataTable_Type"); 
+            string text = reader.ReadData("Team5DataTable_Interior"); 
             if (text != null)
             {
                 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ReadSpreadSheetResult>(text);
@@ -87,7 +86,7 @@ namespace Team5DataTable_Type
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<MachineTypeData>, Dictionary<int, MachineTypeData>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<PresetData>, Dictionary<int, PresetData>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -115,14 +114,14 @@ namespace Team5DataTable_Type
                
 
 
-    public static (List<MachineTypeData> list, Dictionary<int, MachineTypeData> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, MachineTypeData> Map = new Dictionary<int, MachineTypeData>();
-            List<MachineTypeData> List = new List<MachineTypeData>();     
+    public static (List<PresetData> list, Dictionary<int, PresetData> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, PresetData> Map = new Dictionary<int, PresetData>();
+            List<PresetData> List = new List<PresetData>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(MachineTypeData).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(PresetData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["MachineTypeData"];
+            var sheet = jsonObject["PresetData"];
 
             foreach (var column in sheet.Keys)
             {
@@ -141,7 +140,7 @@ namespace Team5DataTable_Type
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            MachineTypeData instance = new MachineTypeData();
+                            PresetData instance = new PresetData();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -182,8 +181,8 @@ namespace Team5DataTable_Type
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            MachineTypeDataList = List;
-                            MachineTypeDataMap = Map;
+                            PresetDataList = List;
+                            PresetDataMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -193,10 +192,10 @@ namespace Team5DataTable_Type
 
  
 
-        public static void Write(MachineTypeData data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(PresetData data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(MachineTypeData).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(PresetData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

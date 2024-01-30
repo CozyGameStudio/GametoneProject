@@ -6,8 +6,8 @@ using UnityEngine;
 public class ScriptableInterior : ScriptableObject
 {
     public int index;
-    public string name;
-    public string nameInKorean;
+    public string interiorName;
+    public string interiorNameInKorean;
     public Sprite icon;
     public int stageToUse;
 
