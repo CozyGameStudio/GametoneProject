@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
+using System.Linq;
 
 
 public class MissionBox : MonoBehaviour
@@ -18,17 +20,30 @@ public class MissionBox : MonoBehaviour
     public Button rewardButton;
 
     public object obj{get;private set;}
-    private bool isUnlocked=false;
+    public bool isUnlocked{get;private set;}=false;
+    public bool isCleared { get; private set; } = false;
     public void InitMissionBox()
     {
         missionContent=missionData.missionContent;
         SetType();
-        if (missionContent==MissionContent.LevelCheck||missionContent==MissionContent.ActivatedCheck)
+        if (missionContent==MissionContent.LevelCheck||missionContent==MissionContent.ActivatedCheck||missionContent==MissionContent.MachineAdd)
             MatchContentObj();
         SetUI();
         button.gameObject.SetActive(true);
         button.interactable = false;
         titleImage.sprite= missionData.sprite;
+        CheckClearNUnlockStatus();
+    }
+    public void CheckClearNUnlockStatus(){
+        if (isCleared)
+        {
+            gameObject.SetActive(false);
+            Debug.Log($"{missionData.index} mission Cleared Already");
+        }
+        else if(!isUnlocked){
+            gameObject.SetActive(false);
+            Debug.Log($"{missionData.index} mission not Unlocked yet");
+        }
     }
     public void SetType(){
         switch (missionData.missionType)
@@ -59,7 +74,7 @@ public class MissionBox : MonoBehaviour
         if (target.Contains("Machine"))
         {
             Predicate<Machine> machineCondition = (Machine m) => m.machineData.machineName == target;
-            obj = DataManager.Instance.FindWithCondition(DataManager.Instance.machines, machineCondition);
+            obj = DataManager.Instance.FindWithCondition(DataManager.Instance.machines.OfType<Machine>().ToList(), machineCondition);
         }
         else if (missionData.targetName.Contains("Character"))
         {
@@ -75,14 +90,17 @@ public class MissionBox : MonoBehaviour
     }
     public void MachineUpgrade(){
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
-        StageMissionManager.Instance.CompletedMissionsCount();
-        DataManager.Instance.AddAdditionalMachine();
+        isCleared = true;
+        StageMissionManager.Instance.CalculateProgress();
+        DataManager.Instance.AddAdditionalMachine((Machine)obj);
+        
         gameObject.SetActive(false);
     }
     public void SpeedUpgrade()
     {
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
-        StageMissionManager.Instance.CompletedMissionsCount();
+        isCleared = true;
+        StageMissionManager.Instance.CalculateProgress();
         foreach (Chef chef in OrderManager.Instance.chefs)
         {
             if(chef.gameObject.activeSelf)
@@ -93,19 +111,24 @@ public class MissionBox : MonoBehaviour
             if (server.gameObject.activeSelf)
                 server.MultSpeed(1.4f);
         }
+        
         gameObject.SetActive(false);
     }
     public void TableUpgrade()
     {
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
-        StageMissionManager.Instance.CompletedMissionsCount();
+        isCleared = true;
+        StageMissionManager.Instance.CalculateProgress();
         CustomerManager.Instance.AddOneTable();
+        
         gameObject.SetActive(false);
     }
     public void Reward()
     {
         BusinessGameManager.Instance.AddMoney(missionData.cost);
-        StageMissionManager.Instance.CompletedMissionsCount();
+        isCleared = true; 
+        StageMissionManager.Instance.CalculateProgress();
+        
         gameObject.SetActive(false);
     }
     public void SetUI()
@@ -140,11 +163,18 @@ public class MissionBox : MonoBehaviour
                     Debug.Log("In");
                 }
                 break;
+            case MissionContent.MachineNumberCheck:
+                description=$"장비 {missionData.criteria}대 설치하기";
+                break;
             case MissionContent.TableAdd:
                 description = "테이블 설치하기";
                 break;
             case MissionContent.MachineAdd:
-                description = "기계 설치하기";
+                if (obj is Machine willBeAddedMachine)
+                {
+                    description = $"{willBeAddedMachine.machineData.machineNameInKorean} 설치하기";
+                    Debug.Log("In");
+                }
                 break;
             case MissionContent.Speedup:
                 description = "직원 속도 2배로 올리기";
@@ -153,5 +183,40 @@ public class MissionBox : MonoBehaviour
         }
         mission.text = description;
     }
-    
+    public void SetActiveByStatus(){
+        //when Mission is upgrade
+        if(missionData.missionType!=MissionType.Upgrade)
+            return;
+        switch(missionData.missionContent){
+            case MissionContent.TableAdd:
+                if (missionData.criteria <= StageMissionManager.Instance.stageProgress)
+                {
+                    gameObject.SetActive(true);
+                    isUnlocked = true;
+                }
+                break;
+            case MissionContent.MachineAdd:
+                if (obj is Machine machine && missionData.criteria <= machine.currentLevel)
+                {
+                    gameObject.SetActive(true);
+                    isUnlocked = true;
+                }
+                break;
+            case MissionContent.Speedup:
+                if (missionData.criteria <= StageMissionManager.Instance.stageProgress)
+                {
+                    gameObject.SetActive(true);
+                    isUnlocked = true;
+                }
+                break;
+        }
+    }
+    public void SetData(bool unlock,bool clear){
+        isUnlocked = unlock;
+        isCleared = clear;
+    }
+    public MissionData GetData(){
+        MissionData missionData=new MissionData(this.missionData.index,isUnlocked,isCleared);
+        return missionData;
+    }
 }

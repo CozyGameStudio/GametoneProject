@@ -62,6 +62,7 @@ namespace Team5DataTable_Mission
 		public System.String missionType;
 		public System.Int32 criteria;
 		public System.Int32 cost;
+		public System.Int32 progress;
 		public System.String description;
   
 

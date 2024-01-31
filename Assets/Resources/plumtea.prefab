@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -6907601873445768175, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 848110b8a599c5941b3b8a975f927506, type: 3}
+    - target: {fileID: -6907601873445768175, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
@@ -18,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5433292225164296939, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
       propertyPath: m_Name
-      value: coffee
+      value: plumtea
       objectReference: {fileID: 0}
     - target: {fileID: 7552563904330647929, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
       propertyPath: m_LocalPosition.x

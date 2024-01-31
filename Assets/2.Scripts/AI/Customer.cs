@@ -19,8 +19,6 @@ public class Customer : MonoBehaviour
     }
 
     StateMachine<States, StateDriverUnity> fsm;
-    public GameObject orderBubble;
-    public SpriteRenderer foodRenderer;
     public Transform foodHolder;
     [Header("Character")]
     public float speed = 5f;
@@ -38,7 +36,6 @@ public class Customer : MonoBehaviour
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
-        orderBubble.SetActive(false);
     }
     void Start(){
         orderFood = DataManager.Instance.RandomFood();
@@ -143,9 +140,8 @@ public class Customer : MonoBehaviour
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
-        orderBubble.SetActive(true);
-        foodRenderer.sprite=orderFood.foodData.foodIcon;
-;    }
+        transform.GetComponentInParent<CustomerTable>().SetBubble(orderFood,2);
+    }
     void Order_Update()
     {
         if(receiveOrder)
@@ -157,8 +153,6 @@ public class Customer : MonoBehaviour
     void Order_Exit()
     {
         transform.SetParent(null);
-        orderBubble.SetActive(false);
-        
     }
     public void GetMenu(GameObject menu)
     {

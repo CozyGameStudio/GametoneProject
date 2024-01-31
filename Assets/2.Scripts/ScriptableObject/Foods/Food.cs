@@ -8,8 +8,8 @@ public class Food : MonoBehaviour
 
     //later, save & load Manger will change this value
     public int currentLevel{get;private set;}=1;
-    public int currentValue { get; private set; }
-    public int currentUpgradeMoney { get; private set; }
+    public int currentValue { get{return foodData.foodPrice[currentLevel - 1];  }}
+    public int currentUpgradeMoney { get{ return foodData.upgradeMoney[currentLevel - 1]; } }
     public bool isUnlocked{get;private set;} // 음식이 해금되었는지 여부
 
     public event Action<Food> OnFoodUnlocked;
@@ -19,20 +19,17 @@ public class Food : MonoBehaviour
         isUnlocked = true;
         OnFoodUnlocked?.Invoke(this);
     }
-    private void Start() {
-        SetValue();
-        DataLoadManager.Instance.OnDataChanged += SetValue;
-    }
-    void OnEnable(){
-        SetValue();
-    }
     public void LevelUp(){
         currentLevel++;
-        SetValue();
         StageMissionManager.Instance.LevelCheck();
     }
-    void SetValue(){
-        currentValue = foodData.foodPrice[currentLevel - 1];
-        currentUpgradeMoney = foodData.upgradeMoney[currentLevel - 1];
+    public void SetData(int level, bool unlock)
+    {
+        currentLevel = level;
+        isUnlocked = unlock;
+    }
+    public SaveData<Food> GetData(){
+        SaveData<Food> foodData=new SaveData<Food>(this.foodData.name,currentLevel,isUnlocked);
+        return foodData;
     }
 }

@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputManagerEntry;
 
-public class OrderManager : MonoBehaviour
+public class OrderManager : MonoBehaviour,IManagerInterface
 {
     private static OrderManager instance;
     Queue<OrderBoard> orderQueue;
 
     // Define a delegate
     public delegate void OrderHandler(OrderBoard order);
-
+    public GameObject orderInBubble;
     // Create an event based on the delegate
     public event OrderHandler OnNewOrder;//Chef reference
+    private Coroutine bubbleCoroutine;
 
     public List<Chef> chefs{get;private set;}
-    private List<Machine> machines;
-    private int currentEnabledChef=1;//it will be controled by datamanager
+    private List<IMachineInterface> machines;
+    public float speedMultiplier = 1.0f; // 기본 속도 계수
+
+    
+    //private int currentEnabledChef=1;//it will be controled by datamanager
     public static OrderManager Instance
     {
         get
@@ -48,22 +51,17 @@ public class OrderManager : MonoBehaviour
         {
             chefs.Add(chef);
         }
-        machines =DataManager.Instance.machines;
-        //enable chef amount of currentEnabledChef
-        for (int i = 0; i < chefs.Count; i++)
-        {
-            if (i < currentEnabledChef)
-            {
-                // chef activated
-                chefs[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                // chef deactivated
-                chefs[i].gameObject.SetActive(false);
-            }
-        }
+
+        machines = DataManager.Instance.activeMachines;
         MachineListRenew();
+    }
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+        foreach (Chef chef in chefs)
+        {
+            chef.MultSpeed(speedMultiplier);
+        }
     }
     public void MachineListRenew(){
         machines = DataManager.Instance.activeMachines;
@@ -72,13 +70,14 @@ public class OrderManager : MonoBehaviour
     {
         orderQueue.Enqueue(order);
         StartCoroutine(TryAssignOrder());
+        AppearBubble(15);
     }
     IEnumerator TryAssignOrder()
     {
         while (!isQueueEmpty())
         {
             OrderBoard order = orderQueue.Peek(); // Check the first order in the queue
-            Machine appropriateMachine = FindMachineForOrder(order);
+            IMachineInterface appropriateMachine = FindMachineForOrder(order);
             Chef availableChef = FindAvailableChef();
 
             if (availableChef != null && appropriateMachine != null)
@@ -95,7 +94,6 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-
     private Chef FindAvailableChef()
     {
         // find available chef
@@ -109,28 +107,8 @@ public class OrderManager : MonoBehaviour
     {
         return orderQueue.Dequeue();
     }
-    public void ActivateOneChef()
+    private IMachineInterface FindMachineForOrder(OrderBoard order)
     {
-        foreach (Chef chef in chefs)
-        {
-            // check is chef enabled
-            if (!chef.gameObject.activeSelf)
-            {
-                // if find chef to enable, exit the function
-                chef.gameObject.SetActive(true);
-                currentEnabledChef++;
-
-                return; 
-            }
-        }
-
-        // if every server is all activatd
-
-    }
-
-    private Machine FindMachineForOrder(OrderBoard order)
-    {
-        // Find a machine that matches the order
         foreach (var machine in machines)
         {
             if (machine.unlockedFood.foodData.foodName.Equals(order.foodData.foodData.foodName) && machine.IsAvailable)
@@ -138,10 +116,9 @@ public class OrderManager : MonoBehaviour
                 return machine;
             }
         }
-        return null; // If there is no suitable machine
+        return null; // 적합한 기계가 없는 경우
     }
 
-   
     public void ChefAvailable()
     {
         // Attempt order allocation when the chef is available
@@ -152,5 +129,26 @@ public class OrderManager : MonoBehaviour
     {
         // Attempt order allocation when the machine is available
         TryAssignOrder();
+    }
+    public void AppearBubble(float duration){
+        orderInBubble.SetActive(true);
+        if (bubbleCoroutine != null)
+        {
+            StopCoroutine(bubbleCoroutine);
+        }
+        bubbleCoroutine = StartCoroutine(DisableBubbleAfterTime(duration));
+    }
+    private IEnumerator DisableBubbleAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        orderInBubble.SetActive(false);
+    }
+    public void SetData(StageData data){
+        speedMultiplier=data.chefSpeedMultiplier;
+    }
+    public void AddDataToStageData(StageData data)
+    {
+         data.chefSpeedMultiplier= speedMultiplier;
     }
 }

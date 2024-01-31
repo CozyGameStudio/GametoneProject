@@ -178,14 +178,15 @@ public static class ScriptableObjectCreator
             string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/{missionData.stageToUse}Stage/SO_{missionData.missionContent}.asset";
 #if UNITY_EDITOR
             ScriptableMission dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMission>(assetPath);
-#endif
+#endif      
+            Debug.Log(missionData.missionContent);
             if (dataObject == null)
             {
                 dataObject = ScriptableObject.CreateInstance<ScriptableMission>();
                 AssetDatabase.CreateAsset(dataObject, assetPath);
                 Debug.Log("Mission Created");
             }
-            
+            dataObject.index=missionData.index;
             if (Enum.TryParse(missionData.missionType, true, out MissionType missionTypeEnum))
             {
                 dataObject.missionType = missionTypeEnum;
@@ -220,23 +221,31 @@ public static class ScriptableObjectCreator
                 {
                     dataObject.missionContent = MissionContent.SalesCheck;
                 }
+                else if(content.Contains("Machine")){
+                    dataObject.missionContent = MissionContent.MachineNumberCheck;
+                }
                 else
                 {
-                    // "Available" 또는 "Level"이 없는 경우의 처리
                     Debug.LogError($"Invalid mission content format: {content}");
-                    // 추가적인 처리가 필요할 수 있습니다.
                 }
-                dataObject.criteria = missionData.criteria; 
-                
-                
             }
             else{
-                if (Enum.TryParse(content, true, out MissionContent missionContentEnum))
+                int addIndex = content.IndexOf("Add");
+                if (addIndex != -1&&content.Contains("Table"))
                 {
-                    dataObject.missionContent = missionContentEnum;
+                    dataObject.missionContent = MissionContent.TableAdd;
+                }
+                else if(addIndex != -1 && content.Contains("Machine")){
+                    dataObject.targetName = content.Substring(0, addIndex).Trim();
+                    dataObject.missionContent = MissionContent.MachineAdd;
+                }
+                else{
+                    dataObject.missionContent = MissionContent.Speedup;
                 }
             }
+            dataObject.criteria = missionData.criteria;
             dataObject.cost = missionData.cost;
+            dataObject.progress=missionData.progress;
             dataObject.description= missionData.description;
             EditorUtility.SetDirty(dataObject);
             missionDataList.AddMission(dataObject);

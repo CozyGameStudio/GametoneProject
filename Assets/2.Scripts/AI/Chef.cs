@@ -24,7 +24,7 @@ public class Chef : MonoBehaviour
 
     private List<GameObject> serveTables;
     private List<GameObject> foodPlaces;
-    private List<GameObject> servePlaces;
+    
 
     [Header("Character")]
     public Character character;
@@ -32,7 +32,7 @@ public class Chef : MonoBehaviour
     public GameObject foodHolder;
 
     public bool IsAvailable { get; private set; } = true;
-    private Machine nowUsing;
+    private IMachineInterface nowUsingMachine;
     private bool isHolding=false;
     private Transform placeToMove; //Chef cook place
     private GameObject serveHolder;
@@ -63,15 +63,12 @@ public class Chef : MonoBehaviour
     {
         if (foodPlaces == null)
             foodPlaces = new List<GameObject>();
-        if (servePlaces == null)
-            servePlaces = new List<GameObject>();
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             Transform child = parent.transform.GetChild(i);
             if (child.name.Contains(nameToFind))
             {
                 foodPlaces.Add(child.GetChild(0).gameObject);
-                servePlaces.Add(child.GetChild(1).gameObject);
             }
         }
     }
@@ -122,7 +119,7 @@ public class Chef : MonoBehaviour
     void Walk_Update()
     {
         //Until chef arrives cook Place
-        if(Vector2.Distance(transform.position,placeToMove.position)<.5f)
+        if(Vector2.Distance(transform.position,placeToMove.position)<2f)
         {
             if (!isHolding)
             {
@@ -136,7 +133,7 @@ public class Chef : MonoBehaviour
     }
     void Cook_Enter(){
         Food foodToMake = currentMenu.foodData;
-        StartCoroutine(cookCoroutine(foodToMake, nowUsing.currentCookTime));
+        StartCoroutine(cookCoroutine(foodToMake, nowUsingMachine.currentCookTime));
     }
     IEnumerator cookCoroutine(Food foodToMake, float cooktime){
         isCooking=true;
@@ -160,7 +157,7 @@ public class Chef : MonoBehaviour
                 if (foodPlaces[i].GetComponent<FoodPlace>().IsAvailable)
                 {
                     serveHolder = foodPlaces[i].gameObject;
-                    placeToMove = servePlaces[i].transform;
+                    placeToMove = serveHolder.transform;
                     break;
                 }
             }
@@ -169,13 +166,12 @@ public class Chef : MonoBehaviour
     }
     void Cook_Exit(){
         isHolding=true;
-        nowUsing.SwitchTakenPlace();
+        nowUsingMachine.SwitchTakenPlace();
         serveHolder.GetComponent<FoodPlace>().IsAvailable=false;
         
     }
     void Serve_Enter()
     {
-        
         GameObject comFood= foodHolder.transform.GetChild(0).gameObject;
         // comFood.transform.parent = serveHolder.transform;
         comFood.transform.position= serveHolder.transform.position;
@@ -188,18 +184,18 @@ public class Chef : MonoBehaviour
         SetAvailable();
         
     }
-    public void ReceiveOrder(OrderBoard order,Machine appropriateMachine)
+    public void ReceiveOrder(OrderBoard order, IMachineInterface appropriateMachine)
     {
         currentMenu = order;
-        nowUsing= appropriateMachine;
-        nowUsing.SwitchTakenPlace();
-        placeToMove=nowUsing.transform;
+        nowUsingMachine= appropriateMachine;
+        nowUsingMachine.SwitchTakenPlace();
+        placeToMove= ((MonoBehaviour)nowUsingMachine).transform;
         IsAvailable=false;
         fsm.ChangeState(States.Walk);
     }
-
     public void SetAvailable(){
         IsAvailable=true;
-        OrderManager.Instance.ChefAvailable();
+        if(OrderManager.Instance!=null)
+            OrderManager.Instance.ChefAvailable();
     }
 }
