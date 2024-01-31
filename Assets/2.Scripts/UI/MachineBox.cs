@@ -23,7 +23,7 @@ public class MachineBox : MonoBehaviour
     public void InitBox(Machine machineFromDataManager)
     {
         machine= machineFromDataManager;
-        lockPanel.SetActive(!machine.isPurchased);
+        lockPanel.SetActive(!machine.isUnlocked);
         // Init machine image
 
         if (machineImage != null)
@@ -78,6 +78,7 @@ public class MachineBox : MonoBehaviour
         }
         
         lockPanel.GetComponentInChildren<TMP_Text>().text=$"{machine.machineData.machineUnlockCost}";
+        UpdateUI();
     }
     public void UpgradeButtonClick()
     {

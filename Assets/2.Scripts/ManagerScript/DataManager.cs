@@ -3,17 +3,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
     public List<Food> foods{get;private set; } = new List<Food>();
-    public List<Machine> machines { get; private set; } = new List<Machine>();
+    public List<IMachineInterface> machines { get; private set; } = new List<IMachineInterface>();
     public List<Character> characters { get; private set; } = new List<Character>();
 
     public List<Food> activeFoods { get; private set; } = new List<Food>();
-    public List<Machine> activeMachines{get;private set;}=new List<Machine>();
+    public List<IMachineInterface> activeMachines{get;private set;}=new List<IMachineInterface>();
     public List<Character> activeCharacters { get; private set; } = new List<Character>();
 
+    public List<IManagerInterface> managerInterfaces;
     //public List<Character> characters;
 
     public static DataManager Instance
@@ -35,39 +37,72 @@ public class DataManager : MonoBehaviour
         }
     }
     void Start(){
-        Food[] foodObjects = FindObjectsOfType<Food>();
-        foreach (Food food in foodObjects)
+        LoadObjects();
+        managerInterfaces = FindObjectsOfType<MonoBehaviour>().OfType<IManagerInterface>().ToList();
+    
+        //Get Stage Data from loaded data
+        StageData data = DataSaveNLoadManager.Instance.GetPreparedData();
+        if (data != null)
         {
-            foods.Add(food);
+            if(data.currentStageNumber!= BusinessGameManager.Instance.currentBusinessStage){
+                DataSaveNLoadManager.Instance.CreateStageData(BusinessGameManager.Instance.currentBusinessStage);
+                data= DataSaveNLoadManager.Instance.LoadStageData();
+            }
+            foreach(var manager in managerInterfaces){
+                manager.SetData(data);
+            }
+            SetData(data);
         }
-        Machine[] machineObjects = FindObjectsOfType<Machine>();
-        foreach (Machine machine in machineObjects)
+        foreach (IMachineInterface machineInterface in machines)
         {
-            machines.Add(machine);
-        }
-        Character[] characterObjects = FindObjectsOfType<Character>();
-        foreach (Character character in characterObjects)
-        {
-            characters.Add(character);
-        }
-        foreach (Machine machine in machines)
-        {
-            machine.transform.parent.gameObject.SetActive(false);
+            if(machineInterface is Machine machine&&!machine.isUnlocked)
+                machine.transform.parent.gameObject.SetActive(false);
         }
         addActiveFoods();
         addActiveMachines();
-       StageMissionManager.Instance.MissionInit();
+        UIManager.Instance.SetData();
+    }
+    void LoadObjects()
+    {
+        foods = FindObjectsOfType<Food>().ToList();
+        machines = FindObjectsOfType<MonoBehaviour>().OfType<IMachineInterface>().ToList();
+        characters = FindObjectsOfType<Character>().ToList();
+
+        foreach (var machineInterface in machines)
+        {
+            // cast to Machine Type
+            if (machineInterface is Machine machine)
+            {
+                machine.transform.parent.gameObject.SetActive(false);
+            }
+            // Cast to Additional Machine Type
+            else if (machineInterface is AdditionalMachine additionalMachine)
+            {
+                additionalMachine.transform.parent.gameObject.SetActive(false);
+            }
+        }
     }
     void addActiveFoods(){
         activeFoods = foods.Where(food => food.isUnlocked).ToList();
     }
     void addActiveMachines()
     {
-        activeMachines = machines.Where(machine => machine.isPurchased).ToList();
-        foreach (Machine activeMachine in activeMachines)
+        activeMachines.Clear(); 
+
+        foreach (IMachineInterface machineInterface in machines)
         {
-            activeMachine.transform.parent.gameObject.SetActive(true);
+            if (machineInterface is Machine machine && machine.isUnlocked)
+            {
+                activeMachines.Add(machine); 
+                machine.transform.parent.gameObject.SetActive(true);
+            }
+            else if (machineInterface is AdditionalMachine additionalMachine && additionalMachine.isUnlocked)
+            {
+                activeMachines.Add(additionalMachine);
+                additionalMachine.transform.parent.gameObject.SetActive(true);
+            }
         }
+
         OrderManager.Instance.MachineListRenew();
     }
     public Food RandomFood(){
@@ -99,23 +134,65 @@ public class DataManager : MonoBehaviour
     }
     public void PurchaseMachine(Machine machineToPurchase)
     {
-        if (!machineToPurchase.isPurchased)
+        if (!machineToPurchase.isUnlocked)
         {
-            machineToPurchase.isPurchased = true;
             machineToPurchase.UnlockFood();
             addActiveFoods();
             addActiveMachines();
         }
-        else
+    }
+
+    public void AddAdditionalMachine(Machine machine)
+    {
+        machine.AddAdditionalMachine();
+        addActiveMachines();
+        Debug.Log("DataManager Machine Added");
+    }
+    public void SetData(StageData data){
+        foreach (Food food in foods)
         {
-            AddAdditionalMachine();
+            var foodData = data.currentFoods.Find(f => f.name == food.foodData.name);
+            if (foodData != null)
+            {
+                food.SetData(foodData.currentLevel, foodData.isUnlocked);
+            }
+        }
+        foreach (IMachineInterface machine in machines)
+        {
+            SaveData<IMachineInterface> machineData = data.currentMachines.Find(m => m.name == machine.GetData().name);
+            if (machineData != null)
+            {
+                machine.SetData(machineData.currentLevel, machineData.isUnlocked);
+            }
+        }
+        foreach (Character character in characters)
+        {
+            var characterData = data.currentCharacters.Find(f => f.name == character.characterData.name);
+            if (characterData != null)
+            {
+                character.SetData(characterData.currentLevel, characterData.isUnlocked);
+            }
         }
     }
-
-    public void AddAdditionalMachine()
-    {
-        Debug.Log("Additional machine added: ");
-        addActiveMachines();
+    public StageData GetData(){
+        //it will Served to DataSaveNLoad Manager
+        StageData stageData = new StageData();
+        foreach(var manager in managerInterfaces){
+            manager.AddDataToStageData(stageData);
+        }
+        foreach (Food food in foods)
+        {
+            stageData.currentFoods.Add(food.GetData());
+        }
+        foreach (IMachineInterface machine in machines)
+        {
+            stageData.currentMachines.Add(machine.GetData());
+        }
+        foreach (Character character in characters)
+        {
+            stageData.currentCharacters.Add(character.GetData());
+        }
+        return stageData;
     }
-
+    
 }

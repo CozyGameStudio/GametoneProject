@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-public class StageMissionManager : MonoBehaviour
+public class StageMissionManager : MonoBehaviour,IManagerInterface
 {
     
     public GameObject missionPanel;
@@ -14,10 +14,10 @@ public class StageMissionManager : MonoBehaviour
     public int currentCompletedMission { get; private set; } = 0;
     
     private List<ScriptableMission> currentStageMissions = new List<ScriptableMission>();
-    private List<MissionBox> missions= new List<MissionBox>();
+    public List<MissionBox> missions{get;private set;}= new List<MissionBox>();
     private MissionDataList missionDataList;
     private GameObject missionBoxPrefab;
-
+    public int stageProgress{get;private set;}=0;
     private static StageMissionManager instance;
     public static StageMissionManager Instance
     {
@@ -42,28 +42,34 @@ public class StageMissionManager : MonoBehaviour
         }
     }
     void Start(){
-        missionDataList=Resources.Load<MissionDataList>("MissionDataList");
-        missionBoxPrefab=Resources.Load<GameObject>("MissionBox");
-        WhenAllMissionCompleted.gameObject.SetActive(false);
-        Debug.Log("StageMission manager started");
-        foreach(var currentStageMission in missionDataList.missionDataList)
+        
+    }
+    public void CalculateProgress(){
+        stageProgress = 0;
+
+        foreach (var mission in missions)
         {
-            if(currentStageMission.stageToAppear==BusinessGameManager.Instance.currentBusinessStage){
-                currentStageMissions.Add(currentStageMission);
+            if (mission.isCleared)
+            {
+                stageProgress += mission.missionData.progress;
             }
         }
-    }
-    public void MissionInit(){
-        foreach (var currentStageMission in currentStageMissions)
+        Debug.Log(currentCompletedMission);
+        if (stageProgress == 100)
         {
-            GameObject missionBox = Instantiate(missionBoxPrefab);
-            missionBox.transform.SetParent(missionPanel.transform, false);
-            MissionBox mission = missionBox.GetComponent<MissionBox>();
-            mission.missionData = currentStageMission;
-            missions.Add(missionBox.GetComponent<MissionBox>());
-            mission.InitMissionBox();
+            Debug.Log("Stage Clear!!!!");
         }
-        CompletedMissionsCount();
+        UIManager.Instance.UpdateProgress();
+    }
+    public void MissionInit(ScriptableMission currentStageMission)
+    {
+        Debug.Log("MIssion Box Created");
+        GameObject missionBox = Instantiate(missionBoxPrefab);
+        missionBox.transform.SetParent(missionPanel.transform, false);
+        MissionBox mission = missionBox.GetComponent<MissionBox>();
+        mission.missionData = currentStageMission;
+        missions.Add(missionBox.GetComponent<MissionBox>());
+        mission.InitMissionBox();
     }
     public void IncreaseAccumulatedCustomer(){
         accumulatedCustomer++;
@@ -86,6 +92,7 @@ public class StageMissionManager : MonoBehaviour
     {
         foreach (var mission in missions)
         {
+            if(mission.isCleared)continue;
             switch (mission.missionContent)
             {
                 case MissionContent.CustomerCheck:
@@ -113,6 +120,12 @@ public class StageMissionManager : MonoBehaviour
                         mission.button.interactable = machineActivatedCheck.gameObject.activeInHierarchy;
                     }
                     break;
+                case MissionContent.MachineNumberCheck:
+                    if (DataManager.Instance.activeMachines.Count >= mission.missionData.criteria)
+                    {
+                        mission.button.interactable = true;
+                    }
+                    break;
                 default :
                     if (BusinessGameManager.Instance.money > mission.missionData.cost)
                     {
@@ -123,23 +136,43 @@ public class StageMissionManager : MonoBehaviour
 
             }
             mission.SetUI();
+            mission.SetActiveByStatus();
         }
     }
-    public void CompletedMissionsCount()
+    public void SetData(StageData data)
     {
-        currentCompletedMission = 0;
-
-        foreach (var mission in missions)
+        missionDataList = Resources.Load<MissionDataList>("MissionDataList");
+        missionBoxPrefab = Resources.Load<GameObject>("MissionBox");
+        WhenAllMissionCompleted.gameObject.SetActive(false);
+        Debug.Log("StageMission manager started");
+        foreach (var currentStageMission in missionDataList.missionDataList)
         {
-            if (!mission.gameObject.activeSelf) 
+            if (currentStageMission.stageToAppear == BusinessGameManager.Instance.currentBusinessStage)
             {
-                currentCompletedMission++;
+                currentStageMissions.Add(currentStageMission);
+                MissionInit(currentStageMission);
             }
         }
-        Debug.Log(currentCompletedMission);
-        if(currentCompletedMission >= missions.Count){
-            WhenAllMissionCompleted.gameObject.SetActive(true);
+        stageProgress = data.currentProgress;
+        foreach (var missionData in data.currentMissions)
+        {
+            var missionBox = missions.Find(m => m.missionData.index == missionData.missionIndex);
+            if (missionBox != null)
+            {
+                missionBox.SetData(missionData.isUnlocked, missionData.isCleared);
+                missionBox.CheckClearNUnlockStatus();
+            }
         }
-
+        UpdateMissionStatus();
+        CalculateProgress();
+    }
+    public void AddDataToStageData(StageData data)
+    {
+        List <MissionData> tmpList=new List<MissionData>();
+        foreach (var mission in missions){
+            tmpList.Add(mission.GetData());
+        }
+        data.currentMissions=tmpList;
+        data.currentProgress=stageProgress;
     }
 }

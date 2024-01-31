@@ -32,7 +32,10 @@ public class FoodBox : MonoBehaviour
     public void InitBox(Food foodFromDataManager)
     {
         food = foodFromDataManager;
-        food.OnFoodUnlocked += HandleFoodUnlocked;
+        if(food.isUnlocked)
+            lockPanel.SetActive(!food.isUnlocked);
+        else
+            food.OnFoodUnlocked += HandleFoodUnlocked;
         // Init food image
         if (foodImage != null)
         {
@@ -82,6 +85,7 @@ public class FoodBox : MonoBehaviour
         {
             Debug.LogError("Cannot find foodUpgrade");
         }
+        UpdateUI();
     }
 
     public void UpgradeButtonClick()

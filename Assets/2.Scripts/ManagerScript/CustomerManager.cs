@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class CustomerManager : MonoBehaviour
+public class CustomerManager : MonoBehaviour,IManagerInterface
 {
     private static CustomerManager instance;
     public List<GameObject> customerTable;
@@ -11,8 +12,9 @@ public class CustomerManager : MonoBehaviour
     public GameObject customerBackPlace;
     public List<bool> customerChairPresent { get; private set; }
 
-    private int currentEnabledTable=1;
-
+    [HideInInspector]
+    public int currentEnabledTable=1;
+    
     public static CustomerManager Instance
     {
         get
@@ -26,23 +28,7 @@ public class CustomerManager : MonoBehaviour
     }
     public void Start()
     {
-        customerChair=new List<GameObject>();
-        customerChairPresent = new List<bool>(new bool[customerChair.Count]);
-        //enable chef amount of currentEnabledChef
-        for (int i = 0; i < customerTable.Count; i++)
-        {
-            if (i < currentEnabledTable)
-            {
-                // chef activated
-                customerTable[i].gameObject.SetActive(true);
-                AddChairs(customerTable[i]);
-            }
-            else
-            {
-                // chef deactivated
-                customerTable[i].gameObject.SetActive(false);
-            }
-        }
+        
         // Initialize the numberOfPlaces array according to the number of guest chairs
 
         if(Instance != this) {
@@ -78,5 +64,27 @@ public class CustomerManager : MonoBehaviour
     // Determine if the guest chairs are fully occupied
     public bool IsCustomerFull() {
         return customerChairPresent.All(p => p);
+    }
+    public void SetData(StageData data){
+        currentEnabledTable=data.enabledTables;
+        customerChair = new List<GameObject>();
+        customerChairPresent = new List<bool>(new bool[customerChair.Count]);
+        //enable chef amount of currentEnabledChef
+        for (int i = 0; i < customerTable.Count; i++)
+        {
+            if (i < currentEnabledTable)
+            {
+                customerTable[i].gameObject.SetActive(true);
+                AddChairs(customerTable[i]);
+            }
+            else
+            {
+                customerTable[i].gameObject.SetActive(false);
+            }
+        }
+    }
+    public void AddDataToStageData(StageData data)
+    {
+        data.enabledTables=currentEnabledTable;
     }
 }

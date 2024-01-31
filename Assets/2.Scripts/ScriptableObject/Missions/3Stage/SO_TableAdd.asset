@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8255ad9f18f867a40ba2760e7c098c82, type: 3}
   m_Name: SO_TableAdd
   m_EditorClassIdentifier: 
+  index: 13
   missionType: 1
-  missionContent: 4
+  missionContent: 5
   targetName: 
-  criteria: 0
+  criteria: 50
   cost: 300
   stageToAppear: 3
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 4d84d789aff00b54386ac3d82fdb8115, type: 3}
   description: "\uD14C\uC774\uBE14 \uCD94\uAC00(+2) / \uC9C4\uCC99\uB3C4 50% \uB2EC\uC131
     \uC2DC \uAC1C\uBC29"
+  progress: 10

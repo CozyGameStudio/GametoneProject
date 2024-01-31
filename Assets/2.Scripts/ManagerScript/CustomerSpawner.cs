@@ -7,7 +7,7 @@ public class CustomerSpawner : MonoBehaviour
     public Customer customerPrefab;
     public int createCustomerTime;
     private List<Customer> customers = new List<Customer>();
-
+    public List<Sprite> spritesForCustomers;
     void Start()
     {
         StartCoroutine(CreateCustomerEveryFewSeconds());
@@ -29,5 +29,15 @@ public class CustomerSpawner : MonoBehaviour
     void CreateCustomer()
     {
         Customer customer = Instantiate(customerPrefab, this.transform.position, this.transform.rotation);
+        customer.GetComponent<SpriteRenderer>().sprite= RandomCustomerSprite();
+    }
+    private Sprite RandomCustomerSprite(){
+        if (spritesForCustomers.Count > 0)
+        {
+            int index = Random.Range(0, spritesForCustomers.Count);
+            return spritesForCustomers[index];
+        }
+        Debug.Log("no Activated Food");
+        return null;
     }
 }

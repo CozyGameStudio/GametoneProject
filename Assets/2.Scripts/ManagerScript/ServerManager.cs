@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerManager : MonoBehaviour
+public class ServerManager : MonoBehaviour,IManagerInterface
 {
     private static ServerManager instance;
     public static ServerManager Instance
@@ -22,7 +22,9 @@ public class ServerManager : MonoBehaviour
 
     public List<Server> servers{get;private set;} = new List<Server>(); // all Serves
     private Queue<Transform> serveTasksQueue = new Queue<Transform>();
-    private int currentEnabledServer = 1; // it will be controled by data manager
+    public float speedMultiplier = 1.0f; // 기본 속도 계수
+
+    
     void Awake(){
         if (null == instance)
         {
@@ -53,20 +55,9 @@ public class ServerManager : MonoBehaviour
         foreach (var server in servers)
         {
             server.OnAvailable += OnServerAvailable;
-
         }
         
-        for (int i = 0; i < servers.Count; i++)
-        {
-            if (i < currentEnabledServer)
-            {
-                servers[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                servers[i].gameObject.SetActive(false);
-            }
-        }
+        
     }
     public void AddChildrenWithName(GameObject parent, string nameToFind)
     {
@@ -93,7 +84,14 @@ public class ServerManager : MonoBehaviour
             serveTasksQueue.Enqueue(child);
         }
     }
-
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+        foreach (Server server in servers)
+        {
+            server.MultSpeed(speedMultiplier);
+        }
+    }
     private Server FindAvailableServer()
     {
         return servers.Find(server => server.IsAvailable);
@@ -119,18 +117,13 @@ public class ServerManager : MonoBehaviour
             }
         }
     }
-    public void ActivateOneServer()
+    public void SetData(StageData data)
     {
-        foreach (Server server in servers)
-        {
-            // check is server disableds
-            if (!server.gameObject.activeSelf)
-            {
-                // if find server to enable, exit the function
-                server.gameObject.SetActive(true);
-                currentEnabledServer++;
-                return; 
-            }
-        }
+        speedMultiplier = data.chefSpeedMultiplier;
     }
+    public void AddDataToStageData(StageData data)
+    {
+        data.serverSpeedMultiplier = speedMultiplier;
+    }
+
 }
