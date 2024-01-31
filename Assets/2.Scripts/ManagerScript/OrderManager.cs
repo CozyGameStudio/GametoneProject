@@ -144,10 +144,10 @@ public class OrderManager : MonoBehaviour,IManagerInterface
 
         orderInBubble.SetActive(false);
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         speedMultiplier=data.chefSpeedMultiplier;
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToStageData(BusinessData data)
     {
          data.chefSpeedMultiplier= speedMultiplier;
     }

@@ -101,11 +101,11 @@ public class BusinessGameManager : MonoBehaviour,IManagerInterface
     public void TriggerObj(GameObject obj){
         obj.SetActive(!obj.activeInHierarchy);
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         money=data.currentStageMoney;
         dia=data.currentDia;
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToStageData(BusinessData data)
     {
         data.currentStageNumber=currentBusinessStage;
         data.currentStageMoney=money;

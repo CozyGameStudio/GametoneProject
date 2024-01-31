@@ -139,7 +139,7 @@ public class StageMissionManager : MonoBehaviour,IManagerInterface
             mission.SetActiveByStatus();
         }
     }
-    public void SetData(StageData data)
+    public void SetData(BusinessData data)
     {
         missionDataList = Resources.Load<MissionDataList>("MissionDataList");
         missionBoxPrefab = Resources.Load<GameObject>("MissionBox");
@@ -166,7 +166,7 @@ public class StageMissionManager : MonoBehaviour,IManagerInterface
         UpdateMissionStatus();
         CalculateProgress();
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToStageData(BusinessData data)
     {
         List <MissionData> tmpList=new List<MissionData>();
         foreach (var mission in missions){

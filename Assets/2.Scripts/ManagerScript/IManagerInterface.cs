@@ -1,4 +1,4 @@
 public interface IManagerInterface{
-    public void SetData(StageData data);
-    void AddDataToStageData(StageData stageData);
+    public void SetData(BusinessData data);
+    void AddDataToStageData(BusinessData stageData);
 }

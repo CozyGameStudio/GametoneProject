@@ -5,24 +5,25 @@ using System.IO;
 using System;
 using UnityEditor.SceneManagement;
 [Serializable]
-public class StageData
+public class BusinessData
 {
-    public int currentStageNumber;
-    public int currentStageMoney;
-    public int currentDia;
-    public int currentProgress;
-    public int enabledTables;
-    public float chefSpeedMultiplier;
-    public float serverSpeedMultiplier;
-    public List<SaveData<Food>> currentFoods;
-    public List<SaveData<IMachineInterface>> currentMachines;
-    public List<SaveData<Character>> currentCharacters;
-    public List<MissionData> currentMissions;
-    
-    public StageData(){
+    public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
+    public int currentStageMoney; //무료재화 정보
+    public int currentDia; //유료재화 정보
+    public int currentProgress; //현재 진척도(미션) 0 ~ 100
+    public int enabledTables; //활성화 테이블 수
+    public float chefSpeedMultiplier; //셰프 속도 증가율
+    public float serverSpeedMultiplier; //서버 속도 증가율
+    public List<SaveData<Food>> currentFoods; //해당 스테이지 음식 데이터
+    public List<SaveData<IMachineInterface>> currentMachines; //해당 스테이지 장비 데이터(원본 + 추가 장비)
+    public List<SaveData<Character>> currentCharacters; //해당 스테이지 캐릭터 데이터
+    public List<MissionData> currentMissions; // 해당스테이지 미션
+
+    public BusinessData(){
         currentStageNumber=1;
         currentStageMoney=0;
         currentDia=0;
+        currentProgress=0;
         currentFoods=new List<SaveData<Food>>();
         currentMachines=new List<SaveData<IMachineInterface>>();
         currentCharacters=new List<SaveData<Character>>();
@@ -35,9 +36,9 @@ public class StageData
 [Serializable]
 public class MissionData{
     //Mission
-    public int missionIndex;
-    public bool isUnlocked;
-    public bool isCleared;
+    public int missionIndex; // 초기값 0
+    public bool isUnlocked; //초기값 false
+    public bool isCleared; // 초기값 false
     public MissionData(int index,bool unlock,bool clear){
         missionIndex=index;
         isUnlocked=unlock;
@@ -49,8 +50,8 @@ public class SaveData<T>
 {
     //Food / Character
     public string name;
-    public int currentLevel;
-    public bool isUnlocked;
+    public int currentLevel; // 초기값 1
+    public bool isUnlocked; // 초기값 false
     public SaveData(string nam, int level, bool unlock)
     {
         name = nam;
@@ -87,7 +88,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
     private int businessStageNumber=1;
     public string sceneName{get;private set;}="";
-    private StageData loadedData;
+    private BusinessData loadedData;
 
     private void Awake() {
         loadedData = LoadStageData();
@@ -97,7 +98,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         sceneName = "BusinessStage" + loadedData.currentStageNumber.ToString();
     }
     public void CreateStageData(int stageNum){
-        StageData stageData = new StageData();
+        BusinessData stageData = new BusinessData();
         SaveStageData(stageData);
     }
     public void PrepareDataForNextScene()
@@ -109,7 +110,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         }
     }
 
-    public StageData GetPreparedData()
+    public BusinessData GetPreparedData()
     {
         return loadedData;
     }
@@ -119,7 +120,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            StageData stageData = JsonUtility.FromJson<StageData>(json);
+            BusinessData stageData = JsonUtility.FromJson<BusinessData>(json);
             return stageData.currentStageNumber;
         }
         else
@@ -128,22 +129,22 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             return 1;
         }
     }
-    public void SaveStageData(StageData stageData)
+    public void SaveStageData(BusinessData stageData)
     {
         string path = Path.Combine(Application.persistentDataPath, "stageData.json");
         string json = JsonUtility.ToJson(stageData,true);
         System.IO.File.WriteAllText(path, json);
     }
 
-    public StageData LoadStageData()
+    public BusinessData LoadStageData()
     {
         string path = Path.Combine(Application.persistentDataPath, "stageData.json");
         string json = System.IO.File.ReadAllText(path);
-        return JsonUtility.FromJson<StageData>(json);
+        return JsonUtility.FromJson<BusinessData>(json);
     }
     public void SaveGameObjectsFromBusiness()
     {
-        StageData stageData = DataManager.Instance.GetData();
+        BusinessData stageData = DataManager.Instance.GetData();
         SaveStageData(stageData);
     }
     

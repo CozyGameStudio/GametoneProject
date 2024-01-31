@@ -65,7 +65,7 @@ public class CustomerManager : MonoBehaviour,IManagerInterface
     public bool IsCustomerFull() {
         return customerChairPresent.All(p => p);
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         currentEnabledTable=data.enabledTables;
         customerChair = new List<GameObject>();
         customerChairPresent = new List<bool>(new bool[customerChair.Count]);
@@ -83,7 +83,7 @@ public class CustomerManager : MonoBehaviour,IManagerInterface
             }
         }
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToStageData(BusinessData data)
     {
         data.enabledTables=currentEnabledTable;
     }

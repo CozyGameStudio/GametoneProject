@@ -41,7 +41,7 @@ public class DataManager : MonoBehaviour
         managerInterfaces = FindObjectsOfType<MonoBehaviour>().OfType<IManagerInterface>().ToList();
     
         //Get Stage Data from loaded data
-        StageData data = DataSaveNLoadManager.Instance.GetPreparedData();
+        BusinessData data = DataSaveNLoadManager.Instance.GetPreparedData();
         if (data != null)
         {
             if(data.currentStageNumber!= BusinessGameManager.Instance.currentBusinessStage){
@@ -148,7 +148,7 @@ public class DataManager : MonoBehaviour
         addActiveMachines();
         Debug.Log("DataManager Machine Added");
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         foreach (Food food in foods)
         {
             var foodData = data.currentFoods.Find(f => f.name == food.foodData.name);
@@ -174,9 +174,9 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    public StageData GetData(){
+    public BusinessData GetData(){
         //it will Served to DataSaveNLoad Manager
-        StageData stageData = new StageData();
+        BusinessData stageData = new BusinessData();
         foreach(var manager in managerInterfaces){
             manager.AddDataToStageData(stageData);
         }
