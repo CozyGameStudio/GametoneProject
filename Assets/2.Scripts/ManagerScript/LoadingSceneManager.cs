@@ -7,11 +7,10 @@ public class LoadingSceneManager : MonoBehaviour
 {
     public Slider slider; 
     public static string nextScene;
-
-    private float time=0;
+    public int minLoadingTime=5;
     private void Start()
     {
-        slider.maxValue=5;
+        slider.maxValue=1;
         StartCoroutine(LoadGameSceneAsync());
     }
     public static void LoadScene(string sceneName)
@@ -22,12 +21,13 @@ public class LoadingSceneManager : MonoBehaviour
     
     private IEnumerator LoadGameSceneAsync()
     {
+        float startTime = Time.time;
         AsyncOperation asyncLoad=SceneManager.LoadSceneAsync(nextScene);
         asyncLoad.allowSceneActivation=false;
        while(!asyncLoad.isDone){
-            this.time=+Time.time;
-            slider.value = time;
-            if (time>5){
+            float elapsedTime = Time.time - startTime;
+            slider.value = elapsedTime / minLoadingTime;
+            if (elapsedTime > 5){
                 asyncLoad.allowSceneActivation = true;
             }  
             yield return null;
