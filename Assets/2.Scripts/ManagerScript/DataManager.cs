@@ -36,27 +36,41 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start(){
+    public void DataInitSetting(){
+        Debug.Log("Data Init Start");
+        BusinessData data = DataSaveNLoadManager.Instance.GetPreparedData();
+        if(data!=null){
+            Debug.Log("Data Ready");
+        }
         LoadObjects();
         managerInterfaces = FindObjectsOfType<MonoBehaviour>().OfType<IManagerInterface>().ToList();
-    
+        foreach (var manager in managerInterfaces)
+        {
+            Debug.Log($"{manager} ready");
+        }
         //Get Stage Data from loaded data
-        StageData data = DataSaveNLoadManager.Instance.GetPreparedData();
         if (data != null)
         {
+            Debug.Log(BusinessGameManager.Instance.currentBusinessStage);
             if(data.currentStageNumber!= BusinessGameManager.Instance.currentBusinessStage){
-                DataSaveNLoadManager.Instance.CreateStageData(BusinessGameManager.Instance.currentBusinessStage);
-                data= DataSaveNLoadManager.Instance.LoadStageData();
+                DataSaveNLoadManager.Instance.CreateBusinessData(BusinessGameManager.Instance.currentBusinessStage);
+                Debug.Log("Create Data Set");
+                data = DataSaveNLoadManager.Instance.LoadBusinessData();
+                Debug.Log("Load Data Set");
             }
             foreach(var manager in managerInterfaces){
                 manager.SetData(data);
+                Debug.Log($"{manager} Data Set");
             }
             SetData(data);
         }
         foreach (IMachineInterface machineInterface in machines)
         {
             if(machineInterface is Machine machine&&!machine.isUnlocked)
+            {
                 machine.transform.parent.gameObject.SetActive(false);
+                Debug.Log($"{machine}Create Data Set");
+            }
         }
         addActiveFoods();
         addActiveMachines();
@@ -81,6 +95,7 @@ public class DataManager : MonoBehaviour
                 additionalMachine.transform.parent.gameObject.SetActive(false);
             }
         }
+        Debug.Log("Object Data loaded");
     }
     void addActiveFoods(){
         activeFoods = foods.Where(food => food.isUnlocked).ToList();
@@ -148,7 +163,7 @@ public class DataManager : MonoBehaviour
         addActiveMachines();
         Debug.Log("DataManager Machine Added");
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         foreach (Food food in foods)
         {
             var foodData = data.currentFoods.Find(f => f.name == food.foodData.name);
@@ -174,25 +189,25 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    public StageData GetData(){
+    public BusinessData GetData(){
         //it will Served to DataSaveNLoad Manager
-        StageData stageData = new StageData();
+        BusinessData BusinessData = new BusinessData();
         foreach(var manager in managerInterfaces){
-            manager.AddDataToStageData(stageData);
+            manager.AddDataToBusinessData(BusinessData);
         }
         foreach (Food food in foods)
         {
-            stageData.currentFoods.Add(food.GetData());
+            BusinessData.currentFoods.Add(food.GetData());
         }
         foreach (IMachineInterface machine in machines)
         {
-            stageData.currentMachines.Add(machine.GetData());
+            BusinessData.currentMachines.Add(machine.GetData());
         }
         foreach (Character character in characters)
         {
-            stageData.currentCharacters.Add(character.GetData());
+            BusinessData.currentCharacters.Add(character.GetData());
         }
-        return stageData;
+        return BusinessData;
     }
     
 }

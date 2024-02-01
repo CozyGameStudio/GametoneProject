@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 using System.Linq;
 
 
@@ -28,10 +27,10 @@ public class MissionBox : MonoBehaviour
         SetType();
         if (missionContent==MissionContent.LevelCheck||missionContent==MissionContent.ActivatedCheck||missionContent==MissionContent.MachineAdd)
             MatchContentObj();
-        SetUI();
         button.gameObject.SetActive(true);
         button.interactable = false;
         titleImage.sprite= missionData.sprite;
+        SetUI();
         CheckClearNUnlockStatus();
     }
     public void CheckClearNUnlockStatus(){
@@ -179,7 +178,9 @@ public class MissionBox : MonoBehaviour
             case MissionContent.Speedup:
                 description = "직원 속도 2배로 올리기";
                 break;
-
+            default:
+                description = "오류";
+                break;
         }
         mission.text = description;
     }

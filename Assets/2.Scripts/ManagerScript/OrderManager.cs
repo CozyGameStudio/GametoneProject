@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrderManager : MonoBehaviour,IManagerInterface
 {
     private static OrderManager instance;
-    Queue<OrderBoard> orderQueue;
+    Queue<OrderBoard> orderQueue=new Queue<OrderBoard>();
 
     // Define a delegate
     public delegate void OrderHandler(OrderBoard order);
@@ -18,29 +18,23 @@ public class OrderManager : MonoBehaviour,IManagerInterface
     private List<IMachineInterface> machines;
     public float speedMultiplier = 1.0f; // 기본 속도 계수
 
-    
-    //private int currentEnabledChef=1;//it will be controled by datamanager
+
     public static OrderManager Instance
     {
         get
         {
-            if (null == instance)
+            if (instance == null)
             {
-                return null;
+                instance = FindObjectOfType<OrderManager>();
             }
             return instance;
         }
     }
     public void Awake()
     {
-        orderQueue = new Queue<OrderBoard>();
-        if (null == instance)
+        if (Instance != this)
         {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
     void Start()
@@ -144,10 +138,10 @@ public class OrderManager : MonoBehaviour,IManagerInterface
 
         orderInBubble.SetActive(false);
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         speedMultiplier=data.chefSpeedMultiplier;
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToBusinessData(BusinessData data)
     {
          data.chefSpeedMultiplier= speedMultiplier;
     }

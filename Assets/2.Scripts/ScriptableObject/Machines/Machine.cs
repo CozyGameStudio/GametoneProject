@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Machine : MonoBehaviour,IMachineInterface
 {
-    public bool IsAvailable { get { return !isTakenPlace; } }
+    
     public ScriptableMachine machineData;
     [SerializeField]
     private Food _unlockedFood;
-    public bool isUnlocked{get;private set;}=false;
+    [Header("추가 장비")]
     public List<AdditionalMachine> additionalMachines;
-    //public ScriptableFood foodData;
-    public bool isTakenPlace{get;private set;}
-    
+
+    public bool IsAvailable { get { return !isTakenPlace; } }
+    public bool isUnlocked{get;private set;}=false;
+    public bool isTakenPlace{get;private set;}=false;
     public int currentLevel{get;private set;}=1;
     public float currentCookTime { get { return machineData.cookTime[currentLevel - 1];} }
     public int currentUpgradeMoney { get {return machineData.upgradeMoney[currentLevel - 1];}}
@@ -20,11 +21,6 @@ public class Machine : MonoBehaviour,IMachineInterface
     {
         get { return _unlockedFood; }
         set { _unlockedFood = value; }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        isTakenPlace = false;
     }
     
     public void UnlockFood()
@@ -69,7 +65,6 @@ public class Machine : MonoBehaviour,IMachineInterface
     }
     public SaveData<IMachineInterface> GetData()
     {
- 
         return new SaveData<IMachineInterface>(
             this.machineData.name, currentLevel, isUnlocked);
     }

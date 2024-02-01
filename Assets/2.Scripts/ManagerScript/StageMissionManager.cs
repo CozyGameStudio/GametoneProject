@@ -23,20 +23,16 @@ public class StageMissionManager : MonoBehaviour,IManagerInterface
     {
         get
         {
-            if (null == instance)
+            if (instance == null)
             {
-                return null;
+                instance = FindObjectOfType<StageMissionManager>();
             }
             return instance;
         }
     }
     public void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
+        if (Instance != this)
         {
             Destroy(gameObject);
         }
@@ -139,11 +135,13 @@ public class StageMissionManager : MonoBehaviour,IManagerInterface
             mission.SetActiveByStatus();
         }
     }
-    public void SetData(StageData data)
+    public void SetData(BusinessData data)
     {
         missionDataList = Resources.Load<MissionDataList>("MissionDataList");
         missionBoxPrefab = Resources.Load<GameObject>("MissionBox");
         WhenAllMissionCompleted.gameObject.SetActive(false);
+        accumulatedCustomer = data.accumulatedCustomer;
+        accumulatedSales = data.accumulatedSales;
         Debug.Log("StageMission manager started");
         foreach (var currentStageMission in missionDataList.missionDataList)
         {
@@ -153,7 +151,7 @@ public class StageMissionManager : MonoBehaviour,IManagerInterface
                 MissionInit(currentStageMission);
             }
         }
-        stageProgress = data.currentProgress;
+        
         foreach (var missionData in data.currentMissions)
         {
             var missionBox = missions.Find(m => m.missionData.index == missionData.missionIndex);
@@ -166,13 +164,14 @@ public class StageMissionManager : MonoBehaviour,IManagerInterface
         UpdateMissionStatus();
         CalculateProgress();
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToBusinessData(BusinessData data)
     {
         List <MissionData> tmpList=new List<MissionData>();
         foreach (var mission in missions){
             tmpList.Add(mission.GetData());
         }
         data.currentMissions=tmpList;
-        data.currentProgress=stageProgress;
+        data.accumulatedCustomer=accumulatedCustomer;
+        data.accumulatedSales=accumulatedSales;
     }
 }

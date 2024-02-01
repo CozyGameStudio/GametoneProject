@@ -4,18 +4,7 @@ using UnityEngine;
 
 public class ServerManager : MonoBehaviour,IManagerInterface
 {
-    private static ServerManager instance;
-    public static ServerManager Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
+    
     public List<GameObject> serveTables;
 
     private List<GameObject> foodPlaces;
@@ -24,17 +13,24 @@ public class ServerManager : MonoBehaviour,IManagerInterface
     private Queue<Transform> serveTasksQueue = new Queue<Transform>();
     public float speedMultiplier = 1.0f; // 기본 속도 계수
 
-    
-    void Awake(){
-        if (null == instance)
+    private static ServerManager instance;
+    public static ServerManager Instance
+    {
+        get
         {
-            instance = this;
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ServerManager>();
+            }
+            return instance;
         }
-        else
+    }
+    public void Awake()
+    {
+        if (Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
-        
     }
     void Start()
     {
@@ -117,11 +113,11 @@ public class ServerManager : MonoBehaviour,IManagerInterface
             }
         }
     }
-    public void SetData(StageData data)
+    public void SetData(BusinessData data)
     {
         speedMultiplier = data.chefSpeedMultiplier;
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToBusinessData(BusinessData data)
     {
         data.serverSpeedMultiplier = speedMultiplier;
     }

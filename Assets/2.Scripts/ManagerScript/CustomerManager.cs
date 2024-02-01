@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class CustomerManager : MonoBehaviour,IManagerInterface
@@ -11,7 +10,7 @@ public class CustomerManager : MonoBehaviour,IManagerInterface
     public List<GameObject> customerChair{get;private set;}
     public GameObject customerBackPlace;
     public List<bool> customerChairPresent { get; private set; }
-
+    public CustomerSpawner customerSpawner;
     [HideInInspector]
     public int currentEnabledTable=1;
     
@@ -24,15 +23,6 @@ public class CustomerManager : MonoBehaviour,IManagerInterface
                 instance = FindObjectOfType<CustomerManager>();
             }
             return instance;
-        }
-    }
-    public void Start()
-    {
-        
-        // Initialize the numberOfPlaces array according to the number of guest chairs
-
-        if(Instance != this) {
-            Destroy(gameObject);
         }
     }
     public void AddOneTable(){
@@ -65,7 +55,7 @@ public class CustomerManager : MonoBehaviour,IManagerInterface
     public bool IsCustomerFull() {
         return customerChairPresent.All(p => p);
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         currentEnabledTable=data.enabledTables;
         customerChair = new List<GameObject>();
         customerChairPresent = new List<bool>(new bool[customerChair.Count]);
@@ -82,8 +72,10 @@ public class CustomerManager : MonoBehaviour,IManagerInterface
                 customerTable[i].gameObject.SetActive(false);
             }
         }
+        customerSpawner = FindObjectOfType<CustomerSpawner>();
+        StartCoroutine(customerSpawner.CreateCustomerEveryFewSeconds());
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToBusinessData(BusinessData data)
     {
         data.enabledTables=currentEnabledTable;
     }

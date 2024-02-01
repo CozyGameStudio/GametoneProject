@@ -16,32 +16,26 @@ public class BusinessGameManager : MonoBehaviour,IManagerInterface
     {
         get
         {
-            if (null == instance)
+            if (instance == null)
             {
-                return null;
+                instance = FindObjectOfType<BusinessGameManager>();
             }
             return instance;
         }
     }
     public void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
+        if (Instance != this)
         {
             Destroy(gameObject);
         }
-        Input.multiTouchEnabled=false;
-        UIManager.Instance.UpdateMoneyUI();
     }
-    
+
 
     void Start()
     {
-        
-            
+        Input.multiTouchEnabled = false;
+
 #if UNITY_ANDROID
         Application.targetFrameRate=60;
 #else
@@ -101,11 +95,11 @@ public class BusinessGameManager : MonoBehaviour,IManagerInterface
     public void TriggerObj(GameObject obj){
         obj.SetActive(!obj.activeInHierarchy);
     }
-    public void SetData(StageData data){
+    public void SetData(BusinessData data){
         money=data.currentStageMoney;
         dia=data.currentDia;
     }
-    public void AddDataToStageData(StageData data)
+    public void AddDataToBusinessData(BusinessData data)
     {
         data.currentStageNumber=currentBusinessStage;
         data.currentStageMoney=money;

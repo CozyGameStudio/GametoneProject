@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customerPrefab: {fileID: 8887087462073090416, guid: 45da068051d3e2d4bad0481fae904d07, type: 3}
-  createCustomerTime: 3
+  createCustomerTime: 1
   spritesForCustomers:
   - {fileID: 21300000, guid: 315eb5e0fbc985b42b22e4d0774eb4d3, type: 3}
   - {fileID: 21300000, guid: e2d2d6ac65f6a4942a45923343a015f9, type: 3}
@@ -1296,7 +1296,7 @@ Transform:
   m_GameObject: {fileID: 143764598}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.58, y: 6.44, z: 0}
+  m_LocalPosition: {x: -2.58, y: 6.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4664,6 +4664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderInBubble: {fileID: 1989803907}
+  speedMultiplier: 1
 --- !u!4 &516374521
 Transform:
   m_ObjectHideFlags: 0
@@ -9664,6 +9665,8 @@ MonoBehaviour:
   customerTable:
   - {fileID: 1897544675}
   customerBackPlace: {fileID: 143764598}
+  customerSpawner: {fileID: 143764599}
+  currentEnabledTable: 1
 --- !u!4 &935114825
 Transform:
   m_ObjectHideFlags: 0
@@ -20572,6 +20575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serveTables:
   - {fileID: 1025320198}
+  speedMultiplier: 1
 --- !u!4 &1947416112
 Transform:
   m_ObjectHideFlags: 0

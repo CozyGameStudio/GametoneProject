@@ -8,12 +8,8 @@ public class CustomerSpawner : MonoBehaviour
     public int createCustomerTime;
     private List<Customer> customers = new List<Customer>();
     public List<Sprite> spritesForCustomers;
-    void Start()
-    {
-        StartCoroutine(CreateCustomerEveryFewSeconds());
-    }
 
-    IEnumerator CreateCustomerEveryFewSeconds()
+    public IEnumerator CreateCustomerEveryFewSeconds()
     {
         while (true)
         {
@@ -23,7 +19,6 @@ public class CustomerSpawner : MonoBehaviour
                 CreateCustomer();
             }
         }
-
     }
 
     void CreateCustomer()

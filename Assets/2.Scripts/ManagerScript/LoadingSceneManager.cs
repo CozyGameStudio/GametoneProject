@@ -2,28 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class LoadingSceneManager : MonoBehaviour
 {
-    public GameObject loadingScreen;
-    public GameObject gameStart;
+    public Slider slider; 
+    public static string nextScene;
 
     private float time=0;
-    public void LoadSceneWithLoadingScreen(string sceneName){
-        StartCoroutine(LoadGameSceneAsync(sceneName));
-        // if(sceneName.Contains("Interior")){
-        //     DataSaveNLoadManager.Instance.SaveGameObjectsFromBusiness();
-        // }
-    }
-    private IEnumerator LoadGameSceneAsync(string sceneName)
+    private void Start()
     {
-        loadingScreen.SetActive(true);
-        AsyncOperation asyncLoad=SceneManager.LoadSceneAsync("sceneName");
+        slider.maxValue=5;
+        StartCoroutine(LoadGameSceneAsync());
+    }
+    public static void LoadScene(string sceneName)
+    {
+        nextScene = sceneName;
+        SceneManager.LoadScene("LoadingScene");
+    }
+    
+    private IEnumerator LoadGameSceneAsync()
+    {
+        AsyncOperation asyncLoad=SceneManager.LoadSceneAsync(nextScene);
         asyncLoad.allowSceneActivation=false;
        while(!asyncLoad.isDone){
             this.time=+Time.time;
-            if(time>5)
-                asyncLoad.allowSceneActivation=true;
+            slider.value = time;
+            if (time>5){
+                asyncLoad.allowSceneActivation = true;
+            }  
             yield return null;
         }
     }
