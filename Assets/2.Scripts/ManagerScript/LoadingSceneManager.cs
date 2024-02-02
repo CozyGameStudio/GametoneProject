@@ -16,7 +16,8 @@ public class LoadingSceneManager : MonoBehaviour
     public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
-        SceneManager.LoadScene("LoadingScene");
+        if(DataSaveNLoadManager.scene.name!=nextScene)
+            SceneManager.LoadScene("LoadingScene");
     }
     
     private IEnumerator LoadGameSceneAsync()

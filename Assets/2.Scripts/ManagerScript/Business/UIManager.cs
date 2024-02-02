@@ -51,4 +51,8 @@ public class UIManager : MonoBehaviour
     public void UpdateCurrentStageText(){
         currentStageText.text=BusinessGameManager.Instance.currentBusinessStage.ToString();
     }
+    public void TriggerObj(GameObject obj)
+    {
+        obj.SetActive(!obj.activeInHierarchy);
+    }
 }

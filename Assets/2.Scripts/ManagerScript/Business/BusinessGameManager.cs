@@ -87,9 +87,6 @@ public class BusinessGameManager : MonoBehaviour,IManagerInterface
         //burning time? or just for test
         Time.timeScale*=multiplier;
     }
-    public void TriggerObj(GameObject obj){
-        obj.SetActive(!obj.activeInHierarchy);
-    }
     public void SetData(BusinessData data){
         money=data.currentStageMoney;
         dia=data.currentDia;
