@@ -7325,7 +7325,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 44f06d85c8fb34f4db67c4b5e2d92d9c, type: 2}
 --- !u!4 &271282085
 Transform:
   m_ObjectHideFlags: 0
@@ -10996,7 +10996,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2397303, y: 0}
+  m_Offset: {x: 0.00621894, y: 0.20237851}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -11007,7 +11007,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.154053, y: 1.115}
+  m_Size: {x: 0.9491065, y: 2.96286}
   m_EdgeRadius: 0
 --- !u!114 &457424546
 MonoBehaviour:
@@ -17478,7 +17478,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.5134935, y: 1.115}
+  m_Size: {x: 2.2609432, y: 1.115}
   m_EdgeRadius: 0
 --- !u!212 &745910476
 SpriteRenderer:
@@ -18515,7 +18515,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.000002026558, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -18526,7 +18526,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.5134935, y: 1.115}
+  m_Size: {x: 2.1553414, y: 1.115}
   m_EdgeRadius: 0
 --- !u!212 &800133643
 SpriteRenderer:
@@ -22701,6 +22701,7 @@ MonoBehaviour:
   - {fileID: 1828429706}
   - {fileID: 1393172787}
   customerBackPlace: {fileID: 143764598}
+  customerSpawner: {fileID: 0}
   currentEnabledTable: 1
 --- !u!4 &935114825
 Transform:
@@ -31550,6 +31551,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bea592e1b91ab43469334c0a3062cedb, type: 3}
     - target: {fileID: 7663498565066912780, guid: 63a30c6851e29424b862a57f71623e1a, type: 3}
+      propertyPath: m_Size.y
+      value: 1.3813171
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663498565066912780, guid: 63a30c6851e29424b862a57f71623e1a, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.07229142
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663498565066912780, guid: 63a30c6851e29424b862a57f71623e1a, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663498565066912780, guid: 63a30c6851e29424b862a57f71623e1a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.24
       objectReference: {fileID: 0}
@@ -35324,6 +35337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2993241a8d107f4d90cffb52c162017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMoney: 100
   moneyMultiplier: 1
   currentBusinessStage: 2
 --- !u!4 &1414467992
@@ -49960,7 +49974,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.5134935, y: 1.115}
+  m_Size: {x: 2.4756303, y: 1.115}
   m_EdgeRadius: 0
 --- !u!212 &1965953409
 SpriteRenderer:
