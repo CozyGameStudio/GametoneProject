@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1.Scenes/BusinessStages/BusinessStage3.unity
     guid: c41d424872886c149800cd0e3b4b9b90
+  - enabled: 1
+    path: Assets/1.Scenes/Interior.unity
+    guid: 7f13c9d7a7df7ce4d9738f58408c6169
   m_configObjects: {}

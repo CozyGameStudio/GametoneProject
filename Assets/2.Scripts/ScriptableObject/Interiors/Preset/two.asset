@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe3b95420d576a408da23adf2d63de9, type: 3}
   m_Name: two
   m_EditorClassIdentifier: 
-  number: 2
+  Index: 0
+  presetNumber: 2
+  stageToUse: 0
   money: 5000
-  icon: {fileID: 21300000, guid: 962bdc853c490fb4e821516302ff708e, type: 3}
+  icon: {fileID: 872852261, guid: fde713f23e78f284ba7d4ffd78b0af00, type: 3}

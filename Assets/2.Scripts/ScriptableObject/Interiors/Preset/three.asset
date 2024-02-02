@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe3b95420d576a408da23adf2d63de9, type: 3}
   m_Name: three
   m_EditorClassIdentifier: 
-  number: 3
+  Index: 0
+  presetNumber: 3
+  stageToUse: 0
   money: 8000
-  icon: {fileID: 21300000, guid: 17d6e3a87173dc949b752501fc72589a, type: 3}
+  icon: {fileID: 872852261, guid: fde713f23e78f284ba7d4ffd78b0af00, type: 3}

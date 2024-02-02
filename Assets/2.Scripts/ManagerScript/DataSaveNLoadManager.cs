@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 [Serializable]
 public class BusinessData
 {
-    public int currentStageNumber;
-    public int currentStageMoney;
-    public int currentDia;
-    public int enabledTables;
-    public float chefSpeedMultiplier;
-    public float serverSpeedMultiplier;
+    public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
+    public int currentStageMoney; //무료재화 정보
+    public int currentDia; //유료재화 정보
+    public int enabledTables; //활성화 테이블 수
+    public float chefSpeedMultiplier; //셰프 속도 증가율
+    public float serverSpeedMultiplier; //서버 속도 증가율
     public int accumulatedCustomer;
     public int accumulatedSales;
-    public List<SaveData<Food>> currentFoods;
-    public List<SaveData<IMachineInterface>> currentMachines;
-    public List<SaveData<Character>> currentCharacters;
-    public List<MissionData> currentMissions;
-    
+    public List<SaveData<Food>> currentFoods; //해당 스테이지 음식 데이터
+    public List<SaveData<IMachineInterface>> currentMachines; //해당 스테이지 장비 데이터(원본 + 추가 장비)
+    public List<SaveData<Character>> currentCharacters; //해당 스테이지 캐릭터 데이터
+    public List<MissionData> currentMissions; // 해당스테이지 미션
+
     public BusinessData(){
         currentStageNumber=1;
         currentStageMoney=0;
@@ -38,9 +38,9 @@ public class BusinessData
 [Serializable]
 public class MissionData{
     //Mission
-    public int missionIndex;
-    public bool isUnlocked;
-    public bool isCleared;
+    public int missionIndex; // 초기값 0
+    public bool isUnlocked; //초기값 false
+    public bool isCleared; // 초기값 false
     public MissionData(int index,bool unlock,bool clear){
         missionIndex=index;
         isUnlocked=unlock;
@@ -52,8 +52,8 @@ public class SaveData<T>
 {
     //Food / Character
     public string name;
-    public int currentLevel;
-    public bool isUnlocked;
+    public int currentLevel; // 초기값 1
+    public bool isUnlocked; // 초기값 false
     public SaveData(string nam, int level, bool unlock)
     {
         name = nam;
