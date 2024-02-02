@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 2006966391}
-  minLoadingTime: 5
+  minLoadingTime: 3
 --- !u!4 &551265168
 Transform:
   m_ObjectHideFlags: 0

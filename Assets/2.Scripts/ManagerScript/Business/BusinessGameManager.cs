@@ -7,6 +7,7 @@ public class BusinessGameManager : MonoBehaviour,IManagerInterface
 {
     private Dictionary<Character, float> characterProfits = new Dictionary<Character, float>();
     private static BusinessGameManager instance;
+    public int startMoney=100;
     public int money{get;private set;}=0;
     public int dia{get;private set;}=0;
     public float moneyMultiplier=1;
