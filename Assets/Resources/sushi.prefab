@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3aaac414dbf8da1489f1b0f1dbbf079b, type: 3}
     - target: {fileID: -6907601873445768175, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -6907601873445768175, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
       propertyPath: m_SortingLayerID
-      value: -960550253
+      value: -1837704669
       objectReference: {fileID: 0}
     - target: {fileID: 5433292225164296939, guid: 993c68832e4bda843ad358beeb6c0094, type: 3}
       propertyPath: m_Name

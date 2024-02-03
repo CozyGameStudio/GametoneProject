@@ -24,7 +24,7 @@ public class Server : MonoBehaviour
     private NavMeshAgent agent;
     public event Action OnAvailable;
     private float initSpeed;
-    
+    private Animator animator;
     void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -36,11 +36,14 @@ public class Server : MonoBehaviour
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         initSpeed=speed;
+        animator=GetComponent<Animator>();
     }
 
     void Update()
     {
         fsm.Driver.Update.Invoke();
+        Vector3 currentVelocity = agent.velocity;
+        SetAnimation();
     }
     private void OnEnable() {
         SetAvailable();    
@@ -66,11 +69,20 @@ public class Server : MonoBehaviour
         speed = initSpeed;
         agent.speed = speed;
     }
-    void Idle_Enter()
-    {
-        
-        //playanimation(idle)w
-        
+    public void SetAnimation(){
+        if(animator==null)return;
+        if (agent.velocity.y > 0.1)
+        {//towards upside
+            animator.SetFloat("YVelocity", 1);
+            if (menuToServe != null) menuToServe.SetActive(false);
+        }
+        else if (agent.velocity.y < -0.1)
+        {//towards downward
+            animator.SetFloat("YVelocity", -1);
+            if (menuToServe != null) menuToServe.SetActive(false);
+        }
+        else
+            animator.SetFloat("YVelocity", 0);
     }
     void Idle_Update()
     {
@@ -91,7 +103,6 @@ public class Server : MonoBehaviour
         {
             fsm.ChangeState(States.Serve);
         }
-        
     }
     void Serve_Enter()
     {
@@ -117,7 +128,6 @@ public class Server : MonoBehaviour
     }
     void Serve_Update()
     {
-        
         if (Vector2.Distance(transform.position, placeToMove.position) < .1f)
         {
             if (currentCustomer == null)
@@ -131,6 +141,7 @@ public class Server : MonoBehaviour
     void Serve_Exit()
     {
         currentCustomer.GetMenu(menuToServe);
+        menuToServe=null;
         SetAvailable();
         
     }
