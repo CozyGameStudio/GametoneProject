@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 911274465}
   - component: {fileID: 911274464}
   m_Layer: 0
-  m_Name: intro
+  m_Name: introBGM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,7 +410,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1106,7 +1106,7 @@ SceneRoots:
   - {fileID: 1982894152}
   - {fileID: 1377127767}
   - {fileID: 1526405372}
-  - {fileID: 911274465}
   - {fileID: 1249342066}
   - {fileID: 214185365}
   - {fileID: 1795115466}
+  - {fileID: 911274465}

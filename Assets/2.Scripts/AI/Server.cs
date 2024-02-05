@@ -17,11 +17,11 @@ public class Server : MonoBehaviour
     public GameObject foodHolder;
     public float speed=2f;
     public bool IsAvailable { get; private set; } = true; // Check the server's availability
+    public NavMeshAgent agent;
     private bool isThereMenuToServe=false;
     private GameObject menuToServe;
     private Transform placeToMove; //Server bring food place
     private Customer currentCustomer;
-    private NavMeshAgent agent;
     public event Action OnAvailable;
     private float initSpeed;
     private Animator animator;
@@ -31,7 +31,6 @@ public class Server : MonoBehaviour
         fsm.ChangeState(States.Idle);
     }
     void Start(){
-        agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
@@ -43,7 +42,7 @@ public class Server : MonoBehaviour
     {
         fsm.Driver.Update.Invoke();
         Vector3 currentVelocity = agent.velocity;
-        SetAnimation();
+        SetAnimation(currentVelocity);
     }
     private void OnEnable() {
         SetAvailable();    
@@ -69,17 +68,16 @@ public class Server : MonoBehaviour
         speed = initSpeed;
         agent.speed = speed;
     }
-    public void SetAnimation(){
+    public void SetAnimation(Vector3 currentVelocity)
+    {
         if(animator==null)return;
-        if (agent.velocity.y > 0.1)
+        if (currentVelocity.y > 0.1)
         {//towards upside
             animator.SetFloat("YVelocity", 1);
-            if (menuToServe != null) menuToServe.SetActive(false);
         }
-        else if (agent.velocity.y < -0.1)
+        else if (currentVelocity.y < -0.1)
         {//towards downward
             animator.SetFloat("YVelocity", -1);
-            if (menuToServe != null) menuToServe.SetActive(false);
         }
         else
             animator.SetFloat("YVelocity", 0);

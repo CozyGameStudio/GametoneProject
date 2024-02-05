@@ -30,6 +30,7 @@ public class Chef : MonoBehaviour
     public Character character;
     public float speed=5f;
     public GameObject foodHolder;
+    public NavMeshAgent agent;
 
     public bool IsAvailable { get; private set; } = true;
     private IMachineInterface nowUsingMachine;
@@ -38,9 +39,8 @@ public class Chef : MonoBehaviour
     private GameObject serveHolder;
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
-    private NavMeshAgent agent;
-    private SpriteRenderer spriteRenderer;
     private float initSpeed;
+    private Animator animator;
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
@@ -48,8 +48,6 @@ public class Chef : MonoBehaviour
     private void Start() {
         initSpeed=speed;
         fsm.ChangeState(States.Idle);
-        agent = GetComponent<NavMeshAgent>();
-        spriteRenderer=GetComponent<SpriteRenderer>();
         serveTables=ServerManager.Instance.serveTables;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -58,6 +56,7 @@ public class Chef : MonoBehaviour
         foreach (var serveTable in serveTables){
             AddChildrenWithName(serveTable, "FoodHolder");
         }
+        animator=GetComponent<Animator>();
     }
     public void AddChildrenWithName(GameObject parent, string nameToFind)
     {
@@ -71,6 +70,20 @@ public class Chef : MonoBehaviour
                 foodPlaces.Add(child.GetChild(0).gameObject);
             }
         }
+    }
+    public void SetAnimation(Vector3 currentVelocity)
+    {
+        if (animator == null) {Debug.Log("animator is null");return;}
+        if (currentVelocity.y > 0.1)
+        {//towards upside
+            animator.SetFloat("YVelocity", 1);
+        }
+        else if (currentVelocity.y < -0.1)
+        {//towards downward
+            animator.SetFloat("YVelocity", -1);
+        }
+        else
+            animator.SetFloat("YVelocity", 0);
     }
     public void MultSpeed(float mult){
         speed*=mult;
@@ -90,10 +103,7 @@ public class Chef : MonoBehaviour
     {
         fsm.Driver.Update.Invoke();
         Vector3 currentVelocity = agent.velocity;
-        if (currentVelocity.magnitude > 0.1f)
-        {
-            transform.localScale= currentVelocity.x < 0?new Vector3(-1,1,1): new Vector3(1, 1, 1);
-        }
+        SetAnimation(currentVelocity);
     
     }
     void Idle_Enter()

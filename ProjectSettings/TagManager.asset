@@ -47,12 +47,9 @@ TagManager:
   - name: Background
     uniqueID: 1346137351
     locked: 0
-  - name: Furnitures
-    uniqueID: 3064362685
+  - name: MiddleGround
+    uniqueID: 162044105
     locked: 0
-  - name: Character
-    uniqueID: 2457262627
-    locked: 0
-  - name: Food
-    uniqueID: 3334417043
+  - name: ForeGround
+    uniqueID: 3154537283
     locked: 0
