@@ -15,7 +15,7 @@ public class DataManager : MonoBehaviour
     public List<IMachineInterface> activeMachines{get;private set;}=new List<IMachineInterface>();
     public List<Character> activeCharacters { get; private set; } = new List<Character>();
 
-    public List<IManagerInterface> managerInterfaces;
+    public List<IBusinessManagerInterface> managerInterfaces;
     //public List<Character> characters;
 
     public static DataManager Instance
@@ -43,7 +43,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("Data Ready");
         }
         LoadObjects();
-        managerInterfaces = FindObjectsOfType<MonoBehaviour>().OfType<IManagerInterface>().ToList();
+        managerInterfaces = FindObjectsOfType<MonoBehaviour>().OfType<IBusinessManagerInterface>().ToList();
         foreach (var manager in managerInterfaces)
         {
             Debug.Log($"{manager} ready");

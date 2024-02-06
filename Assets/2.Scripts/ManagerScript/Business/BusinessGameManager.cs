@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class BusinessGameManager : MonoBehaviour,IManagerInterface
+public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
 {
     private Dictionary<Character, float> characterProfits = new Dictionary<Character, float>();
     private static BusinessGameManager instance;
@@ -79,6 +79,17 @@ public class BusinessGameManager : MonoBehaviour,IManagerInterface
         money -= moneyAmount;
         StageMissionManager.Instance.CostCheck();
         UIManager.Instance.UpdateMoneyUI();
+    }
+    public void AddDia(int diaAmount)
+    {
+        dia+=diaAmount;
+        UIManager.Instance.UpdateDiaUI();
+    }
+    public void DecreaseDia(int diaAmount)
+    {
+        if (diaAmount > dia) return;
+        dia -= diaAmount;
+        UIManager.Instance.UpdateDiaUI();
     }
     public void ChangeScene(string scene){
         SceneManager.LoadScene(scene);

@@ -75,7 +75,7 @@ public class ScriptableObjectCreatorWithInterior
             dataObject.Index = preset.index;
             dataObject.presetNumber = preset.presetNumber;
             dataObject.stageToUse = preset.stageToUse;
-            dataObject.money = preset.money;
+            //dataObject.money = preset.money;
 
             EditorUtility.SetDirty( dataObject );
             presetDataList.AddPreset(dataObject);

@@ -5,8 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
+
 
 public static class ScriptableObjectCreator
 {
@@ -159,7 +158,7 @@ public static class ScriptableObjectCreator
 #endif
     }
 
-        [MenuItem("SrpObject/CreateMissionByDatabase")]
+    [MenuItem("SrpObject/CreateMissionByDatabase")]
     public static void CreateScriptablMissionObjects()
     {
         Team5DataTable_Mission.Data.Load();
@@ -257,5 +256,72 @@ public static class ScriptableObjectCreator
         AssetDatabase.SaveAssets();
 #endif
     }
-    
+    [MenuItem("SrpObject/CreateCollectionByDatabase")]
+    public static void CreateScriptablCollectionObjects()
+    {
+        //Load Collection Data by Character Type Data
+        Team5DataTable_Type.CharacterTypeData.Load();
+        Team5DataTable_Collection.Data.Load();
+        List<Team5DataTable_Type.CharacterTypeData> characterTypes = Team5DataTable_Type.CharacterTypeData.CharacterTypeDataList;
+        List<Team5DataTable_Collection.Data> collectionDataList = Team5DataTable_Collection.Data.DataList;
+        foreach (var characterType in characterTypes)
+        {
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Collection/{characterType.characterName}.asset";
+#if UNITY_EDITOR
+            ScriptableCollection dataObject = AssetDatabase.LoadAssetAtPath<ScriptableCollection>(assetPath);
+            if (dataObject == null)
+            {
+                dataObject = ScriptableObject.CreateInstance<ScriptableCollection>();
+                AssetDatabase.CreateAsset(dataObject, assetPath);
+            }
+#endif
+            dataObject.characterName = characterType.characterName;
+            dataObject.characterNameInKorean = characterType.characterNameInKorean;
+            foreach (var collectionData in collectionDataList){
+                if(!dataObject.characterName.Equals(collectionData.characterName)){
+                    continue;
+                }
+                var existingStory = dataObject.storyDataList.Find(story => story.storyName.Equals(collectionData.storyName));
+
+                if (existingStory != null)
+                {
+                    if (Enum.TryParse(collectionData.storyCurrencyType, true, out CurrencyType currencyTypeEnum))
+                    {
+                        existingStory.storyCurrencyType = currencyTypeEnum;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Invalid mission content string: {collectionData.storyCurrencyType}");
+                    }
+                    existingStory.storyUnlockCost = collectionData.storyUnlockCost;
+                    existingStory.storyContent=collectionData.storyContent;
+                }
+                else
+                {
+                    //Deafult Value
+                    CurrencyType currencyType=CurrencyType.Money;
+                    if (Enum.TryParse(collectionData.storyCurrencyType, true, out CurrencyType currencyTypeEnum))
+                    {
+                        currencyType = currencyTypeEnum;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Invalid mission content string: {collectionData.storyCurrencyType}");
+                    }
+                    // 새 항목 추가
+                    StoryData storyData=new StoryData();
+                    storyData.storyName= collectionData.storyName;
+                    storyData.storyCurrencyType=currencyType;
+                    storyData.storyUnlockCost = collectionData.storyUnlockCost;
+                    storyData.storyContent= collectionData.storyContent;
+                    dataObject.storyDataList.Add(storyData);
+                }
+            }
+            EditorUtility.SetDirty(dataObject);
+        }
+#if UNITY_EDITOR
+        AssetDatabase.SaveAssets();
+#endif
+    }
+
 }

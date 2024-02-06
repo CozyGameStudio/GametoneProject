@@ -6,6 +6,15 @@ using System;
 using UnityEngine.SceneManagement;
 //using UnityEngine.SceneManagement;
 [Serializable]
+public class SystemData{
+    public BusinessData businessData;
+    public List<CollectionData> collectionDatas;
+    public SystemData(){
+        businessData=new BusinessData();
+        collectionDatas=new List<CollectionData>();
+    }
+}
+[Serializable]
 public class BusinessData
 {
     public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
@@ -34,6 +43,14 @@ public class BusinessData
         currentMachines = new List<SaveData<IMachineInterface>>();
         currentCharacters = new List<SaveData<Character>>();
         currentMissions = new List<MissionData>();
+    }
+}
+public class CollectionData{
+    public string name;
+    public bool[] isUnlock;
+    public CollectionData(string nam,bool[] unlockList){
+        name=nam;
+        isUnlock= unlockList;
     }
 }
 [Serializable]

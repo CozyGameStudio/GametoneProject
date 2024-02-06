@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04417fff762966c4a92a48362864ae87, type: 3}
+  m_Name: happy
+  m_EditorClassIdentifier: 
+  characterName: happy
+  characterNameInKorean: "\uD574\uD53C"
+  storyDataList:
+  - storyName: "\uCCAB \uC694\uB9AC"
+    storyCurrencyType: 0
+    storyUnlockCost: 1000
+    storyContent: "\uC694\uB9AC\uB294 \uC5ED\uC2DC \uC5B4\uB824\uC6CC...."
+  - storyName: "\uBE5A \uC0C1\uD658 \uACC4\uD68D"
+    storyCurrencyType: 0
+    storyUnlockCost: 2000
+    storyContent: "\uBE5A\uC774 \uC774\uB807\uAC8C \uB9CE\uC544?!"
+  - storyName: "\uD0A4\uB2E4\uB9AC \uC544\uC800\uC528"
+    storyCurrencyType: 0
+    storyUnlockCost: 3000
+    storyContent: "\uD0A4 \uC644\uC804 \uD06C\uB2F9"
+  - storyName: "\uD574\uD53C\uAC00 \uAFC8\uAFB8\uB294 \uC138\uACC4"
+    storyCurrencyType: 1
+    storyUnlockCost: 15
+    storyContent: "\uBC31\uB9CC\uC7A5\uC790\uAC00 \uB418\uC5B4 \uBAA8\uB450\uC758
+      \uD798\uB4EC\uC744 \uD574\uACB0\uD574\uC8FC\uB294 \uD574\uD53C\uAC00 \uB420\uAEBC\uC58C"
+  characterIcon: {fileID: 21300000, guid: 6139ec3066a2402458fa3327b8bfe76d, type: 3}
+  characterStatus: {fileID: 21300000, guid: ab24d2325622a6c49ab98dcdc7e2c0fc, type: 2}

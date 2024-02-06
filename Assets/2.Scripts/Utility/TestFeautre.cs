@@ -7,10 +7,10 @@ public class TestFeautre : MonoBehaviour
     //this code is just for test.
     //In Build, it should be removed.
     public void AddMoney(int money){
-        BusinessGameManager.Instance.ChangeSpeed(money);
+        BusinessGameManager.Instance.AddMoney(money);
     }
     public void ChangeSpeed(float multiplier){
-            BusinessGameManager.Instance.ChangeSpeed(multiplier);
+        BusinessGameManager.Instance.ChangeSpeed(multiplier);
     }
     public void LocalLoad(){
         DataLoadManager.Instance.LoadLocalData();

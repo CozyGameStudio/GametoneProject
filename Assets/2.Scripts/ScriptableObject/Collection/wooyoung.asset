@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04417fff762966c4a92a48362864ae87, type: 3}
+  m_Name: wooyoung
+  m_EditorClassIdentifier: 
+  characterName: wooyoung
+  characterNameInKorean: "\uC6B0\uC601\uC774"
+  storyDataList:
+  - storyName: "\uBA39\uD280 \uCCAB \uC2DC\uB3C4"
+    storyCurrencyType: 0
+    storyUnlockCost: 1000
+    storyContent: "\uD654\uC7AC\uB97C \uD53C\uD574 \uC815\uC2E0\uC5C6\uC774 \uB3C4\uB9DD\uCCD0
+      \uB098\uC628 \uC9C0 \uC0BC\uC77C\uC9F8 \uB418\uB358 \uB0A0,<br>\uB2E4\uC2DC
+      \uB9D0\uD558\uC790\uBA74 \uC6B0\uC601\uC758 \uBC43\uC18D\uC5D0 \uC74C\uC2DD\uC774\uB780
+      \uAC83\uC774 \uB4E4\uC5B4\uAC04 \uC9C0 \uB9CC 72\uC2DC\uAC04\uC774 \uACBD\uACFC\uD55C
+      \uB54C\uC600\uB2E4.<br>11\uB144 \uC9E7\uC740 \uB0E5\uC0DD... \uC774\uB807\uAC8C
+      \uD070 \uC2DC\uB828\uC744 \uACAA\uC740 \uC801\uC774 \uC788\uC5C8\uB358\uAC00...<br>\uC6B0\uC601\uC740
+      \uBE44\uCC99\uBE44\uCC99 \uB9E5\uC544\uB9AC \uC5C6\uB294 \uAC78\uC74C\uC744
+      \uC62E\uAE30\uBA70 \uC9C0\uB09C \uC0B6\uC744 \uB3CC\uC774\uCF1C \uBCF4\uC558\uC9C0\uB9CC,<br>\uBCF4\uC721\uC6D0\uC5D0
+      \uC624\uAE30 \uC804\uC758 \uC77C\uC740 \uB108\uBB34 \uC5B4\uB9B4 \uC801\uC774\uB77C
+      \uAE30\uC5B5\uC774 \uB098\uC9C8 \uC54A\uC73C\uB2C8<br>\uC9C0\uAE08 \uC774 \uC21C\uAC04\uC774
+      \uC6B0\uC601\uC758 11\uB144 \uC0B6 \uCD5C\uB300 \uC704\uAE30\uC784\uC774 \uD2C0\uB9BC
+      \uC5C6\uC5C8\uB2E4.<br>...\uC911\uB7B5)"
+  - storyName: "\uC774\uAC83\uC740 \uC2E0\uC758 \uC74C\uC2DD?"
+    storyCurrencyType: 0
+    storyUnlockCost: 2000
+    storyContent: "\uC774\uAC83\uB3C4"
+  - storyName: "\uC6B0\uC601\uC774\uAC00 \uAFC8\uAFB8\uB294 \uC138\uACC4"
+    storyCurrencyType: 0
+    storyUnlockCost: 3000
+    storyContent: "\uC544\uC9C1"
+  - storyName: "\uD1A0\uC885\uB2ED \uC2E4\uC885 \uC0AC\uAC74"
+    storyCurrencyType: 1
+    storyUnlockCost: 50
+    storyContent: "\uBAB0\uB77C"
+  characterIcon: {fileID: 21300000, guid: a9a2e69f5d721cb40b7ea5d550c307e4, type: 3}
+  characterStatus: {fileID: 21300000, guid: 9a9a78aa4688fbe46852dc6ee758c128, type: 2}

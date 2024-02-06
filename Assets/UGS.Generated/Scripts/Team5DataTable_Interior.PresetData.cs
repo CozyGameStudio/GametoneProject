@@ -59,7 +59,6 @@ namespace Team5DataTable_Interior
 		public System.Int32 index;
 		public System.Int32 stageToUse;
 		public System.Int32 presetNumber;
-		public System.Int32 money;
   
 
 #region fuctions

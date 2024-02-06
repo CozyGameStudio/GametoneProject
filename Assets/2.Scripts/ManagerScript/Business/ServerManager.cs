@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerManager : MonoBehaviour,IManagerInterface
+public class ServerManager : MonoBehaviour,IBusinessManagerInterface
 {
     
     public List<GameObject> serveTables;

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8244c70408171d46adc2759e0fc04ab, type: 3}
+  m_Name: SO_maximus
+  m_EditorClassIdentifier: 
+  index: 3
+  characterName: maximus
+  characterNameInKorean: "\uBB34\uD558\uB9C8\uB4DC \uB9C9\uC2DC\uBB34\uC2A4"
+  profitGrowthRate:
+  - 0.01
+  - 0.02
+  - 0.04
+  - 0.06
+  - 0.08
+  - 0.1
+  - 0.12
+  - 0.14
+  - 0.16
+  - 0.2
+  upgradeMoney: 02000000030000000400000005000000060000000700000008000000090000000a00000000000000
+  characterIcon: {fileID: 21300000, guid: 155f6f467357d4f40b7f1a5fe30702fe, type: 3}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrderManager : MonoBehaviour,IManagerInterface
+public class OrderManager : MonoBehaviour,IBusinessManagerInterface
 {
     private static OrderManager instance;
     Queue<OrderBoard> orderQueue=new Queue<OrderBoard>();

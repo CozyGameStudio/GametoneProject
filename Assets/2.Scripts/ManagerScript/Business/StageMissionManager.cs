@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-public class StageMissionManager : MonoBehaviour,IManagerInterface
+public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
 {
     
     public GameObject missionPanel;

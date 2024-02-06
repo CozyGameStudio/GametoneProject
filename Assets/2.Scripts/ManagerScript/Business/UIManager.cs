@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
         UpdateProgress();
     }
     public TMP_Text moneyText;
+    public TMP_Text diaText;
     public TMP_Text moneyMultiplierText;
     public TMP_Text currentStageText;
     public Slider slider;
@@ -43,6 +44,10 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateMoneyUI(){
         moneyText.text = BusinessGameManager.Instance.money.ToString();
+    }
+    public void UpdateDiaUI()
+    {
+        diaText.text = BusinessGameManager.Instance.dia.ToString();
     }
     public void UpdateMoneyMultiplierUI()
     {

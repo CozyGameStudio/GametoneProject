@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CustomerManager : MonoBehaviour,IManagerInterface
+public class CustomerManager : MonoBehaviour,IBusinessManagerInterface
 {
     private static CustomerManager instance;
     public List<GameObject> customerTable;
