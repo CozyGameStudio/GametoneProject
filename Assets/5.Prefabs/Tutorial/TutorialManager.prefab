@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8534116187997713931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7281233603402613340}
+  - component: {fileID: 8447597221767296936}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7281233603402613340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534116187997713931}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 315.5864, y: 264.6104, z: 6.3911176}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8447597221767296936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534116187997713931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a0640f1e0921b4b95c676f53d8118a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DarkFilter: {fileID: 0}
+  close: {fileID: 0}
+  open: {fileID: 0}
+  touch: {fileID: 0}
+  businessButton: {fileID: 0}
+  ProcessBarButton: {fileID: 0}
+  money: {fileID: 0}
+  mask: {fileID: 0}
+  businessFilter: {fileID: 0}
+  businessBuyPanelFilter: {fileID: 0}
+  businessCloseFilter: {fileID: 0}
+  dialogueDataList:
+  - "\uC694\uB9AC\uB97C \uD558\uB824\uBA74 <br>\uBA3C\uC800 \uC7A5\uBE44\uAC00 \uD544\uC694\uD574\uC694!"
+  - "\uACBD\uC601 \uAD00\uB9AC\uCC3D\uC744 <br>\uD130\uCE58\uD574\uBCF4\uC138\uC694!"
+  - "\uC9D1\uC0AC\uB2D8, \uC9C0\uAE08\uBD80\uD130 \uB9E4\uC7A5 \uC6B4\uC601\uC744
+    \uC2DC\uC791\uD574\uBCFC\uAE4C\uC694?"
+  - "\uC190\uB2D8\uC774 \uC8FC\uBB38\uD558\uBA74 \uBC14\uB85C <br>\uC8FC\uBC29\uC73C\uB85C
+    \uC804\uB2EC\uB41C\uB2F5\uB2C8\uB2E4."
+  - "\uC190\uB2D8\uC740 \uC74C\uC2DD\uC744 \uBC1B\uC73C\uBA74 <br>\uBC14\uB85C \uC2DD\uAC12\uC744
+    \uC9C0\uBD88\uD558\uACE0 \uB3CC\uC544\uAC11\uB2C8\uB2E4."
+  - "\uBC8C\uC368 5\uACE8\uB4DC\uB098 <br>\uBC8C\uC5C8\uB124\uC694! <br> \uC774\uC81C
+    \uC5C5\uADF8\uB808\uC774\uB4DC\uB97C<br>\uC9C4\uD589\uD574\uBCFC\uAE4C\uC694?"
+  - "\uC9C0\uAE08\uBD80\uD130 \uC9D1\uC0AC\uB2D8\uC774<br>\uC9C1\uC811 \uACBD\uC601\uC5D0
+    \uCC38\uC5EC\uD560 \uC218 \uC788\uC5B4\uC694!"
+  - "\uC9C0\uAE08\uBD80\uD130 \uC9D1\uC0AC\uB2D8\uC774<br>\uC9C1\uC811 \uACBD\uC601\uC5D0
+    \uCC38\uC5EC\uD560 \uC218 \uC788\uC5B4\uC694!"
+  dialogueBoxPositionDataList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dialogueBox: {fileID: 0}
+  dialogueText: {fileID: 0}
+  prefabMask: {fileID: 6317127484430258709, guid: 40177a06d56ae8848820fd819e70d5cc, type: 3}
+  chefPosition: {fileID: 0}
+  serverPosition: {fileID: 0}
+  UIPosition: {fileID: 0}
+  nextButton: {fileID: 0}
+  waitTimeForPushButton: 3
+  waitTimeForStartTutorial: 1
+  rotationDuration: 0.5

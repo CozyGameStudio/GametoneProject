@@ -25,6 +25,10 @@ public class Server : MonoBehaviour
     public event Action OnAvailable;
     private float initSpeed;
     private Animator animator;
+
+    public bool isPickupForTutorial = false;
+    public bool isServedForTutorial = false;
+
     void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -104,6 +108,8 @@ public class Server : MonoBehaviour
     }
     void Serve_Enter()
     {
+        isPickupForTutorial = true;
+
         FoodPlace foodPlace = menuToServe.GetComponentInParent<FoodPlace>();
         if (foodPlace != null)
         {
@@ -134,7 +140,7 @@ public class Server : MonoBehaviour
             }
             fsm.ChangeState(States.Idle);
         }
-
+        isServedForTutorial = true;
     }
     void Serve_Exit()
     {

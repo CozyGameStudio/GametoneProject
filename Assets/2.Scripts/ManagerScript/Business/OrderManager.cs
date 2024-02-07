@@ -18,6 +18,7 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
     private List<IMachineInterface> machines;
     public float speedMultiplier = 1.0f; // 기본 속도 계수
 
+    public bool isOrderedForTutorial = false;
 
     public static OrderManager Instance
     {
@@ -70,6 +71,8 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
     {
         while (!isQueueEmpty())
         {
+            isOrderedForTutorial = true;
+
             OrderBoard order = orderQueue.Peek(); // Check the first order in the queue
             IMachineInterface appropriateMachine = FindMachineForOrder(order);
             Chef availableChef = FindAvailableChef();
