@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8244c70408171d46adc2759e0fc04ab, type: 3}
   m_Name: SO_wooyoung
   m_EditorClassIdentifier: 
-  index: 2
+  index: 3
   characterName: wooyoung
   characterNameInKorean: "\uC6B0\uC601\uC774"
   profitGrowthRate:
@@ -27,4 +27,4 @@ MonoBehaviour:
   - 0.16
   - 0.2
   upgradeMoney: 02000000030000000400000005000000060000000700000008000000090000000a00000000000000
-  characterIcon: {fileID: 21300000, guid: a9a2e69f5d721cb40b7ea5d550c307e4, type: 3}
+  characterIcon: {fileID: 0}

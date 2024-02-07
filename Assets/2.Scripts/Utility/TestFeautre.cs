@@ -18,4 +18,8 @@ public class TestFeautre : MonoBehaviour
     public void OnlineLoad(){
         DataLoadManager.Instance.LoadOnlineData();
     }
+    public void ResetData()
+    {
+        DataSaveNLoadManager.Instance.ResetData();
+    }
 }

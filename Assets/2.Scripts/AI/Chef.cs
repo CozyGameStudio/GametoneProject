@@ -26,7 +26,7 @@ public class Chef : MonoBehaviour
     private List<GameObject> foodPlaces;
     
 
-    [Header("Character")]
+    [Header("캐릭터")]
     public Character character;
     public float speed=5f;
     public GameObject foodHolder;

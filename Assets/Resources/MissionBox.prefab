@@ -218,19 +218,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7700992101602625135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7936580185896145769}
-        m_TargetAssemblyTypeName: Mission, Assembly-CSharp
-        m_MethodName: WhenRewardCompleted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4170251874051285161
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,16 +891,4 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 978612594301250090}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7936580185896145769}
-        m_TargetAssemblyTypeName: Mission, Assembly-CSharp
-        m_MethodName: WhenUpgradeCompleted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

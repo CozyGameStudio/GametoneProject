@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class CollectionManager : MonoBehaviour,ISystemManagerInterface
+public class CollectionManager : MonoBehaviour
 {
     public CharacterCollectionPage characterCollectionPage;
     public List<CharacterCollection> characterCollections=new List<CharacterCollection>();
@@ -25,9 +25,6 @@ public class CollectionManager : MonoBehaviour,ISystemManagerInterface
         {
             Destroy(gameObject);
         }
-    }
-    private void Start(){
-        SetPage(0);
     }
     public void SetPage(int page)
     {
@@ -55,31 +52,24 @@ public class CollectionManager : MonoBehaviour,ISystemManagerInterface
 
 
     public void SetData(SystemData systemData){
+        Debug.Log("Collection Manager Data Set Start");
         foreach (var characterCollection in characterCollections)
         {
-            var collectionData = systemData.collectionDatas.Find(data => data.name == characterCollection.name);
-
+            var collectionData = systemData.collectionDatas.Find(data => data.name.Equals(characterCollection.scriptableCollection.characterName));
             if (collectionData != null)
             {
-                characterCollection.SetData(collectionData); 
+                characterCollection.SetData(collectionData);
             }
+            Debug.Log(characterCollection.isUnlock.Count);
         }
     }
-    public void AddDataToSystemData(SystemData systemData)
+    public List<CollectionData> GetData()
     {
+        List<CollectionData> list=new List<CollectionData>();
         foreach (var characterCollection in characterCollections)
         {
-            var collectionData = characterCollection.GetData();
-            var existingData = systemData.collectionDatas.Find(data => data.name == collectionData.name);
-
-            if (existingData != null)
-            {
-                existingData.isUnlock = collectionData.isUnlock;
-            }
-            else
-            {
-                systemData.collectionDatas.Add(collectionData);
-            }
+            list.Add(characterCollection.GetData());
         }
+        return list;
     }
 }

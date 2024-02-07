@@ -12,7 +12,8 @@ public class Server : MonoBehaviour
         Walk,
         Serve
     }
-
+    [Header("캐릭터")]
+    public Character character;
     StateMachine<States, StateDriverUnity> fsm;
     public GameObject foodHolder;
     public float speed=2f;

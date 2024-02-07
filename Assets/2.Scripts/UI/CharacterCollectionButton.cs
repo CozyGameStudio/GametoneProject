@@ -18,15 +18,22 @@ public class CharacterCollectionButton : MonoBehaviour
     void Start(){
         collectionSlider.maxValue=100;
     }
+    void OnEnable(){
+        if(currentCharacter!=null)SetUI();
+    }
     public void SetData(CharacterCollection character)
     {
         currentCharacter=character;
-        characterImage.sprite= currentCharacter.scriptableCollection.characterIcon;
-        characterName.text= currentCharacter.scriptableCollection.characterNameInKorean;
-        int progress= (int)currentCharacter.GetProgressData();
-        progressText.text=progress.ToString()+"%";
-        collectionSlider.value=progress;
+        SetUI();
         colButton.onClick.RemoveAllListeners();
         colButton.onClick.AddListener(()=>characterCollectionPanel.SetCharacter(currentCharacter));
+    }
+    public void SetUI()
+    {
+        characterImage.sprite = currentCharacter.scriptableCollection.characterIcon;
+        characterName.text = currentCharacter.scriptableCollection.characterNameInKorean;
+        int progress = currentCharacter.GetProgressData();
+        progressText.text = progress.ToString() + "%";
+        collectionSlider.value = progress;
     }
 }

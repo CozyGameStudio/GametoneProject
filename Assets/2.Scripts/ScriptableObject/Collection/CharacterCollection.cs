@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+[Serializable]
 public class CollectionContent{
     string contentName;
     string content;
@@ -14,16 +16,22 @@ public class CollectionContent{
 public class CharacterCollection : MonoBehaviour
 {
     public ScriptableCollection scriptableCollection;
-    public bool[] isUnlock{get;private set;}
-    private void Start() {
-        isUnlock=new bool[scriptableCollection.storyDataList.Count];
+    public List<bool> isUnlock;
+    public void Awake(){
+        isUnlock = new List<bool>(new bool[scriptableCollection.storyDataList.Count]);
     }
-    public float GetProgressData(){
+    public int GetProgressData(){
         int count=0;
         foreach(var unlock in isUnlock){
             if(unlock)count++;
         }
-        return (float)(count/isUnlock.Length)*100;
+        if (isUnlock.Count == 0) {
+            Debug.LogError("DividebyZeroException");
+            return 0;
+        }
+        int pro= count * 100 / isUnlock.Count;
+        Debug.Log(pro);
+        return pro;
     }
     public void BuyStoryByMoney(int i){
         //apply to lock panel
@@ -55,13 +63,15 @@ public class CharacterCollection : MonoBehaviour
             Debug.Log("유료재화가 없네...?");
         }
     }
-    public CollectionContent GetStoryFromData(int i){
-        CollectionContent cont=new CollectionContent(scriptableCollection.storyDataList[i].storyName, scriptableCollection.storyDataList[i].storyContent);
-        return cont;
-    }
     public void SetData(CollectionData collectionData)
     {
-        isUnlock=collectionData.isUnlock;
+        
+        if(collectionData.isUnlock.Count==isUnlock.Count)
+        {
+            isUnlock = collectionData.isUnlock;
+        }
+        Debug.Log("Collection Data Set Called!");
+        
     }
     public CollectionData GetData(){
         CollectionData collectionData=new CollectionData(scriptableCollection.name, isUnlock);

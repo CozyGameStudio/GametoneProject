@@ -68,6 +68,7 @@ public class MissionBox : MonoBehaviour
                 isUnlocked=true;
                 break;
         }
+        button.transform.GetChild(0).GetComponent<TMP_Text>().text= missionData.cost.ToString();
     }
     public void MatchContentObj(){
         string target= missionData.targetName;

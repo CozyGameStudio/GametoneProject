@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-public class SystemManager : MonoBehaviour
+public class SystemManager : MonoBehaviour, ISystemManagerInterface
 {
     public static SystemManager Instance { get; private set; }
     public AudioMixer masterMixer;
@@ -57,5 +57,11 @@ public class SystemManager : MonoBehaviour
         else
             masterMixer.SetFloat("BGM",0f);
         Debug.Log("Audio set");
+    }
+    public void SetData(SystemData systemData){
+        
+    }
+    public void AddDataToSystemData(SystemData systemData){
+
     }
 }

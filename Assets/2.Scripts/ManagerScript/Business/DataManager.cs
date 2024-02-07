@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
@@ -36,10 +35,11 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void DataInitSetting(){
+    public void DataInitSetting(SystemData systemData)
+    {
         Debug.Log("Data Init Start");
-        BusinessData data = DataSaveNLoadManager.Instance.GetPreparedData();
-        if(data!=null){
+        BusinessData data = systemData.businessData;
+        if (data!=null){
             Debug.Log("Data Ready");
         }
         LoadObjects();
@@ -48,14 +48,14 @@ public class DataManager : MonoBehaviour
         {
             Debug.Log($"{manager} ready");
         }
-        //Get Stage Data from loaded data
+        //Set Stage Data from loaded data
         if (data != null)
         {
             Debug.Log(BusinessGameManager.Instance.currentBusinessStage);
             if(data.currentStageNumber!= BusinessGameManager.Instance.currentBusinessStage){
                 DataSaveNLoadManager.Instance.CreateBusinessData(BusinessGameManager.Instance.currentBusinessStage);
                 Debug.Log("Create Data Set");
-                data = DataSaveNLoadManager.Instance.LoadBusinessData();
+                data = DataSaveNLoadManager.Instance.LoadSystemData().businessData;
                 Debug.Log("Load Data Set");
                 //Set Start Money for new Stage
                 data.currentStageMoney=BusinessGameManager.Instance.startMoney;
