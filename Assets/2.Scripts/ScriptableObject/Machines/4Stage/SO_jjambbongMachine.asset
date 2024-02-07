@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 8
   machineName: jjambbongMachine
   machineNameInKorean: "\uC6CD"
-  machineUnlockCost: 900
+  machineUnlockCost: 90
   cookTime:
   - 5
   - 4.8

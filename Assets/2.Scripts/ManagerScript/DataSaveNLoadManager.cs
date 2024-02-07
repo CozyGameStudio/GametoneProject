@@ -32,7 +32,7 @@ public class BusinessData
 
     public BusinessData(){
         currentStageNumber=1;
-        currentStageMoney=100;
+        currentStageMoney=10;
         currentDia=0;
         enabledTables=1;
         chefSpeedMultiplier=1;

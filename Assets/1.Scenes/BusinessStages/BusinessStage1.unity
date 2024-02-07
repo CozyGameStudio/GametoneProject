@@ -316,6 +316,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3454156724766534854, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3793901964858713762, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: characterCollections.Array.size
       value: 4
@@ -399,26 +403,6 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5146367728486093651, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.1414
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146367728486093651, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1414
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146367728486093651, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1414
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146367728486093651, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -91
-      objectReference: {fileID: 0}
-    - target: {fileID: 5917091821292324502, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1666060214, guid: daf5e2f342b275946a4dd33988e83829, type: 3}
     - target: {fileID: 6628708770928807847, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -455,14 +439,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7922389770597187886, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_Transition
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7922389770597187886, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
-      propertyPath: m_SpriteState.m_PressedSprite
-      value: 
-      objectReference: {fileID: 97495482, guid: daf5e2f342b275946a4dd33988e83829, type: 3}
     - target: {fileID: 8064979104676662413, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -763,17 +739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerPrefab: {fileID: 8887087462073090416, guid: 45da068051d3e2d4bad0481fae904d07, type: 3}
   createCustomerTime: 3
-  spritesForCustomers:
-  - {fileID: 21300000, guid: 315eb5e0fbc985b42b22e4d0774eb4d3, type: 3}
-  - {fileID: 21300000, guid: e2d2d6ac65f6a4942a45923343a015f9, type: 3}
-  - {fileID: 21300000, guid: 87ec260f7616a104b95a0b6ca4220efe, type: 3}
-  - {fileID: 21300000, guid: ecb68578107cad64eae1dd779bcad533, type: 3}
-  - {fileID: 21300000, guid: a62ca250f211ff64386f3d47586ff667, type: 3}
-  - {fileID: 21300000, guid: a588d64175554614e8230ea4cbed2e80, type: 3}
-  - {fileID: 21300000, guid: 5a70d744b14a52c4fba81d2f1a7c0521, type: 3}
-  - {fileID: 21300000, guid: 21d74b03927f3bb41b5c532772852d60, type: 3}
-  - {fileID: 21300000, guid: d41824ad9e87e2c41a622402d6cb6e49, type: 3}
-  - {fileID: 21300000, guid: 2080874d13235304895b546cb1330081, type: 3}
 --- !u!4 &143764600
 Transform:
   m_ObjectHideFlags: 0
@@ -1653,6 +1618,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550712764 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7183277890594422520, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
+  m_PrefabInstance: {fileID: 97438510}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &566727466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,6 +2036,7 @@ MonoBehaviour:
   machineDataList: {fileID: 11400000, guid: 7f5d79918357c0f4195d3c30650faae8, type: 2}
   characterDataList: {fileID: 11400000, guid: 250d00884330f1d40862c0c01c6414be, type: 2}
   missionDataList: {fileID: 11400000, guid: ca6df7593e1c83247b498a96a7cc44ed, type: 2}
+  text: {fileID: 550712764}
 --- !u!1 &679796593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3053,7 +3030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2993241a8d107f4d90cffb52c162017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 100
+  startMoney: 10
   moneyMultiplier: 1
   currentBusinessStage: 1
 --- !u!4 &1414467992

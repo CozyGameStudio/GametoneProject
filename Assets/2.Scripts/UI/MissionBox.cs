@@ -22,6 +22,7 @@ public class MissionBox : MonoBehaviour
     public object obj{get;private set;}
     public bool isUnlocked{get;private set;}=false;
     public bool isCleared { get; private set; } = false;
+    
     public void InitMissionBox()
     {
         missionContent=missionData.missionContent;

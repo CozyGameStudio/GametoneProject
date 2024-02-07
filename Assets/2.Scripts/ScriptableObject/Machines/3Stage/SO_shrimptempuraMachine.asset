@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 5
   machineName: shrimptempuraMachine
   machineNameInKorean: "\uC6CD"
-  machineUnlockCost: 600
+  machineUnlockCost: 60
   cookTime:
   - 7
   - 6.7

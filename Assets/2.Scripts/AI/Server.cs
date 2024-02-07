@@ -115,9 +115,9 @@ public class Server : MonoBehaviour
         int tableNum=menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
         foreach(var chair in CustomerManager.Instance.customerChair)
         {
-            if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
+            if(chair.transform.childCount>0&&chair.transform.GetComponentInChildren<Customer>().tableNumber==tableNum){
                 placeToMove=chair.transform.parent;//guest place
-                currentCustomer = chair.transform.GetChild(0).GetComponent<Customer>();
+                currentCustomer = chair.transform.GetComponentInChildren<Customer>();
                 break;
             }
         }

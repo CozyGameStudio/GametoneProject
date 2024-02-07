@@ -16,8 +16,8 @@ MonoBehaviour:
   missionType: 0
   missionContent: 3
   targetName: gimbapMachine
-  criteria: 3
-  cost: 80
+  criteria: 2
+  cost: 6
   stageToAppear: 1
   sprite: {fileID: 21300000, guid: 5a7056e73edd07a4a9da816dee42a334, type: 3}
   description: "\uAE40\uBC25\uBA38\uC2E0 \uB808\uBCA8 \uCCB4\uD06C"

@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 3
   machineName: greenteaAMachine
   machineNameInKorean: "\uD56D\uC544\uB9AC"
-  machineUnlockCost: 400
+  machineUnlockCost: 40
   cookTime:
   - 5
   - 4.8

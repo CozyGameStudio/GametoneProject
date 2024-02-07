@@ -77,7 +77,7 @@ public class MachineBox : MonoBehaviour
             Debug.LogError("Cannot find machineUpgrade");
         }
         
-        lockPanel.GetComponentInChildren<TMP_Text>().text=$"{machine.machineData.machineUnlockCost}";
+        
         UpdateUI();
     }
     public void UpgradeButtonClick()
@@ -96,6 +96,7 @@ public class MachineBox : MonoBehaviour
         machineLevel.text = machine.currentLevel.ToString();
         CookingSpeed.text = machine.currentCookTime.ToString();
         machineUpgrade.text = machine.currentUpgradeMoney.ToString();
+        lockPanel.GetComponentInChildren<TMP_Text>().text = $"{machine.machineData.machineUnlockCost}";
         if (machine.currentUpgradeMoney == 0)
         {
             machineUpgradeButton.gameObject.SetActive(false);

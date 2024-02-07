@@ -7,8 +7,10 @@ public class CustomerSpawner : MonoBehaviour
     public Customer customerPrefab;
     public int createCustomerTime;
     private List<Customer> customers = new List<Customer>();
-    public List<Sprite> spritesForCustomers;
-
+    private List<GameObject> customerPrefabs=new List<GameObject>();
+    private void Awake(){
+        LoadCustomerPrefabs();
+    }
     public IEnumerator CreateCustomerEveryFewSeconds()
     {
         while (true)
@@ -20,19 +22,29 @@ public class CustomerSpawner : MonoBehaviour
             }
         }
     }
+    private void LoadCustomerPrefabs()
+    {
+        customerPrefabs.Clear();
+        GameObject[] loadedPrefabs = Resources.LoadAll<GameObject>("Customers");
+
+        foreach (var prefabGameObject in loadedPrefabs)
+        {
+            customerPrefabs.Add(prefabGameObject);
+        }
+    }
 
     void CreateCustomer()
     {
-        Customer customer = Instantiate(customerPrefab, this.transform.position, this.transform.rotation);
-        customer.GetComponent<SpriteRenderer>().sprite= RandomCustomerSprite();
-    }
-    private Sprite RandomCustomerSprite(){
-        if (spritesForCustomers.Count > 0)
+        if (customerPrefabs.Count > 0)
         {
-            int index = Random.Range(0, spritesForCustomers.Count);
-            return spritesForCustomers[index];
+            int index = Random.Range(0, customerPrefabs.Count);
+            GameObject customerPrefab = customerPrefabs[index];
+            Instantiate(customerPrefab, this.transform.position, this.transform.rotation);
         }
-        Debug.Log("no Activated Food");
-        return null;
+        else
+        {
+            Debug.LogError("No customer prefabs loaded.");
+        }
     }
+    
 }

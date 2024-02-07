@@ -37,9 +37,11 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
             Destroy(gameObject);
         }
     }
-    void Start(){
-        
+    void Start()
+    {
+        DataLoadManager.Instance.OnDataChanged += UpdateMissionStatus;
     }
+
     public void CalculateProgress(){
         stageProgress = 0;
 

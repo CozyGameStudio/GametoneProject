@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 4
   machineName: sushiMachine
   machineNameInKorean: "\uB3C4\uB9C8"
-  machineUnlockCost: 500
+  machineUnlockCost: 50
   cookTime:
   - 15
   - 14

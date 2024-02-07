@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 9
   machineName: cokeAMachine
   machineNameInKorean: "\uB514\uC2A4\uD39C\uC11C"
-  machineUnlockCost: 1000
+  machineUnlockCost: 100
   cookTime:
   - 5
   - 4.8

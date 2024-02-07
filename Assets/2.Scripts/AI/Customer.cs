@@ -22,6 +22,7 @@ public class Customer : MonoBehaviour
     public Transform foodHolder;
     [Header("Character")]
     public float speed = 5f;
+    public NavMeshAgent agent;
 
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
@@ -30,8 +31,8 @@ public class Customer : MonoBehaviour
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
-    private NavMeshAgent agent;
     private float initSpeed;
+    private Animator animator;
     private void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -40,7 +41,7 @@ public class Customer : MonoBehaviour
     void Start(){
         orderFood = DataManager.Instance.RandomFood();
         Debug.Log(orderFood.foodData.foodName);
-        agent = GetComponent<NavMeshAgent>();
+        animator=GetComponent<Animator>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
@@ -48,6 +49,7 @@ public class Customer : MonoBehaviour
     private void Update()
     {
         fsm.Driver.Update.Invoke();
+        SetAnimation(agent.velocity);
     }
     public void MultSpeed(float mult)
     {
@@ -59,9 +61,19 @@ public class Customer : MonoBehaviour
         speed = initSpeed;
         agent.speed = speed;
     }
-    void Idle_Enter()
+    public void SetAnimation(Vector3 currentVelocity)
     {
-        
+        if (animator == null) { Debug.Log("animator is null"); return; }
+        if (currentVelocity.y > 0.1)
+        {//towards upside
+            animator.SetFloat("YVelocity", 1);
+        }
+        else if (currentVelocity.y < -0.1)
+        {//towards downward
+            animator.SetFloat("YVelocity", -1);
+        }
+        else
+            animator.SetFloat("YVelocity", 0);
     }
     void Idle_Update() 
     {
@@ -135,7 +147,7 @@ public class Customer : MonoBehaviour
 
     void Order_Enter()
     {
-        transform.SetParent(customerTablePlace.transform);
+        transform.parent.SetParent(customerTablePlace.transform);
         
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
@@ -152,7 +164,7 @@ public class Customer : MonoBehaviour
 
     void Order_Exit()
     {
-        transform.SetParent(null);
+        transform.parent.SetParent(null);
     }
     public void GetMenu(GameObject menu)
     {

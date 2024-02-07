@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 2
   machineName: porkcutletMachine
   machineNameInKorean: "\uB3C4\uB9C8"
-  machineUnlockCost: 300
+  machineUnlockCost: 30
   cookTime:
   - 12
   - 11.5
