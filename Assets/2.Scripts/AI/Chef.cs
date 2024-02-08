@@ -31,7 +31,7 @@ public class Chef : MonoBehaviour
     public float speed=5f;
     public GameObject foodHolder;
     public NavMeshAgent agent;
-
+    public Animator loadingBarAnimator;
     public bool IsAvailable { get; private set; } = true;
     private IMachineInterface nowUsingMachine;
     private bool isHolding=false;
@@ -128,15 +128,14 @@ public class Chef : MonoBehaviour
     }
     void Walk_Update()
     {
-        //Until chef arrives cook Place
-        if(Vector2.Distance(transform.position,placeToMove.position)<2f)
+        if(!isHolding)
         {
-            if (!isHolding)
-            {
+            if (Vector2.Distance(transform.position, placeToMove.position) < .2f){
                 fsm.ChangeState(States.Cook);
             }
-            else
-            {
+        } 
+        else{
+            if (Vector2.Distance(transform.position, placeToMove.position) < 1.5f){
                 fsm.ChangeState(States.Serve);
             }
         }
@@ -145,9 +144,18 @@ public class Chef : MonoBehaviour
         Food foodToMake = currentMenu.foodData;
         StartCoroutine(cookCoroutine(foodToMake, nowUsingMachine.currentCookTime));
     }
-    IEnumerator cookCoroutine(Food foodToMake, float cooktime){
+    IEnumerator cookCoroutine(Food foodToMake, float cookTime){
         isCooking=true;
-        yield return new WaitForSeconds(cooktime);
+        loadingBarAnimator.gameObject.SetActive(true);
+        float animationSpeed = 60 / cookTime; 
+        loadingBarAnimator.speed = animationSpeed;
+        float elapsedTime = 0;
+        while (elapsedTime < cookTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        loadingBarAnimator.gameObject.SetActive(false);
         string foodName= foodToMake.foodData.foodName;
         if (!string.IsNullOrEmpty(foodName) && Char.IsUpper(foodName[foodName.Length - 1]))
         {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public struct OrderBoard{
     public Food foodData{get;private set;}
@@ -23,6 +24,7 @@ public class Customer : MonoBehaviour
     [Header("Character")]
     public float speed = 5f;
     public NavMeshAgent agent;
+    public SpriteRenderer likeParticle;
 
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
@@ -33,6 +35,8 @@ public class Customer : MonoBehaviour
     private bool receiveOrder=false;
     private float initSpeed;
     private Animator animator;
+    private GameObject foodToHold;
+    
     private void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -45,6 +49,7 @@ public class Customer : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        likeParticle.color=new Color(likeParticle.color.r, likeParticle.color.g, likeParticle.color.b,0);
     }
     private void Update()
     {
@@ -67,10 +72,12 @@ public class Customer : MonoBehaviour
         if (currentVelocity.y > 0.1)
         {//towards upside
             animator.SetFloat("YVelocity", 1);
+            if(foodToHold!=null)foodToHold.SetActive(false);
         }
         else if (currentVelocity.y < -0.1)
         {//towards downward
             animator.SetFloat("YVelocity", -1);
+            if (foodToHold != null) foodToHold.SetActive(true);
         }
         else
             animator.SetFloat("YVelocity", 0);
@@ -110,6 +117,16 @@ public class Customer : MonoBehaviour
         }
     }
 
+    void Walk_Enter(){
+        if (isOrdered){
+            CustomerManager.Instance.customerChairPresent[tableNumber - 1] = false;
+            Sequence seq = DOTween.Sequence()
+       .Append(likeParticle.DOFade(1, .2f))
+       .Append(likeParticle.transform.DOScale(.8f,3f)).SetEase(Ease.InQuad)
+       .Append(likeParticle.DOFade(0, .3f));
+            seq.Play();
+        }
+    }
     void Walk_Update()
     {
         // Move to the table if no order is placed
@@ -133,11 +150,8 @@ public class Customer : MonoBehaviour
             }
             else
             {
-                CustomerManager.Instance.customerChairPresent[tableNumber-1] = false;
-                
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
-            //hey
         }
     }
     void Walk_Exit()
@@ -168,10 +182,11 @@ public class Customer : MonoBehaviour
     }
     public void GetMenu(GameObject menu)
     {
-        menu.transform.SetParent(foodHolder);
-        menu.transform.position=foodHolder.position;
+        foodToHold=menu;
+        foodToHold.transform.SetParent(foodHolder);
+        foodToHold.transform.position=foodHolder.position;
         receiveOrder = true;
-        
+       
     }
 
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -65,7 +66,7 @@ public class MissionBox : MonoBehaviour
                 break;
             case MissionType.Reward:
                 button = rewardButton;
-                button.onClick.AddListener(Reward);
+                button.onClick.AddListener(StartRewardCoroutine);
                 isUnlocked=true;
                 break;
         }
@@ -125,13 +126,18 @@ public class MissionBox : MonoBehaviour
         
         gameObject.SetActive(false);
     }
-    public void Reward()
+    public IEnumerator Reward()
     {
-        BusinessGameManager.Instance.AddMoney(missionData.cost);
-        isCleared = true; 
+        isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
-        
+        button.interactable=false;
+        yield return StartCoroutine(UIManager.Instance.PlayCoinAttraction(button.transform, missionData.cost));
+
         gameObject.SetActive(false);
+    }
+    public void StartRewardCoroutine()
+    {
+        StartCoroutine(Reward());
     }
     public void SetUI()
     {

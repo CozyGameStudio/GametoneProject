@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEditor.SceneManagement;
 [Serializable]
 public class SystemData{
     public BusinessData businessData;
@@ -122,7 +123,25 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             loadedData = LoadSystemData();
         }
     }
+    public void SceneChange(){
+        string currentStageName = SceneManager.GetActiveScene().name;
 
+        
+        string stageNumberStr = currentStageName.Replace("BusinessStage", "");
+
+        if (int.TryParse(stageNumberStr, out int stageNumber))
+        {
+            int nextStageNumber = stageNumber + 1;
+
+            string nextStageName = $"BusinessStage{nextStageNumber}";
+
+            LoadingSceneManager.LoadScene(nextStageName);
+        }
+        else
+        {
+            Debug.LogError("현재 스테이지 번호를 파싱하는 데 실패했습니다.");
+        }
+    }
     public SystemData GetPreparedData()
     {
         return loadedData;

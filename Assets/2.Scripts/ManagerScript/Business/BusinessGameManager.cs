@@ -35,8 +35,6 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
 
     void Start()
     {
-        
-        // 모든 캐릭터에 대해 이벤트 구독
         foreach (var character in FindObjectsOfType<Character>())
         {
             character.OnProfitChanged += HandleProfitChange;
@@ -69,16 +67,18 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
         UIManager.Instance.UpdateMoneyMultiplierUI();
     }
     public void AddMoney(int moneyAmount){
+        int currentMoney=money;
         money+=(int)Math.Floor((float)moneyAmount*moneyMultiplier);
         StageMissionManager.Instance.CostCheck();
-        UIManager.Instance.UpdateMoneyUI();
+        UIManager.Instance.SetMoneyAnimation(currentMoney,money);
     }
     public void DecreaseMoney(int moneyAmount)
     {
         if(moneyAmount>money)return;
+        int currentMoney = money;
         money -= moneyAmount;
         StageMissionManager.Instance.CostCheck();
-        UIManager.Instance.UpdateMoneyUI();
+        UIManager.Instance.SetMoneyAnimation(currentMoney, money);
     }
     public void AddDia(int diaAmount)
     {

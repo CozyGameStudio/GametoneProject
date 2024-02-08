@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class SystemManager : MonoBehaviour
 {
     public static SystemManager Instance { get; private set; }
+    
+    [Header("오디오 관련")]
     public AudioMixer masterMixer;
     public List<AudioClip> sfxs;
     private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
     private bool isBGMOn=true;
     private AudioSource audioSource;
+    
     void Awake(){
         if (Instance == null)
         {
