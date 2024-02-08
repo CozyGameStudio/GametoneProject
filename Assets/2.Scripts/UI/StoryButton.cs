@@ -14,11 +14,30 @@ public class StoryButton : MonoBehaviour
     public TMP_Text storyValue;
 
     private Sprite characterSprite;
-    
-    public void SetStoryData(Sprite sprite,StoryData data)
+    private Sprite currentSprite;
+    private StoryData currentData;
+
+
+    void Start()
     {
-        characterSprite=sprite;
-        storyButton.onClick.RemoveAllListeners();
-        storyButton.onClick.AddListener(()=> characterStoryPanel.SetStory(characterSprite,data));
+        // 리스너를 한 번만 할당합니다.
+        storyButton.onClick.AddListener(OnStoryButtonClicked);
+    }
+
+    // 이 메서드를 통해 현재 스토리 데이터를 설정합니다.
+    public void SetStoryData(Sprite sprite, StoryData data)
+    {
+        currentSprite = sprite;
+        currentData = data;
+    }
+
+    // 스토리 버튼 클릭 시 호출될 메서드
+    private void OnStoryButtonClicked()
+    {
+        if (currentData != null)
+        {
+            // 저장된 데이터를 사용하여 패널 설정
+            characterStoryPanel.SetStory(currentSprite, currentData);
+        }
     }
 }

@@ -210,4 +210,4 @@ MonoBehaviour:
       \uC544\uC9C1 \uC778\uC0DD\uC758 \uC9C4\uB9AC\uB97C \uC54C\uAE30\uC5D4 \uC5B4\uB9B0
       \uB098\uC774\uC600\uB2E4...<br>"
   characterIcon: {fileID: 21300000, guid: a9a2e69f5d721cb40b7ea5d550c307e4, type: 3}
-  characterStatus: {fileID: 21300000, guid: 9a9a78aa4688fbe46852dc6ee758c128, type: 2}
+  characterStatus: {fileID: 21300000, guid: 0a6b17748b2d2b246903e1d8686c08cb, type: 2}

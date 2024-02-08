@@ -32,4 +32,4 @@ MonoBehaviour:
     storyUnlockCost: 25
     storyContent: "\uBAB0\uB77C\uC789"
   characterIcon: {fileID: 21300000, guid: 82a89e71a0a0be94f825bf59cda3ccf9, type: 3}
-  characterStatus: {fileID: 21300000, guid: 1e757dd9e3ec28d49821172dcad7c491, type: 2}
+  characterStatus: {fileID: 21300000, guid: 30bef2a5add98e5459af71585599ebfd, type: 2}

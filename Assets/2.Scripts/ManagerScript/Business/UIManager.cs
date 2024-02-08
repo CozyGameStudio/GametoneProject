@@ -60,4 +60,11 @@ public class UIManager : MonoBehaviour
     {
         obj.SetActive(!obj.activeInHierarchy);
     }
+    public void PlaySFXByName(string sfxName){
+        SystemManager.Instance.PlaySFXByName(sfxName);
+    }
+    public void PlayAnimationByName(Transform targetTransform, string aniName)
+    {
+        SystemManager.Instance.PlayAnimationByName(targetTransform, aniName);
+    }
 }

@@ -13,12 +13,13 @@ public class CharacterCollectionPanel : MonoBehaviour
     public StoryButton[] buttons;
     public Image characterIcon;
     public Image characterStatus;
-    
+
     public List<Sprite> currencySprite;
     //Set This to Character Collection Button
-    private void Start(){
-        collectionSlider.maxValue=100;
-    }   
+    private void Start()
+    {
+        collectionSlider.maxValue = 100;
+    }
     public void SetCharacter(CharacterCollection character)
     {
         gameObject.SetActive(true);
@@ -37,16 +38,17 @@ public class CharacterCollectionPanel : MonoBehaviour
         characterStatus.sprite = currentCharacter.scriptableCollection.characterStatus;
         SetProgressBar();
     }
-    public void SetProgressBar(){
+    public void SetProgressBar()
+    {
         int progress = currentCharacter.GetProgressData();
         progressText.text = progress.ToString() + "%";
         collectionSlider.value = progress;
     }
     private void UpdateStoryList()
     {
-        List<StoryData> srpColDataList= currentCharacter.scriptableCollection.storyDataList;
+        List<StoryData> srpColDataList = currentCharacter.scriptableCollection.storyDataList;
         int buttonCount = buttons.Length; // 버튼 배열의 크기
-        for (int i=0;i< srpColDataList.Count;i++)
+        for (int i = 0; i < srpColDataList.Count; i++)
         {
             if (i >= buttonCount)
             {
@@ -58,8 +60,9 @@ public class CharacterCollectionPanel : MonoBehaviour
             buttons[i].storyValue.text = srpColDataList[i].storyUnlockCost.ToString();
             buttons[i].lockPanel.GetComponent<Button>().onClick.RemoveAllListeners();
             buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(SetProgressBar);
-            buttons[i].storyName.text= srpColDataList[i].storyName.ToString();
-            switch (srpColDataList[i].storyCurrencyType){
+            buttons[i].storyName.text = srpColDataList[i].storyName.ToString();
+            switch (srpColDataList[i].storyCurrencyType)
+            {
                 case CurrencyType.Money:
                     buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(() => currentCharacter.BuyStoryByMoney(index));
                     buttons[i].currencyImage.sprite = currencySprite[0];

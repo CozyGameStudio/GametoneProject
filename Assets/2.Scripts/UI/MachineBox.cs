@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class MachineBox : MonoBehaviour
     public Image machineUpgradeComplete;
     public Button machineUpgradeButton;
     public GameObject lockPanel;
+
     void Start(){
         DataLoadManager.Instance.OnDataChanged += UpdateUI;
     }
@@ -85,9 +87,13 @@ public class MachineBox : MonoBehaviour
         if (BusinessGameManager.Instance.money <= machine.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            PlaySFXByName("buttonRefuse");
+            PlayAnimationByName(machineUpgradeButton.transform, "buttonRefuse");
             return;
         }
         BusinessGameManager.Instance.DecreaseMoney(machine.currentUpgradeMoney);
+        PlaySFXByName("buttonUpgrade");
+        PlayAnimationByName(machineUpgradeButton.transform, "buttonUpgrade");
         machine.LevelUp();
         UpdateUI();
     }
@@ -101,6 +107,7 @@ public class MachineBox : MonoBehaviour
         {
             machineUpgradeButton.gameObject.SetActive(false);
             machineUpgradeComplete.gameObject.SetActive(true);
+            PlayAnimationByName(machineUpgradeComplete.transform, "buttonUpgrade");
         }
     }
     public void BuyMachine(){
@@ -109,10 +116,21 @@ public class MachineBox : MonoBehaviour
             BusinessGameManager.Instance.DecreaseMoney(machine.machineData.machineUnlockCost);
             StageMissionManager.Instance.ActivatedCheck();
             lockPanel.SetActive(false);
+            //연출 부분
+            PlaySFXByName("unlock");
+            
         }
         else{
             Debug.Log($"돈이 부족해요....필요한 돈 : {machine.machineData.machineUnlockCost-BusinessGameManager.Instance.money}");
+            PlaySFXByName("buttonRefuse");
+            PlayAnimationByName(transform, "buttonRefuse");
         }
     }
-    
+    private void PlaySFXByName(string sfxName){
+        SystemManager.Instance.PlaySFXByName(sfxName);
+    }
+    private void PlayAnimationByName(Transform targetTransform, string aniName)
+    {
+        SystemManager.Instance.PlayAnimationByName(targetTransform, aniName);
+    }
 }

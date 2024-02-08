@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -90,12 +91,17 @@ public class FoodBox : MonoBehaviour
 
     public void UpgradeButtonClick()
     {
+        
         if (BusinessGameManager.Instance.money <= food.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            PlaySFXByName("buttonRefuse");
+            PlayAnimationByName(foodUpgradeButton.transform,"buttonRefuse");
             return;
         }
         BusinessGameManager.Instance.DecreaseMoney(food.currentUpgradeMoney);
+        PlayAnimationByName(foodUpgradeButton.transform, "buttonUpgrade");
+        PlaySFXByName("buttonUpgrade");
         food.LevelUp();
         UpdateUI();
     }
@@ -107,7 +113,14 @@ public class FoodBox : MonoBehaviour
         {
             foodUpgradeButton.gameObject.SetActive(false);
             foodUpgradeCompleted.gameObject.SetActive(true);
+            PlayAnimationByName(foodUpgradeCompleted.transform, "buttonUpgrade");
         }
     }
-    
+    private void PlaySFXByName(string sfxName)
+    {
+        SystemManager.Instance.PlaySFXByName(sfxName);
+    }
+    private void PlayAnimationByName(Transform targetTransform,string aniName){
+        SystemManager.Instance.PlayAnimationByName(targetTransform,aniName);
+    }
 }

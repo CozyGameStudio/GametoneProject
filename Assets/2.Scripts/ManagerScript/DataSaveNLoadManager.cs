@@ -104,6 +104,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public void CreateSystemData(){
         SystemData systemData = new SystemData();
         systemData.businessData = CreateBusinessData(1);
+        systemData.collectionDatas = new List<CollectionData>();
         SaveSystemData(systemData);
     }
     public BusinessData CreateBusinessData(int stageNum){
@@ -169,10 +170,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     }
     public void ResetData()
     {
-        SystemData systemData = new SystemData();
-        systemData.businessData = CreateBusinessData(1); 
-        systemData.collectionDatas = new List<CollectionData>();
-        SaveSystemData(systemData);
+        CreateSystemData();
         SceneManager.LoadScene("Title");
     }
 
