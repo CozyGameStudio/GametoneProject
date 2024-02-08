@@ -7475,13 +7475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa51adafc1c016b45a92fb95db3615f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
   foods:
   - {fileID: 2123112468263219232}
   - {fileID: 490813113205999873}
-=======
-  foods: []
->>>>>>> Stashed changes
 --- !u!4 &1730558615
 Transform:
   m_ObjectHideFlags: 0
