@@ -101,6 +101,7 @@ public class Server : MonoBehaviour
     }
     void Walk_Update()
     {
+        isPickupForTutorial = true;
         if (Vector2.Distance(transform.position, placeToMove.position) < 1.5f)
         {
             fsm.ChangeState(States.Serve);
@@ -108,7 +109,6 @@ public class Server : MonoBehaviour
     }
     void Serve_Enter()
     {
-        isPickupForTutorial = true;
 
         FoodPlace foodPlace = menuToServe.GetComponentInParent<FoodPlace>();
         if (foodPlace != null)

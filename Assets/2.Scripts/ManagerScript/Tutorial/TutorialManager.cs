@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEditor.Profiling.Memory.Experimental;
 using System;
+using JetBrains.Annotations;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -23,9 +24,15 @@ public class TutorialManager : MonoBehaviour
     public GameObject ProcessBarButton;
     public GameObject money;
     public GameObject mask;
-    public GameObject businessFilter;
-    public GameObject businessBuyPanelFilter;
+    public GameObject businessButtonFilter;
+    public GameObject businessBoxFilter;
     public GameObject businessCloseFilter;
+    public GameObject businessPanelFilter;
+    public GameObject machineBoxUpgradeCostFilter;
+    public GameObject BoxUpgradeButtonFilter;
+    public GameObject moneyFilter;
+    public GameObject businessPanelFoodButtonFilter;
+    public GameObject processBarFilter;
 
     public List<string> dialogueDataList;
     public List<Transform> dialogueBoxPositionDataList;
@@ -39,7 +46,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject UIPosition;
     //[Space(10f)]
 
-    public int tutorialIndex { get; private set; } = 1;
+    public int tutorialIndex { get; private set; } = 0;
 
     private GameObject nextButtonGameObject;
     private GameObject dialogueBoxGameObject;
@@ -75,10 +82,19 @@ public class TutorialManager : MonoBehaviour
     private bool isBusinessMachineBuyTouch = false;
     private bool isBusinessCloseTouch = false;
     private bool isProcessBarButtonTouch = false;
-    
+    private bool isMachineUpgradeTouch = false;
+    private bool isFoodUpgradeTouch = false;
+    private bool isBusinessPanelFoodTouch = false;
+
+    private bool isEnqueueForTutorialOne = false;
+    private bool isEnqueueForTutorialFour = false;
+    private bool isEnqueueForTutorialFive = false;
+    private bool isEnqueueForTutorialSix = false;
+    private bool isMissionAllCleared = true;
+
 
     public float waitTimeForPushButton = 5f;
-    public float waitTimeForStartTutorial = 1f;
+    public float waitTimeForTutorial = 1f;
     public float rotationDuration = 0.5f;
 
     public static TutorialManager Instance
@@ -106,8 +122,8 @@ public class TutorialManager : MonoBehaviour
         close.SetActive(false);
         open.SetActive(false);
         touch.SetActive(false);
-        businessFilter.SetActive(false);
-        businessBuyPanelFilter.SetActive(false);
+        businessButtonFilter.SetActive(false);
+        businessBoxFilter.SetActive(false);
         businessCloseFilter.SetActive(false);
         nextButtonGameObject = nextButton.transform.gameObject;
         if (nextButtonGameObject != null)
@@ -129,11 +145,58 @@ public class TutorialManager : MonoBehaviour
         uiMoney = money.GetComponent<RectTransform>();
         uiBusinessButton = businessButton.GetComponent<RectTransform>();
         uiProcessBar = ProcessBarButton.GetComponent<RectTransform>();
+        StartCoroutine(IsEnqueueTutorial());
         EnqueueTutorial(1);
+    }
+
+    IEnumerator IsEnqueueTutorial()
+    {
+        
+        while (true)
+        {
+            if (BusinessGameManager.Instance.money >= 20 && !isEnqueueForTutorialFour && tutorialIndex >= 3)
+            {
+                isEnqueueForTutorialFour = true;
+                EnqueueTutorial(4);
+                break;
+            }
+            yield return null;
+        }
+        yield return new WaitForSeconds(1f);
+        while(true)
+        {
+            if (BusinessGameManager.Instance.money >= 10 && !isEnqueueForTutorialFive && tutorialIndex >= 4)
+            {
+                isEnqueueForTutorialFive = true;
+                EnqueueTutorial(5);
+                break;
+            }
+            yield return null;
+        }
+        yield return new WaitForSeconds(1f);
+        while (true)
+        {
+            foreach(var mission in StageMissionManager.Instance.missions)
+            {
+                if (!mission.isCleared)
+                {
+                    isMissionAllCleared = false;
+                    break;
+                }
+            }
+            if (isMissionAllCleared && !isEnqueueForTutorialSix && tutorialIndex >= 5)
+            {
+                isEnqueueForTutorialFive = true;
+                EnqueueTutorial(6);
+                break;
+            }
+            yield return null;
+        }
     }
 
     public void EnqueueTutorial(int tutorialId)
     {
+        Debug.Log("인큐" + tutorialId);
         tutorialQueue.Enqueue(tutorialId);
         TryStartNextTutorial();
     }
@@ -143,42 +206,46 @@ public class TutorialManager : MonoBehaviour
         if (!isTutorialActive && tutorialQueue.Count > 0)
         {
             isTutorialActive = true;
+            Debug.Log("큐" + tutorialQueue.Count);
             int tutorialId = tutorialQueue.Dequeue(); // 대기열에서 튜토리얼 ID 꺼내기
-            StartTutorial(tutorialId);
+            StartCoroutine(StartTutorial(tutorialId));
         }
     }
 
-    private void StartTutorial(int tutorialId)
+    IEnumerator StartTutorial(int tutorialId)
     {
         Debug.Log($"Starting tutorial ID: {tutorialId}");
         // 여기에 튜토리얼 시작 로직 구현, 예를 들어 튜토리얼 별로 다른 함수 호출 등
-
+        
         // 예시 로직
         switch (tutorialId)
         {
             case 1:
                 // 첫 번째 튜토리얼 로직
-                StartCoroutine(StartTutorialOne());
+                yield return StartCoroutine(StartTutorialOne());
                 CompleteCurrentTutorial(tutorialId);
                 break;
             case 2:
                 // 두 번째 튜토리얼 로직
-                StartCoroutine(StartTutorialTwo());
+                yield return StartCoroutine(StartTutorialTwo());
                 CompleteCurrentTutorial(tutorialId);
-                
                 break;
             case 3:
-                StartCoroutine(StartTutorialThree());
+                yield return StartCoroutine(StartTutorialThree());
                 CompleteCurrentTutorial(tutorialId);
-
                 break;
             case 4:
-                StartCoroutine(StartTutorialFour());
+                yield return StartCoroutine(StartTutorialFour());
                 CompleteCurrentTutorial(tutorialId);
-
                 break;
-
-
+            case 5:
+                yield return StartCoroutine(StartTutorialFive());
+                CompleteCurrentTutorial(tutorialId);
+                break;
+            case 6:
+                yield return StartCoroutine(StartTutorialSix());
+                CompleteCurrentTutorial(tutorialId);
+                break;
         }
     }
 
@@ -189,7 +256,12 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialOne()
     {
-        yield return new WaitForSeconds(waitTimeForStartTutorial);
+        tutorialIndex++;
+        BusinessGameManager.Instance.ChangeSpeed(0.1f);
+        waitTimeForPushButton *= 0.1f;
+        waitTimeForTutorial *= 0.1f;
+        rotationDuration *= 0.1f;
+        yield return new WaitForSeconds(waitTimeForTutorial);
         DarkFilter.SetActive(true);
         dialogueBoxGameObject.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[currentDialogueIndex].position;
@@ -198,7 +270,7 @@ public class TutorialManager : MonoBehaviour
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return StartCoroutine(PushNextButton());
         DarkFilter.SetActive(false);
-        businessFilter.SetActive(true);
+        businessButtonFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         while (!isBusinessButtonTouch)
@@ -206,35 +278,38 @@ public class TutorialManager : MonoBehaviour
             yield return null;
         }
         isBusinessButtonTouch = false;
-        businessFilter.SetActive(false);
+        businessButtonFilter.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
         dialogueTextGameObject.SetActive(false);
-        businessBuyPanelFilter.SetActive(true);
+        businessBoxFilter.SetActive(true);
         Debug.Log("check1");
         while (!isBusinessMachineBuyTouch)
         {
             yield return null;
         }
         Debug.Log("check");
-        businessBuyPanelFilter.SetActive(false);
+        businessBoxFilter.SetActive(false);
         businessCloseFilter.SetActive(true);
         while (!isBusinessCloseTouch)
         {
             yield return null;
         }
+        isBusinessCloseTouch = false;
         businessCloseFilter.SetActive(false);
-        tutorialIndex++;
+        EnqueueTutorial(tutorialIndex + 1);
     }
 
     IEnumerator StartTutorialTwo()
     {
-        yield return new WaitForSeconds(waitTimeForStartTutorial);
+        tutorialIndex++;
+        yield return new WaitForSeconds(waitTimeForTutorial);
         DarkFilter.SetActive (true);
         nextButtonGameObject.SetActive(true);
         dialogueBoxGameObject.SetActive(true);
+        Debug.Log(currentDialogueIndex);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueTextGameObject.SetActive(true);
-        dialogueText.text = dialogueDataList[++currentDialogueIndex];
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return StartCoroutine(PushNextButton());
         dialogueBoxGameObject.SetActive(false);
         dialogueTextGameObject.SetActive(false);
@@ -248,14 +323,18 @@ public class TutorialManager : MonoBehaviour
         {
             StartCoroutine(StartRotation(close));
         }
-        yield return new WaitForSeconds(waitTimeForStartTutorial);
+        yield return new WaitForSeconds(waitTimeForTutorial);
         close.SetActive(false);
         open.SetActive(true);
         StartCoroutine(StartRotation(open));
-        yield return new WaitForSeconds(waitTimeForStartTutorial);
+        yield return new WaitForSeconds(waitTimeForTutorial);
         DarkFilter.SetActive(false);
         open.SetActive(false);
-        tutorialIndex++;
+
+        BusinessGameManager.Instance.ChangeSpeed(10f);
+        waitTimeForPushButton *= 10f;
+        waitTimeForTutorial *= 10f;
+        rotationDuration *= 10f;
     }
 
     private IEnumerator StartRotation(GameObject signObject)
@@ -281,6 +360,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialThree()
     {
+        tutorialIndex++;
         maskCustomer.SetActive(true);
         DarkFilter.SetActive(true);
         while (!OrderManager.Instance.isOrderedForTutorial)
@@ -306,10 +386,10 @@ public class TutorialManager : MonoBehaviour
         }
         dialogueBoxGameObject.SetActive(false);
         maskChef.SetActive(false);
+        Destroy(maskChef);
         maskServer = Instantiate(prefabMask);
         maskServer.transform.SetParent(serverPosition.transform, false);
         maskServer.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
         while (!serverscript.isServedForTutorial)
         {
             yield return null;
@@ -319,11 +399,10 @@ public class TutorialManager : MonoBehaviour
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         maskCustomer.SetActive(true);
         maskServer.SetActive(false);
-        yield return new WaitForSeconds(waitTimeForStartTutorial * 3);
+        yield return new WaitForSeconds(waitTimeForTutorial * 3);
         DarkFilter.SetActive(false) ;
         maskCustomer.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
-        tutorialIndex++;
     }
 
     public void GetObject(GameObject obj)
@@ -337,37 +416,71 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialFour()
     {
+        tutorialIndex++;
         // UIMoney focus
-        DarkFilter.SetActive(true);
-        maskOne = Instantiate(prefabMask);
-        maskOne.transform.SetParent(UIPosition.transform, false);
-        UIPosition.transform.position = ChangeRectTransformToTransform(uiMoney);
-        maskOne.transform.localScale = new Vector3(0.6f, 0.15f, 0.5f);
+        moneyFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         dialogueBoxGameObject.SetActive(true);
         yield return StartCoroutine(PushNextButton());
 
         // UIBusinessButton focus
-        Destroy(maskOne);
-        maskOne = Instantiate(prefabMask);
-        maskOne.transform.SetParent(UIPosition.transform, false);
-        UIPosition.transform.position = ChangeRectTransformToTransform(uiBusinessButton);
-        maskOne.transform.localScale = new Vector3(0.3f, 0.3f, 0.5f);
-        businessButton.SetActive(true);
-        touch.SetActive(true);
-        touch.transform.position = uiBusinessButton.position + new Vector3(10f, 10f, 0f);
+        moneyFilter.SetActive(false);
+        businessButtonFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         while (!isBusinessButtonTouch)
         {
             yield return null;
         }
+        isBusinessButtonTouch = false;
 
+        // UIBusinessPanel focus
+        businessButtonFilter.SetActive(false);
+        businessPanelFilter.SetActive(true);
+        yield return new WaitForSeconds(waitTimeForTutorial);
 
+        // UIMachineBox focus
+        businessPanelFilter.SetActive(false);
+        businessBoxFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
 
-        // UIBusinessButton focus
-        tutorialIndex++;
+        // UIMachineBoxUpgradeCost focus
+        businessBoxFilter.SetActive(false);
+        machineBoxUpgradeCostFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+        // UIMachineBoxUpgradeButton focus
+        machineBoxUpgradeCostFilter.SetActive(false);
+        BoxUpgradeButtonFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        while (!isMachineUpgradeTouch)
+        {
+            yield return null;
+        }
+
+        // UIBusinessBox focus
+        BoxUpgradeButtonFilter.SetActive(false);
+        businessBoxFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+        // UIBusinessPanelClose focus
+        dialogueBoxGameObject.SetActive(false);
+        businessBoxFilter.SetActive(false);
+        businessCloseFilter.SetActive(true);
+        while (!isBusinessCloseTouch)
+        {
+            yield return null;
+        }
+        businessCloseFilter.SetActive(false);
+        isBusinessCloseTouch = false;
     }
 
     IEnumerator PushNextButton()
@@ -401,9 +514,88 @@ public class TutorialManager : MonoBehaviour
         return new Vector3(worldPoint.x, worldPoint.y, 0);
     }
 
+    IEnumerator StartTutorialFive()
+    {
+        tutorialIndex++;
+        // UIMoney focus
+        moneyFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        dialogueBoxGameObject.SetActive(true);
+        yield return StartCoroutine(PushNextButton());
+
+        // UIBusinessButton focus
+        moneyFilter.SetActive(false);
+        businessButtonFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        while (!isBusinessButtonTouch)
+        {
+            yield return null;
+        }
+        isBusinessButtonTouch = false;
+
+        // UIBusinessPanelFoodButoon focus
+        businessButtonFilter.SetActive(false);
+        dialogueBoxGameObject.SetActive(false);
+        businessPanelFoodButtonFilter.SetActive(true);
+        while (!isBusinessPanelFoodTouch)
+        {
+            yield return null;
+        }
+        isBusinessButtonTouch = false;
+
+        // UIBusinessPanel focus
+        businessPanelFoodButtonFilter.SetActive(false);
+        businessPanelFilter.SetActive(true);
+        yield return new WaitForSeconds(waitTimeForTutorial);
+
+        // UIMachineBox focus
+        businessPanelFilter.SetActive(false);
+        businessBoxFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+        // UIFoodBoxUpgradeButton focus
+        businessBoxFilter.SetActive(false);
+        BoxUpgradeButtonFilter.SetActive(true);
+        while (!isFoodUpgradeTouch)
+        {
+            yield return null;
+        }
+
+        // UIMachineBox focus
+        BoxUpgradeButtonFilter.SetActive(false);
+        businessBoxFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+        // UIBusinessPanelClose focus
+        dialogueBoxGameObject.SetActive(false);
+        businessBoxFilter.SetActive(false);
+        businessCloseFilter.SetActive(true);
+        while (!isBusinessCloseTouch)
+        {
+            yield return null;
+        }
+        businessCloseFilter.SetActive(false);
+        isBusinessCloseTouch = false;
+        isTutorialActive = false;
+    }
+
+    IEnumerator StartTutorialSix()
+    {
+        yield return null;
+
+        isTutorialActive = false;
+    }
+
+
     public void BusinessButtonTouch()
     {
-        if(tutorialIndex == 4 || tutorialIndex == 1)
+        if(tutorialIndex == 4 || tutorialIndex == 1 || tutorialIndex == 5)
         {
             isBusinessButtonTouch = true;
             Debug.Log("BusinessClick");
@@ -420,9 +612,33 @@ public class TutorialManager : MonoBehaviour
 
     public void BusinessClose()
     {
-        if(tutorialIndex == 1)
+        if(tutorialIndex == 1 || tutorialIndex == 4 || tutorialIndex == 5)
         {
             isBusinessCloseTouch = true;
+        }
+    }
+
+    public void MachineUpgrade()
+    {
+        if (tutorialIndex == 4)
+        {
+            isMachineUpgradeTouch = true;
+        }
+    }
+
+    public void FoodUpgrade()
+    {
+        if (tutorialIndex == 5)
+        {
+            isFoodUpgradeTouch = true;
+        }
+    }
+
+    public void BusinessPanelFood()
+    {
+        if (tutorialIndex == 5)
+        {
+            isBusinessPanelFoodTouch = true;
         }
     }
 
