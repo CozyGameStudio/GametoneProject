@@ -27,6 +27,10 @@ public class TutorialManager : MonoBehaviour
     public GameObject moneyFilter;
     public GameObject businessPanelFoodButtonFilter;
     public GameObject processBarFilter;
+    public GameObject StageMissionScrollviewFilter;
+    
+    public GameObject UIDarkFilter;
+
 
     public List<string> dialogueDataList;
     public List<Transform> dialogueBoxPositionDataList;
@@ -79,6 +83,7 @@ public class TutorialManager : MonoBehaviour
     private bool isMachineUpgradeTouch = false;
     private bool isFoodUpgradeTouch = false;
     private bool isBusinessPanelFoodTouch = false;
+    private bool isMissionBoxRewardTouch = false;
 
     private bool isEnqueueForTutorialOne = false;
     private bool isEnqueueForTutorialFour = false;
@@ -546,13 +551,15 @@ public class TutorialManager : MonoBehaviour
 
         // UIMachineBox focus
         businessPanelFilter.SetActive(false);
+        //businessBoxFilter.SetActive(true);
         businessBoxFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return StartCoroutine(PushNextButton());
 
         // UIFoodBoxUpgradeButton focus
-        businessBoxFilter.SetActive(false);
+        businessPanelFilter.SetActive(false);
+        //businessBoxFilter.SetActive(false);
         BoxUpgradeButtonFilter.SetActive(true);
         while (!isFoodUpgradeTouch)
         {
@@ -576,14 +583,40 @@ public class TutorialManager : MonoBehaviour
         }
         businessCloseFilter.SetActive(false);
         isBusinessCloseTouch = false;
-        isTutorialActive = false;
+
     }
 
     IEnumerator StartTutorialSix()
     {
-        yield return null;
+        // UIDarkFilter
+        UIDarkFilter.SetActive(false);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        dialogueBoxGameObject.SetActive(true);
+        yield return StartCoroutine(PushNextButton());
 
-        isTutorialActive = false;
+        // UIProcessBar focus
+        processBarFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+        // UIProcessBar Touch
+        dialogueBoxGameObject.SetActive(false);
+        while (!isProcessBarButtonTouch)
+        {
+            yield return null;
+        }
+
+        // UIStageMissionScrollview Touch
+        processBarFilter.SetActive(false);
+        StageMissionScrollviewFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+
+
     }
 
 
@@ -633,6 +666,22 @@ public class TutorialManager : MonoBehaviour
         if (tutorialIndex == 5)
         {
             isBusinessPanelFoodTouch = true;
+        }
+    }
+
+    public void ProcessBar()
+    {
+        if (tutorialIndex == 6)
+        {
+            isProcessBarButtonTouch = true;
+        }
+    }
+
+    public void MissionBoxReward()
+    {
+        if (tutorialIndex == 6)
+        {
+            isMissionBoxRewardTouch = true;
         }
     }
 
