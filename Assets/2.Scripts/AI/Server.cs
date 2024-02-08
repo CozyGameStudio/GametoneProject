@@ -10,9 +10,11 @@ public class Server : MonoBehaviour
     {
         Idle,
         Walk,
+        Find,
         Serve
     }
-
+    [Header("캐릭터")]
+    public Character character;
     StateMachine<States, StateDriverUnity> fsm;
     public GameObject foodHolder;
     public float speed=2f;
@@ -40,6 +42,7 @@ public class Server : MonoBehaviour
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         initSpeed=speed;
         animator=GetComponent<Animator>();
+        fsm.Driver.Start.Invoke();
     }
 
     void Update()
@@ -75,11 +78,11 @@ public class Server : MonoBehaviour
     public void SetAnimation(Vector3 currentVelocity)
     {
         if(animator==null)return;
-        if (currentVelocity.y > 0.1)
+        if (currentVelocity.y > 0.01)
         {//towards upside
             animator.SetFloat("YVelocity", 1);
         }
-        else if (currentVelocity.y < -0.1)
+        else if (currentVelocity.y < -0.01)
         {//towards downward
             animator.SetFloat("YVelocity", -1);
         }
@@ -97,6 +100,7 @@ public class Server : MonoBehaviour
     }
     void Walk_Enter()
     {
+        Debug.Log("WalkEnter");
         agent.SetDestination(placeToMove.position);
     }
     void Walk_Update()
@@ -104,34 +108,56 @@ public class Server : MonoBehaviour
         isPickupForTutorial = true;
         if (Vector2.Distance(transform.position, placeToMove.position) < 1.5f)
         {
-            fsm.ChangeState(States.Serve);
+            Debug.Log("State Find EnterTry");
+            fsm.ChangeState(States.Find);
         }
     }
-    void Serve_Enter()
-    {
-
+    IEnumerator Find_Enter(){
+        Debug.Log("State Find Enter");
         FoodPlace foodPlace = menuToServe.GetComponentInParent<FoodPlace>();
         if (foodPlace != null)
         {
             foodPlace.RemoveChild(menuToServe);
         }
-        menuToServe.transform.parent=foodHolder.transform;
-        menuToServe.transform.position=foodHolder.transform.position;
-        int tableNum=menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
-        foreach(var chair in CustomerManager.Instance.customerChair)
+        menuToServe.transform.parent = foodHolder.transform;
+        menuToServe.transform.position = foodHolder.transform.position;
+        int tableNum = menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
+        Debug.Log("Trying Find Customer");
+        FindCustomer(tableNum);
+        float retryInterval = .5f;
+        while (currentCustomer == null)
         {
-            if(chair.transform.childCount>0&&chair.transform.GetChild(0).GetComponent<Customer>().tableNumber==tableNum){
-                placeToMove=chair.transform.parent;//guest place
-                currentCustomer = chair.transform.GetChild(0).GetComponent<Customer>();
+            Debug.Log("Trying Find Customer");
+            yield return new WaitForSeconds(retryInterval);
+            FindCustomer(tableNum);
+        }
+        agent.SetDestination(placeToMove.position);
+        fsm.ChangeState(States.Serve);
+    }
+    
+    public void FindCustomer(int tableNum){
+        foreach (var chair in CustomerManager.Instance.customerChair)
+        {
+            if (chair.transform.childCount > 0 && chair.transform.GetComponentInChildren<Customer>().tableNumber == tableNum)
+            {
+                placeToMove = chair.transform.parent;//guest place
+                currentCustomer = chair.transform.GetComponentInChildren<Customer>();
                 break;
             }
         }
-        agent.SetDestination(placeToMove.position);
-        //playanimation(Serve)
-        
     }
+
     void Serve_Update()
     {
+        if (agent.velocity.y > 0.01)
+        {//towards upside
+            if (menuToServe != null) menuToServe.SetActive(false);
+        }
+        else
+        {//towards downward
+            if (menuToServe != null) menuToServe.SetActive(true);
+        }
+
         if (Vector2.Distance(transform.position, placeToMove.position) < .1f)
         {
             if (currentCustomer == null)
@@ -144,6 +170,7 @@ public class Server : MonoBehaviour
     }
     void Serve_Exit()
     {
+        menuToServe.SetActive(true);
         currentCustomer.GetMenu(menuToServe);
         menuToServe=null;
         SetAvailable();

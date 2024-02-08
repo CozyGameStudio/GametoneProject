@@ -1,6 +1,7 @@
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public struct OrderBoard{
     public Food foodData{get;private set;}
@@ -22,6 +23,8 @@ public class Customer : MonoBehaviour
     public Transform foodHolder;
     [Header("Character")]
     public float speed = 5f;
+    public NavMeshAgent agent;
+    public SpriteRenderer likeParticle;
 
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
@@ -30,8 +33,10 @@ public class Customer : MonoBehaviour
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
-    private NavMeshAgent agent;
     private float initSpeed;
+    private Animator animator;
+    private GameObject foodToHold;
+    
     private void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -40,14 +45,16 @@ public class Customer : MonoBehaviour
     void Start(){
         orderFood = DataManager.Instance.RandomFood();
         Debug.Log(orderFood.foodData.foodName);
-        agent = GetComponent<NavMeshAgent>();
+        animator=GetComponent<Animator>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        likeParticle.color=new Color(likeParticle.color.r, likeParticle.color.g, likeParticle.color.b,0);
     }
     private void Update()
     {
         fsm.Driver.Update.Invoke();
+        SetAnimation(agent.velocity);
     }
     public void MultSpeed(float mult)
     {
@@ -59,9 +66,21 @@ public class Customer : MonoBehaviour
         speed = initSpeed;
         agent.speed = speed;
     }
-    void Idle_Enter()
+    public void SetAnimation(Vector3 currentVelocity)
     {
-        
+        if (animator == null) { Debug.Log("animator is null"); return; }
+        if (currentVelocity.y > 0.1)
+        {//towards upside
+            animator.SetFloat("YVelocity", 1);
+            if(foodToHold!=null)foodToHold.SetActive(false);
+        }
+        else if (currentVelocity.y < -0.1)
+        {//towards downward
+            animator.SetFloat("YVelocity", -1);
+            if (foodToHold != null) foodToHold.SetActive(true);
+        }
+        else
+            animator.SetFloat("YVelocity", 0);
     }
     void Idle_Update() 
     {
@@ -98,6 +117,16 @@ public class Customer : MonoBehaviour
         }
     }
 
+    void Walk_Enter(){
+        if (isOrdered){
+            CustomerManager.Instance.customerChairPresent[tableNumber - 1] = false;
+            Sequence seq = DOTween.Sequence()
+       .Append(likeParticle.DOFade(1, .2f))
+       .Append(likeParticle.transform.DOScale(.8f,3f)).SetEase(Ease.InQuad)
+       .Append(likeParticle.DOFade(0, .3f));
+            seq.Play();
+        }
+    }
     void Walk_Update()
     {
         // Move to the table if no order is placed
@@ -121,11 +150,8 @@ public class Customer : MonoBehaviour
             }
             else
             {
-                CustomerManager.Instance.customerChairPresent[tableNumber-1] = false;
-                
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
-            //hey
         }
     }
     void Walk_Exit()
@@ -135,7 +161,7 @@ public class Customer : MonoBehaviour
 
     void Order_Enter()
     {
-        transform.SetParent(customerTablePlace.transform);
+        transform.parent.SetParent(customerTablePlace.transform);
         
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
@@ -152,14 +178,15 @@ public class Customer : MonoBehaviour
 
     void Order_Exit()
     {
-        transform.SetParent(null);
+        transform.parent.SetParent(null);
     }
     public void GetMenu(GameObject menu)
     {
-        menu.transform.SetParent(foodHolder);
-        menu.transform.position=foodHolder.position;
+        foodToHold=menu;
+        foodToHold.transform.SetParent(foodHolder);
+        foodToHold.transform.position=foodHolder.position;
         receiveOrder = true;
-        
+       
     }
 
 }

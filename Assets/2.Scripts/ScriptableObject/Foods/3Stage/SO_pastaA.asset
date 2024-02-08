@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981ccb110acb5a84d8bd8dcf156d3d97, type: 3}
+  m_Name: SO_pastaA
+  m_EditorClassIdentifier: 
+  index: 5
+  foodName: pastaA
+  foodNameInKorean: "\uD30C\uC2A4\uD0C0"
+  foodPrice: 
+  upgradeMoney: 
+  foodIcon: {fileID: 21300000, guid: 0957c4c25d70ab540b6a35438c85c929, type: 3}
+  stageToUse: 3

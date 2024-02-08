@@ -4,7 +4,6 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
-//using UnityEngine.SceneManagement;
 [Serializable]
 public class SystemData{
     public BusinessData businessData;
@@ -32,7 +31,7 @@ public class BusinessData
 
     public BusinessData(){
         currentStageNumber=1;
-        currentStageMoney=100;
+        currentStageMoney=10;
         currentDia=0;
         enabledTables=1;
         chefSpeedMultiplier=1;
@@ -45,10 +44,11 @@ public class BusinessData
         currentMissions = new List<MissionData>();
     }
 }
+[Serializable]
 public class CollectionData{
     public string name;
-    public bool[] isUnlock;
-    public CollectionData(string nam,bool[] unlockList){
+    public List<bool> isUnlock;
+    public CollectionData(string nam, List<bool> unlockList){
         name=nam;
         isUnlock= unlockList;
     }
@@ -84,57 +84,74 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
     private int businessStageNumber=1;
     public string sceneName{get;private set;}="";
-    private BusinessData loadedData;
+    private SystemData loadedData;
     public static Scene scene;
     private void Awake() {
         PrepareData();
-        sceneName = "BusinessStage" + loadedData.currentStageNumber.ToString();
+        //게임 입장시 시작 스테이지 분별을 위한 씬정보 저장
+        sceneName = "BusinessStage" + loadedData.businessData.currentStageNumber.ToString();
         Debug.Log($"{sceneName}Data Load Complete");
-        //BusinessStage면, DataManager를 찾아서 Init Setting을 실행
         scene = SceneManager.GetActiveScene();
         Debug.Log($"{scene.name}Scene detected");
-        if (scene.name.Contains("Business")){
-            DataManager.Instance.DataInitSetting();
+        
+        if (scene.name.Contains("Business"))
+        {
+            DataManager.Instance?.DataInitSetting(loadedData);
+            CollectionManager.Instance?.SetData(loadedData);
         }
     }
-    public void CreateBusinessData(int stageNum){
-        BusinessData BusinessData = new BusinessData();
-        BusinessData.currentStageNumber=stageNum;
-        SaveBusinessData(BusinessData);
+    private void Start(){
+        if(StageMissionManager.Instance!=null) StageMissionManager.Instance.OnStageCleared += SceneChange;
+    }
+    public void CreateSystemData(){
+        SystemData systemData = new SystemData();
+        systemData.businessData = CreateBusinessData(1);
+        systemData.collectionDatas = new List<CollectionData>();
+        SaveSystemData(systemData);
+    }
+    public BusinessData CreateBusinessData(int stageNum){
+        BusinessData businessData = new BusinessData();
+        businessData.currentStageNumber=stageNum;
+        return businessData;
     }
     public void PrepareData()
     {
-        loadedData = LoadBusinessData();
+        loadedData = LoadSystemData();
         if (loadedData == null)
         {
             Debug.LogError("No Save Exist - Create New Data");
-            CreateBusinessData(1);
-            loadedData = LoadBusinessData();
+            CreateSystemData();
+            loadedData = LoadSystemData();
         }
     }
+    public void SceneChange(){
+        string currentStageName = SceneManager.GetActiveScene().name;
 
-    public BusinessData GetPreparedData()
-    {
-        return loadedData;
-    }
-    public int LoadStageNumber()
-    {
-        string path = Path.Combine(Application.persistentDataPath, "BusinessData.json");
-        if (File.Exists(path))
+        
+        string stageNumberStr = currentStageName.Replace("BusinessStage", "");
+
+        if (int.TryParse(stageNumberStr, out int stageNumber))
         {
-            string json = File.ReadAllText(path);
-            BusinessData BusinessData = JsonUtility.FromJson<BusinessData>(json);
-            return BusinessData.currentStageNumber;
+            int nextStageNumber = stageNumber + 1;
+
+            string nextStageName = $"BusinessStage{nextStageNumber}";
+
+            LoadingSceneManager.LoadScene(nextStageName);
         }
         else
         {
-            return 1;
+            Debug.LogError("현재 스테이지 번호를 파싱하는 데 실패했습니다.");
         }
     }
-    public void SaveBusinessData(BusinessData BusinessData)
+    public SystemData GetPreparedData()
+    {
+        return loadedData;
+    }
+    
+    public void SaveSystemData(SystemData systemData)
     {
         string folderPath = Path.Combine(Application.persistentDataPath, "SaveData");
-        string filePath = Path.Combine(folderPath, "BusinessData.json");
+        string filePath = Path.Combine(folderPath, "SystemData.json");
 
         // 폴더가 없으면 생성
         if (!Directory.Exists(folderPath))
@@ -142,39 +159,47 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             Directory.CreateDirectory(folderPath);
         }
 
-        string json = JsonUtility.ToJson(BusinessData, true);
+        string json = JsonUtility.ToJson(systemData, true);
         File.WriteAllText(filePath, json);
         Debug.Log("DataSaved!");
     }
-
-
-    public BusinessData LoadBusinessData()
+    public SystemData LoadSystemData()
     {
         string folderPath = Path.Combine(Application.persistentDataPath, "SaveData");
-        string filePath = Path.Combine(folderPath, "BusinessData.json");
+        string filePath = Path.Combine(folderPath, "SystemData.json");
+        Debug.Log(filePath);
         if (!Directory.Exists(folderPath)||!File.Exists(filePath))
         {
             return null;
         }
         string json = System.IO.File.ReadAllText(filePath);
-        return JsonUtility.FromJson<BusinessData>(json);
+        return JsonUtility.FromJson<SystemData>(json);
     }
-    public void SaveGameObjectsFromBusiness()
+    public void SaveGameObjectsByCase()
     {
-        BusinessData BusinessData = DataManager.Instance.GetData();
-        SaveBusinessData(BusinessData);
+        if(DataManager.Instance!=null){
+            loadedData.businessData = DataManager.Instance.GetData();
+        }
+        if (CollectionManager.Instance != null)
+        {
+            loadedData.collectionDatas=CollectionManager.Instance.GetData();
+            Debug.Log("collection added to Data");
+        }
+        SaveSystemData(loadedData);
+
     }
+    public void ResetData()
+    {
+        CreateSystemData();
+        SceneManager.LoadScene("Title");
+    }
+
     private void OnApplicationPause()
     {
-        if(scene.name.Contains("Business")){
-            SaveGameObjectsFromBusiness();
-        }
+        SaveGameObjectsByCase();
     }
     private void OnApplicationQuit() {
-        if (scene.name.Contains("Business"))
-        {
-            SaveGameObjectsFromBusiness();
-        }
+        SaveGameObjectsByCase();
     }
 }
 

@@ -26,12 +26,12 @@ public class Chef : MonoBehaviour
     private List<GameObject> foodPlaces;
     
 
-    [Header("Character")]
+    [Header("캐릭터")]
     public Character character;
     public float speed=5f;
     public GameObject foodHolder;
     public NavMeshAgent agent;
-
+    public Animator loadingBarAnimator;
     public bool IsAvailable { get; private set; } = true;
     private IMachineInterface nowUsingMachine;
     private bool isHolding=false;
@@ -128,15 +128,14 @@ public class Chef : MonoBehaviour
     }
     void Walk_Update()
     {
-        //Until chef arrives cook Place
-        if(Vector2.Distance(transform.position,placeToMove.position)<2f)
+        if(!isHolding)
         {
-            if (!isHolding)
-            {
+            if (Vector2.Distance(transform.position, placeToMove.position) < .2f){
                 fsm.ChangeState(States.Cook);
             }
-            else
-            {
+        } 
+        else{
+            if (Vector2.Distance(transform.position, placeToMove.position) < 1.5f){
                 fsm.ChangeState(States.Serve);
             }
         }
@@ -145,16 +144,21 @@ public class Chef : MonoBehaviour
         Food foodToMake = currentMenu.foodData;
         StartCoroutine(cookCoroutine(foodToMake, nowUsingMachine.currentCookTime));
     }
-    IEnumerator cookCoroutine(Food foodToMake, float cooktime){
+    IEnumerator cookCoroutine(Food foodToMake, float cookTime){
         isCooking=true;
-        yield return new WaitForSeconds(cooktime);
-        string foodName= foodToMake.foodData.foodName;
-        if (!string.IsNullOrEmpty(foodName) && Char.IsUpper(foodName[foodName.Length - 1]))
+        loadingBarAnimator.gameObject.SetActive(true);
+        float animationSpeed = 60 / cookTime; 
+        loadingBarAnimator.speed = animationSpeed;
+        float elapsedTime = 0;
+        while (elapsedTime < cookTime)
         {
-            // 마지막 문자가 대문자인 경우, 문자열에서 제거
-            foodName = foodName.Substring(0, foodName.Length - 1);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
-        GameObject foodMade = Instantiate(Resources.Load<GameObject>(foodName), foodHolder.transform.position, Quaternion.identity);
+        loadingBarAnimator.gameObject.SetActive(false);
+        
+        GameObject foodMade = Instantiate(Resources.Load<GameObject>("FoodToServe"), foodHolder.transform.position, Quaternion.identity);
+        foodMade.GetComponent<SpriteRenderer>().sprite= foodToMake.foodData.foodIcon;
         foodMade.GetComponent<FoodToServe>().orderstatus=currentMenu;
         foodMade.transform.parent = foodHolder.transform;
         isCooking=false;

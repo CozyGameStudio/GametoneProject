@@ -15,13 +15,11 @@ MonoBehaviour:
   index: 0
   machineName: gimbapMachine
   machineNameInKorean: "\uB3C4\uB9C8"
-  machineUnlockCost: 100
+  machineUnlockCost: 10
   cookTime:
-  - 10
-  - 9.5
-  - 9
-  - 8.5
-  - 8
-  upgradeMoney: 14000000190000001e0000002300000000000000
+  - 6
+  - 5
+  - 4
+  upgradeMoney: 0a0000000c00000000000000
   stageToUse: 1
   machineIcon: {fileID: 162839196, guid: db5121884e44943419822a9476ba6a26, type: 3}

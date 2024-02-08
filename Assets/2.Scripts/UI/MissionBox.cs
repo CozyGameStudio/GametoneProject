@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class MissionBox : MonoBehaviour
     public object obj{get;private set;}
     public bool isUnlocked{get;private set;}=false;
     public bool isCleared { get; private set; } = false;
+    
     public void InitMissionBox()
     {
         missionContent=missionData.missionContent;
@@ -64,10 +66,11 @@ public class MissionBox : MonoBehaviour
                 break;
             case MissionType.Reward:
                 button = rewardButton;
-                button.onClick.AddListener(Reward);
+                button.onClick.AddListener(StartRewardCoroutine);
                 isUnlocked=true;
                 break;
         }
+        button.transform.GetChild(0).GetComponent<TMP_Text>().text= missionData.cost.ToString();
     }
     public void MatchContentObj(){
         string target= missionData.targetName;
@@ -123,13 +126,18 @@ public class MissionBox : MonoBehaviour
         
         gameObject.SetActive(false);
     }
-    public void Reward()
+    public IEnumerator Reward()
     {
-        BusinessGameManager.Instance.AddMoney(missionData.cost);
-        isCleared = true; 
+        isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
-        
+        button.interactable=false;
+        yield return StartCoroutine(UIManager.Instance.PlayCoinAttraction(button.transform, missionData.cost));
+
         gameObject.SetActive(false);
+    }
+    public void StartRewardCoroutine()
+    {
+        StartCoroutine(Reward());
     }
     public void SetUI()
     {

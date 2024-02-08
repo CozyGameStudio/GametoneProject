@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8244c70408171d46adc2759e0fc04ab, type: 3}
   m_Name: SO_wooyoung
   m_EditorClassIdentifier: 
-  index: 2
+  index: 3
   characterName: wooyoung
   characterNameInKorean: "\uC6B0\uC601\uC774"
   profitGrowthRate:

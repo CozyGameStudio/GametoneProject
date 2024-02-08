@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
+using System.Collections;
 class DataLoadRequest
 {
     public Action LoadMethod;
@@ -32,7 +34,7 @@ public class DataLoadManager : MonoBehaviour
     public MachineDataList machineDataList;
     public CharacterDataList characterDataList;
     public MissionDataList missionDataList;
-
+    public TMP_Text text;
     public delegate void DataChangedDelegate();
     public event DataChangedDelegate OnDataChanged;
     private Queue<DataLoadRequest> loadQueue = new Queue<DataLoadRequest>();
@@ -60,21 +62,23 @@ public class DataLoadManager : MonoBehaviour
         Team5DataTable_Value.MachineValueData.Load();
         Team5DataTable_Value.CharacterValueData.Load();
         // EnqueueDataLoad(()=> OnFoodTypeDataLoaded(Team5DataTable_Type.FoodTypeData.FoodTypeDataList, Team5DataTable_Type.FoodTypeData.FoodTypeDataMap),OnRequestComplete);
-        // EnqueueDataLoad(() => OnMachineTypeDataLoaded(Team5DataTable_Type.MachineTypeData.MachineTypeDataList, Team5DataTable_Type.MachineTypeData.MachineTypeDataMap), OnRequestComplete);
+        EnqueueDataLoad(() => OnMachineTypeDataLoaded(Team5DataTable_Type.MachineTypeData.MachineTypeDataList, Team5DataTable_Type.MachineTypeData.MachineTypeDataMap), OnRequestComplete);
         // EnqueueDataLoad(() => OnCharacterTypeDataLoaded(Team5DataTable_Type.CharacterTypeData.CharacterTypeDataList, Team5DataTable_Type.CharacterTypeData.CharacterTypeDataMap), OnRequestComplete);
         EnqueueDataLoad(() => OnFoodValueDataLoaded(Team5DataTable_Value.FoodValueData.FoodValueDataList, Team5DataTable_Value.FoodValueData.FoodValueDataMap), OnRequestComplete);
         EnqueueDataLoad(() => OnMachineValueDataLoaded(Team5DataTable_Value.MachineValueData.MachineValueDataList, Team5DataTable_Value.MachineValueData.MachineValueDataMap), OnRequestComplete);
         EnqueueDataLoad(() => OnCharacterValueDataLoaded(Team5DataTable_Value.CharacterValueData.CharacterValueDataList, Team5DataTable_Value.CharacterValueData.CharacterValueDataMap), OnRequestComplete);
+        EnqueueDataLoad(() => OnMissionDataLoaded(Team5DataTable_Mission.Data.DataList, Team5DataTable_Mission.Data.DataMap), OnRequestComplete);
     }
     //use the data which is saved in Online
     public void LoadOnlineData()
     {
         // EnqueueDataLoad(() => Team5DataTable_Type.FoodTypeData.LoadFromGoogle(OnFoodTypeDataLoaded, false), OnRequestComplete);
-        // EnqueueDataLoad(() => Team5DataTable_Type.MachineTypeData.LoadFromGoogle(OnMachineTypeDataLoaded, false), OnRequestComplete);
+        EnqueueDataLoad(() => Team5DataTable_Type.MachineTypeData.LoadFromGoogle(OnMachineTypeDataLoaded, false), OnRequestComplete);
         // EnqueueDataLoad(() => Team5DataTable_Type.CharacterTypeData.LoadFromGoogle(OnCharacterTypeDataLoaded, false), OnRequestComplete);
         EnqueueDataLoad(() => Team5DataTable_Value.FoodValueData.LoadFromGoogle(OnFoodValueDataLoaded, false), OnRequestComplete);
         EnqueueDataLoad(() => Team5DataTable_Value.MachineValueData.LoadFromGoogle(OnMachineValueDataLoaded, false), OnRequestComplete);
         EnqueueDataLoad(() => Team5DataTable_Value.CharacterValueData.LoadFromGoogle(OnCharacterValueDataLoaded, false), OnRequestComplete);
+        EnqueueDataLoad(() => Team5DataTable_Mission.Data.LoadFromGoogle(OnMissionDataLoaded, false), OnRequestComplete);
     }
     private void EnqueueDataLoad(Action loadMethod, Action onComplete)
     {
@@ -94,6 +98,11 @@ public class DataLoadManager : MonoBehaviour
             request.LoadMethod();
         }
     }
+    IEnumerator PopComplete(){
+        text.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        text.gameObject.SetActive(false);
+    }
 
     private void OnRequestComplete()
     {
@@ -102,6 +111,7 @@ public class DataLoadManager : MonoBehaviour
         if (loadQueue.Count == 0)
         {
             Debug.Log("Data All Loaded");
+            StartCoroutine(PopComplete());
             NotifyDataChanged();
         }
         else
@@ -144,9 +154,7 @@ public class DataLoadManager : MonoBehaviour
         {
             if (existingDataMap.TryGetValue(loadedData.index, out ScriptableMachine existingMachineTypeData))
             {
-                existingMachineTypeData.machineName = loadedData.machineName;
-                existingMachineTypeData.machineNameInKorean = loadedData.machineNameInKorean;
-                existingMachineTypeData.stageToUse = loadedData.stageToUse;
+                existingMachineTypeData.machineUnlockCost=loadedData.costToUnlock;
             }
             else
             {
@@ -297,44 +305,27 @@ public class DataLoadManager : MonoBehaviour
         }
         OnRequestComplete();
     }
-    // private void OnMissionDataLoaded(List<Team5DataTable_Mission.Data> loadedDataList, Dictionary<string, Team5DataTable_Mission.Data> loadedDataMap)
-    // {
-    //     Dictionary<string, ScriptableCharacter> existingDataMap = new Dictionary<string, ScriptableCharacter>();
-    //     foreach (var existingData in missionDataList.missionDataList)
-    //     {
-    //         existingDataMap[existingData.missionContent] = existingData;
-    //     }
+    private void OnMissionDataLoaded(List<Team5DataTable_Mission.Data> loadedDataList, Dictionary<int, Team5DataTable_Mission.Data> loadedDataMap)
+    {
+        Dictionary<int, ScriptableMission> existingDataMap = new Dictionary<int, ScriptableMission>();
+        foreach (var existingData in missionDataList.missionDataList)
+        {
+            existingDataMap[existingData.index] = existingData;
+        }
 
-    //     foreach (var loadedData in loadedDataList)
-    //     {
-    //         string[] splitKey = loadedData.characterName.Split('_');
-    //         string characterName = splitKey[0];
-    //         int levelIndex;
-    //         if (int.TryParse(splitKey[1], out levelIndex) && levelIndex > 0)
-    //         {
-    //             levelIndex -= 1;
-    //             if (existingDataMap.TryGetValue(characterName, out ScriptableCharacter existingCharacterTypeData))
-    //             {
-    //                 if (levelIndex < existingCharacterTypeData.profitGrowthRate.Length)
-    //                 {
-    //                     existingCharacterTypeData.profitGrowthRate[levelIndex] = loadedData.profitGrowthRate;
-    //                     existingCharacterTypeData.upgradeMoney[levelIndex] = loadedData.upgradeValue;
-    //                 }
-    //                 else
-    //                 {
-    //                     Debug.LogError($"Level index {levelIndex} is out of range for character '{characterName}'.");
-    //                 }
-    //             }
-    //             else
-    //             {
-    //                 Debug.Log("Not existing object for character name: " + characterName);
-    //             }
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Failed to parse level index from character name: " + loadedData.characterName);
-    //         }
-    //     }
-    //     OnRequestComplete();
-    // }
+        foreach (var loadedData in loadedDataList)
+        {
+            if (existingDataMap.TryGetValue(loadedData.index, out ScriptableMission existingMissionData))
+            {
+                existingMissionData.criteria = loadedData.criteria;
+                existingMissionData.cost = loadedData.cost;
+                existingMissionData.progress = loadedData.progress;
+            }
+            else
+            {
+                Debug.Log("not Existing object");
+            }
+        }
+        OnRequestComplete();
+    }
 }

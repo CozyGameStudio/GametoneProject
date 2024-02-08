@@ -18,6 +18,9 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     private MissionDataList missionDataList;
     private GameObject missionBoxPrefab;
     public int stageProgress{get;private set;}=0;
+
+    public delegate void StageClearedDelegate();
+    public event StageClearedDelegate OnStageCleared;
     private static StageMissionManager instance;
     public static StageMissionManager Instance
     {
@@ -37,9 +40,11 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
             Destroy(gameObject);
         }
     }
-    void Start(){
-        
+    void Start()
+    {
+        DataLoadManager.Instance.OnDataChanged += UpdateMissionStatus;
     }
+
     public void CalculateProgress(){
         stageProgress = 0;
 
@@ -54,6 +59,8 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
         if (stageProgress == 100)
         {
             Debug.Log("Stage Clear!!!!");
+            //도장 찍히는 연출 후 이벤트 호출
+            OnStageCleared?.Invoke();
         }
         UIManager.Instance.UpdateProgress();
     }

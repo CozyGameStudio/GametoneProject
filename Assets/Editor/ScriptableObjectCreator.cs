@@ -174,7 +174,8 @@ public static class ScriptableObjectCreator
         }
         foreach (var missionData in missionDatas)
         {
-            string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/{missionData.stageToUse}Stage/SO_{missionData.missionContent}.asset";
+            string assetPath = $"Assets/2.Scripts/ScriptableObject/Missions/{missionData.stageToUse}Stage/SO_{missionData.missionContent}{missionData.criteria}.asset";
+            Debug.Log(assetPath);
 #if UNITY_EDITOR
             ScriptableMission dataObject = AssetDatabase.LoadAssetAtPath<ScriptableMission>(assetPath);
 #endif      
