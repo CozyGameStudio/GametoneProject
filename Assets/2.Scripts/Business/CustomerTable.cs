@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class CustomerTable : MonoBehaviour
 {
-    public GameObject foodBubble;
-    private Coroutine bubbleCoroutine; 
-
+    private List<Sprite> foodBubbleSprites=new List<Sprite>();
+    private Coroutine bubbleCoroutine;
+    public SpriteRenderer foodBubbleSprite;
+    void Start(){
+        Sprite[] sprites=Resources.LoadAll<Sprite>("FoodBubbles");
+        foreach (var sprite in sprites)
+        {
+            foodBubbleSprites.Add(sprite);
+        }
+    }
     public void SetBubble(Food food, float duration)
     {
-        foodBubble.SetActive(true);
-        SpriteRenderer foodSprite = foodBubble.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        foodSprite.sprite = food.foodData.foodIcon;
-
+        foodBubbleSprite.gameObject.SetActive(true);
+        foodBubbleSprite.sprite = foodBubbleSprites.Find(data => data.name.Contains(food.foodData.foodName));
+        Debug.Log(foodBubbleSprite.sprite);
         if (bubbleCoroutine != null)
         {
             StopCoroutine(bubbleCoroutine);
@@ -25,6 +31,6 @@ public class CustomerTable : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        foodBubble.SetActive(false);
+        foodBubbleSprite.gameObject.SetActive(false);
     }
 }
