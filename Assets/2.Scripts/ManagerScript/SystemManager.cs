@@ -59,7 +59,6 @@ public class SystemManager : MonoBehaviour
             case "buttonRefuse":
                 // RectTransform 대상에 대한 흔들림 효과 적용 예시
                 sequence.Append(targetTransform.DOShakeRotation(0.5f, new Vector3(0f, 0f, 10f)));
-
                 Debug.Log("Button Refused");
                 break;
             case "buttonUpgrade":

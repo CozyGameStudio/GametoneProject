@@ -92,7 +92,7 @@ public class FoodBox : MonoBehaviour
     public void UpgradeButtonClick()
     {
         
-        if (BusinessGameManager.Instance.money <= food.currentUpgradeMoney)
+        if (BusinessGameManager.Instance.money < food.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
             PlaySFXByName("buttonRefuse");

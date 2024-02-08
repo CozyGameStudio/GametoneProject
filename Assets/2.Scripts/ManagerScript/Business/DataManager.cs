@@ -6,7 +6,7 @@ using System.Linq;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
-    public List<Food> foods{get;private set; } = new List<Food>();
+    public List<Food> foods;
     public List<IMachineInterface> machines { get; private set; } = new List<IMachineInterface>();
     public List<Character> characters { get; private set; } = new List<Character>();
 
@@ -80,7 +80,7 @@ public class DataManager : MonoBehaviour
     }
     void LoadObjects()
     {
-        foods = FindObjectsOfType<Food>().ToList();
+        // foods = FindObjectsOfType<Food>().ToList();
         machines = FindObjectsOfType<MonoBehaviour>().OfType<IMachineInterface>().ToList();
         characters = FindObjectsOfType<Character>().ToList();
 

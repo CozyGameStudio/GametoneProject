@@ -17,5 +17,5 @@ MonoBehaviour:
   foodNameInKorean: "\uB3C8\uAE4C\uC2A4"
   foodPrice: 
   upgradeMoney: 
-  foodIcon: {fileID: 0}
+  foodIcon: {fileID: 21300000, guid: 36506cfc32b1e974888ecf93d663e068, type: 3}
   stageToUse: 3
