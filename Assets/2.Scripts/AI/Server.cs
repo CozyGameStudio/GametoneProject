@@ -166,7 +166,6 @@ public class Server : MonoBehaviour
             }
             fsm.ChangeState(States.Idle);
         }
-        isServedForTutorial = true;
     }
     void Serve_Exit()
     {
@@ -174,7 +173,7 @@ public class Server : MonoBehaviour
         currentCustomer.GetMenu(menuToServe);
         menuToServe=null;
         SetAvailable();
-        
+        isServedForTutorial = true;
     }
     // Change server status to available
     // Change server status to available
