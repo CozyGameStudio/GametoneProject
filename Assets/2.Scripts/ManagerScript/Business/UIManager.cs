@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
         }
     }
     private void Start(){
-        StageMissionManager.Instance.OnStageCleared+=PlayCutScene;
+        //StageMissionManager.Instance.OnStageCleared+=PlayCutScene;
     }
     public void SetData(){
         UpdateCurrentStageText();

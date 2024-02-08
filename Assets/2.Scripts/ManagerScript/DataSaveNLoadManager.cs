@@ -4,8 +4,6 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
-using System.Linq;
-using UnityEditor.SceneManagement;
 [Serializable]
 public class SystemData{
     public BusinessData businessData;
@@ -101,6 +99,9 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             DataManager.Instance?.DataInitSetting(loadedData);
             CollectionManager.Instance?.SetData(loadedData);
         }
+    }
+    private void Start(){
+        if(StageMissionManager.Instance!=null) StageMissionManager.Instance.OnStageCleared += SceneChange;
     }
     public void CreateSystemData(){
         SystemData systemData = new SystemData();

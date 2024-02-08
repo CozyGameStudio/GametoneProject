@@ -156,13 +156,9 @@ public class Chef : MonoBehaviour
             yield return null;
         }
         loadingBarAnimator.gameObject.SetActive(false);
-        string foodName= foodToMake.foodData.foodName;
-        if (!string.IsNullOrEmpty(foodName) && Char.IsUpper(foodName[foodName.Length - 1]))
-        {
-            // 마지막 문자가 대문자인 경우, 문자열에서 제거
-            foodName = foodName.Substring(0, foodName.Length - 1);
-        }
-        GameObject foodMade = Instantiate(Resources.Load<GameObject>(foodName), foodHolder.transform.position, Quaternion.identity);
+        
+        GameObject foodMade = Instantiate(Resources.Load<GameObject>("FoodToServe"), foodHolder.transform.position, Quaternion.identity);
+        foodMade.GetComponent<SpriteRenderer>().sprite= foodToMake.foodData.foodIcon;
         foodMade.GetComponent<FoodToServe>().orderstatus=currentMenu;
         foodMade.transform.parent = foodHolder.transform;
         isCooking=false;

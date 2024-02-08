@@ -18,7 +18,7 @@ MonoBehaviour:
   machineUnlockCost: 10
   cookTime:
   - 6
-  - 4.5
+  - 5
   - 4
   upgradeMoney: 0a0000000c00000000000000
   stageToUse: 1

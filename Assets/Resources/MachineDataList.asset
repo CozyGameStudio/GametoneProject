@@ -15,11 +15,17 @@ MonoBehaviour:
   machineDataList:
   - {fileID: 11400000, guid: 1bd732d8d782bcd4d93cbbf6415b5278, type: 2}
   - {fileID: 11400000, guid: 22a1761066b641f4a945bf9cf8e9f11a, type: 2}
-  - {fileID: 11400000, guid: 794e25169c678ee488e485f3b1e5c263, type: 2}
-  - {fileID: 11400000, guid: 32821efade11f8047ad8de4d469e56d7, type: 2}
-  - {fileID: 11400000, guid: 6e4eadfc79a1c224bbfd71868b2ca981, type: 2}
-  - {fileID: 11400000, guid: 13d642d3c714ac24eaceb04a2301cafa, type: 2}
-  - {fileID: 11400000, guid: 381ef91458be6f04bac2a69f162e0b94, type: 2}
-  - {fileID: 11400000, guid: 42d1f9bd61dad3045874a7ed52d3ce34, type: 2}
-  - {fileID: 11400000, guid: 195188fb5a43bb54fa8bf7beed44d573, type: 2}
-  - {fileID: 11400000, guid: 28db61d7c4c9af1439e09d71ffc11118, type: 2}
+  - {fileID: 11400000, guid: 6ea1dce01ccdd304f94984131f58b193, type: 2}
+  - {fileID: 11400000, guid: ac14cd0081703cd4ab591361b0c882d6, type: 2}
+  - {fileID: 11400000, guid: ce82c751cc1f7ff46bae98936f672cbe, type: 2}
+  - {fileID: 11400000, guid: d749a01375ceaad44b89a5476d538846, type: 2}
+  - {fileID: 11400000, guid: 126cca963ebab604ca6eb4dcc32c7c09, type: 2}
+  - {fileID: 11400000, guid: f995e8e04c64a594db10b057f8b80632, type: 2}
+  - {fileID: 11400000, guid: acb2ee1ab754f2c4ebde8d7f5f69f42b, type: 2}
+  - {fileID: 11400000, guid: cb5652113cac9a141895d6faef2670b7, type: 2}
+  - {fileID: 11400000, guid: a6b6bc5928321204784a213a2e75f4e8, type: 2}
+  - {fileID: 11400000, guid: 9df1305ffa8b47c41b612398edd9120e, type: 2}
+  - {fileID: 11400000, guid: 9c82eeda061d9994d995156b210e22a9, type: 2}
+  - {fileID: 11400000, guid: 7ced26116f7d6e04e982fcfaa8e234d6, type: 2}
+  - {fileID: 11400000, guid: 9feec9f51f1804d48ae4e3ed4553b89d, type: 2}
+  - {fileID: 11400000, guid: 75780a1d8b58b544cba009351d3c0177, type: 2}

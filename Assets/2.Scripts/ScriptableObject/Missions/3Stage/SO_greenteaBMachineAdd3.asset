@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8255ad9f18f867a40ba2760e7c098c82, type: 3}
+  m_Name: SO_greenteaBMachineAdd3
+  m_EditorClassIdentifier: 
+  index: 19
+  missionType: 1
+  missionContent: 7
+  targetName: greenteaBMachine
+  criteria: 3
+  cost: 50
+  stageToAppear: 3
+  sprite: {fileID: 0}
+  description: "greenteaBMachine \uB808\uBCA83 \uB2EC\uC131 \uC2DC \uAC1C\uBC29"
+  progress: 10
