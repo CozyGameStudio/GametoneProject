@@ -83,7 +83,7 @@ public class DataManager : MonoBehaviour
         // foods = FindObjectsOfType<Food>().ToList();
         machines = FindObjectsOfType<MonoBehaviour>().OfType<IMachineInterface>().ToList();
         characters = FindObjectsOfType<Character>().ToList();
-
+        machines.Sort((machine1, machine2) => string.Compare(machine1.unlockedFood.name, machine2.unlockedFood.name));
         foreach (var machineInterface in machines)
         {
             // cast to Machine Type

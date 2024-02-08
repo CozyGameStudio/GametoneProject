@@ -79,10 +79,10 @@ public class UIManager : MonoBehaviour
     {
         coinAttraction.transform.position = transform.position;
         coinAttraction.Play();
-
+        PlaySFXByName("offlineReward");
         yield return new WaitForSeconds(2);
         Debug.Log("Animation PlayedWell");
-
+        PlaySFXByName("offlineReward");
         // 파티클 애니메이션 재생 완료 후 돈 추가 로직 실행
         BusinessGameManager.Instance.AddMoney(moneyAmount);
     }

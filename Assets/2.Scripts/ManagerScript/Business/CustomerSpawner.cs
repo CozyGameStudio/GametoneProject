@@ -6,7 +6,6 @@ public class CustomerSpawner : MonoBehaviour
 {
     public Customer customerPrefab;
     public int createCustomerTime;
-    private List<Customer> customers = new List<Customer>();
     private List<GameObject> customerPrefabs=new List<GameObject>();
     private void Awake(){
         LoadCustomerPrefabs();

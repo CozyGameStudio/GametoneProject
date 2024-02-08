@@ -8,13 +8,18 @@ public class LoadingSceneManager : MonoBehaviour
     public Slider slider; 
     public static string nextScene;
     public int minLoadingTime=5;
+    public Image targetImage;
+    public List<Sprite> images;
+
     private void Start()
     {
         slider.maxValue=1;
+        
         StartCoroutine(LoadGameSceneAsync());
     }
     public static void LoadScene(string sceneName)
     {
+        
         nextScene = sceneName;
         if(DataSaveNLoadManager.scene.name!=nextScene)
             SceneManager.LoadScene("LoadingScene");
@@ -22,6 +27,7 @@ public class LoadingSceneManager : MonoBehaviour
     
     private IEnumerator LoadGameSceneAsync()
     {
+        targetImage.sprite = RandomImage();
         float startTime = Time.time;
         AsyncOperation asyncLoad=SceneManager.LoadSceneAsync(nextScene);
         asyncLoad.allowSceneActivation=false;
@@ -33,5 +39,8 @@ public class LoadingSceneManager : MonoBehaviour
             }  
             yield return null;
         }
+    }
+    private Sprite RandomImage(){
+        return images[Random.Range(0,images.Count)];
     }
 }

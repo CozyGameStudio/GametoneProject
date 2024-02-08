@@ -1,14 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
-using UnityEditor.Profiling.Memory.Experimental;
-using System;
-using JetBrains.Annotations;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -59,13 +53,13 @@ public class TutorialManager : MonoBehaviour
     
     private GameObject customer;
     
-    //¼Õ´Ô À½½Ä ÁÖ¹® °ü·Ã ¸¶½ºÅ©
+    //ï¿½Õ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©
     private GameObject maskCustomer;
     private GameObject maskChef;
     private GameObject maskServer;
     private GameObject maskMoney;
 
-    // °æ¿µÃ¢ ¸¶½ºÅ©
+    // ï¿½æ¿µÃ¢ ï¿½ï¿½ï¿½ï¿½Å©
     private GameObject maskOne;
     private GameObject maskTwo;
 
@@ -196,7 +190,7 @@ public class TutorialManager : MonoBehaviour
 
     public void EnqueueTutorial(int tutorialId)
     {
-        Debug.Log("ÀÎÅ¥" + tutorialId);
+        Debug.Log("ï¿½ï¿½Å¥" + tutorialId);
         tutorialQueue.Enqueue(tutorialId);
         TryStartNextTutorial();
     }
@@ -207,7 +201,7 @@ public class TutorialManager : MonoBehaviour
         {
             isTutorialActive = true;
             Debug.Log("Å¥" + tutorialQueue.Count);
-            int tutorialId = tutorialQueue.Dequeue(); // ´ë±â¿­¿¡¼­ Æ©Åä¸®¾ó ID ²¨³»±â
+            int tutorialId = tutorialQueue.Dequeue(); // ï¿½ï¿½â¿­ï¿½ï¿½ï¿½ï¿½ Æ©ï¿½ä¸®ï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             StartCoroutine(StartTutorial(tutorialId));
         }
     }
@@ -215,18 +209,18 @@ public class TutorialManager : MonoBehaviour
     IEnumerator StartTutorial(int tutorialId)
     {
         Debug.Log($"Starting tutorial ID: {tutorialId}");
-        // ¿©±â¿¡ Æ©Åä¸®¾ó ½ÃÀÛ ·ÎÁ÷ ±¸Çö, ¿¹¸¦ µé¾î Æ©Åä¸®¾ó º°·Î ´Ù¸¥ ÇÔ¼ö È£Ãâ µî
+        // ï¿½ï¿½ï¿½â¿¡ Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ ï¿½ï¿½
         
-        // ¿¹½Ã ·ÎÁ÷
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         switch (tutorialId)
         {
             case 1:
-                // Ã¹ ¹øÂ° Æ©Åä¸®¾ó ·ÎÁ÷
+                // Ã¹ ï¿½ï¿½Â° Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 yield return StartCoroutine(StartTutorialOne());
                 CompleteCurrentTutorial(tutorialId);
                 break;
             case 2:
-                // µÎ ¹øÂ° Æ©Åä¸®¾ó ·ÎÁ÷
+                // ï¿½ï¿½ ï¿½ï¿½Â° Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 yield return StartCoroutine(StartTutorialTwo());
                 CompleteCurrentTutorial(tutorialId);
                 break;
@@ -344,15 +338,15 @@ public class TutorialManager : MonoBehaviour
         float elapsedTime = 0f;
         Transform rotatingObject = signObject.transform;
         Quaternion startRotation = rotatingObject.rotation;
-        Quaternion targetRotation = rotatingObject.rotation * Quaternion.Euler(new Vector3(0f, 90f, 0f)); // È¸Àü °¢µµ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+        Quaternion targetRotation = rotatingObject.rotation * Quaternion.Euler(new Vector3(0f, 90f, 0f)); // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 
         while (elapsedTime < rotationDuration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / rotationDuration);
             rotatingObject.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
-            // È¸Àü Áß¿¡ ´Ù¸¥ µ¿ÀÛÀ» ¼öÇàÇÒ ¼öµµ ÀÖ½À´Ï´Ù.
-            // ¿¹¸¦ µé¾î, È­¸é¿¡ ¿ÀºêÁ§Æ®¸¦ º¸ÀÌ°Ô ¼³Á¤ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+            // È¸ï¿½ï¿½ ï¿½ß¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
             yield return null;
         }
         isRotating = false;
@@ -499,18 +493,18 @@ public class TutorialManager : MonoBehaviour
 
     private Vector3 ChangeRectTransformToTransform(RectTransform uiElement)
     {
-        // UI ¿ä¼ÒÀÇ ½ºÅ©¸° ÁÂÇ¥¸¦ °è»êÇÕ´Ï´Ù.
+        // UI ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, uiElement.position);
 
-        // ½ºÅ©¸° ÁÂÇ¥¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯ÇÕ´Ï´Ù.
-        // Screen Space - Overlay ¸ðµå¿¡¼­´Â Ä«¸Þ¶óÀÇ Z Ãà À§Ä¡¸¦ °í·ÁÇÒ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù.
-        // ¿©±â¼­ »ç¿ëµÇ´Â Z °ªÀº Ä«¸Þ¶ó¿¡¼­ ¿ùµå °ø°£ÀÇ ´ë»ó ¿ÀºêÁ§Æ®±îÁöÀÇ °Å¸®¸¦ ±âÁØÀ¸·Î ÇØ¾ß ÇÕ´Ï´Ù.
-        // 2D °ÔÀÓÀÇ °æ¿ì, ÀÏ¹ÝÀûÀ¸·Î ¿ùµå °ø°£ÀÇ ´ë»ó ¿ÀºêÁ§Æ®´Â Z Ãà¿¡¼­ Æ¯Á¤ÇÑ À§Ä¡¿¡ ÀÖÀ¸¹Ç·Î, ÀÌ¸¦ °í·ÁÇÏ¿© ¼³Á¤ÇÕ´Ï´Ù.
-        // ¿¹Á¦¿¡¼­´Â °£¼ÒÈ­¸¦ À§ÇØ 0À» »ç¿ëÇÕ´Ï´Ù.
+        // ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
+        // Screen Space - Overlay ï¿½ï¿½å¿¡ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ Z ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
+        // ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½Ç´ï¿½ Z ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ó¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.
+        // 2D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Z ï¿½à¿¡ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½, ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
-        // °á°úÀûÀ¸·Î, Z Ãà °ªÀº ¿ùµå °ø°£ÀÇ ´ë»ó ¿ÀºêÁ§Æ®¿Í ÀÏÄ¡ÇÏµµ·Ï Á¶Á¤ÇØ¾ß ÇÒ ¼ö ÀÖ½À´Ï´Ù.
-        // ÀÌ ¿¹Á¦¿¡¼­´Â 2D °ÔÀÓÀ» °¡Á¤ÇÏ°í Z °ªÀ» 0À¸·Î ¼³Á¤ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Z ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Z ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         return new Vector3(worldPoint.x, worldPoint.y, 0);
     }
 
