@@ -102,6 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodHolder: {fileID: 2399255687589508418}
   speed: 4
+  agent: {fileID: 0}
+  likeParticle: {fileID: 0}
 --- !u!195 &7501801521212256522
 NavMeshAgent:
   m_ObjectHideFlags: 0

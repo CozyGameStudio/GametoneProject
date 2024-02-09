@@ -6,6 +6,9 @@ public class ProcessBarButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.ProcessBar();
+        if (BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.ProcessBar();
+        }
     }
 }

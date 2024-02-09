@@ -15,13 +15,13 @@ MonoBehaviour:
   index: 4
   machineName: greenteaMachine
   machineNameInKorean: "\uD56D\uC544\uB9AC"
-  machineUnlockCost: 30
+  machineUnlockCost: 50
   cookTime:
+  - 7
+  - 6
+  - 5
+  - 4
   - 3
-  - 2.5
-  - 2
-  - 1.5
-  - 1
-  upgradeMoney: 0500000006000000070000000800000000000000
+  upgradeMoney: 05000000070000000a0000001400000000000000
   stageToUse: 2
-  machineIcon: {fileID: 21300000, guid: 354871f6bfacff74fae1c559d3d382fb, type: 3}
+  machineIcon: {fileID: 21300000, guid: 93f5e2236a3bc774e99d097e16fad4e3, type: 3}

@@ -6,6 +6,9 @@ public class FoodUpgradeButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.FoodUpgrade();
+        if (BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.FoodUpgrade();
+        }
     }
 }

@@ -28,6 +28,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject businessPanelFoodButtonFilter;
     public GameObject processBarFilter;
     public GameObject StageMissionScrollviewFilter;
+    public GameObject machineFilter;
+    public GameObject StageMissionRewardFilter;
     
     public GameObject UIDarkFilter;
 
@@ -89,7 +91,7 @@ public class TutorialManager : MonoBehaviour
     private bool isEnqueueForTutorialFour = false;
     private bool isEnqueueForTutorialFive = false;
     private bool isEnqueueForTutorialSix = false;
-    private bool isMissionAllCleared = true;
+    private bool isMissionAllCleared = false;
 
 
     public float waitTimeForPushButton = 5f;
@@ -153,7 +155,7 @@ public class TutorialManager : MonoBehaviour
         
         while (true)
         {
-            if (BusinessGameManager.Instance.money >= 20 && !isEnqueueForTutorialFour && tutorialIndex >= 3)
+            if (BusinessGameManager.Instance.money >= 10 && !isEnqueueForTutorialFour && tutorialIndex >= 3)
             {
                 isEnqueueForTutorialFour = true;
                 EnqueueTutorial(4);
@@ -164,7 +166,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while(true)
         {
-            if (BusinessGameManager.Instance.money >= 10 && !isEnqueueForTutorialFive && tutorialIndex >= 4)
+            if (BusinessGameManager.Instance.money >= 6 && !isEnqueueForTutorialFive && tutorialIndex >= 4)
             {
                 isEnqueueForTutorialFive = true;
                 EnqueueTutorial(5);
@@ -175,13 +177,9 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while (true)
         {
-            foreach(var mission in StageMissionManager.Instance.missions)
+            if(StageMissionManager.Instance.accumulatedSales >= 200)
             {
-                if (!mission.isCleared)
-                {
-                    isMissionAllCleared = false;
-                    break;
-                }
+                isMissionAllCleared = true;
             }
             if (isMissionAllCleared && !isEnqueueForTutorialSix && tutorialIndex >= 5)
             {
@@ -195,7 +193,7 @@ public class TutorialManager : MonoBehaviour
 
     public void EnqueueTutorial(int tutorialId)
     {
-        Debug.Log("��ť" + tutorialId);
+        Debug.Log("Enqueue" + tutorialId);
         tutorialQueue.Enqueue(tutorialId);
         TryStartNextTutorial();
     }
@@ -205,7 +203,7 @@ public class TutorialManager : MonoBehaviour
         if (!isTutorialActive && tutorialQueue.Count > 0)
         {
             isTutorialActive = true;
-            Debug.Log("ť" + tutorialQueue.Count);
+            Debug.Log("queue" + tutorialQueue.Count);
             int tutorialId = tutorialQueue.Dequeue(); // ��⿭���� Ʃ�丮�� ID ������
             StartCoroutine(StartTutorial(tutorialId));
         }
@@ -294,7 +292,17 @@ public class TutorialManager : MonoBehaviour
             yield return null;
         }
         isBusinessCloseTouch = false;
+        
         businessCloseFilter.SetActive(false);
+        machineFilter.SetActive(true);
+        dialogueBoxGameObject.SetActive(true);
+        dialogueTextGameObject.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
+
+        machineFilter.SetActive(false);
+        dialogueBoxGameObject.SetActive(false);
         EnqueueTutorial(tutorialIndex + 1);
     }
 
@@ -559,7 +567,7 @@ public class TutorialManager : MonoBehaviour
 
         // UIFoodBoxUpgradeButton focus
         businessPanelFilter.SetActive(false);
-        //businessBoxFilter.SetActive(false);
+        businessBoxFilter.SetActive(false);
         BoxUpgradeButtonFilter.SetActive(true);
         while (!isFoodUpgradeTouch)
         {
@@ -588,6 +596,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialSix()
     {
+        tutorialIndex++;
         // UIDarkFilter
         UIDarkFilter.SetActive(false);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
@@ -611,12 +620,30 @@ public class TutorialManager : MonoBehaviour
         // UIStageMissionScrollview Touch
         processBarFilter.SetActive(false);
         StageMissionScrollviewFilter.SetActive(true);
+        dialogueBoxGameObject.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return StartCoroutine(PushNextButton());
 
+        // UIMissionRewardButton Touch
+        StageMissionScrollviewFilter.SetActive(false);
+        StageMissionRewardFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        while (!isMissionBoxRewardTouch)
+        {
+            yield return null;
+        }
 
+        // UIProcessBar Touch
+        StageMissionRewardFilter.SetActive(false);
+        processBarFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return StartCoroutine(PushNextButton());
 
+        processBarFilter.SetActive(false);
+        dialogueBoxGameObject.SetActive(false);
     }
 
 

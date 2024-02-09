@@ -6,6 +6,10 @@ public class MachineUnLockButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.BusinessMachineUnlock();
+        if(BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.BusinessMachineUnlock();
+        }
+
     }
 }

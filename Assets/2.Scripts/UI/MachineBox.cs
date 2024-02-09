@@ -84,7 +84,7 @@ public class MachineBox : MonoBehaviour
     }
     public void UpgradeButtonClick()
     {
-        if (BusinessGameManager.Instance.money <= machine.currentUpgradeMoney)
+        if (BusinessGameManager.Instance.money < machine.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
             PlaySFXByName("buttonRefuse");

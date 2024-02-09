@@ -6,6 +6,9 @@ public class BusinessExitButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.BusinessClose();
+        if (BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.BusinessClose();
+        }
     }
 }

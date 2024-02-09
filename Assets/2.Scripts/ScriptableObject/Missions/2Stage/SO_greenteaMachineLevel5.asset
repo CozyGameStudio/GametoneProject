@@ -17,8 +17,8 @@ MonoBehaviour:
   missionContent: 3
   targetName: greenteaMachine
   criteria: 5
-  cost: 10
+  cost: 15
   stageToAppear: 2
-  sprite: {fileID: 21300000, guid: 354871f6bfacff74fae1c559d3d382fb, type: 3}
+  sprite: {fileID: 21300000, guid: 93f5e2236a3bc774e99d097e16fad4e3, type: 3}
   description: "\uB179\uCC28\uBA38\uC2E0 \uB808\uBCA8 \uCCB4\uD06C"
   progress: 10
