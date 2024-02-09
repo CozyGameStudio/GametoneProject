@@ -101,7 +101,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         }
     }
     private void Start(){
-        if(StageMissionManager.Instance!=null) StageMissionManager.Instance.OnStageCleared += SceneChange;
+        //if(StageMissionManager.Instance!=null) StageMissionManager.Instance.OnStageCleared += SceneChange;
     }
     public void CreateSystemData(){
         SystemData systemData = new SystemData();

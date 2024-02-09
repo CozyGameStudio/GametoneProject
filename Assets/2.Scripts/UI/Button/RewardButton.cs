@@ -6,6 +6,6 @@ public class RewardButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.MissionBoxReward();
+        if(TutorialManager.Instance!=null)TutorialManager.Instance.MissionBoxReward();
     }
 }
