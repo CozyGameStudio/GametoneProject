@@ -14,9 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 6
   machineName: porkcutletMachine
-  machineNameInKorean: "\uB3C8\uAE4C\uC2A4"
+  machineNameInKorean: "\uB3C4\uB9C8"
   machineUnlockCost: 20
-  cookTime: []
-  upgradeMoney: 
+  cookTime:
+  - 15
+  - 14.5
+  - 45
+  - 13.5
+  - 13
+  - 12.5
+  - 12
+  upgradeMoney: 190000002300000032000000460000005f0000008200000000000000
   stageToUse: 3
-  machineIcon: {fileID: 0}
+  machineIcon: {fileID: 21300000, guid: 55fa12eed074ffe49989c2b12cef3916, type: 3}

@@ -17,8 +17,8 @@ MonoBehaviour:
   missionContent: 3
   targetName: sushiMachine
   criteria: 3
-  cost: 15
+  cost: 10
   stageToAppear: 2
-  sprite: {fileID: 21300000, guid: bc2c65dddf96f1544980fe53dfe0724c, type: 3}
+  sprite: {fileID: 21300000, guid: 108fd254d1f5ec649bded1ce029b2b9f, type: 3}
   description: "\uC2A4\uC2DC\uBA38\uC2E0 \uB808\uBCA8 \uCCB4\uD06C"
   progress: 10

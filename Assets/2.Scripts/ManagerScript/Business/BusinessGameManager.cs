@@ -7,7 +7,7 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
 {
     private Dictionary<Character, float> characterProfits = new Dictionary<Character, float>();
     private static BusinessGameManager instance;
-    public int startMoney=100;
+    public int startMoney=10;
     public int money{get;private set;}=0;
     public int dia{get;private set;}=0;
     public float moneyMultiplier=1;
@@ -41,6 +41,17 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
             characterProfits[character] = character.currentProfitGrowthRate;
         }
         RecalculateMoneyMultiplier();
+        StartAddMoney();
+    }
+
+    // 데이터 불러오기 오류 수정시 삭제
+    private void StartAddMoney()
+    {
+        if(money == 0)
+        {
+            money = startMoney;
+        }
+        UIManager.Instance.UpdateMoneyUI();
     }
 
     private void HandleProfitChange(Character character, float newProfitRate)

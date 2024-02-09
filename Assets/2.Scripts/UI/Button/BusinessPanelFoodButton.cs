@@ -6,6 +6,9 @@ public class BusinessPanelFoodButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.BusinessPanelFood();
+        if (BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.BusinessPanelFood();
+        }
     }
 }

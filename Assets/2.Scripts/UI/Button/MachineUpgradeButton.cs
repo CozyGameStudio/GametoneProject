@@ -6,6 +6,9 @@ public class MachineUpgradeButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.MachineUpgrade();
+        if (BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.MachineUpgrade();
+        }
     }
 }

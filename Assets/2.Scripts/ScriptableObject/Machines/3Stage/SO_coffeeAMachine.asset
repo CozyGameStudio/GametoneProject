@@ -14,9 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 7
   machineName: coffeeAMachine
-  machineNameInKorean: "\uCEE4\uD53C"
-  machineUnlockCost: 30
-  cookTime: []
-  upgradeMoney: 
+  machineNameInKorean: "\uCEE4\uD53C\uBA38\uC2E0"
+  machineUnlockCost: 60
+  cookTime:
+  - 8
+  - 7.5
+  - 7
+  - 6.5
+  - 6
+  - 5.5
+  - 5
+  upgradeMoney: 060000000a0000000f000000150000001c0000002300000000000000
   stageToUse: 3
-  machineIcon: {fileID: 0}
+  machineIcon: {fileID: 21300000, guid: cf3bf2b53e904664ab58609c329da07e, type: 3}

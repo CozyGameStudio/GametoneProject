@@ -6,6 +6,10 @@ public class RewardButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        TutorialManager.Instance.MissionBoxReward();
+        if(BusinessGameManager.Instance.currentBusinessStage == 1)
+        {
+            TutorialManager.Instance.MissionBoxReward();
+        }
+
     }
 }

@@ -19,6 +19,6 @@ MonoBehaviour:
   criteria: 3
   cost: 10
   stageToAppear: 1
-  sprite: {fileID: 21300000, guid: 3ea4e12bde3d24c4f8245899f68b20b4, type: 3}
+  sprite: {fileID: -1448181759, guid: a5f86ff2715603145a9d15faa7d25d4b, type: 3}
   description: "\uB9E4\uC2E4\uCC28\uBA38\uC2E0 \uB808\uBCA8 \uCCB4\uD06C"
   progress: 25
