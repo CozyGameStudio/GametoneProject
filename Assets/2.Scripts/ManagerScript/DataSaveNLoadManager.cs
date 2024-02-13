@@ -96,8 +96,8 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         
         if (scene.name.Contains("Business"))
         {
-            DataManager.Instance?.DataInitSetting(loadedData);
-            CollectionManager.Instance?.SetData(loadedData);
+            if(DataManager.Instance!=null) DataManager.Instance.DataInitSetting(loadedData);
+            if(CollectionManager.Instance!=null) CollectionManager.Instance.SetData(loadedData);
         }
     }
     private void Start(){
@@ -112,6 +112,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public BusinessData CreateBusinessData(int stageNum){
         BusinessData businessData = new BusinessData();
         businessData.currentStageNumber=stageNum;
+        Debug.Log(businessData.accumulatedCustomer+" "+ businessData.accumulatedSales);
         return businessData;
     }
     public void PrepareData()
@@ -179,6 +180,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     {
         if(DataManager.Instance!=null){
             loadedData.businessData = DataManager.Instance.GetData();
+            Debug.Log("Data Set");
         }
         if (CollectionManager.Instance != null)
         {
@@ -191,7 +193,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public void ResetData()
     {
         CreateSystemData();
-        SceneManager.LoadScene("Title");
+        LoadingSceneManager.LoadScene("Title");
     }
 
     private void OnApplicationPause()

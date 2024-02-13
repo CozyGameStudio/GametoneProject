@@ -8,7 +8,10 @@ public class CharacterStoryPanel : MonoBehaviour
     public Image characterImage;
     public TMP_Text storyName;
     public TMP_Text storyContent;
+    public RectTransform textContainerBox;
 
+
+    private readonly WaitForEndOfFrame _waitEndOfFrame = new WaitForEndOfFrame();
     public void SetStory(Sprite sprite,StoryData storyData)
     {
         gameObject.SetActive(true);
@@ -19,5 +22,18 @@ public class CharacterStoryPanel : MonoBehaviour
         }
         storyName.text = storyData.storyName;
         storyContent.text=storyData.storyContent;
+        UpdateSize();
+    }
+    public void UpdateSize()
+    {
+        StartCoroutine(WaitEndOfFrameAndUpdateSize());
+    }
+
+    private IEnumerator WaitEndOfFrameAndUpdateSize()
+    {
+        yield return _waitEndOfFrame;
+
+        float textHeight = storyContent.preferredHeight; // Calculate the text height
+        textContainerBox.sizeDelta = new Vector2(textContainerBox.sizeDelta.x, textHeight); // Adjust the container size
     }
 }

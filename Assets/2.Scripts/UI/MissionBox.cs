@@ -106,13 +106,19 @@ public class MissionBox : MonoBehaviour
         StageMissionManager.Instance.CalculateProgress();
         foreach (Chef chef in OrderManager.Instance.chefs)
         {
-            if(chef.gameObject.activeSelf)
-                chef.MultSpeed(1.4f);
+            if(OrderManager.Instance!=null)
+            {
+                OrderManager.Instance.speedMultiplier*=2;
+                chef.SetSpeed(OrderManager.Instance.speedMultiplier);
+            }
         }
         foreach (Server server in ServerManager.Instance.servers)
         {
-            if (server.gameObject.activeSelf)
-                server.MultSpeed(1.4f);
+            if (ServerManager.Instance != null)
+            {
+                ServerManager.Instance.speedMultiplier *= 2;
+                server.SetSpeed(ServerManager.Instance.speedMultiplier);
+            }
         }
         
         gameObject.SetActive(false);

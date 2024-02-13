@@ -8,7 +8,7 @@ public class TutorialTrigger : MonoBehaviour
     private bool isTrigger = false;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Customer") && !isTrigger)
+        if (other.CompareTag("Customer")&&!isTrigger)
         {
             Debug.Log("Trigger");
             isTrigger = true;

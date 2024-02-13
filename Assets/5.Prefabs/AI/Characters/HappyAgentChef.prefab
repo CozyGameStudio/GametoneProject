@@ -44,7 +44,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 2
+  m_Speed: 1.5
   m_Acceleration: 150
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 3543997611553153282}
-  speed: 5
+  speed: 1.5
   foodHolder: {fileID: 5879482404581958643}
   agent: {fileID: 5072527517875408146}
   loadingBarAnimator: {fileID: 3346709702396250102}

@@ -8,7 +8,7 @@ public class MachineUpgradeButton : MonoBehaviour
     {
         if (BusinessGameManager.Instance.currentBusinessStage == 1)
         {
-            TutorialManager.Instance.MachineUpgrade();
+            if (TutorialManager.Instance != null) TutorialManager.Instance.MachineUpgrade();
         }
     }
 }

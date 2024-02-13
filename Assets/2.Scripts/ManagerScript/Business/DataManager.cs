@@ -59,6 +59,8 @@ public class DataManager : MonoBehaviour
                 Debug.Log("Load Data Set");
                 //Set Start Money for new Stage
                 data.currentStageMoney=BusinessGameManager.Instance.startMoney;
+                data.accumulatedSales=0;
+                data.accumulatedCustomer=0;
             }
             foreach(var manager in managerInterfaces){
                 manager.SetData(data);

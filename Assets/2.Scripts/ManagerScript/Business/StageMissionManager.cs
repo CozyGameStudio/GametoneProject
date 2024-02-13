@@ -44,7 +44,6 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     {
         DataLoadManager.Instance.OnDataChanged += UpdateMissionStatus;
     }
-
     public void CalculateProgress(){
         stageProgress = 0;
 
@@ -60,7 +59,9 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
         {
             Debug.Log("Stage Clear!!!!");
             //도장 찍히는 연출 후 이벤트 호출
-            OnStageCleared?.Invoke();
+
+            //튜토리얼 매니저가 없을때만, 스테이지 미션 
+            if(TutorialManager.Instance==null)OnStageCleared?.Invoke();
         }
         UIManager.Instance.UpdateProgress();
     }
@@ -93,6 +94,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     }
     private void UpdateMissionStatus()
     {
+        int missionClearNumberForTutorial=0;
         foreach (var mission in missions)
         {
             if(mission.isCleared)continue;
@@ -106,6 +108,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                     break;
                 case MissionContent.SalesCheck:
                     mission.button.interactable = accumulatedSales >= mission.missionData.criteria;
+                    missionClearNumberForTutorial++;
                     break;
                 case MissionContent.LevelCheck:
                     if (mission.obj is Food food)
@@ -115,6 +118,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                     else if (mission.obj is Machine machine)
                     {
                         mission.button.interactable = machine.currentLevel >= mission.missionData.criteria;
+                        missionClearNumberForTutorial++;
                     }
                     break;
                 case MissionContent.ActivatedCheck:
@@ -136,19 +140,18 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                     }
                     else mission.button.interactable = false;
                     break;
-
             }
             mission.SetUI();
             mission.SetActiveByStatus();
         }
+        if (TutorialManager.Instance != null && missionClearNumberForTutorial == 3) EventDispatcher.MissionCompleted();
     }
     public void SetData(BusinessData data)
     {
         missionDataList = Resources.Load<MissionDataList>("MissionDataList");
         missionBoxPrefab = Resources.Load<GameObject>("MissionBox");
         WhenAllMissionCompleted.gameObject.SetActive(false);
-        accumulatedCustomer = data.accumulatedCustomer;
-        accumulatedSales = data.accumulatedSales;
+        
         Debug.Log("StageMission manager started");
         foreach (var currentStageMission in missionDataList.missionDataList)
         {
@@ -168,6 +171,8 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                 missionBox.CheckClearNUnlockStatus();
             }
         }
+        accumulatedCustomer = data.accumulatedCustomer;
+        accumulatedSales = data.accumulatedSales;
         UpdateMissionStatus();
         CalculateProgress();
     }
@@ -177,8 +182,13 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
         foreach (var mission in missions){
             tmpList.Add(mission.GetData());
         }
+        data.accumulatedCustomer = accumulatedCustomer;
+        data.accumulatedSales = accumulatedSales;
         data.currentMissions=tmpList;
-        data.accumulatedCustomer=accumulatedCustomer;
-        data.accumulatedSales=accumulatedSales;
+        
+    }
+    public void TriggerStageCleared()
+    {
+        OnStageCleared?.Invoke();
     }
 }

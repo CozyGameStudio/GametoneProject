@@ -8,7 +8,7 @@ public class MachineUnLockButton : MonoBehaviour
     {
         if(BusinessGameManager.Instance.currentBusinessStage == 1)
         {
-            TutorialManager.Instance.BusinessMachineUnlock();
+            if (TutorialManager.Instance != null) TutorialManager.Instance.BusinessMachineUnlock();
         }
 
     }

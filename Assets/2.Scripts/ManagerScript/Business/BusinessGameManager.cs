@@ -44,7 +44,7 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
         StartAddMoney();
     }
 
-    // µ¥ÀÌÅÍ ºÒ·¯¿À±â ¿À·ù ¼öÁ¤½Ã »èÁ¦
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void StartAddMoney()
     {
         if(money == 0)
@@ -82,6 +82,8 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
         money+=(int)Math.Floor((float)moneyAmount*moneyMultiplier);
         StageMissionManager.Instance.CostCheck();
         UIManager.Instance.SetMoneyAnimation(currentMoney,money);
+        //íŠœí† ë¦¬ì–¼ì„ ìœ„í•œ ëˆì²´í¬
+        if(TutorialManager.Instance!=null) EventDispatcher.MoneyChanged(money);
     }
     public void DecreaseMoney(int moneyAmount)
     {

@@ -11,11 +11,10 @@ public class CharacterBox : MonoBehaviour
     public TMP_Text characterName;
     public TMP_Text characterLevel;
     public TMP_Text characterProfitGrowthRate;
-    public TMP_Text characterPosition;
     public TMP_Text characterUpgrade;
     public TMP_Text characterUpgradeComplete;
     public Button characterUpgradeButton;
-
+    public Animator animator;
     void Start(){
         DataLoadManager.Instance.OnDataChanged+=UpdateUI;
     }
@@ -50,15 +49,6 @@ public class CharacterBox : MonoBehaviour
         {
             Debug.LogError("Cannot find Level");
         }
-        // Init character Level
-        if (characterPosition != null)
-        {
-            characterPosition.text = character.position.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find Position");
-        }
 
 
         // Init cooking speed
@@ -84,16 +74,25 @@ public class CharacterBox : MonoBehaviour
     }
     public void UpgradeButtonClick()
     {
-        if (BusinessGameManager.Instance.money <= character.currentUpgradeMoney)
+        if (BusinessGameManager.Instance.dia <= character.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            SystemManager.Instance.PlayAnimationByName(characterUpgradeButton.transform,"buttonRefuse");
             return;
         }
         character.LevelUp();
-        BusinessGameManager.Instance.DecreaseMoney(character.currentUpgradeMoney);
+        BusinessGameManager.Instance.DecreaseDia(character.currentUpgradeMoney);
         UpdateUI();
+        StartCoroutine(UpgradeAnimation());
     }
-    
+    IEnumerator UpgradeAnimation(){
+        bool isUpgrade=true;
+        animator.SetBool("IsUpgrade", isUpgrade);
+        characterUpgradeButton.interactable=false;
+        yield return new WaitForSeconds(1);
+        isUpgrade = false;
+        animator.SetBool("IsUpgrade", isUpgrade); characterUpgradeButton.interactable = true;
+    }
     public void UpdateUI()
     {
         characterUpgrade.text = character.currentUpgradeMoney.ToString();

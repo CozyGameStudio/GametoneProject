@@ -8,7 +8,7 @@ public class RewardButton : MonoBehaviour
     {
         if(BusinessGameManager.Instance.currentBusinessStage == 1)
         {
-            TutorialManager.Instance.MissionBoxReward();
+            if(TutorialManager.Instance!=null) TutorialManager.Instance.MissionBoxReward();
         }
 
     }

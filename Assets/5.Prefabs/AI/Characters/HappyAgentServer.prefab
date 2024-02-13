@@ -43,7 +43,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 2
+  m_Speed: 1.5
   m_Acceleration: 150
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -158,8 +158,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 3543997611553153282}
   foodHolder: {fileID: 5879482404581958643}
-  speed: 2
+  speed: 1.5
   agent: {fileID: 5072527517875408146}
+  isPickupForTutorial: 0
+  isServedForTutorial: 0
 --- !u!95 &2859489403282163246
 Animator:
   serializedVersion: 5

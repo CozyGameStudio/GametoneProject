@@ -7,9 +7,6 @@ using AssetKits.ParticleImage;
 using DG.Tweening;
 public class UIManager : MonoBehaviour
 {
-    public delegate void StageClearedDelegate();
-    public event StageClearedDelegate OnStageCleared;
-    public CutScene cutScene;
     private static UIManager instance;
     public static UIManager Instance
     {
@@ -92,9 +89,5 @@ public class UIManager : MonoBehaviour
         {
             moneyText.text = currentMoney.ToString();
         }).SetEase(Ease.OutQuad); 
-    }
-    public void PlayCutScene(){
-        cutScene.gameObject.SetActive(true);
-        StartCoroutine(cutScene.Play());
     }
 }

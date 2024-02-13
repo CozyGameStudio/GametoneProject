@@ -124,7 +124,7 @@ public class Server : MonoBehaviour
         int tableNum = menuToServe.GetComponent<FoodToServe>().orderstatus.tableNumber;
         Debug.Log("Trying Find Customer");
         FindCustomer(tableNum);
-        float retryInterval = .5f;
+        float retryInterval = 1f;
         while (currentCustomer == null)
         {
             Debug.Log("Trying Find Customer");
@@ -171,16 +171,20 @@ public class Server : MonoBehaviour
     {
         menuToServe.SetActive(true);
         currentCustomer.GetMenu(menuToServe);
+        currentCustomer=null;
         menuToServe=null;
         SetAvailable();
         isServedForTutorial = true;
     }
-    // Change server status to available
-    // Change server status to available
     public void SetAvailable()
     {
         IsAvailable = true;
         isThereMenuToServe=false;
         OnAvailable?.Invoke();
+    }
+    public void SetSpeed(float speedMultiplier)
+    {
+        speed = initSpeed * speedMultiplier;
+        agent.speed = speed;
     }
 }

@@ -8,7 +8,7 @@ public class ProcessBarButton : MonoBehaviour
     {
         if (BusinessGameManager.Instance.currentBusinessStage == 1)
         {
-            TutorialManager.Instance.ProcessBar();
+            if (TutorialManager.Instance != null) TutorialManager.Instance.ProcessBar();
         }
     }
 }

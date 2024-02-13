@@ -6,6 +6,6 @@ public class SceneCameraManager : MonoBehaviour
 {
     private void Start()
     {
-        SystemManager.Instance.SetResolution();
+        //SystemManager.Instance.SetResolution();
     }
 }

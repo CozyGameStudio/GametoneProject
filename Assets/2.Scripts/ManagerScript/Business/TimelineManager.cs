@@ -11,7 +11,6 @@ public class TimelineManager : MonoBehaviour
     void Start()
     {
         StageMissionManager.Instance.OnStageCleared+= PlayCutScene;
-        playableDirector.stopped += OnPlayableDirectorStopped;
     }
 
     public void PlayCutScene()
@@ -22,7 +21,7 @@ public class TimelineManager : MonoBehaviour
     {
         if (playableDirector == aDirector)
         {
-            DataSaveNLoadManager.Instance.SceneChange();
+            
         }
     }
 }

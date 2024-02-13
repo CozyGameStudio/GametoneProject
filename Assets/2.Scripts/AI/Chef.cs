@@ -28,7 +28,8 @@ public class Chef : MonoBehaviour
 
     [Header("캐릭터")]
     public Character character;
-    public float speed=5f;
+    public float initSpeed=1.5f;
+    private float speed=1.5f;
     public GameObject foodHolder;
     public NavMeshAgent agent;
     public Animator loadingBarAnimator;
@@ -39,20 +40,17 @@ public class Chef : MonoBehaviour
     private GameObject serveHolder;
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
-    private float initSpeed;
     private Animator animator;
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
     }
     private void Start() {
-        initSpeed=speed;
         fsm.ChangeState(States.Idle);
         serveTables=ServerManager.Instance.serveTables;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        agent.speed=speed;
         foreach (var serveTable in serveTables){
             AddChildrenWithName(serveTable, "FoodHolder");
         }
@@ -84,14 +82,6 @@ public class Chef : MonoBehaviour
         }
         else
             animator.SetFloat("YVelocity", 0);
-    }
-    public void MultSpeed(float mult){
-        speed*=mult;
-        agent.speed=speed;
-    }
-    public void BackToNormalSpeed(){
-        speed=initSpeed;
-        agent.speed = speed;
     }
     void OnEnable(){
         SetAvailable();
@@ -211,5 +201,9 @@ public class Chef : MonoBehaviour
         IsAvailable=true;
         if(OrderManager.Instance!=null)
             OrderManager.Instance.ChefAvailable();
+    }
+    public void SetSpeed(float speedMultiplier){
+        speed=initSpeed* speedMultiplier;
+        agent.speed = speed;
     }
 }

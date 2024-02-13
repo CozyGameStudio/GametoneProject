@@ -8,7 +8,7 @@ public class FoodUpgradeButton : MonoBehaviour
     {
         if (BusinessGameManager.Instance.currentBusinessStage == 1)
         {
-            TutorialManager.Instance.FoodUpgrade();
+            if (TutorialManager.Instance != null) TutorialManager.Instance.FoodUpgrade();
         }
     }
 }

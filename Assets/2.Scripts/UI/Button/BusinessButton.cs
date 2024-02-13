@@ -6,10 +6,7 @@ public class BusinessButton : MonoBehaviour
 {
     public void TutorialButtonClick()
     {
-        if (BusinessGameManager.Instance.currentBusinessStage == 1)
-        {
-            TutorialManager.Instance.BusinessButtonTouch();
-            Debug.Log("Click");
-        }
+        if (TutorialManager.Instance != null) TutorialManager.Instance.BusinessButtonTouch();
+        Debug.Log("Click");
     }
 }

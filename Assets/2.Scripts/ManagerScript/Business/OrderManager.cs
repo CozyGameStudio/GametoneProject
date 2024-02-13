@@ -45,18 +45,11 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
         foreach (Chef chef in chefObjects)
         {
             chefs.Add(chef);
+            chef.SetSpeed(speedMultiplier);
         }
-
+        
         machines = DataManager.Instance.activeMachines;
         MachineListRenew();
-    }
-    public void SetSpeedMultiplier(float multiplier)
-    {
-        speedMultiplier = multiplier;
-        foreach (Chef chef in chefs)
-        {
-            chef.MultSpeed(speedMultiplier);
-        }
     }
     public void MachineListRenew(){
         machines = DataManager.Instance.activeMachines;

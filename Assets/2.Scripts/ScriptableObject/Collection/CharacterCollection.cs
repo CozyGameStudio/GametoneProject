@@ -38,10 +38,12 @@ public class CharacterCollection : MonoBehaviour
         if(BusinessGameManager.Instance.money>=scriptableCollection.storyDataList[i].storyUnlockCost){
             BusinessGameManager.Instance.DecreaseMoney(scriptableCollection.storyDataList[i].storyUnlockCost);
             isUnlock[i]=true;
+            UIManager.Instance.PlaySFXByName("pay");
             //연출 추가
         }
         else{
             Debug.Log("돈이 없네...?");
+            UIManager.Instance.PlaySFXByName("buttonRefuse");
         }
     }
     public void BuyStoryByDia(int i)
@@ -57,10 +59,12 @@ public class CharacterCollection : MonoBehaviour
             BusinessGameManager.Instance.DecreaseMoney(scriptableCollection.storyDataList[i].storyUnlockCost);
             isUnlock[i] = true;
             //연출 추가
+            UIManager.Instance.PlaySFXByName("pay");
         }
         else
         {
             Debug.Log("유료재화가 없네...?");
+            UIManager.Instance.PlaySFXByName("buttonRefuse");
         }
     }
     public void SetData(CollectionData collectionData)

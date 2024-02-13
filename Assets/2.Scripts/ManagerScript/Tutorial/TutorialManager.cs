@@ -3,7 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using DG.Tweening;
+public static class EventDispatcher
+{
+    public static event Action<int> OnMoneyChanged;
+    public static event Action OnMissionCompleted;
 
+    public static void MoneyChanged(int currentMoney)
+    {
+        OnMoneyChanged?.Invoke(currentMoney);
+    }
+
+    public static void MissionCompleted()
+    {
+        OnMissionCompleted?.Invoke();
+        Debug.Log("mission Complete Occured");
+    }
+}
 public class TutorialManager : MonoBehaviour
 {
     private static TutorialManager instance;
@@ -98,6 +115,7 @@ public class TutorialManager : MonoBehaviour
     public float waitTimeForTutorial = 1f;
     public float rotationDuration = 0.5f;
 
+    private Coroutine currentCoroutine;
     public static TutorialManager Instance
     {
         get
@@ -116,17 +134,22 @@ public class TutorialManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    void OnDisable(){
+        EventDispatcher.OnMoneyChanged -= CheckMoneyForTutorial;
+        EventDispatcher.OnMissionCompleted -= CheckMissionCompletion;
+    }
     void Start()
-    {   
-        DarkFilter.SetActive(false);
-        close.SetActive(false);
-        open.SetActive(false);
-        touch.SetActive(false);
-        businessButtonFilter.SetActive(false);
-        businessBoxFilter.SetActive(false);
-        businessCloseFilter.SetActive(false);
-        nextButtonGameObject = nextButton.transform.gameObject;
+    {
+        EventDispatcher.OnMoneyChanged += CheckMoneyForTutorial;
+        EventDispatcher.OnMissionCompleted += CheckMissionCompletion;
+        if (DarkFilter != null) DarkFilter.SetActive(false);
+        if(close!=null)close.SetActive(false);
+        if (open != null) open.SetActive(false);
+        if (touch != null) touch.SetActive(false);
+        if (businessButtonFilter != null) businessButtonFilter.SetActive(false);
+        if (businessBoxFilter != null) businessBoxFilter.SetActive(false);
+        if (businessCloseFilter != null) businessCloseFilter.SetActive(false);
+        if (nextButton != null) nextButtonGameObject = nextButton.transform.gameObject;
         if (nextButtonGameObject != null)
         {
             nextButtonGameObject.SetActive(false);
@@ -146,48 +169,44 @@ public class TutorialManager : MonoBehaviour
         uiMoney = money.GetComponent<RectTransform>();
         uiBusinessButton = businessButton.GetComponent<RectTransform>();
         uiProcessBar = ProcessBarButton.GetComponent<RectTransform>();
-        StartCoroutine(IsEnqueueTutorial());
+        //일단 1번 튜토리얼 Enqueue
         EnqueueTutorial(1);
     }
-
-    IEnumerator IsEnqueueTutorial()
+    void CheckMoneyForTutorial(int currentMoney)
     {
-        
-        while (true)
+        if(!isEnqueueForTutorialOne)return;
+        if (!isEnqueueForTutorialFour && currentMoney >= 10)
         {
-            if (BusinessGameManager.Instance.money >= 10 && !isEnqueueForTutorialFour && tutorialIndex >= 3)
-            {
-                isEnqueueForTutorialFour = true;
-                EnqueueTutorial(4);
-                break;
-            }
-            yield return null;
+            EnqueueTutorial(4);
+            isEnqueueForTutorialFour = true;
         }
-        yield return new WaitForSeconds(1f);
-        while(true)
+        else if (!isEnqueueForTutorialFive && currentMoney >= 6&& DataManager.Instance.activeMachines[0].currentLevel > 1)
         {
-            if (BusinessGameManager.Instance.money >= 6 && !isEnqueueForTutorialFive && tutorialIndex >= 4)
-            {
-                isEnqueueForTutorialFive = true;
-                EnqueueTutorial(5);
-                break;
-            }
-            yield return null;
+            EnqueueTutorial(5);
+            isEnqueueForTutorialFive = true;
+            EventDispatcher.OnMoneyChanged -= CheckMoneyForTutorial;
         }
-        yield return new WaitForSeconds(1f);
-        while (true)
+    }
+
+    void CheckMissionCompletion()
+    {
+        //장비 업그레이드에 대한 체크
+        foreach(Machine machine in DataManager.Instance.machines){
+            //업그레이드가 완료되면 업그레이드 비용은 0원이기 때문
+            Debug.Log(machine.currentUpgradeMoney);
+            if (!machine.currentUpgradeMoney.Equals(0))return;
+            
+        }
+        //누적 판매량에 대한 체크
+        if(StageMissionManager.Instance.accumulatedSales<150){
+            Debug.Log(StageMissionManager.Instance.accumulatedSales);
+            return;
+        }
+        if (!isEnqueueForTutorialSix)
         {
-            if(StageMissionManager.Instance.accumulatedSales >= 200)
-            {
-                isMissionAllCleared = true;
-            }
-            if (isMissionAllCleared && !isEnqueueForTutorialSix && tutorialIndex >= 5)
-            {
-                isEnqueueForTutorialFive = true;
-                EnqueueTutorial(6);
-                break;
-            }
-            yield return null;
+            EnqueueTutorial(6);
+            isEnqueueForTutorialSix = true;
+            EventDispatcher.OnMissionCompleted -= CheckMissionCompletion;
         }
     }
 
@@ -204,44 +223,34 @@ public class TutorialManager : MonoBehaviour
         {
             isTutorialActive = true;
             Debug.Log("queue" + tutorialQueue.Count);
-            int tutorialId = tutorialQueue.Dequeue(); // ��⿭���� Ʃ�丮�� ID ������
-            StartCoroutine(StartTutorial(tutorialId));
+            int tutorialId = tutorialQueue.Dequeue(); 
+            StartTutorial(tutorialId);
         }
     }
 
-    IEnumerator StartTutorial(int tutorialId)
+    void StartTutorial(int tutorialId)
     {
         Debug.Log($"Starting tutorial ID: {tutorialId}");
-        // ���⿡ Ʃ�丮�� ���� ���� ����, ���� ��� Ʃ�丮�� ���� �ٸ� �Լ� ȣ�� ��
-        
-        // ���� ����
         switch (tutorialId)
         {
             case 1:
                 // ù ��° Ʃ�丮�� ����
-                yield return StartCoroutine(StartTutorialOne());
-                CompleteCurrentTutorial(tutorialId);
+                StartCoroutine(StartTutorialOne());
                 break;
             case 2:
-                // �� ��° Ʃ�丮�� ����
-                yield return StartCoroutine(StartTutorialTwo());
-                CompleteCurrentTutorial(tutorialId);
+                StartCoroutine(StartTutorialTwo());
                 break;
             case 3:
-                yield return StartCoroutine(StartTutorialThree());
-                CompleteCurrentTutorial(tutorialId);
+                StartCoroutine(StartTutorialThree());
                 break;
             case 4:
-                yield return StartCoroutine(StartTutorialFour());
-                CompleteCurrentTutorial(tutorialId);
+                StartCoroutine(StartTutorialFour());
                 break;
             case 5:
-                yield return StartCoroutine(StartTutorialFive());
-                CompleteCurrentTutorial(tutorialId);
+                StartCoroutine(StartTutorialFive());
                 break;
             case 6:
-                yield return StartCoroutine(StartTutorialSix());
-                CompleteCurrentTutorial(tutorialId);
+                StartCoroutine(StartTutorialSix());
                 break;
         }
     }
@@ -253,7 +262,14 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialOne()
     {
-        tutorialIndex++;
+        
+        //이미 해금된 장비가 있다면 1,2번 튜토리얼은 진행하지 않음
+        if (DataManager.Instance.activeMachines.Count != 0){
+            isEnqueueForTutorialOne=true;
+            CompleteCurrentTutorial();
+            yield break;
+        }
+        tutorialIndex = 1;
         BusinessGameManager.Instance.ChangeSpeed(0.1f);
         waitTimeForPushButton *= 0.1f;
         waitTimeForTutorial *= 0.1f;
@@ -270,27 +286,19 @@ public class TutorialManager : MonoBehaviour
         businessButtonFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
-        while (!isBusinessButtonTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(()=>isBusinessButtonTouch);
         isBusinessButtonTouch = false;
         businessButtonFilter.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
         dialogueTextGameObject.SetActive(false);
         businessBoxFilter.SetActive(true);
         Debug.Log("check1");
-        while (!isBusinessMachineBuyTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isBusinessMachineBuyTouch);
+       
         Debug.Log("check");
         businessBoxFilter.SetActive(false);
         businessCloseFilter.SetActive(true);
-        while (!isBusinessCloseTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isBusinessCloseTouch);
         isBusinessCloseTouch = false;
         
         businessCloseFilter.SetActive(false);
@@ -303,12 +311,13 @@ public class TutorialManager : MonoBehaviour
 
         machineFilter.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
-        EnqueueTutorial(tutorialIndex + 1);
+        CompleteCurrentTutorial();
+        EnqueueTutorial(2);
     }
 
     IEnumerator StartTutorialTwo()
     {
-        tutorialIndex++;
+        tutorialIndex = 2;
         yield return new WaitForSeconds(waitTimeForTutorial);
         DarkFilter.SetActive (true);
         nextButtonGameObject.SetActive(true);
@@ -342,6 +351,8 @@ public class TutorialManager : MonoBehaviour
         waitTimeForPushButton *= 10f;
         waitTimeForTutorial *= 10f;
         rotationDuration *= 10f;
+        isEnqueueForTutorialOne = true;
+        CompleteCurrentTutorial();
     }
 
     private IEnumerator StartRotation(GameObject signObject)
@@ -367,13 +378,17 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialThree()
     {
-        tutorialIndex++;
+        //3번은 트리거에서 호출됨.
+        
+        if(!StageMissionManager.Instance.accumulatedCustomer.Equals(0)){
+            CompleteCurrentTutorial();
+            yield break;
+        }
+        currentDialogueIndex = 3;
+        tutorialIndex = 3;
         maskCustomer.SetActive(true);
         DarkFilter.SetActive(true);
-        while (!OrderManager.Instance.isOrderedForTutorial)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(()=> OrderManager.Instance.isOrderedForTutorial);
         maskCustomer.SetActive(false);
         maskChef = Instantiate(prefabMask);
         maskChef.transform.SetParent(chefPosition.transform, false);
@@ -382,25 +397,19 @@ public class TutorialManager : MonoBehaviour
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         dialogueTextGameObject.SetActive(true);
         maskChef.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        Server serverscript = serverPosition.GetComponent<Server>();
+        Server serverscript = serverPosition.GetComponentInChildren<Server>();
         if (serverscript == null)
         {
             Debug.LogError("Server not found for Tutorial");
         }
-        while (!serverscript.isPickupForTutorial)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => serverscript.isPickupForTutorial);
         dialogueBoxGameObject.SetActive(false);
         maskChef.SetActive(false);
         Destroy(maskChef);
         maskServer = Instantiate(prefabMask);
         maskServer.transform.SetParent(serverPosition.transform, false);
         maskServer.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        while (!serverscript.isServedForTutorial)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => serverscript.isServedForTutorial);
         dialogueBoxGameObject.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
@@ -410,6 +419,8 @@ public class TutorialManager : MonoBehaviour
         DarkFilter.SetActive(false) ;
         maskCustomer.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
+        CompleteCurrentTutorial();
+        
     }
 
     public void GetObject(GameObject obj)
@@ -423,10 +434,18 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialFour()
     {
-        tutorialIndex++;
+        //4번은 장비 업그레이드가 가능할때 진행
+        //이미 되어있으면 멈춤
+        if(DataManager.Instance.activeMachines[0].currentLevel!=1){
+            CompleteCurrentTutorial();
+            yield break;
+        }
+        currentDialogueIndex = 5;
+        tutorialIndex = 4;
         // UIMoney focus
         moneyFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueTextGameObject.SetActive(true);
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         dialogueBoxGameObject.SetActive(true);
         yield return StartCoroutine(PushNextButton());
@@ -466,10 +485,7 @@ public class TutorialManager : MonoBehaviour
         BoxUpgradeButtonFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
-        while (!isMachineUpgradeTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isMachineUpgradeTouch);
 
         // UIBusinessBox focus
         BoxUpgradeButtonFilter.SetActive(false);
@@ -482,12 +498,10 @@ public class TutorialManager : MonoBehaviour
         dialogueBoxGameObject.SetActive(false);
         businessBoxFilter.SetActive(false);
         businessCloseFilter.SetActive(true);
-        while (!isBusinessCloseTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isBusinessCloseTouch);
         businessCloseFilter.SetActive(false);
         isBusinessCloseTouch = false;
+        CompleteCurrentTutorial();
     }
 
     IEnumerator PushNextButton()
@@ -523,10 +537,17 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StartTutorialFive()
     {
-        tutorialIndex++;
+        if (DataManager.Instance.activeFoods[0].currentLevel != 1)
+        {
+            CompleteCurrentTutorial();
+            yield break;
+        }
+        currentDialogueIndex=11;
+        tutorialIndex = 5;
         // UIMoney focus
         moneyFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueTextGameObject.SetActive(true);
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         dialogueBoxGameObject.SetActive(true);
         yield return StartCoroutine(PushNextButton());
@@ -536,20 +557,14 @@ public class TutorialManager : MonoBehaviour
         businessButtonFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
-        while (!isBusinessButtonTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isBusinessButtonTouch);
         isBusinessButtonTouch = false;
 
         // UIBusinessPanelFoodButoon focus
         businessButtonFilter.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
         businessPanelFoodButtonFilter.SetActive(true);
-        while (!isBusinessPanelFoodTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isBusinessPanelFoodTouch);
         isBusinessButtonTouch = false;
 
         // UIBusinessPanel focus
@@ -569,10 +584,7 @@ public class TutorialManager : MonoBehaviour
         businessPanelFilter.SetActive(false);
         businessBoxFilter.SetActive(false);
         BoxUpgradeButtonFilter.SetActive(true);
-        while (!isFoodUpgradeTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() =>isFoodUpgradeTouch);
 
         // UIMachineBox focus
         BoxUpgradeButtonFilter.SetActive(false);
@@ -585,22 +597,23 @@ public class TutorialManager : MonoBehaviour
         dialogueBoxGameObject.SetActive(false);
         businessBoxFilter.SetActive(false);
         businessCloseFilter.SetActive(true);
-        while (!isBusinessCloseTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() =>isBusinessCloseTouch);
         businessCloseFilter.SetActive(false);
         isBusinessCloseTouch = false;
-
+        CompleteCurrentTutorial();
     }
 
     IEnumerator StartTutorialSix()
     {
-        tutorialIndex++;
+        tutorialIndex=6;
+        currentDialogueIndex = 15;
+        ProcessBarButton.GetComponent<RectTransform>().DOAnchorPos(new Vector2(83, -50), 2f);
         // UIDarkFilter
         UIDarkFilter.SetActive(false);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        Debug.Log(dialogueDataList[currentDialogueIndex]);
         dialogueText.text = dialogueDataList[currentDialogueIndex];
+        dialogueTextGameObject.SetActive(true);
         dialogueBoxGameObject.SetActive(true);
         yield return StartCoroutine(PushNextButton());
 
@@ -612,10 +625,7 @@ public class TutorialManager : MonoBehaviour
 
         // UIProcessBar Touch
         dialogueBoxGameObject.SetActive(false);
-        while (!isProcessBarButtonTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isProcessBarButtonTouch);
 
         // UIStageMissionScrollview Touch
         processBarFilter.SetActive(false);
@@ -630,10 +640,7 @@ public class TutorialManager : MonoBehaviour
         StageMissionRewardFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
-        while (!isMissionBoxRewardTouch)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => isMissionBoxRewardTouch);
 
         // UIProcessBar Touch
         StageMissionRewardFilter.SetActive(false);
@@ -644,9 +651,15 @@ public class TutorialManager : MonoBehaviour
 
         processBarFilter.SetActive(false);
         dialogueBoxGameObject.SetActive(false);
+        yield return new WaitUntil(() => StageMissionManager.Instance.stageProgress==100);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return new WaitForSeconds(1);
+        StageMissionManager.Instance.TriggerStageCleared();
+        CompleteCurrentTutorial();
     }
 
-
+    
     public void BusinessButtonTouch()
     {
         if(tutorialIndex == 4 || tutorialIndex == 1 || tutorialIndex == 5)
@@ -658,9 +671,10 @@ public class TutorialManager : MonoBehaviour
 
     public void BusinessMachineUnlock()
     {
-        if(tutorialIndex == 1)
+        if (tutorialIndex == 1)
         {
             isBusinessMachineBuyTouch = true;
+
         }
     }
 
@@ -677,6 +691,7 @@ public class TutorialManager : MonoBehaviour
         if (tutorialIndex == 4)
         {
             isMachineUpgradeTouch = true;
+
         }
     }
 
@@ -685,6 +700,7 @@ public class TutorialManager : MonoBehaviour
         if (tutorialIndex == 5)
         {
             isFoodUpgradeTouch = true;
+
         }
     }
 
@@ -712,7 +728,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    public void CompleteCurrentTutorial(int n)
+    public void CompleteCurrentTutorial()
     {
         isTutorialActive = false;
         TryStartNextTutorial();

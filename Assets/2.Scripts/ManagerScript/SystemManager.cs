@@ -38,7 +38,7 @@ public class SystemManager : MonoBehaviour
     
     private void Start()
     {
-        SetResolution();
+        //SetResolution();
         audioSource=GetComponent<AudioSource>();
     }
     public void PlaySFXByName(string sfxName)
@@ -55,27 +55,28 @@ public class SystemManager : MonoBehaviour
     public void PlayAnimationByName(Transform targetTransform, string animationName)
     {
         Sequence sequence = DOTween.Sequence();
-        switch(animationName){
+        switch (animationName)
+        {
             case "buttonRefuse":
-                // RectTransform 대상에 대한 흔들림 효과 적용 예시
-                sequence.Append(targetTransform.DOShakeRotation(0.5f, new Vector3(0f, 0f, 10f)));
+                sequence.Append(targetTransform.DOShakeRotation(0.5f, new Vector3(0f, 0f, 10f)))
+                        .OnComplete(() => targetTransform.rotation = Quaternion.identity); // 원래의 회전 값으로 복귀
                 Debug.Log("Button Refused");
                 break;
             case "buttonUpgrade":
                 sequence.Append(targetTransform.DOScale(1.1f, 0.1f))
-                .Append(targetTransform.DOScale(0.9f, 0.15f))
-                .Append(targetTransform.DOScale(1f, 0.1f));
+                        .Append(targetTransform.DOScale(0.9f, 0.15f))
+                        .Append(targetTransform.DOScale(1f, 0.1f));
                 break;
-            default://뭐가 없는 경우
+            default:
                 sequence.Append(targetTransform.DOScale(1.1f, 0.1f))
-                .Append(targetTransform.DOScale(0.9f, 0.15f))
-                .Append(targetTransform.DOScale(1f, 0.1f));
+                        .Append(targetTransform.DOScale(0.9f, 0.15f))
+                        .Append(targetTransform.DOScale(1f, 0.1f));
                 break;
-
         }
 
         sequence.Play(); // 애니메이션 시퀀스 재생
     }
+
     public void SetResolution()
     {
         int setWidth = 1920; 

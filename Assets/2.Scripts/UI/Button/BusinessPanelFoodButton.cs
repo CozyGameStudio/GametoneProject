@@ -8,7 +8,7 @@ public class BusinessPanelFoodButton : MonoBehaviour
     {
         if (BusinessGameManager.Instance.currentBusinessStage == 1)
         {
-            TutorialManager.Instance.BusinessPanelFood();
+            if (TutorialManager.Instance != null) TutorialManager.Instance.BusinessPanelFood();
         }
     }
 }
