@@ -5,11 +5,6 @@ using TMPro;
 public class InteriorSceneManager : MonoBehaviour
 {
     private static InteriorSceneManager instance;
-    public List<ScriptableInterior> interiorDatas;
-    //public List<ScriptableTheme> themeDatas;
-    public List<ScriptablePreset> presetDatas;
-
-    public List<Position> positionDatas;
 
     public int money = 0;
     public TMP_Text moneyText;

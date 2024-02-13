@@ -405,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1233991580060757314, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -121.20001
+      value: -121.19995
       objectReference: {fileID: 0}
     - target: {fileID: 1334416398805532252, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_IsActive
@@ -945,15 +945,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8522362805778827085, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_UiScaleMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8522362805778827085, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_ReferenceResolution.x
-      value: 1920
+      value: 2560
       objectReference: {fileID: 0}
     - target: {fileID: 8522362805778827085, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_ReferenceResolution.y
-      value: 1080
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 8582211979063415396, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_fontAsset
@@ -3138,7 +3138,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -14542,7 +14542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d774b95e9c2fab4faaf124ff643bcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodBubble: {fileID: 7690822106110848185}
+  foodBubbleSprite: {fileID: 0}
 --- !u!212 &2340740869440675776
 SpriteRenderer:
   m_ObjectHideFlags: 0

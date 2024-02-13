@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PresetManager : MonoBehaviour
 {
-    private static PresetManager instance;
+    /*private static PresetManager instance;
     private List<ScriptableInterior> interiorDatas;
     //public GameObject PresetPanel;
     public List<List<ScriptableInterior>> groupInteriors;
@@ -145,5 +145,5 @@ public class PresetManager : MonoBehaviour
                 position.gameObject.SetActive(false);
             }
         }
-    }
+    }*/
 }

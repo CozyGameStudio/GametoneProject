@@ -4,16 +4,43 @@ using UnityEngine;
 
 public class PresetPanel : MonoBehaviour
 {
-    public GameObject PresetPrefab;
+    public List<PresetButton> button;
+    public List<GameObject> PresetCommingSoonPrefab = new List<GameObject>();
     // Start is called before the first frame update
-    void Start()
+
+    public void SetData(List<Preset> presets)
     {
-        InitPanel();
+        for(int i = 0; i < 4; i++)
+        {
+            if(i < presets.Count)
+            {
+                if (button[i] != null)
+                {
+                    button[i].gameObject.SetActive(true);
+                    button[i].SetPresetData(presets[i]);
+                }
+                else
+                {
+                    Debug.Log("ButtonError");
+                }
+
+
+                PresetCommingSoonPrefab[i].gameObject.SetActive(false);
+                
+            }
+            else
+            {
+                button[i].gameObject.SetActive(false);
+                PresetCommingSoonPrefab[i].gameObject.SetActive(true);
+            }
+        }
     }
 
     public void InitPanel()
     {
-        PresetManager.Instance.GetPresetDatas();
+
+
+        /*PresetManager.Instance.GetPresetDatas();
         PresetManager.Instance.ClassifyPositionsByPreset();
         PresetManager.Instance.ClassifyInteriorsByPreset();
         for (int i = 0; i < PresetManager.Instance.presetDatas.Count; i++)
@@ -30,7 +57,7 @@ public class PresetPanel : MonoBehaviour
             {
                 Debug.LogError("Cannot find PresetBox");
             }
-        }
+        }*/
     }
 
     // Update is called once per frame

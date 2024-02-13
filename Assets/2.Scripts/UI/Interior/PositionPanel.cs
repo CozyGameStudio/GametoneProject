@@ -5,7 +5,33 @@ using UnityEngine;
 
 public class PositionPanel : MonoBehaviour
 {
-    public GameObject PositionPrefab;
+    public List<PositionButton> buttons;
+    
+    public void SetPosition(List<PositionData> positionDatas)
+    {
+        gameObject.SetActive(true);
+        for(int i = 0; i < buttons.Count; i++)
+        {
+            if( i < positionDatas.Count)
+            {
+                buttons[i].gameObject.SetActive(true);
+                buttons[i].SetData(positionDatas[i]);
+            }
+            else
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
+        if (buttons[0] != null)
+        {
+            buttons[0].OnPositionButtonClicked();
+        }
+    }
+
+
+
+
+    /*public GameObject PositionPrefab;
 
     private List<List<ScriptableInterior>> groupInteriors; 
     private List<GameObject> positionButtons;
@@ -54,5 +80,5 @@ public class PositionPanel : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }

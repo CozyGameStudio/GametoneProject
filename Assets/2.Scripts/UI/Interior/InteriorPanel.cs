@@ -5,7 +5,26 @@ using UnityEngine;
 
 public class InteriorPanel : MonoBehaviour
 {
-    public GameObject interiorPrefab;
+    public List<InteriorButton> buttons;
+
+    public void SetInterior(List<InteriorData> interiorDatas)
+    {
+        gameObject.SetActive(true);
+        for(int i = 0;  i < buttons.Count; i++)
+        {
+            if(i < interiorDatas.Count)
+            {
+                buttons[i].gameObject.SetActive(true);
+                buttons[i].SetData(interiorDatas[i]);
+            }
+            else
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    /*public GameObject interiorPrefab;
 
     private List<List<ScriptableInterior>> groupInteriors;
     private List<GameObject> InteriorButtons;
@@ -51,5 +70,5 @@ public class InteriorPanel : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }

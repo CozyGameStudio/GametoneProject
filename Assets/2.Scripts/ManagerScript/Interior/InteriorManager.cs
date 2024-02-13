@@ -6,12 +6,8 @@ using UnityEngine;
 public class InteriorManager : MonoBehaviour
 {
     private static InteriorManager instance;
-    private List<ScriptableInterior> interiorDatas;
-
-    public List<List<ScriptableInterior>> groupInteriors;
-    public List<ScriptableInterior> choicePositionInteriors;
-
-    public List<Position> positions;
+    public PresetPanel presetPanel;
+    public List<Preset> interiorDatas = new List<Preset>();
 
     public static InteriorManager Instance
     {
@@ -33,48 +29,24 @@ public class InteriorManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        SetPreset();
     }
 
-    public void GetPositionDatas()
+    public void SetPreset()
     {
-        positions = PresetManager.Instance.choicePresetPositions;
-        Debug.Log(positions.Count);
+        presetPanel.SetData(interiorDatas);
     }
 
-    public void ClassifyInteriorsByPosition()
+    public void SetData()
     {
-        interiorDatas = PresetManager.Instance.choicePresetInteriors;
-        if (!interiorDatas.Any())
-        {
-            Debug.LogError("choicePresetInteriorDatas is Empty");
-            return;
-        }
-        groupInteriors = new List<List<ScriptableInterior>>();
-        var map = new Dictionary<int, List<ScriptableInterior>>();
 
-        foreach(var interior in interiorDatas)
-        {
-            int position  = interior.position;
-
-            if (!map.ContainsKey(position))
-            {
-                map[position] = new List<ScriptableInterior>();
-            }
-
-            map[position].Add(interior);
-        }
-
-        groupInteriors = map.Values.ToList();
-        Debug.Log(groupInteriors.Count);
     }
 
-    // Update is called once per frame
-    void Update()
+    public List<ScriptableInterior> GetData() 
     {
-        
-    }
+        List<ScriptableInterior> list = new List<ScriptableInterior>();
+        return list;
+    } 
 }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Position : MonoBehaviour
 {
-    public ScriptablePosition position;
+    public PositionData position;
 }

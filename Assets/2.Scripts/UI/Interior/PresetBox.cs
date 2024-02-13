@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
+public class PresetBox : MonoBehaviour//, IBox<ScriptablePreset>
 {
-    ScriptablePreset presets;
+    /*ScriptablePreset presets;
     public Image presetImage;
     public int presetMoney;
     public TMP_Text presetNumberText;
@@ -121,5 +121,5 @@ public class PresetBox : MonoBehaviour, IBox<ScriptablePreset>
     void Update()
     {
         
-    }
+    }*/
 }
