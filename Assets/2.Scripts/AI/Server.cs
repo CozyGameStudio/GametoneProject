@@ -42,7 +42,6 @@ public class Server : MonoBehaviour
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         initSpeed=speed;
         animator=GetComponent<Animator>();
-        fsm.Driver.Start.Invoke();
     }
 
     void Update()
@@ -51,12 +50,21 @@ public class Server : MonoBehaviour
         Vector3 currentVelocity = agent.velocity;
         SetAnimation(currentVelocity);
     }
-    private void OnEnable() {
-        SetAvailable();    
-    }
-    private void OnDisable()
+    void OnEnable()
     {
+        DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
+        SetAvailable();
+    }
+    void OnDisable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate -= FeverTime;
         IsAvailable = false;
+    }
+    private void FeverTime(bool isActivated)
+    {
+        speed = isActivated ? speed *= 2 : speed *= .5f;
+        if (animator != null) animator.speed = isActivated ? 2 : 1;
+        agent.speed = speed;
     }
     public void HandleNewServeTask(Transform child)
     {

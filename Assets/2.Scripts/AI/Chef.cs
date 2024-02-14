@@ -41,6 +41,22 @@ public class Chef : MonoBehaviour
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
     private Animator animator;
+    void OnEnable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
+        SetAvailable();
+    }
+    void OnDisable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate -= FeverTime;
+        IsAvailable = false;
+    }
+    private void FeverTime(bool isActivated)
+    {
+        speed = isActivated ? speed *= 2 : speed *= .5f;
+        if(animator!=null)animator.speed=isActivated?2:1;
+        agent.speed=speed;
+    }
     void Awake()
     {
         fsm=new StateMachine<States, StateDriverUnity>(this);
@@ -83,12 +99,7 @@ public class Chef : MonoBehaviour
         else
             animator.SetFloat("YVelocity", 0);
     }
-    void OnEnable(){
-        SetAvailable();
-    }
-    void OnDisable(){
-        IsAvailable = false;
-    }
+
     void Update()
     {
         fsm.Driver.Update.Invoke();
@@ -132,7 +143,8 @@ public class Chef : MonoBehaviour
     }
     void Cook_Enter(){
         Food foodToMake = currentMenu.foodData;
-        StartCoroutine(cookCoroutine(foodToMake, nowUsingMachine.currentCookTime));
+        float cookTime= OrderManager.Instance.isRewardActivated? nowUsingMachine.currentCookTime * 0.5f : nowUsingMachine.currentCookTime;
+        StartCoroutine(cookCoroutine(foodToMake, cookTime));
     }
     IEnumerator cookCoroutine(Food foodToMake, float cookTime){
         isCooking=true;
@@ -206,4 +218,5 @@ public class Chef : MonoBehaviour
         speed=initSpeed* speedMultiplier;
         agent.speed = speed;
     }
+    
 }

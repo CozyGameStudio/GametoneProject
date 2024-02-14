@@ -45,5 +45,4 @@ public class AdditionalMachine : MonoBehaviour,IMachineInterface
         SaveData<IMachineInterface> machineData = new SaveData<IMachineInterface>(this.referencedMachine.name, currentLevel, isUnlocked);
         return machineData;
     }
-    
 }

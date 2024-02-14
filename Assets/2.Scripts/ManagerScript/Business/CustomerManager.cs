@@ -13,7 +13,12 @@ public class CustomerManager : MonoBehaviour,IBusinessManagerInterface
     public CustomerSpawner customerSpawner;
     [HideInInspector]
     public int currentEnabledTable=1;
-    
+    public bool isRewardActivated { get; private set; }
+
+    public delegate void RewardTimeCheckDelegate(float timeLeft);
+    public event RewardTimeCheckDelegate OnRewardTimeCheckDelegate;
+    public bool isSpeedRewardActivated{get;private set;} = false;
+
     public static CustomerManager Instance
     {
         get
@@ -24,6 +29,18 @@ public class CustomerManager : MonoBehaviour,IBusinessManagerInterface
             }
             return instance;
         }
+    }
+    void OnEnable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
+    }
+    void OnDisable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate -= FeverTime;
+    }
+    private void FeverTime(bool isActivated)
+    {
+        isSpeedRewardActivated = isActivated;
     }
     public void AddOneTable(){
         foreach (var table in customerTable)
@@ -54,6 +71,19 @@ public class CustomerManager : MonoBehaviour,IBusinessManagerInterface
     // Determine if the guest chairs are fully occupied
     public bool IsCustomerFull() {
         return customerChairPresent.All(p => p);
+    }
+    public IEnumerator SetIsRewardActivated(float time)
+    {
+        isRewardActivated = true;
+        float timeLeft = time;
+        while (timeLeft > 0)
+        {
+            OnRewardTimeCheckDelegate?.Invoke(timeLeft);
+            yield return new WaitForSeconds(1f);
+            timeLeft -= 1f;
+        }
+        OnRewardTimeCheckDelegate?.Invoke(0);
+        isRewardActivated = false;
     }
     public void SetData(BusinessData data){
         currentEnabledTable=data.enabledTables;
