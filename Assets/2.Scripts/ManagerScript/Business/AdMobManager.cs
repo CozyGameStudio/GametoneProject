@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using PimDeWitte.UnityMainThreadDispatcher;
 [Serializable]
 public enum RewardType
 {
@@ -129,26 +130,26 @@ public class AdMobManager : MonoBehaviour
                     //2차적으로 이미 활성화 되어있을때는 제공하지 않음
                         if(OrderManager.Instance!=null&& !OrderManager.Instance.isRewardActivated)
                         {
-                            StartCoroutine(OrderManager.Instance.SetIsRewardActivated(rewardMaintainTime));
-                            StartCoroutine(DecreaseAdCount(currentRewardType));
+                            UnityMainThreadDispatcher.Instance().Enqueue(OrderManager.Instance.SetIsRewardActivated(rewardMaintainTime));
+                            UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         }
                         break;
                     case RewardType.Profit:
                         if (CustomerManager.Instance != null && !CustomerManager.Instance.isRewardActivated)
                         {
-                            StartCoroutine(CustomerManager.Instance.SetIsRewardActivated(rewardMaintainTime));
-                            StartCoroutine(DecreaseAdCount(currentRewardType));
+                            UnityMainThreadDispatcher.Instance().Enqueue(CustomerManager.Instance.SetIsRewardActivated(rewardMaintainTime));
+                            UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         }
                         break;
                     case RewardType.Speed:
                         if (DataManager.Instance != null && !DataManager.Instance.isRewardActivated)
                         {
-                            StartCoroutine(DataManager.Instance.SetIsRewardActivated(rewardMaintainTime));
-                            StartCoroutine(DecreaseAdCount(currentRewardType));
+                            UnityMainThreadDispatcher.Instance().Enqueue(DataManager.Instance.SetIsRewardActivated(rewardMaintainTime));
+                            UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         }
                         break;
                     case RewardType.Offline:
-                        if(BusinessGameManager.Instance!=null)BusinessGameManager.Instance.AddMoney(tmpEarning);
+                        if (BusinessGameManager.Instance!=null)BusinessGameManager.Instance.AddMoney(tmpEarning);
                         //사실상 오프라인 보상에 대해서는 Count 적용 X
                         break;
                     default:
