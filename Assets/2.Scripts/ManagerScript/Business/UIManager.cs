@@ -5,8 +5,17 @@ using UnityEngine.UI;
 using TMPro;
 using AssetKits.ParticleImage;
 using DG.Tweening;
+using System;
 public class UIManager : MonoBehaviour
 {
+    public TMP_Text moneyText;
+    public TMP_Text diaText;
+    public TMP_Text moneyMultiplierText;
+    public TMP_Text currentStageText;
+    public Slider slider;
+    public ParticleImage coinAttraction;
+    
+    public OfflineRewardUI offlineRewardUI;
     private static UIManager instance;
     public static UIManager Instance
     {
@@ -30,19 +39,16 @@ public class UIManager : MonoBehaviour
         }
     }
     private void Start(){
-        //StageMissionManager.Instance.OnStageCleared+=PlayCutScene;
+        
     }
+
+
     public void SetData(){
         UpdateCurrentStageText();
         UpdateMoneyUI();
         UpdateProgress();
     }
-    public TMP_Text moneyText;
-    public TMP_Text diaText;
-    public TMP_Text moneyMultiplierText;
-    public TMP_Text currentStageText;
-    public Slider slider;
-    public ParticleImage coinAttraction;
+    
     public void UpdateProgress()
     {
        slider.value=StageMissionManager.Instance.stageProgress;
@@ -61,6 +67,7 @@ public class UIManager : MonoBehaviour
     public void UpdateCurrentStageText(){
         currentStageText.text=BusinessGameManager.Instance.currentBusinessStage.ToString();
     }
+    
     public void TriggerObj(GameObject obj)
     {
         obj.SetActive(!obj.activeInHierarchy);

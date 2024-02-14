@@ -15,6 +15,15 @@ public class DataManager : MonoBehaviour
     public List<Character> activeCharacters { get; private set; } = new List<Character>();
 
     public List<IBusinessManagerInterface> managerInterfaces;
+
+    //피버타임 보상 체크를 위한 이벤트 델리게이트
+    public delegate void RewardTimeCheckDelegate(float timeLeft);
+    public event RewardTimeCheckDelegate OnRewardTimeCheckDelegate;
+    public delegate void RewardActivatedDelegate(bool isActivated);
+    public event RewardActivatedDelegate OnRewardActivatedDelegate;
+    public bool isRewardActivated { get; private set; }
+    public bool isSpeedRewardActivated{get;private set;}
+    private int offlineEarningCost=10;
     //public List<Character> characters;
 
     public static DataManager Instance
@@ -79,6 +88,7 @@ public class DataManager : MonoBehaviour
         addActiveFoods();
         addActiveMachines();
         UIManager.Instance.SetData();
+        CalculateOfflineEarnings(systemData);
     }
     void LoadObjects()
     {
@@ -213,5 +223,62 @@ public class DataManager : MonoBehaviour
         }
         return BusinessData;
     }
-    
+    private void CalculateOfflineEarnings(SystemData loadedData)
+    {
+        if (!string.IsNullOrEmpty(loadedData.lastTimeStamp))
+        {
+            DateTime lastExitTime = DateTime.Parse(loadedData.lastTimeStamp, null, System.Globalization.DateTimeStyles.RoundtripKind);
+            TimeSpan offlineDuration = DateTime.UtcNow - lastExitTime;
+            Debug.Log(offlineDuration);
+            int earnings=CalculateEarnings(offlineDuration);
+            if(!earnings.Equals(0)){
+                Debug.Log($"[DataManager] calculate Earning{earnings}");
+                OfflineRewardUI offlineRewardUI = null;
+                if (UIManager.Instance != null)
+                {
+                    offlineRewardUI = UIManager.Instance.offlineRewardUI;
+                }
+                if (offlineRewardUI != null)
+                {
+                    Debug.Log($"[DataManager] {offlineRewardUI}");
+                    offlineRewardUI.SetEarnings(earnings);
+                    StartCoroutine(offlineRewardUI.EnterAnimation());
+                }
+            }
+        }
+    }
+    private int CalculateEarnings(TimeSpan offlineDuration)
+    {
+        int earnings=0;
+        double totalTenMinuteBlocks = Math.Floor(offlineDuration.TotalMinutes / 10);
+
+        if (totalTenMinuteBlocks >= 1 && totalTenMinuteBlocks <= 36) // 최대 6시간==36개의 10분 블록
+        {
+            earnings = (int)(totalTenMinuteBlocks * offlineEarningCost);
+        }
+        else if (totalTenMinuteBlocks > 36)
+        {
+            int maxBlocks = 36; // 최대 6시간에 해당하는 10분 블록
+            earnings = maxBlocks * offlineEarningCost;
+        }
+
+        return earnings;
+    }
+    public IEnumerator SetIsRewardActivated(float time)
+    {
+        isRewardActivated = true;
+        float timeLeft = time;
+        isSpeedRewardActivated=true;
+        OnRewardActivatedDelegate?.Invoke(true);
+        while (timeLeft > 0)
+        {
+            OnRewardTimeCheckDelegate?.Invoke(timeLeft);
+            yield return new WaitForSeconds(1f);
+            timeLeft -= 1f;
+        }
+        OnRewardTimeCheckDelegate?.Invoke(0);
+        OnRewardActivatedDelegate?.Invoke(false);
+        isSpeedRewardActivated=false;
+        isRewardActivated = false;
+    }
 }

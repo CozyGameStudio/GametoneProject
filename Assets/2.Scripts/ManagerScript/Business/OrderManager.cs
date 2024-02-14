@@ -17,9 +17,10 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
     public List<Chef> chefs{get;private set;}
     private List<IMachineInterface> machines;
     public float speedMultiplier = 1.0f; // 기본 속도 계수
-
+    public bool isRewardActivated { get; private set; }
     public bool isOrderedForTutorial = false;
-
+    public delegate void RewardTimeCheckDelegate(float timeLeft);
+    public event RewardTimeCheckDelegate OnRewardTimeCheckDelegate;
     public static OrderManager Instance
     {
         get
@@ -133,6 +134,20 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
         yield return new WaitForSeconds(time);
 
         orderInBubble.SetActive(false);
+    }
+   
+    public IEnumerator SetIsRewardActivated(float time)
+    {
+        isRewardActivated = true;
+        float timeLeft = time;
+        while (timeLeft > 0)
+        {
+            OnRewardTimeCheckDelegate?.Invoke(timeLeft); 
+            yield return new WaitForSeconds(1f);
+            timeLeft -= 1f; 
+        }
+        OnRewardTimeCheckDelegate?.Invoke(0); 
+        isRewardActivated = false;
     }
     public void SetData(BusinessData data){
         speedMultiplier=data.chefSpeedMultiplier;

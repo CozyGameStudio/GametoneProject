@@ -22,7 +22,7 @@ public class Customer : MonoBehaviour
     StateMachine<States, StateDriverUnity> fsm;
     public Transform foodHolder;
     [Header("Character")]
-    public float speed = 5f;
+    public float speed = 1.5f;
     public NavMeshAgent agent;
     public SpriteRenderer likeParticle;
 
@@ -33,10 +33,23 @@ public class Customer : MonoBehaviour
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
-    private float initSpeed;
+    private float initSpeed=1.5f;
     private Animator animator;
     private GameObject foodToHold;
-    
+    void OnEnable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
+    }
+    void OnDisable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate -= FeverTime;
+    }
+    private void FeverTime(bool isActivated)
+    {
+        speed = isActivated ? initSpeed * 2 : initSpeed;
+        if(animator!=null)animator.speed=isActivated? 2:1;
+        agent.speed = speed;
+    }
     private void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
@@ -50,21 +63,12 @@ public class Customer : MonoBehaviour
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         likeParticle.color=new Color(likeParticle.color.r, likeParticle.color.g, likeParticle.color.b,0);
+        if (DataManager.Instance != null) FeverTime(DataManager.Instance.isSpeedRewardActivated);
     }
     private void Update()
     {
         fsm.Driver.Update.Invoke();
         SetAnimation(agent.velocity);
-    }
-    public void MultSpeed(float mult)
-    {
-        speed *= mult;
-        agent.speed = speed;
-    }
-    public void BackToNormalSpeed()
-    {
-        speed = initSpeed;
-        agent.speed = speed;
     }
     public void SetAnimation(Vector3 currentVelocity)
     {
@@ -108,10 +112,11 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            BusinessGameManager.Instance.AddMoney(orderFood.currentValue);
+            int payMoney=CustomerManager.Instance.isRewardActivated? orderFood.currentValue*2 : orderFood.currentValue;
+            BusinessGameManager.Instance.AddMoney(payMoney);
             StageMissionManager.Instance.IncreaseAccumulatedCustomer();
-            StageMissionManager.Instance.IncreaseAccumulatedSales(orderFood.currentValue);
-            Debug.Log(orderFood.currentValue);
+            StageMissionManager.Instance.IncreaseAccumulatedSales(payMoney);
+            Debug.Log(payMoney);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
@@ -188,5 +193,4 @@ public class Customer : MonoBehaviour
         receiveOrder = true;
        
     }
-
 }

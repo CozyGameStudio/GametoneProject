@@ -108,7 +108,7 @@ public class MissionBox : MonoBehaviour
         {
             if(OrderManager.Instance!=null)
             {
-                OrderManager.Instance.speedMultiplier*=2;
+                OrderManager.Instance.speedMultiplier*=1.4f;
                 chef.SetSpeed(OrderManager.Instance.speedMultiplier);
             }
         }
@@ -116,7 +116,7 @@ public class MissionBox : MonoBehaviour
         {
             if (ServerManager.Instance != null)
             {
-                ServerManager.Instance.speedMultiplier *= 2;
+                ServerManager.Instance.speedMultiplier *= 1.4f;
                 server.SetSpeed(ServerManager.Instance.speedMultiplier);
             }
         }

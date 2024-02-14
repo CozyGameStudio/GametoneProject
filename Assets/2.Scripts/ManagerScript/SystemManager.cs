@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -14,7 +15,7 @@ public class SystemManager : MonoBehaviour
     private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
     private bool isBGMOn=true;
     private AudioSource audioSource;
-    
+    public string lastTimeStamp;
     void Awake(){
         if (Instance == null)
         {
@@ -107,9 +108,11 @@ public class SystemManager : MonoBehaviour
         Debug.Log("Audio set");
     }
     public void SetData(SystemData systemData){
-        
+        isBGMOn=systemData.systemSettingData.isBGMOn;
     }
-    public void AddDataToSystemData(SystemData systemData){
-
+    public SystemSettingData GetData(){
+        SystemSettingData systemSettingData=new SystemSettingData(isBGMOn);
+        return systemSettingData;
     }
+    
 }

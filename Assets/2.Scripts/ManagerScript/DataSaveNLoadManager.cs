@@ -4,13 +4,20 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
+using System.Linq;
 [Serializable]
 public class SystemData{
     public BusinessData businessData;
     public List<CollectionData> collectionDatas;
+    public AdData adData;
+    public SystemSettingData systemSettingData;
+    public string lastTimeStamp;
     public SystemData(){
         businessData=new BusinessData();
         collectionDatas=new List<CollectionData>();
+        adData=new AdData();
+        systemSettingData=new SystemSettingData();
+        lastTimeStamp="";
     }
 }
 [Serializable]
@@ -42,6 +49,53 @@ public class BusinessData
         currentMachines = new List<SaveData<IMachineInterface>>();
         currentCharacters = new List<SaveData<Character>>();
         currentMissions = new List<MissionData>();
+    }
+}
+[Serializable]
+public class AdData{
+    public List<RewardTypeCount> adsCountList = new List<RewardTypeCount>();
+    public string lastAdsDate;
+    [Serializable]
+    public struct RewardTypeCount
+    {
+        public RewardType rewardType;
+        public int count;
+
+        public RewardTypeCount(RewardType rewardType, int count)
+        {
+            this.rewardType = rewardType;
+            this.count = count;
+        }
+    }
+
+    // Dictionary를 AdData 객체로 변환하는 편의 메서드
+    public static AdData FromDictionary(Dictionary<RewardType, int> dic, string lastData)
+    {
+        AdData adData = new AdData { lastAdsDate = lastData };
+        foreach (var pair in dic)
+        {
+            adData.adsCountList.Add(new RewardTypeCount(pair.Key, pair.Value));
+        }
+        return adData;
+    }
+
+    // AdData에서 Dictionary를 추출하는 편의 메서드
+    public Dictionary<RewardType, int> ToDictionary()
+    {
+        return adsCountList.ToDictionary(item => item.rewardType, item => item.count);
+    }
+}
+[Serializable]
+public class SystemSettingData
+{
+    public bool isBGMOn;
+    
+    public SystemSettingData(){
+        isBGMOn=true;
+    }
+    public SystemSettingData(bool isOn)
+    {
+        isBGMOn = isOn;
     }
 }
 [Serializable]
@@ -98,6 +152,11 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         {
             if(DataManager.Instance!=null) DataManager.Instance.DataInitSetting(loadedData);
             if(CollectionManager.Instance!=null) CollectionManager.Instance.SetData(loadedData);
+            if(AdMobManager.Instance!=null)AdMobManager.Instance.SetData(loadedData);
+        }
+        if (SystemManager.Instance != null)
+        {
+            loadedData.systemSettingData = SystemManager.Instance.GetData();
         }
     }
     private void Start(){
@@ -187,8 +246,20 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             loadedData.collectionDatas=CollectionManager.Instance.GetData();
             Debug.Log("collection added to Data");
         }
+        if(SystemManager.Instance!=null){
+            loadedData.systemSettingData=SystemManager.Instance.GetData();
+        }
+        if (AdMobManager.Instance != null)
+        {
+            loadedData.adData = AdMobManager.Instance.GetData();
+            Debug.Log("AdData added to Data");
+        }
         SaveSystemData(loadedData);
-
+    }
+    private void SaveLastExitTime()
+    {
+        loadedData.lastTimeStamp = DateTime.UtcNow.ToString("o"); // ISO 8601 형식으로 저장
+        SaveSystemData(loadedData);
     }
     public void ResetData()
     {
@@ -196,9 +267,13 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         LoadingSceneManager.LoadScene("Title");
     }
 
-    private void OnApplicationPause()
+    private void OnApplicationPause(bool pause)
     {
-        SaveGameObjectsByCase();
+        if(pause){
+            SaveGameObjectsByCase();
+            SaveLastExitTime();
+        }
+        
     }
     private void OnApplicationQuit() {
         SaveGameObjectsByCase();
