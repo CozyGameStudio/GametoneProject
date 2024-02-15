@@ -134,6 +134,30 @@ public class SaveData<T>
         isUnlocked = unlock;
     }
 }
+[Serializable]
+public class InteriorSData
+{
+    public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
+    public int currentStageMoney; //무료재화 정보
+    public int currentDia; //유료재화 정보
+    public int currentComfort;
+    public int currentComfortLv;
+    public List<PresetData> preestData;
+}
+
+public class PresetData 
+{
+    public string name;
+    public Dictionary<int, bool> isUnlock;
+    public PresetData(string nam,  Dictionary<int, bool> loc)
+    {
+        name= nam;
+        isUnlock = loc;
+    }
+
+}
+
+
 
 public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
@@ -158,6 +182,10 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         if (SystemManager.Instance != null)
         {
             loadedData.systemSettingData = SystemManager.Instance.GetData();
+        }
+        if (scene.name.Contains("Interior"))
+        {
+            InteriorManager.Instance?.SetData(loadedData);
         }
     }
     private void Start(){

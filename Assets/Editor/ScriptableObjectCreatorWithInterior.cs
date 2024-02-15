@@ -31,7 +31,7 @@ public class ScriptableObjectCreatorWithInterior
                 AssetDatabase.CreateAsset(dataObject,assetPath);
             }
 
-            dataObject.index = interior.index;
+            /*dataObject.index = interior.index;
             dataObject.interiorName = interior.interirorName;
             dataObject.interiorNameInKorean = interior.interiorNameInKorean;
             dataObject.stageToUse = interior.stageToUse;
@@ -39,7 +39,7 @@ public class ScriptableObjectCreatorWithInterior
             dataObject.position = interior.position;
 
             EditorUtility.SetDirty( dataObject );
-            interiorDataList.AddInterior(dataObject);
+            interiorDataList.AddInterior(dataObject);*/
         }
 
 #if UNITY_EDITOR

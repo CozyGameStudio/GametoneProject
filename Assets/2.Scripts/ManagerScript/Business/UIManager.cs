@@ -70,6 +70,10 @@ public class UIManager : MonoBehaviour
     {
         diaText.text = BusinessGameManager.Instance.dia.ToString();
     }
+    public void UpdataComfortUI()
+    {
+        comfortText.text = InteriorSceneManager.Instance.comfort.ToString();
+    }
     public void UpdateMoneyMultiplierUI()
     {
         moneyMultiplierText.text = BusinessGameManager.Instance.moneyMultiplier.ToString();

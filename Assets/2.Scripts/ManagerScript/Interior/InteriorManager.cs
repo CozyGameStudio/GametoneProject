@@ -3,15 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public class PositionObject 
+{
+    public SpriteRenderer positionSprites;
+    public int Comfort;
+    public bool isPosition;
+}
+
+
+[System.Serializable]
+public class PositionList
+{
+    public List<PositionObject> list = new List<PositionObject>();
+    public bool isPreset;
+}
+
 public class InteriorManager : MonoBehaviour
 {
     private static InteriorManager instance;
-    private List<ScriptableInterior> interiorDatas;
+    public PresetPanel presetPanel;
+    public List<Preset> interiorDatas = new List<Preset>();
 
-    public List<List<ScriptableInterior>> groupInteriors;
-    public List<ScriptableInterior> choicePositionInteriors;
-
-    public List<Position> positions;
+    public int ToTalComfort;
+    
+    public List<PositionList> interiorPositionObjects = new List<PositionList>();
 
     public static InteriorManager Instance
     {
@@ -33,48 +49,75 @@ public class InteriorManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        SetPreset();
+        ComfortUpdate();
     }
 
-    public void GetPositionDatas()
+    public void SetPreset()
     {
-        positions = PresetManager.Instance.choicePresetPositions;
-        Debug.Log(positions.Count);
+        presetPanel.SetData(interiorDatas);
     }
 
-    public void ClassifyInteriorsByPosition()
+    public void ComfortUpdate()
     {
-        interiorDatas = PresetManager.Instance.choicePresetInteriors;
-        if (!interiorDatas.Any())
-        {
-            Debug.LogError("choicePresetInteriorDatas is Empty");
-            return;
-        }
-        groupInteriors = new List<List<ScriptableInterior>>();
-        var map = new Dictionary<int, List<ScriptableInterior>>();
+        ToTalComfort = 0;
+        PositionList list = new PositionList();
 
-        foreach(var interior in interiorDatas)
+        foreach(var posObj in interiorPositionObjects)
         {
-            int position  = interior.position;
-
-            if (!map.ContainsKey(position))
+            if(posObj != null)
             {
-                map[position] = new List<ScriptableInterior>();
+                if(posObj.isPreset == true)
+                {
+                    list = posObj;
+                }
             }
-
-            map[position].Add(interior);
+            else
+            {
+                Debug.LogError("Not found interiorPositionObjects");
+            }
         }
-
-        groupInteriors = map.Values.ToList();
-        Debug.Log(groupInteriors.Count);
+        if(list == null)
+        {
+            Debug.Log("is not choice Preset");
+        }
+        else
+        {
+            foreach(var posObj in list.list)
+            {
+                if(posObj != null)
+                {
+                    if(posObj.isPosition == true)
+                    {
+                        ToTalComfort += posObj.Comfort;
+                    }
+                }
+            }
+        }
+        InteriorSceneManager.Instance.ComfortUpdate(ToTalComfort);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetData(SystemData systemData)
     {
-        
+        foreach(var preset in interiorDatas)
+        {
+            var presetData = systemData.interiorData.preestData.Find(data => data.name.Equals(preset.interiorData.presetName));
+            if(presetData != null)
+            {
+                preset.SetData(presetData);
+            }
+        }
     }
+    public List<PresetData> GetData()
+    {
+        List<PresetData> list = new List<PresetData>();
+        foreach(var preset in interiorDatas)
+        {
+            list.Add(preset.GetData());
+        }
+        return list;
+    }
+   
 }

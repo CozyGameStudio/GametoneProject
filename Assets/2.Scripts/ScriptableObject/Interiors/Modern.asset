@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b589db252d49c7d48922e980721df48d, type: 3}
+  m_Name: Modern
+  m_EditorClassIdentifier: 
+  presetName: Modern
+  presetNameInKorean: "\uBAA8\uB358"
+  stageToUse: 3
+  positionDataList:
+  - positionNumber: 1
+    InteriorDataList:
+    - index: 2
+      interiorName: ModernDesk1
+      interiorNameInKorean: "\uBAA8\uB358\uC11C\uB78D1"
+      positionNumber: 1
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: b1bf7e2656a99ed4ba09c5dbe782b6e3, type: 3}
+    - index: 3
+      interiorName: ModernDesk2
+      interiorNameInKorean: "\uBAA8\uB358\uC11C\uB78D2"
+      positionNumber: 1
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 8d268b256a83b5b43ac449149643d0a9, type: 3}
+    - index: 4
+      interiorName: ModernDesk3
+      interiorNameInKorean: "\uBAA8\uB358\uC11C\uB78D3"
+      positionNumber: 1
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 7a47304abfa43744399de30596ca035d, type: 3}
+  - positionNumber: 2
+    InteriorDataList:
+    - index: 5
+      interiorName: modernCarpet1
+      interiorNameInKorean: "\uBAA8\uB358\uCE74\uD398\uD2B81"
+      positionNumber: 2
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: dbba23a6bff742c46a772cbddb00133b, type: 3}
+    - index: 6
+      interiorName: modernCarpet2
+      interiorNameInKorean: "\uBAA8\uB358\uCE74\uD398\uD2B82"
+      positionNumber: 2
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 51d37682aef32194d8f0233a3fe68dd8, type: 3}
+    - index: 7
+      interiorName: modernCarpet3
+      interiorNameInKorean: "\uBAA8\uB358\uCE74\uD398\uD2B83"
+      positionNumber: 2
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: c2383ea732277314c8109438343ea51e, type: 3}
+  - positionNumber: 3
+    InteriorDataList:
+    - index: 8
+      interiorName: ModernSofa1
+      interiorNameInKorean: "\uBAA8\uB358\uC18C\uD30C1"
+      positionNumber: 3
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 0b9720552cd858040b13b3670cbf72ae, type: 3}
+    - index: 9
+      interiorName: ModernSofa2
+      interiorNameInKorean: "\uBAA8\uB358\uC18C\uD30C2"
+      positionNumber: 3
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: e867fc8070f81784d9ca52c06b17e110, type: 3}
+    - index: 10
+      interiorName: ModernSofa3
+      interiorNameInKorean: "\uBAA8\uB358\uC18C\uD30C3"
+      positionNumber: 3
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 713d0a11f82c6ef40be884c9a997b480, type: 3}
+  - positionNumber: 4
+    InteriorDataList:
+    - index: 11
+      interiorName: ModernLight1
+      interiorNameInKorean: "\uBAA8\uB358\uC870\uBA851"
+      positionNumber: 4
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: ff1c83066299da2469e1470caabce26f, type: 3}
+    - index: 12
+      interiorName: ModernLight2
+      interiorNameInKorean: "\uBAA8\uB358\uC870\uBA852"
+      positionNumber: 4
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 5606c9c27b94b5c48b294506b4aac76a, type: 3}
+    - index: 13
+      interiorName: ModernLight3
+      interiorNameInKorean: "\uBAA8\uB358\uC870\uBA853"
+      positionNumber: 4
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 21300000, guid: 4591d474e3301404d98126d77d7afb09, type: 3}
+  presetExampleImage: {fileID: 21300000, guid: fea39a6139dac2d49b3385a01eb9b501, type: 3}
+  presetInGameImage: {fileID: 21300000, guid: 20a3bbbd5008dae4d9f0c0296709e721, type: 3}

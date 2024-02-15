@@ -5,51 +5,22 @@ using UnityEngine;
 
 public class InteriorPanel : MonoBehaviour
 {
-    public GameObject interiorPrefab;
+    public List<InteriorButton> buttons;
 
-    private List<List<ScriptableInterior>> groupInteriors;
-    private List<GameObject> InteriorButtons;
-    // Start is called before the first frame update
-    void Start()
+    public void SetInterior(List<InteriorData> interiorDatas, Preset Preset, PositionObject positionObj)
     {
-        InteriorButtons = new List<GameObject>();
-        InitPanel(1);
-    }
-
-    public void InitPanel(int num)
-    {
-        InteriorManager.Instance.GetPositionDatas();
-        InteriorManager.Instance.ClassifyInteriorsByPosition();
-        groupInteriors = InteriorManager.Instance.groupInteriors;
-
-        if (InteriorButtons.Any())
+        gameObject.SetActive(true);
+        for(int i = 0;  i < buttons.Count; i++)
         {
-            foreach(GameObject go in InteriorButtons)
+            if(i < interiorDatas.Count)
             {
-                Destroy(go);
-            }
-        }
-
-        for(int i = 0; i < groupInteriors[num-1].Count; i++)
-        {
-            GameObject imageObj = Instantiate(interiorPrefab);
-            imageObj.transform.SetParent(transform, false);
-            InteriorButtons.Add(imageObj);
-            InteriorBox interiorBox = imageObj.GetComponent<InteriorBox>();
-            if(interiorBox != null)
-            {
-                interiorBox.InitBox(groupInteriors[num-1][i]);
+                buttons[i].gameObject.SetActive(true);
+                buttons[i].SetData(interiorDatas[i], Preset, positionObj);
             }
             else
             {
-                Debug.LogError("Cannot find interiorBox");
+                buttons[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

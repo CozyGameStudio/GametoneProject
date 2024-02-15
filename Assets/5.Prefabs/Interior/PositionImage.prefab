@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f63b9ec43983248b041f4307de2f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionText: {fileID: 4253864553596496101}
+  positionNumber: {fileID: 4253864553596496101}
 --- !u!114 &-8863306405833383834
 MonoBehaviour:
   m_ObjectHideFlags: 0

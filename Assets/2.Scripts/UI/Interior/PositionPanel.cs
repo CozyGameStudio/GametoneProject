@@ -5,54 +5,28 @@ using UnityEngine;
 
 public class PositionPanel : MonoBehaviour
 {
-    public GameObject PositionPrefab;
+    public List<PositionButton> buttons;
 
-    private List<List<ScriptableInterior>> groupInteriors; 
-    private List<GameObject> positionButtons;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetPosition(Preset preset, PositionList positions)
     {
-        positionButtons = new List<GameObject>();
-        InitPanel();
-    }
-
-    public void InitPanel()
-    {
-        InteriorManager.Instance.GetPositionDatas();
-        InteriorManager.Instance.ClassifyInteriorsByPosition();
-        
-        groupInteriors = InteriorManager.Instance.groupInteriors;
-
-        if (positionButtons.Any())
+        gameObject.SetActive(true);
+        for(int i = 0; i < buttons.Count; i++)
         {
-            foreach (GameObject go in positionButtons)
+            if( i < preset.interiorData.positionDataList.Count)
             {
-                Destroy(go);
-            }
-        }
-
-        for (int i = 0; i < groupInteriors.Count; i++)
-        {
-            GameObject imageObj = Instantiate(PositionPrefab);
-            imageObj.transform.SetParent(transform, false);
-            positionButtons.Add(imageObj);
-            PositionBox positionBox = imageObj.GetComponent<PositionBox>();
-            if(positionBox != null)
-            {
-                positionBox.InitBox(groupInteriors[i][0]);
+                buttons[i].gameObject.SetActive(true);
+                buttons[i].SetData(preset.interiorData.positionDataList[i], preset, positions.list[i]);
             }
             else
             {
-                Debug.LogError("Cannot find positionBox");
+                buttons[i].gameObject.SetActive(false);
             }
-
+        }
+        if (buttons[0] != null)
+        {
+            buttons[0].OnPositionButtonClicked();
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

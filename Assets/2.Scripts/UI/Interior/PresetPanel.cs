@@ -4,38 +4,59 @@ using UnityEngine;
 
 public class PresetPanel : MonoBehaviour
 {
-    public GameObject PresetPrefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-        InitPanel();
-    }
+    public List<PresetButton> button;
+    public List<GameObject> PresetCommingSoonPrefab = new List<GameObject>();
 
-    public void InitPanel()
+    private List<PositionList> posList;
+
+    public void SetData(List<Preset> presets)
     {
-        PresetManager.Instance.GetPresetDatas();
-        PresetManager.Instance.ClassifyPositionsByPreset();
-        PresetManager.Instance.ClassifyInteriorsByPreset();
-        for (int i = 0; i < PresetManager.Instance.presetDatas.Count; i++)
+        posList = InteriorManager.Instance.interiorPositionObjects;
+
+        for(int i = 0; i < 4; i++)
         {
-            GameObject imageObj = Instantiate(PresetPrefab);
-            imageObj.transform.SetParent(transform, false);
-
-            PresetBox presetBox = imageObj.GetComponent<PresetBox>();
-            if (presetBox != null)
+            if(i < presets.Count)
             {
-                presetBox.InitBox(PresetManager.Instance.presetDatas[i]);
+                if (button[i] != null)
+                {
+                    button[i].gameObject.SetActive(true);
+                    button[i].SetPresetData(presets[i], posList[i]);
+                }
+                else
+                {
+                    Debug.Log("ButtonError");
+                }
+
+
+                PresetCommingSoonPrefab[i].gameObject.SetActive(false);
+                
             }
             else
             {
-                Debug.LogError("Cannot find PresetBox");
+                button[i].gameObject.SetActive(false);
+                PresetCommingSoonPrefab[i].gameObject.SetActive(true);
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetPresetBool()
     {
-        
+        foreach (var interiorPositionObj in InteriorManager.Instance.interiorPositionObjects)
+        {
+            interiorPositionObj.isPreset = false;
+        }
+    }
+
+    public void PositionReset()
+    {
+        SpriteRenderer renderer;
+        foreach(var posObj in posList)
+        {
+            foreach(var obj in posObj.list)
+            {
+                renderer = obj.positionSprites;
+                renderer.gameObject.SetActive(false);
+            }
+        }
     }
 }
