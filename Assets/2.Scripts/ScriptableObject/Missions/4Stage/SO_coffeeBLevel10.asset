@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 44
   missionType: 0
-  missionContent: 3
+  missionContent: 0
   targetName: coffeeB
   criteria: 10
   cost: 20

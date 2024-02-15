@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 40
   missionType: 0
-  missionContent: 3
+  missionContent: 0
   targetName: macaronMachine
   criteria: 3
   cost: 10

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 48
   missionType: 0
-  missionContent: 3
+  missionContent: 0
   targetName: croissant
   criteria: 10
   cost: 20
