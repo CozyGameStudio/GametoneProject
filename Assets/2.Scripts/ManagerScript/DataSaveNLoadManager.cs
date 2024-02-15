@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.Threading.Tasks;
 [Serializable]
 public class SystemData{
     public BusinessData businessData;
@@ -40,7 +41,7 @@ public class BusinessData
         currentStageNumber=1;
         currentStageMoney=10;
         currentDia=0;
-        enabledTables=1;
+        enabledTables=2;
         chefSpeedMultiplier=1;
         serverSpeedMultiplier=1;
         accumulatedCustomer=0;
@@ -171,7 +172,6 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public BusinessData CreateBusinessData(int stageNum){
         BusinessData businessData = new BusinessData();
         businessData.currentStageNumber=stageNum;
-        Debug.Log(businessData.accumulatedCustomer+" "+ businessData.accumulatedSales);
         return businessData;
     }
     public void PrepareData()
@@ -261,17 +261,46 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         loadedData.lastTimeStamp = DateTime.UtcNow.ToString("o"); // ISO 8601 형식으로 저장
         SaveSystemData(loadedData);
     }
+    public void SaveThings(){
+        SaveGameObjectsByCase();
+        SaveLastExitTime();
+    }
+    public async Task SaveSystemDataAsync(SystemData systemData)
+    {
+        string folderPath = Path.Combine(Application.persistentDataPath, "SaveData");
+        string filePath = Path.Combine(folderPath, "SystemData.json");
+
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+
+        string json = JsonUtility.ToJson(systemData, true);
+
+        await File.WriteAllTextAsync(filePath, json);
+        Debug.Log("Data Saved!");
+    }
     public void ResetData()
     {
-        CreateSystemData();
-        LoadingSceneManager.LoadScene("Title");
+        StartCoroutine(ResetDataCoroutine());
     }
 
+    private IEnumerator ResetDataCoroutine()
+    {
+        // 비동기 데이터 저장 로직 호출
+        Task saveTask = SaveSystemDataAsync(new SystemData());
+        while (!saveTask.IsCompleted)
+        {
+            yield return null;
+        }
+
+        // 데이터 저장이 완료되면, 씬 로드 진행
+        LoadingSceneManager.LoadScene("Title");
+    }
     private void OnApplicationPause(bool pause)
     {
         if(pause){
-            SaveGameObjectsByCase();
-            SaveLastExitTime();
+            SaveThings();
         }
         
     }

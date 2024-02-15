@@ -88,16 +88,16 @@ public class Chef : MonoBehaviour
     public void SetAnimation(Vector3 currentVelocity)
     {
         if (animator == null) {Debug.Log("animator is null");return;}
-        if (currentVelocity.y > 0.1)
+        if (currentVelocity.magnitude.Equals(0))
         {//towards upside
+            animator.SetFloat("YVelocity", 0);
+        }
+        else if (currentVelocity.y > 0)
+        {//towards downward
             animator.SetFloat("YVelocity", 1);
         }
-        else if (currentVelocity.y < -0.1)
-        {//towards downward
-            animator.SetFloat("YVelocity", -1);
-        }
         else
-            animator.SetFloat("YVelocity", 0);
+            animator.SetFloat("YVelocity", -1);
     }
 
     void Update()

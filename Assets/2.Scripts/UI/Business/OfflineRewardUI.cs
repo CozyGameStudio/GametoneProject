@@ -10,6 +10,7 @@ public class OfflineRewardUI : MonoBehaviour
     public Vector2 exitPosition;
     public TMP_Text earningText;
     public float animationDuration = 0.5f;
+    public GameObject adLoadingPanel;
     private int earnings;
     void Start(){
         uiElement=GetComponent<RectTransform>();
@@ -22,9 +23,11 @@ public class OfflineRewardUI : MonoBehaviour
     }
     public void GetNormalReward(){
         if(BusinessGameManager.Instance!=null)BusinessGameManager.Instance.AddMoney(earnings);
+        DataSaveNLoadManager.Instance.SaveThings();
         ExitAnimation();
     }
     public void GetAdReward(){
+        adLoadingPanel.SetActive(true);
         if (AdMobManager.Instance != null) AdMobManager.Instance.LoadRewardedAdForOffline(earnings);
         ExitAnimation();
     }

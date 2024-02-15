@@ -7,6 +7,7 @@ public class CustomerTable : MonoBehaviour
     private List<Sprite> foodBubbleSprites=new List<Sprite>();
     private Coroutine bubbleCoroutine;
     public SpriteRenderer foodBubbleSprite;
+    public Transform servePosition;
     void Start(){
         Sprite[] sprites=Resources.LoadAll<Sprite>("FoodBubbles");
         foreach (var sprite in sprites)

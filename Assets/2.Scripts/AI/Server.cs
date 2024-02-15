@@ -86,16 +86,16 @@ public class Server : MonoBehaviour
     public void SetAnimation(Vector3 currentVelocity)
     {
         if(animator==null)return;
-        if (currentVelocity.y > 0.01)
+        if (currentVelocity.magnitude.Equals(0))
         {//towards upside
+            animator.SetFloat("YVelocity", 0);
+        }
+        else if (currentVelocity.y >0)
+        {//towards downward
             animator.SetFloat("YVelocity", 1);
         }
-        else if (currentVelocity.y < -0.01)
-        {//towards downward
-            animator.SetFloat("YVelocity", -1);
-        }
         else
-            animator.SetFloat("YVelocity", 0);
+            animator.SetFloat("YVelocity", -1);
     }
     void Idle_Update()
     {
@@ -148,7 +148,7 @@ public class Server : MonoBehaviour
         {
             if (chair.transform.childCount > 0 && chair.transform.GetComponentInChildren<Customer>().tableNumber == tableNum)
             {
-                placeToMove = chair.transform.parent;//guest place
+                placeToMove = chair.transform.GetComponentInParent<CustomerTable>().servePosition;//guest place
                 currentCustomer = chair.transform.GetComponentInChildren<Customer>();
                 break;
             }

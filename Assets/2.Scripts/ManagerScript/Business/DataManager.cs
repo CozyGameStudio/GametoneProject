@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour
     public event RewardActivatedDelegate OnRewardActivatedDelegate;
     public bool isRewardActivated { get; private set; }
     public bool isSpeedRewardActivated{get;private set;}
-    private int offlineEarningCost=10;
+    private int offlineEarningCost=1;
     //public List<Character> characters;
 
     public static DataManager Instance
@@ -70,6 +70,9 @@ public class DataManager : MonoBehaviour
                 data.currentStageMoney=BusinessGameManager.Instance.startMoney;
                 data.accumulatedSales=0;
                 data.accumulatedCustomer=0;
+                data.enabledTables=2;
+                data.chefSpeedMultiplier=1;
+                data.serverSpeedMultiplier = 1;
             }
             foreach(var manager in managerInterfaces){
                 manager.SetData(data);
