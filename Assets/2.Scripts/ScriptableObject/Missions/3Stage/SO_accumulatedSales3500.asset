@@ -17,8 +17,8 @@ MonoBehaviour:
   missionContent: 2
   targetName: 
   criteria: 3500
-  cost: 0
+  cost: 50
   stageToAppear: 3
   sprite: {fileID: 386677283, guid: 7c767efaa8d42f747a70afd6d4246e32, type: 3}
-  description: "\uB204\uC801 \uD310\uB9E4\uB7C9 \uCCB4\uD06C"
+  description: "\uB204\uC801 \uB9E4\uCD9C\uB7C9 \uCCB4\uD06C"
   progress: 5

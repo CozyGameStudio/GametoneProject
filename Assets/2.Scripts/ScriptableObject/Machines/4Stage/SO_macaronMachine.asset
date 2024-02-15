@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f832d603a79c65c4088e51206138f8c0, type: 3}
   m_Name: SO_macaronMachine
   m_EditorClassIdentifier: 
-  index: 10
+  index: 11
   machineName: macaronMachine
   machineNameInKorean: "\uB9C8\uCE74\uB871"
-  machineUnlockCost: 30
-  cookTime: []
-  upgradeMoney: 
+  machineUnlockCost: 100
+  cookTime:
+  - 15
+  - 14.5
+  - 14
+  - 13.5
+  - 13
+  - 12.5
+  - 12
+  upgradeMoney: 320000004b0000006400000096000000c80000002c01000000000000
   stageToUse: 4
-  machineIcon: {fileID: 0}
+  machineIcon: {fileID: 21300000, guid: ae06c357e26cfdb4286107ca23e91302, type: 3}

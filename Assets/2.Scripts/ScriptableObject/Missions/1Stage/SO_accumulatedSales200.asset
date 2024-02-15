@@ -16,7 +16,7 @@ MonoBehaviour:
   missionType: 0
   missionContent: 2
   targetName: 
-  criteria: 150
+  criteria: 200
   cost: 0
   stageToAppear: 1
   sprite: {fileID: 386677283, guid: 7c767efaa8d42f747a70afd6d4246e32, type: 3}

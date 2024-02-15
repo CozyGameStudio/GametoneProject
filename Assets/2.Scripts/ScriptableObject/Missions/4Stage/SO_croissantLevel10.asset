@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8255ad9f18f867a40ba2760e7c098c82, type: 3}
+  m_Name: SO_croissantLevel10
+  m_EditorClassIdentifier: 
+  index: 48
+  missionType: 0
+  missionContent: 3
+  targetName: croissant
+  criteria: 10
+  cost: 20
+  stageToAppear: 4
+  sprite: {fileID: 21300000, guid: bd24916c56287424b928222f3861feca, type: 3}
+  description: "\uD06C\uB8E8\uC544\uC0C1 \uB808\uBCA8 \uCCB4\uD06C"
+  progress: 3
