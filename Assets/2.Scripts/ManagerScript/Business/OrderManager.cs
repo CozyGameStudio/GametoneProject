@@ -59,7 +59,7 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
     {
         orderQueue.Enqueue(order);
         StartCoroutine(TryAssignOrder());
-        AppearBubble(15);
+        AppearBubble(2);
     }
     IEnumerator TryAssignOrder()
     {
@@ -122,7 +122,7 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
         TryAssignOrder();
     }
     public void AppearBubble(float duration){
-        orderInBubble.SetActive(true);
+        if(orderInBubble!=null)orderInBubble.SetActive(true);
         if (bubbleCoroutine != null)
         {
             StopCoroutine(bubbleCoroutine);
@@ -133,7 +133,7 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
     {
         yield return new WaitForSeconds(time);
 
-        orderInBubble.SetActive(false);
+        if (orderInBubble != null) orderInBubble.SetActive(false);
     }
    
     public IEnumerator SetIsRewardActivated(float time)

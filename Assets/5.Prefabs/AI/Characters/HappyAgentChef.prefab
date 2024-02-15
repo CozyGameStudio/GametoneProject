@@ -133,7 +133,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 162044105
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 6139ec3066a2402458fa3327b8bfe76d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 3543997611553153282}
-  speed: 1.5
+  initSpeed: 1.5
   foodHolder: {fileID: 5879482404581958643}
   agent: {fileID: 5072527517875408146}
   loadingBarAnimator: {fileID: 3346709702396250102}

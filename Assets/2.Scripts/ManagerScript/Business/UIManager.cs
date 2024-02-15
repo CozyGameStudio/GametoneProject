@@ -6,6 +6,7 @@ using TMPro;
 using AssetKits.ParticleImage;
 using DG.Tweening;
 using System;
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour
 {
     public TMP_Text moneyText;
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     public Slider slider;
     public ParticleImage coinAttraction;
     
+    public AdUI adUI;
     public OfflineRewardUI offlineRewardUI;
     private static UIManager instance;
     public static UIManager Instance
@@ -38,10 +40,18 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start(){
-        
+    private void Update() {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer("InteractiveObjects"));
+            Debug.Log($"[UIManager] Touch{hit}");
+            if (hit.collider != null)
+            {
+                adUI.EnterAnimation();
+            }
+        }
     }
-
 
     public void SetData(){
         UpdateCurrentStageText();

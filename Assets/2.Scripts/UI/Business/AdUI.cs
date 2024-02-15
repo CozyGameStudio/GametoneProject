@@ -16,6 +16,7 @@ public class AdUI : MonoBehaviour
     public Vector2 exitPosition; 
     public float animationDuration = 0.5f; 
 
+    public GameObject adLoadingPanel;
     private RectTransform uiElement;
     private Dictionary<RewardType, TMP_Text> rewardTexts;
     private Dictionary<RewardType, Button> rewardButtons;

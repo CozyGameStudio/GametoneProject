@@ -24,6 +24,8 @@ public class AdMobManager : MonoBehaviour
   private string _adUnitId = "unused";
 #endif
 
+    public AdUI adUI;
+    public OfflineRewardUI offlineRewardUI;
     private const int MaxAdsPerDay = 3; // 각 보상 유형별 최대 광고 표시 횟수
     private RewardedAd rewardedAd;
     private RewardType currentRewardType= RewardType.Cooktime;//default
@@ -36,6 +38,8 @@ public class AdMobManager : MonoBehaviour
     private string lastExitTime;
     private string EnterTime;
     private int tmpEarning;
+    public delegate void RewardValidateDelegate(float rewardTime);
+    public event RewardValidateDelegate OnRewardValidateDelegate;
     public static AdMobManager Instance
     {
         get
@@ -57,29 +61,48 @@ public class AdMobManager : MonoBehaviour
         });
         
     }
-    
+
 
     public void LoadRewardedAdForCooktime()
     {
-        LoadRewardedAd(RewardType.Cooktime);
+        StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Cooktime));
     }
 
     public void LoadRewardedAdForProfit()
     {
-        LoadRewardedAd(RewardType.Profit);
+        StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Profit));
     }
 
     public void LoadRewardedAdForSpeed()
     {
-        LoadRewardedAd(RewardType.Speed);
+        StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Speed));
+    }
+
+    IEnumerator ShowLoadingPanelThenLoadAd(RewardType rewardType)
+    {
+        adUI.adLoadingPanel.SetActive(true); // 로딩 패널 활성화
+        Debug.Log("Loading Panel Activated");
+
+        yield return new WaitForSeconds(0.5f); // 필요한 경우 로딩 패널을 보여주기 위한 짧은 대기 시간
+
+        // 광고 로드. LoadRewardedAd 메서드가 비동기 콜백을 사용하여 광고 로딩 완료를 처리해야 함
+        LoadRewardedAd(rewardType, () =>
+        {
+            adUI.adLoadingPanel.SetActive(false); // 광고 로딩 완료 콜백에서 로딩 패널 비활성화
+            Debug.Log("Ad Loaded, Loading Panel Deactivated");
+        });
     }
 
     public void LoadRewardedAdForOffline(int earnings)
     {
-        tmpEarning=earnings*5;
-        LoadRewardedAd(RewardType.Offline);
+        tmpEarning=earnings*3;
+        LoadRewardedAd(RewardType.Offline,()=> 
+        {
+            offlineRewardUI.adLoadingPanel.SetActive(false); 
+            Debug.Log("Ad Loaded, Loading Panel Deactivated");
+        });
     }
-    public void LoadRewardedAd(RewardType rewardType)
+    public void LoadRewardedAd(RewardType rewardType, Action onAdLoaded)
     {
         // Clean up the old ad before loading a new one.
         if (rewardedAd != null)
@@ -102,9 +125,11 @@ public class AdMobManager : MonoBehaviour
                 {
                     Debug.LogError("Rewarded ad failed to load an ad " +
                                    "with error : " + error);
+                    adUI.adLoadingPanel.SetActive(false);
+                    offlineRewardUI.adLoadingPanel.SetActive(false);
                     return;
                 }
-
+                onAdLoaded?.Invoke();
                 Debug.Log("Rewarded ad loaded with response : "
                           + ad.GetResponseInfo());
 
@@ -114,6 +139,7 @@ public class AdMobManager : MonoBehaviour
 
                 ShowRewardedAd();
             });
+        adUI.adLoadingPanel.SetActive(false);
     }
     public void ShowRewardedAd()
     {
@@ -132,6 +158,7 @@ public class AdMobManager : MonoBehaviour
                         {
                             UnityMainThreadDispatcher.Instance().Enqueue(OrderManager.Instance.SetIsRewardActivated(rewardMaintainTime));
                             UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
+                            //OnRewardValidateDelegate?.Invoke(rewardMaintainTime);
                         }
                         break;
                     case RewardType.Profit:
@@ -149,7 +176,7 @@ public class AdMobManager : MonoBehaviour
                         }
                         break;
                     case RewardType.Offline:
-                        if (BusinessGameManager.Instance!=null)BusinessGameManager.Instance.AddMoney(tmpEarning);
+                        if (BusinessGameManager.Instance!=null) UnityMainThreadDispatcher.Instance().Enqueue(()=>BusinessGameManager.Instance.AddMoney(tmpEarning));
                         //사실상 오프라인 보상에 대해서는 Count 적용 X
                         break;
                     default:
