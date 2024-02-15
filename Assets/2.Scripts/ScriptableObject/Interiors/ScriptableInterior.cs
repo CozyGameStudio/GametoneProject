@@ -15,6 +15,8 @@ public class InteriorData
     public int index;
     public string interiorName;
     public string interiorNameInKorean;
+    public int positionNumber;
+    public int Comfort;
     public CurrencyType InteriorCurrencyType;
     public int interiorUnlockCost;
     public Sprite interiorImage;

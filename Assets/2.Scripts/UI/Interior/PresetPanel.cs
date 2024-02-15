@@ -6,10 +6,13 @@ public class PresetPanel : MonoBehaviour
 {
     public List<PresetButton> button;
     public List<GameObject> PresetCommingSoonPrefab = new List<GameObject>();
-    // Start is called before the first frame update
+
+    private List<PositionList> posList;
 
     public void SetData(List<Preset> presets)
     {
+        posList = InteriorManager.Instance.interiorPositionObjects;
+
         for(int i = 0; i < 4; i++)
         {
             if(i < presets.Count)
@@ -17,7 +20,7 @@ public class PresetPanel : MonoBehaviour
                 if (button[i] != null)
                 {
                     button[i].gameObject.SetActive(true);
-                    button[i].SetPresetData(presets[i]);
+                    button[i].SetPresetData(presets[i], posList[i]);
                 }
                 else
                 {
@@ -36,33 +39,24 @@ public class PresetPanel : MonoBehaviour
         }
     }
 
-    public void InitPanel()
+    public void SetPresetBool()
     {
-
-
-        /*PresetManager.Instance.GetPresetDatas();
-        PresetManager.Instance.ClassifyPositionsByPreset();
-        PresetManager.Instance.ClassifyInteriorsByPreset();
-        for (int i = 0; i < PresetManager.Instance.presetDatas.Count; i++)
+        foreach (var interiorPositionObj in InteriorManager.Instance.interiorPositionObjects)
         {
-            GameObject imageObj = Instantiate(PresetPrefab);
-            imageObj.transform.SetParent(transform, false);
-
-            PresetBox presetBox = imageObj.GetComponent<PresetBox>();
-            if (presetBox != null)
-            {
-                presetBox.InitBox(PresetManager.Instance.presetDatas[i]);
-            }
-            else
-            {
-                Debug.LogError("Cannot find PresetBox");
-            }
-        }*/
+            interiorPositionObj.isPreset = false;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PositionReset()
     {
-        
+        SpriteRenderer renderer;
+        foreach(var posObj in posList)
+        {
+            foreach(var obj in posObj.list)
+            {
+                renderer = obj.positionSprites;
+                renderer.gameObject.SetActive(false);
+            }
+        }
     }
 }

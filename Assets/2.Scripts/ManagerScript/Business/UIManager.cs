@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text diaText;
     public TMP_Text moneyMultiplierText;
     public TMP_Text currentStageText;
+    public TMP_Text comfortText;
     public Slider slider;
     public ParticleImage coinAttraction;
     public void UpdateProgress()
@@ -56,6 +57,10 @@ public class UIManager : MonoBehaviour
     public void UpdateDiaUI()
     {
         diaText.text = BusinessGameManager.Instance.dia.ToString();
+    }
+    public void UpdataComfortUI()
+    {
+        comfortText.text = InteriorSceneManager.Instance.comfort.ToString();
     }
     public void UpdateMoneyMultiplierUI()
     {

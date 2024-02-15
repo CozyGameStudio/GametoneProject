@@ -5,63 +5,77 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class InteriorButton : MonoBehaviour//, IBox<ScriptableInterior>
+public class InteriorButton : MonoBehaviour
 {
     public GameObject unLock;
     public TMP_Text cost;
     public Image InteriorImage;
+    public Button button;
 
-    public void SetData(InteriorData InteriorData)
+    public InteriorBuyPanel interiorBuyPanel;
+
+    private InteriorData interior;
+    private Preset preset;
+    private PositionObject positionObj;
+
+    void Start()
     {
-        unLock.SetActive(true);
-        cost.text = InteriorData.interiorUnlockCost.ToString();
-        InteriorImage.sprite = InteriorData.interiorImage;
+        button.onClick.AddListener(OnInteriorButtonClick);
+        interiorBuyPanel.OnBuyButtonClick += UpdateData;
     }
 
-
-    /*ScriptableInterior Interior;
-
-    public Image InteriorImage;
-
-    public void InitBox(ScriptableInterior scriptableInterior)
+    public void UpdateData()
     {
-        Interior = scriptableInterior;
-        if(InteriorImage != null)
+        if (preset.isUnlock[interior.index] == true)
         {
-            InteriorImage.sprite = Interior.icon;
+            unLock.SetActive(false);
         }
         else
         {
-            Debug.LogError("Cannot find Interior Image");
+            unLock.SetActive(true);
+            cost.text = interior.interiorUnlockCost.ToString();
         }
     }
 
-    public void ButtonClick()
+    public void SetData(InteriorData interiorData, Preset Preset, PositionObject posObj)
     {
-        List<Position> positions = InteriorManager.Instance.positions;
-        foreach (var obj in positions)
+        
+        positionObj = posObj;
+        interior = interiorData;
+        preset = Preset;
+
+        InteriorImage.sprite = interior.interiorImage;
+        if (preset.isUnlock[interior.index] == true)
         {
-            if (obj.position.positionNumber == Interior.position)
+            unLock.SetActive(false);
+        }
+        else
+        {
+            unLock.SetActive(true);
+            cost.text = interior.interiorUnlockCost.ToString();
+        }
+    }
+
+    private void OnInteriorButtonClick()
+    {
+        SpriteRenderer renderer = positionObj.positionSprites;
+
+        if (preset.isUnlock[interior.index] == true)
+        {
+            positionObj.isPosition = true;
+            positionObj.Comfort = interior.Comfort;
+            interiorBuyPanel.gameObject.SetActive(false);
+            renderer.gameObject.SetActive(true);
+            renderer.sprite = interior.interiorImage;
+            InteriorManager.Instance.ComfortUpdate();
+        }
+        else
+        {
+            interiorBuyPanel.gameObject.SetActive(true);
+            if (interior != null)
             {
-                SpriteRenderer spriteRenderer = obj.gameObject.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    spriteRenderer.sprite = Interior.icon;
-                    spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-                }
+                interiorBuyPanel.SetData(interior, preset, positionObj);
             }
         }
-
-    }*/
-        // Start is called before the first frame update
-        void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

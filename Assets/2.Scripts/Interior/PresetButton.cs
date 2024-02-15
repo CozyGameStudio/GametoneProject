@@ -12,21 +12,26 @@ public class PresetButton : MonoBehaviour
     public Image choiceCat;
     public TMP_Text presetName;
 
+
     public GameObject PresetWindow;
     public GameObject InteriorWindow;
+    public PresetPanel presetPanel;
     public PositionPanel positionPanel;
 
     private bool isClickedOnce = false;
 
     private Preset preset;
+    private PositionList posList;
+
 
     private void Start()
     {
         presetButton.onClick.AddListener(OnPresetButtonClicked);
     }
 
-    public void SetPresetData(Preset presetData)
+    public void SetPresetData(Preset presetData, PositionList pos)
     {
+        posList = pos;
         preset = presetData;
         exampleImage.sprite = preset.interiorData.presetExampleImage;
         exampleImage.gameObject.SetActive(true);
@@ -47,9 +52,13 @@ public class PresetButton : MonoBehaviour
         }
         else
         {
+            presetPanel.SetPresetBool();
+            presetPanel.PositionReset();
             InteriorWindow.SetActive(true);
-            positionPanel.SetPosition(preset.interiorData.positionDataList);
+            positionPanel.SetPosition(preset, posList);
             Debug.Log("PresetClick");
+            posList.isPreset = true;
+            InteriorManager.Instance.ComfortUpdate();
             SetExampleImage();
             PresetWindow.SetActive(false);
         }
