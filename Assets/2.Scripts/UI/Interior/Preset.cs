@@ -45,4 +45,18 @@ public class Preset : MonoBehaviour
             isUnlock[interior.index] = true;
         }
     }
+
+    public void SetData(PresetData presetData)
+    {
+        if(isUnlock.Count == presetData.isUnlock.Count)
+        {
+            isUnlock = presetData.isUnlock;
+        }
+    }
+
+    public PresetData GetData()
+    {
+        PresetData preset = new PresetData(interiorData.name, isUnlock);
+        return preset;
+    }
 }

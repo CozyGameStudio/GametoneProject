@@ -99,5 +99,25 @@ public class InteriorManager : MonoBehaviour
         InteriorSceneManager.Instance.ComfortUpdate(ToTalComfort);
     }
 
+    public void SetData(SystemData systemData)
+    {
+        foreach(var preset in interiorDatas)
+        {
+            var presetData = systemData.interiorData.preestData.Find(data => data.name.Equals(preset.interiorData.presetName));
+            if(presetData != null)
+            {
+                preset.SetData(presetData);
+            }
+        }
+    }
+    public List<PresetData> GetData()
+    {
+        List<PresetData> list = new List<PresetData>();
+        foreach(var preset in interiorDatas)
+        {
+            list.Add(preset.GetData());
+        }
+        return list;
+    }
    
 }

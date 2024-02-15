@@ -8,9 +8,11 @@ using UnityEngine.SceneManagement;
 public class SystemData{
     public BusinessData businessData;
     public List<CollectionData> collectionDatas;
+    public InteriorSData interiorData;
     public SystemData(){
         businessData=new BusinessData();
         collectionDatas=new List<CollectionData>();
+        interiorData=new InteriorSData();
     }
 }
 [Serializable]
@@ -79,6 +81,30 @@ public class SaveData<T>
         isUnlocked = unlock;
     }
 }
+[Serializable]
+public class InteriorSData
+{
+    public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
+    public int currentStageMoney; //무료재화 정보
+    public int currentDia; //유료재화 정보
+    public int currentComfort;
+    public int currentComfortLv;
+    public List<PresetData> preestData;
+}
+
+public class PresetData 
+{
+    public string name;
+    public Dictionary<int, bool> isUnlock;
+    public PresetData(string nam,  Dictionary<int, bool> loc)
+    {
+        name= nam;
+        isUnlock = loc;
+    }
+
+}
+
+
 
 public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
@@ -98,6 +124,10 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         {
             DataManager.Instance?.DataInitSetting(loadedData);
             CollectionManager.Instance?.SetData(loadedData);
+        }
+        if (scene.name.Contains("Interior"))
+        {
+            InteriorManager.Instance?.SetData(loadedData);
         }
     }
     private void Start(){
@@ -184,6 +214,10 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         {
             loadedData.collectionDatas=CollectionManager.Instance.GetData();
             Debug.Log("collection added to Data");
+        }
+        if(InteriorManager.Instance != null)
+        {
+            loadedData.interiorData.preestData = InteriorManager.Instance.GetData();
         }
         SaveSystemData(loadedData);
 
