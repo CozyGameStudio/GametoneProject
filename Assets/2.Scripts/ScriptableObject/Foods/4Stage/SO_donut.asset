@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981ccb110acb5a84d8bd8dcf156d3d97, type: 3}
   m_Name: SO_donut
   m_EditorClassIdentifier: 
-  index: 8
+  index: 9
   foodName: donut
   foodNameInKorean: "\uB3C4\uB11B"
-  foodPrice: 
-  upgradeMoney: 
-  foodIcon: {fileID: 0}
+  foodPrice: 030000000500000007000000090000000b0000000d0000000f000000110000001300000015000000
+  upgradeMoney: 12000000280000003f000000550000006e0000008c000000a5000000be000000e600000000000000
+  foodIcon: {fileID: 21300000, guid: 3c662e394afa09e4985bb335359dd04b, type: 3}
   stageToUse: 4
