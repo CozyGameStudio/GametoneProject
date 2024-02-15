@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 48
   missionType: 0
-  missionContent: 0
+  missionContent: 3
   targetName: croissant
   criteria: 10
-  cost: 20
+  cost: 40
   stageToAppear: 4
   sprite: {fileID: 21300000, guid: bd24916c56287424b928222f3861feca, type: 3}
   description: "\uD06C\uB8E8\uC544\uC0C1 \uB808\uBCA8 \uCCB4\uD06C"

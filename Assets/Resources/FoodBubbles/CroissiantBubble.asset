@@ -6,7 +6,7 @@ Sprite:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CroissiantBubble
+  m_Name: croissiantBubble
   m_Rect:
     serializedVersion: 2
     x: 104

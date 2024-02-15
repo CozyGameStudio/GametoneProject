@@ -17,7 +17,7 @@ MonoBehaviour:
   missionContent: 3
   targetName: madeleineMachine
   criteria: 7
-  cost: 20
+  cost: 25
   stageToAppear: 4
   sprite: {fileID: 21300000, guid: d6100438dfa001e41a8e9bcf2b858477, type: 3}
   description: "\uB9C8\uB4E4\uB80C\uBA38\uC2E0 \uB808\uBCA8 \uCCB4\uD06C"

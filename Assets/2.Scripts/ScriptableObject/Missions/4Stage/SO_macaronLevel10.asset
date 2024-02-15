@@ -17,7 +17,7 @@ MonoBehaviour:
   missionContent: 3
   targetName: macaron
   criteria: 10
-  cost: 20
+  cost: 50
   stageToAppear: 4
   sprite: {fileID: 21300000, guid: ca04cf1512de0de46ab074b28f97eeda, type: 3}
   description: "\uB9C8\uCE74\uB871 \uB808\uBCA8 \uCCB4\uD06C"

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 40
   missionType: 0
-  missionContent: 0
+  missionContent: 3
   targetName: macaronMachine
   criteria: 3
-  cost: 10
+  cost: 25
   stageToAppear: 4
   sprite: {fileID: 21300000, guid: ae06c357e26cfdb4286107ca23e91302, type: 3}
   description: "\uB9C8\uCE74\uB871\uBA38\uC2E0 \uB808\uBCA8 \uCCB4\uD06C"
