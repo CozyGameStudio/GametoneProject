@@ -7108,7 +7108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interiorData: {fileID: 11400000, guid: 4075aa2d39b8789428d6c55aa63bceb8, type: 2}
-  layout: {fileID: 0}
+  layout: {fileID: 1282879501}
 --- !u!4 &915657226
 Transform:
   m_ObjectHideFlags: 0

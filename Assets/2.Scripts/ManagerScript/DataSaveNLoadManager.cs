@@ -199,10 +199,9 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         {
             SystemManager.Instance.SetData(loadedData);
         }
-        if (scene.name.Contains("Interior"))
-        {
-            if(InteriorSceneManager.Instance!=null)InteriorSceneManager.Instance.SetData(loadedData);
-        }
+        Debug.Log(InteriorSceneManager.Instance);
+        if(InteriorSceneManager.Instance!=null)InteriorSceneManager.Instance.SetData(loadedData);
+        
     }
     private void Start(){
         //if(StageMissionManager.Instance!=null) StageMissionManager.Instance.OnStageCleared += SceneChange;

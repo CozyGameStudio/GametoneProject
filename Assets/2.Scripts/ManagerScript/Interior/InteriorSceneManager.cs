@@ -34,11 +34,6 @@ public class InteriorSceneManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
     // ������ �ҷ����� ���� ������ ����
     private void StartAddJelly()
     {
@@ -109,6 +104,8 @@ public class InteriorSceneManager : MonoBehaviour
     public void SetData(SystemData systemData)
     {
         jelly=systemData.currentJelly;
+        Debug.Log($"{systemData.currentJelly} / {jelly}");
+        InteriorUIManager.Instance.UpdateDiaUI();
         // foreach(var preset in interiorDatas)
         // {
         //     var presetData = systemData.interiorData.preestData.Find(data => data.name.Equals(preset.interiorData.presetName));
@@ -119,6 +116,6 @@ public class InteriorSceneManager : MonoBehaviour
         // }
     }
     public void GetData(){
-        
+
     }
 }

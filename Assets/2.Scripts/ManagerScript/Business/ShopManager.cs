@@ -54,12 +54,13 @@ public class ShopManager : MonoBehaviour
     }
     public void SetEventToButtons(){
         for(int i=0;i<shopUI.dailyRewardButtons.Count;i++){
-            shopUI.dailyRewardButtons[i].button.onClick.AddListener(()=>ReceiveReward(i));
+            int tmp=i;
+            shopUI.dailyRewardButtons[i].button.onClick.AddListener(()=>ReceiveReward(tmp));
         }
     }
     public void ReceiveReward(int i){
         isRewardReceived[i]=true;
-        if(DataManager.Instance!=null)UIManager.Instance.PlayJellyAttraction(shopUI.dailyRewardButtons[i].button.transform,jellyReward[i]);
+        if(DataManager.Instance!=null)StartCoroutine(UIManager.Instance.PlayJellyAttraction(shopUI.dailyRewardButtons[i].button.transform,jellyReward[i]));
         if(i==7){
             currentDayCount=0;
             isRewardReceived=new bool[8];
