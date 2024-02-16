@@ -8,6 +8,7 @@ public class Preset : MonoBehaviour
 {
     [SerializeField]
     public ScriptableInterior interiorData;
+    public GameObject layout;
     public Dictionary<int, bool> isUnlock = new Dictionary<int, bool>();
     public void Awake()
     {

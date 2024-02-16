@@ -53,7 +53,10 @@ public class PresetButton : MonoBehaviour
         else
         {
             presetPanel.SetPresetBool();
+            presetPanel.LayoutReset();
             presetPanel.PositionReset();
+            SetLayout();
+            SetPosition();
             InteriorWindow.SetActive(true);
             positionPanel.SetPosition(preset, posList);
             Debug.Log("PresetClick");
@@ -83,5 +86,19 @@ public class PresetButton : MonoBehaviour
         choiceCat.gameObject.SetActive(false);
         presetName.gameObject.SetActive(true);
         isClickedOnce = false;
+    }
+
+    private void SetPosition()
+    {
+        SpriteRenderer renderer;
+        foreach (var obj in posList.list)
+        {
+            renderer = obj.positionSprites;
+            renderer.gameObject.SetActive(true);
+        }
+    }
+    private void SetLayout()
+    {
+        preset.layout.SetActive(true);
     }
 }

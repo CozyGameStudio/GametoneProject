@@ -1,0 +1,440 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b589db252d49c7d48922e980721df48d, type: 3}
+  m_Name: forest
+  m_EditorClassIdentifier: 
+  presetName: forest
+  presetNameInKorean: "\uD3EC\uB808\uC2A4\uD2B8"
+  stageToUse: 4
+  positionDataList:
+  - positionNumber: 1
+    InteriorDataList:
+    - index: 47
+      interiorName: sofa1
+      interiorNameInKorean: "\uC18C\uD30C1"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -276703212, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 48
+      interiorName: sofa2
+      interiorNameInKorean: "\uC18C\uD30C2"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -2013618807, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 49
+      interiorName: sofa3
+      interiorNameInKorean: "\uC18C\uD30C3"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -52435669, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 50
+      interiorName: sofa4
+      interiorNameInKorean: "\uC18C\uD30C4"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -360024517, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 51
+      interiorName: sofa5
+      interiorNameInKorean: "\uC18C\uD30C5"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -277980304, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 52
+      interiorName: sofa6
+      interiorNameInKorean: "\uC18C\uD30C6"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1690896267, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 53
+      interiorName: sofa7
+      interiorNameInKorean: "\uC18C\uD30C7"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -391016890, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+    - index: 54
+      interiorName: sofa8
+      interiorNameInKorean: "\uC18C\uD30C8"
+      positionNumber: 1
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -838717573, guid: 27e82b5272f481842a1e3ebce58abf5c, type: 3}
+  - positionNumber: 2
+    InteriorDataList:
+    - index: 55
+      interiorName: pots1
+      interiorNameInKorean: "\uD654\uBD841"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 944992643, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 56
+      interiorName: pots2
+      interiorNameInKorean: "\uD654\uBD842"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1316878814, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 57
+      interiorName: pots3
+      interiorNameInKorean: "\uD654\uBD843"
+      positionNumber: 2
+      Comfort: 50
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 10
+      interiorImage: {fileID: 1222745922, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 58
+      interiorName: pots4
+      interiorNameInKorean: "\uD654\uBD844"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -855841064, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 59
+      interiorName: pots5
+      interiorNameInKorean: "\uD654\uBD845"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1840099365, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 60
+      interiorName: pots6
+      interiorNameInKorean: "\uD654\uBD846"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1611872145, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 61
+      interiorName: pots7
+      interiorNameInKorean: "\uD654\uBD847"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -579804721, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+    - index: 62
+      interiorName: pots8
+      interiorNameInKorean: "\uD654\uBD848"
+      positionNumber: 2
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -2058933345, guid: 67b592e4a84e8784e833f8afc753157e, type: 3}
+  - positionNumber: 3
+    InteriorDataList:
+    - index: 63
+      interiorName: window1
+      interiorNameInKorean: "\uCC3D\uBB381"
+      positionNumber: 3
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1023849900, guid: ea661a5439485184b879355c3c72844a, type: 3}
+    - index: 64
+      interiorName: window2
+      interiorNameInKorean: "\uCC3D\uBB382"
+      positionNumber: 3
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -57891192, guid: ea661a5439485184b879355c3c72844a, type: 3}
+    - index: 65
+      interiorName: window3
+      interiorNameInKorean: "\uCC3D\uBB383"
+      positionNumber: 3
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1853269310, guid: ea661a5439485184b879355c3c72844a, type: 3}
+    - index: 66
+      interiorName: window4
+      interiorNameInKorean: "\uCC3D\uBB384"
+      positionNumber: 3
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -20480408, guid: ea661a5439485184b879355c3c72844a, type: 3}
+    - index: 67
+      interiorName: window5
+      interiorNameInKorean: "\uCC3D\uBB385"
+      positionNumber: 3
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 2042868131, guid: ea661a5439485184b879355c3c72844a, type: 3}
+    - index: 68
+      interiorName: window6
+      interiorNameInKorean: "\uCC3D\uBB386"
+      positionNumber: 3
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1946239062, guid: ea661a5439485184b879355c3c72844a, type: 3}
+  - positionNumber: 4
+    InteriorDataList:
+    - index: 69
+      interiorName: rug1
+      interiorNameInKorean: "\uB7EC\uADF81"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -189639531, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 70
+      interiorName: rug2
+      interiorNameInKorean: "\uB7EC\uADF82"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -806539947, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 71
+      interiorName: rug3
+      interiorNameInKorean: "\uB7EC\uADF83"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -620873237, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 72
+      interiorName: rug4
+      interiorNameInKorean: "\uB7EC\uADF84"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 661848245, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 73
+      interiorName: rug5
+      interiorNameInKorean: "\uB7EC\uADF85"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -69366472, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 74
+      interiorName: rug6
+      interiorNameInKorean: "\uB7EC\uADF86"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -655399549, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 75
+      interiorName: rug7
+      interiorNameInKorean: "\uB7EC\uADF87"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -2004897497, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 76
+      interiorName: rug8
+      interiorNameInKorean: "\uB7EC\uADF88"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -808957039, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 77
+      interiorName: rug9
+      interiorNameInKorean: "\uB7EC\uADF89"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1370072884, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 78
+      interiorName: rug10
+      interiorNameInKorean: "\uB7EC\uADF810"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -401818409, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 79
+      interiorName: rug11
+      interiorNameInKorean: "\uB7EC\uADF811"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -408455185, guid: 3230b376208536f498276e0c78e27658, type: 3}
+    - index: 80
+      interiorName: rug12
+      interiorNameInKorean: "\uB7EC\uADF812"
+      positionNumber: 4
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 595482977, guid: 3230b376208536f498276e0c78e27658, type: 3}
+  - positionNumber: 5
+    InteriorDataList:
+    - index: 81
+      interiorName: pot1
+      interiorNameInKorean: "\uD654\uBD841"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1088495064, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 82
+      interiorName: pot2
+      interiorNameInKorean: "\uD654\uBD842"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1852299659, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 83
+      interiorName: pot3
+      interiorNameInKorean: "\uD654\uBD843"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1167936686, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 84
+      interiorName: pot4
+      interiorNameInKorean: "\uD654\uBD844"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 312744806, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 85
+      interiorName: pot5
+      interiorNameInKorean: "\uD654\uBD845"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -289739215, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 86
+      interiorName: pot6
+      interiorNameInKorean: "\uD654\uBD846"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 763256951, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 87
+      interiorName: pot7
+      interiorNameInKorean: "\uD654\uBD847"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1992912064, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 88
+      interiorName: pot8
+      interiorNameInKorean: "\uD654\uBD848"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 210292074, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+    - index: 89
+      interiorName: pot9
+      interiorNameInKorean: "\uD654\uBD849"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 908951902, guid: bfc3cf6d0e751064fa15380153672554, type: 3}
+  - positionNumber: 6
+    InteriorDataList:
+    - index: 90
+      interiorName: menuPot1
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD841"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1513650882, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 91
+      interiorName: menuPot2
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD842"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 1281484078, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 92
+      interiorName: menuPot3
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD843"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1797393437, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 93
+      interiorName: menuPot4
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD844"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1724101201, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 94
+      interiorName: menuPot5
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD845"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -427681620, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 95
+      interiorName: menuPot6
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD846"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 120893946, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 96
+      interiorName: menuPot7
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD847"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -520641857, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+    - index: 97
+      interiorName: menuPot8
+      interiorNameInKorean: "\uBA54\uB274\uD310\uD654\uBD848"
+      positionNumber: 5
+      Comfort: 20
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: -1716181429, guid: 4e0a0bc81d40f444c9adfd4c7ada1f4a, type: 3}
+  presetExampleImage: {fileID: -529360613, guid: 73cb52d1640e3ae439d595fbec25e8c9, type: 3}
+  presetInGameImage: {fileID: 21300000, guid: 20a3bbbd5008dae4d9f0c0296709e721, type: 3}
