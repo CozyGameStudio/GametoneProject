@@ -11,7 +11,7 @@ public class BusinessButton : MonoBehaviour
     }
     
     public void SetAlarmBubble(){
-        alarm.SetActive(DataManager.Instance.CheckAbleUpgrade());
+        if(alarm!=null)alarm.SetActive(DataManager.Instance.CheckAbleUpgrade());
     }
     public void TutorialButtonClick()
     {

@@ -196,11 +196,11 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         }
         if (SystemManager.Instance != null)
         {
-            loadedData.systemSettingData = SystemManager.Instance.GetData();
+            SystemManager.Instance.SetData(loadedData);
         }
         if (scene.name.Contains("Interior"))
         {
-            InteriorManager.Instance?.SetData(loadedData);
+            if(InteriorSceneManager.Instance!=null)InteriorSceneManager.Instance.SetData(loadedData);
         }
     }
     private void Start(){
@@ -299,6 +299,9 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             Debug.Log("AdData added to Data");
         }
         if (ShopManager.Instance != null) loadedData.shopData=ShopManager.Instance.GetData();
+        if(InteriorSceneManager.Instance!=null){
+            loadedData.currentJelly = InteriorSceneManager.Instance.jelly;
+        }
         SaveSystemData(loadedData);
     }
     private void SaveLastExitTime()

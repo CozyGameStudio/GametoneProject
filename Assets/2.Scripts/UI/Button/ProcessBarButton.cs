@@ -9,7 +9,7 @@ public class ProcessBarButton : MonoBehaviour
         StageMissionManager.Instance.OnRewardAbleDelegate+= IsRewardAble;
     }
     public void IsRewardAble(bool isAble){
-        alarm.SetActive(isAble);
+        if(alarm!=null)alarm.SetActive(isAble);
     }
     public void TutorialButtonClick()
     {

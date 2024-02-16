@@ -137,6 +137,6 @@ public class FoodBox : MonoBehaviour
     }
     private bool CheckUpgradable()
     {
-        return food.currentUpgradeMoney <= BusinessGameManager.Instance.money;
+        return food.currentUpgradeMoney <= BusinessGameManager.Instance.money&& !food.currentUpgradeMoney.Equals(0);
     }
 }

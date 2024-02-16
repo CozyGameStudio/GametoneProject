@@ -15,7 +15,7 @@ MonoBehaviour:
   index: 2
   missionType: 0
   missionContent: 2
-  targetName: 
+  targetName: last
   criteria: 150
   cost: 5
   stageToAppear: 1

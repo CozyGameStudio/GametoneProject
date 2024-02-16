@@ -799,6 +799,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4926272166630400302, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4964384377937727708, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2708,7 +2712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb596e160e1b564080377072ddd0404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderInBubble: {fileID: 2061251433}
   speedMultiplier: 1
   isOrderedForTutorial: 0
 --- !u!4 &516374521

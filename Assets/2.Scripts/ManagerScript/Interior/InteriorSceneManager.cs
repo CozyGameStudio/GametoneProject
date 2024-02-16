@@ -39,7 +39,7 @@ public class InteriorSceneManager : MonoBehaviour
         
     }
 
-    // µ¥ÀÌÅÍ ºÒ·¯¿À±â ¿À·ù ¼öÁ¤½Ã »èÁ¦
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void StartAddJelly()
     {
         if (jelly == 0)
@@ -105,5 +105,20 @@ public class InteriorSceneManager : MonoBehaviour
             comfortLV = 5;
         }
         InteriorUIManager.Instance.UpdateComfortLVUI();
+    }
+    public void SetData(SystemData systemData)
+    {
+        jelly=systemData.currentJelly;
+        // foreach(var preset in interiorDatas)
+        // {
+        //     var presetData = systemData.interiorData.preestData.Find(data => data.name.Equals(preset.interiorData.presetName));
+        //     if(presetData != null)
+        //     {
+        //         preset.SetData(presetData);
+        //     }
+        // }
+    }
+    public void GetData(){
+        
     }
 }

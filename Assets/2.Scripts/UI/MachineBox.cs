@@ -124,7 +124,7 @@ public class MachineBox : MonoBehaviour
         }
     }
     private bool CheckUpgradable(){
-        return machine.currentUpgradeMoney <= BusinessGameManager.Instance.money;
+        return machine.currentUpgradeMoney <= BusinessGameManager.Instance.money&& !machine.currentUpgradeMoney.Equals(0);
     }
     private bool CheckBuyable(){
         return machine.machineData.machineUnlockCost <= BusinessGameManager.Instance.money;

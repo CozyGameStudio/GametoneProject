@@ -19,7 +19,8 @@ public class MissionBox : MonoBehaviour
     [Header("버튼")]
     public Button upgradeButton;
     public Button rewardButton;
-
+    public Sprite coinSprite;
+    public Sprite jellySprite;
     public object obj{get;private set;}
     public bool isUnlocked{get;private set;}=false;
     public bool isCleared { get; private set; } = false;
@@ -66,6 +67,13 @@ public class MissionBox : MonoBehaviour
                 break;
             case MissionType.Reward:
                 button = rewardButton;
+                if(missionData.targetName.Equals("last")){
+                    button.GetComponent<RewardButton>().currencySprite.sprite = jellySprite;
+                }
+                else{
+                    button.GetComponent<RewardButton>().currencySprite.sprite = coinSprite;
+                }
+                
                 button.onClick.AddListener(StartRewardCoroutine);
                 isUnlocked=true;
                 break;
@@ -137,8 +145,12 @@ public class MissionBox : MonoBehaviour
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
         button.interactable=false;
-        yield return StartCoroutine(UIManager.Instance.PlayCoinAttraction(button.transform, missionData.cost));
-
+        if(missionData.targetName.Equals("last")){
+            yield return StartCoroutine(UIManager.Instance.PlayJellyAttraction(button.transform, missionData.cost));
+        }
+        else{
+            yield return StartCoroutine(UIManager.Instance.PlayCoinAttraction(button.transform, missionData.cost));
+        }
         gameObject.SetActive(false);
     }
     public void StartRewardCoroutine()

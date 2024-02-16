@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -26,6 +24,9 @@ public class ShopManager : MonoBehaviour
             }
             return instance;
         }
+    }
+    void Start(){
+        SetEventToButtons();
     }
     public void CheckDailyReward(SystemData systemData)
     {
@@ -51,9 +52,14 @@ public class ShopManager : MonoBehaviour
             isRewardReceived = new bool[8];
         }
     }
+    public void SetEventToButtons(){
+        for(int i=0;i<shopUI.dailyRewardButtons.Count;i++){
+            shopUI.dailyRewardButtons[i].button.onClick.AddListener(()=>ReceiveReward(i));
+        }
+    }
     public void ReceiveReward(int i){
         isRewardReceived[i]=true;
-        if(DataManager.Instance!=null)DataManager.Instance.AddJelly(jellyReward[i]);
+        if(DataManager.Instance!=null)UIManager.Instance.PlayJellyAttraction(shopUI.dailyRewardButtons[i].button.transform,jellyReward[i]);
         if(i==7){
             currentDayCount=0;
             isRewardReceived=new bool[8];
