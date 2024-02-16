@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum CurrencyType{
     Money,
-    Dia
+    Jelly
 }
 [System.Serializable]
 public class StoryData

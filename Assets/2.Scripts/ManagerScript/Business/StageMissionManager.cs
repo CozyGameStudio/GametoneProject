@@ -18,9 +18,12 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     private MissionDataList missionDataList;
     private GameObject missionBoxPrefab;
     public int stageProgress{get;private set;}=0;
-
+    public bool isRewardAble{get;private set;}=false;
     public delegate void StageClearedDelegate();
     public event StageClearedDelegate OnStageCleared;
+    //리워드 가능 여부를 감지하기 위한 이벤트
+    public delegate void RewardAbleDelegate(bool isAble);
+    public event RewardAbleDelegate OnRewardAbleDelegate;
     private static StageMissionManager instance;
     public static StageMissionManager Instance
     {
@@ -95,6 +98,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     private void UpdateMissionStatus()
     {
         int missionClearNumberForTutorial=0;
+        isRewardAble=false;
         foreach (var mission in missions)
         {
             if(mission.isCleared)continue;
@@ -104,39 +108,56 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                     if (accumulatedCustomer >= mission.missionData.criteria)
                     {
                         mission.button.interactable=true;
+                        isRewardAble=true;
                     }
                     break;
                 case MissionContent.SalesCheck:
-                    mission.button.interactable = accumulatedSales >= mission.missionData.criteria;
-                    missionClearNumberForTutorial++;
+                    if(accumulatedSales >= mission.missionData.criteria){
+                        mission.button.interactable =true;
+                        missionClearNumberForTutorial++;
+                        isRewardAble = true;
+                    }
                     break;
                 case MissionContent.LevelCheck:
                     if (mission.obj is Food food)
                     {
-                        mission.button.interactable=food.currentLevel>= mission.missionData.criteria;
+                        if(food.currentLevel >= mission.missionData.criteria){
+                            mission.button.interactable = true;
+                            isRewardAble = true;
+                        }
+                        
                     }
                     else if (mission.obj is Machine machine)
                     {
-                        mission.button.interactable = machine.currentLevel >= mission.missionData.criteria;
-                        missionClearNumberForTutorial++;
+                        if(machine.currentLevel >= mission.missionData.criteria){
+                            mission.button.interactable = true;
+                            missionClearNumberForTutorial++;
+                            isRewardAble = true;
+                        }
                     }
                     break;
                 case MissionContent.ActivatedCheck:
                     if (mission.obj is Machine machineActivatedCheck)
                     {
-                        mission.button.interactable = machineActivatedCheck.gameObject.activeInHierarchy;
+                        if(machineActivatedCheck.gameObject.activeInHierarchy){
+                            mission.button.interactable = true;
+                            isRewardAble = true;
+                        }
+                        
                     }
                     break;
                 case MissionContent.MachineNumberCheck:
                     if (DataManager.Instance.activeMachines.Count >= mission.missionData.criteria)
                     {
                         mission.button.interactable = true;
+                        isRewardAble = true;
                     }
                     break;
                 default :
                     if (BusinessGameManager.Instance.money > mission.missionData.cost)
                     {
                         mission.button.interactable = true;
+                        isRewardAble = true;
                     }
                     else mission.button.interactable = false;
                     break;
@@ -144,6 +165,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
             mission.SetUI();
             mission.SetActiveByStatus();
         }
+        OnRewardAbleDelegate?.Invoke(isRewardAble);//미션 상태 추적이 완료되었음을 알리는 이벤트
         if (TutorialManager.Instance != null && missionClearNumberForTutorial == 3) EventDispatcher.MissionCompleted();
     }
     public void SetData(BusinessData data)

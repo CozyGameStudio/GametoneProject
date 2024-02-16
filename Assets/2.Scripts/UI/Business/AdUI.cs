@@ -22,7 +22,7 @@ public class AdUI : MonoBehaviour
     private Dictionary<RewardType, Button> rewardButtons;
     private float waitTime=6f;
     // Start is called before the first frame update
-    void Start()
+    public void InitUI()
     {
         uiElement = GetComponent<RectTransform>();
         uiElement.anchoredPosition = exitPosition;

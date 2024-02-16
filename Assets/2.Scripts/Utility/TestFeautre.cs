@@ -9,6 +9,10 @@ public class TestFeautre : MonoBehaviour
     public void AddMoney(int money){
         BusinessGameManager.Instance.AddMoney(money);
     }
+    public void AddJelly(int jelly)
+    {
+        DataManager.Instance.AddJelly(jelly);
+    }
     public void ChangeSpeed(float multiplier){
         BusinessGameManager.Instance.ChangeSpeed(multiplier);
     }

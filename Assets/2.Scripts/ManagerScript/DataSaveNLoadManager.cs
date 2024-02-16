@@ -8,15 +8,19 @@ using System.Linq;
 using System.Threading.Tasks;
 [Serializable]
 public class SystemData{
+    public int currentJelly;
     public BusinessData businessData;
     public List<CollectionData> collectionDatas;
     public AdData adData;
+    public ShopData shopData;
     public SystemSettingData systemSettingData;
     public string lastTimeStamp;
     public SystemData(){
-        businessData=new BusinessData();
+        currentJelly=0;
+        businessData =new BusinessData();
         collectionDatas=new List<CollectionData>();
         adData=new AdData();
+        shopData=new ShopData();
         systemSettingData=new SystemSettingData();
         lastTimeStamp="";
     }
@@ -26,7 +30,6 @@ public class BusinessData
 {
     public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
     public int currentStageMoney; //무료재화 정보
-    public int currentDia; //유료재화 정보
     public int enabledTables; //활성화 테이블 수
     public float chefSpeedMultiplier; //셰프 속도 증가율
     public float serverSpeedMultiplier; //서버 속도 증가율
@@ -40,7 +43,6 @@ public class BusinessData
     public BusinessData(){
         currentStageNumber=1;
         currentStageMoney=10;
-        currentDia=0;
         enabledTables=2;
         chefSpeedMultiplier=1;
         serverSpeedMultiplier=1;
@@ -135,6 +137,18 @@ public class SaveData<T>
     }
 }
 [Serializable]
+public class ShopData{
+    public int dayCount;
+    public bool[] isRewardReceived;
+    public int jellyToCoinCount;
+    public int coinToJellyCount;
+    public ShopData(){
+        dayCount=1;
+        isRewardReceived=new bool[8];
+        jellyToCoinCount=3;
+        coinToJellyCount=3;
+    }
+}[Serializable]
 public class InteriorSData
 {
     public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
@@ -178,6 +192,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             if(DataManager.Instance!=null) DataManager.Instance.DataInitSetting(loadedData);
             if(CollectionManager.Instance!=null) CollectionManager.Instance.SetData(loadedData);
             if(AdMobManager.Instance!=null)AdMobManager.Instance.SetData(loadedData);
+            if(ShopManager.Instance!=null)ShopManager.Instance.SetData(loadedData);
         }
         if (SystemManager.Instance != null)
         {
@@ -266,6 +281,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public void SaveGameObjectsByCase()
     {
         if(DataManager.Instance!=null){
+            loadedData.currentJelly= DataManager.Instance.jelly;
             loadedData.businessData = DataManager.Instance.GetData();
             Debug.Log("Data Set");
         }
@@ -282,6 +298,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             loadedData.adData = AdMobManager.Instance.GetData();
             Debug.Log("AdData added to Data");
         }
+        if (ShopManager.Instance != null) loadedData.shopData=ShopManager.Instance.GetData();
         SaveSystemData(loadedData);
     }
     private void SaveLastExitTime()

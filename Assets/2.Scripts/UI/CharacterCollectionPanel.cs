@@ -67,8 +67,8 @@ public class CharacterCollectionPanel : MonoBehaviour
                     buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(() => currentCharacter.BuyStoryByMoney(index));
                     buttons[i].currencyImage.sprite = currencySprite[0];
                     break;
-                case CurrencyType.Dia:
-                    buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(() => currentCharacter.BuyStoryByDia(index));
+                case CurrencyType.Jelly:
+                    buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(() => currentCharacter.BuyStoryByJelly(index));
                     buttons[i].currencyImage.sprite = currencySprite[1];
                     break;
             }

@@ -26,7 +26,7 @@ public class CharacterCollection : MonoBehaviour
             if(unlock)count++;
         }
         if (isUnlock.Count == 0) {
-            Debug.LogError("DividebyZeroException");
+            Debug.LogError("[CharacterCollection]DividebyZeroException");
             return 0;
         }
         int pro= count * 100 / isUnlock.Count;
@@ -42,28 +42,26 @@ public class CharacterCollection : MonoBehaviour
             //연출 추가
         }
         else{
-            Debug.Log("돈이 없네...?");
             UIManager.Instance.PlaySFXByName("buttonRefuse");
         }
     }
-    public void BuyStoryByDia(int i)
+    public void BuyStoryByJelly(int i)
     {
         if (i < 0 || i >= scriptableCollection.storyDataList.Count)
         {
-            Debug.LogError($"인덱스 범위를 벗어났습니다: {i}");
+            Debug.LogError($"[CharacterCollection]인덱스 범위를 벗어났습니다: {i}");
             return;
         }
         //apply to lock panel
-        if (BusinessGameManager.Instance.dia >= scriptableCollection.storyDataList[i].storyUnlockCost)
+        if (DataManager.Instance.jelly >= scriptableCollection.storyDataList[i].storyUnlockCost)
         {
-            BusinessGameManager.Instance.DecreaseMoney(scriptableCollection.storyDataList[i].storyUnlockCost);
+            DataManager.Instance.DecreaseJelly(scriptableCollection.storyDataList[i].storyUnlockCost);
             isUnlock[i] = true;
             //연출 추가
             UIManager.Instance.PlaySFXByName("pay");
         }
         else
         {
-            Debug.Log("유료재화가 없네...?");
             UIManager.Instance.PlaySFXByName("buttonRefuse");
         }
     }
@@ -74,7 +72,7 @@ public class CharacterCollection : MonoBehaviour
         {
             isUnlock = collectionData.isUnlock;
         }
-        Debug.Log("Collection Data Set Called!");
+        Debug.Log("[CharacterCollection]Collection Data Set Called!");
         
     }
     public CollectionData GetData(){
