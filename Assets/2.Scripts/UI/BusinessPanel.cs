@@ -24,7 +24,7 @@ public class BusinessPanel : MonoBehaviour
     private Dictionary<Button, Sprite> buttonActiveSpriteMap;
     private Dictionary<Button, Sprite> buttonInActiveSpriteMap;
     private List<Button> buttons;
-    void Start(){
+    void Awake(){
         buttonPanelMap = new Dictionary<Button, GameObject>
         {
             { machineButton, machinePanel },

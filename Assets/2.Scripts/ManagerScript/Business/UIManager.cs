@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     public AdUI adUI;
     public OfflineRewardUI offlineRewardUI;
+    public StageUI stageUI;
     private static UIManager instance;
     public static UIManager Instance
     {

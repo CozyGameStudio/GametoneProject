@@ -175,14 +175,15 @@ public class PresetData
 
 public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
-    private int businessStageNumber=1;
+    public int businessStageNumber{get;private set;}=1;
     public string sceneName{get;private set;}="";
     private SystemData loadedData;
     public static Scene scene;
     private void Awake() {
         PrepareData();
         //게임 입장시 시작 스테이지 분별을 위한 씬정보 저장
-        sceneName = "BusinessStage" + loadedData.businessData.currentStageNumber.ToString();
+        businessStageNumber= loadedData.businessData.currentStageNumber;
+        sceneName = "BusinessStage" + businessStageNumber.ToString();
         Debug.Log($"{sceneName}Data Load Complete");
         scene = SceneManager.GetActiveScene();
         Debug.Log($"{scene.name}Scene detected");

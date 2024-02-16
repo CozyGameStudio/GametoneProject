@@ -2215,7 +2215,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2e7d4680fa0344a41b2791a9a8a4c8e0, type: 3}
   - {fileID: 8300000, guid: 0f0824c43acad954fadccfcac775ae01, type: 3}
   - {fileID: 8300000, guid: be2bbea21376ec247ae67575d83e4d32, type: 3}
-  lastTimeStamp: 
 --- !u!4 &451182604
 Transform:
   m_ObjectHideFlags: 0
@@ -2403,7 +2402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb596e160e1b564080377072ddd0404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderInBubble: {fileID: 0}
   speedMultiplier: 1
   isOrderedForTutorial: 0
 --- !u!4 &516374521
