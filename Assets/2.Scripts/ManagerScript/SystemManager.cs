@@ -15,7 +15,6 @@ public class SystemManager : MonoBehaviour
     private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
     private bool isBGMOn=true;
     private AudioSource audioSource;
-    public string lastTimeStamp;
     void Awake(){
         if (Instance == null)
         {

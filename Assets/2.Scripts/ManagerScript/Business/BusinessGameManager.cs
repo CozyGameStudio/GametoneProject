@@ -9,10 +9,14 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
     private static BusinessGameManager instance;
     public int startMoney=10;
     public int money{get;private set;}=0;
-    public int dia{get;private set;}=0;
+    
     public float moneyMultiplier=1;
 
     public int currentBusinessStage=1;
+
+    //업그레이드 가능 여부를 감지하기 위한 이벤트
+    public delegate void CurrencyChangeDelegate();
+    public event CurrencyChangeDelegate OnCurrencyChangeDelegate;
     public static BusinessGameManager Instance
     {
         get
@@ -84,6 +88,8 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
         UIManager.Instance.SetMoneyAnimation(currentMoney,money);
         //튜토리얼을 위한 돈체크
         if(TutorialManager.Instance!=null) EventDispatcher.MoneyChanged(money);
+        
+        OnCurrencyChangeDelegate?.Invoke();
     }
     public void DecreaseMoney(int moneyAmount)
     {
@@ -92,18 +98,9 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
         money -= moneyAmount;
         StageMissionManager.Instance.CostCheck();
         UIManager.Instance.SetMoneyAnimation(currentMoney, money);
+        OnCurrencyChangeDelegate?.Invoke();
     }
-    public void AddDia(int diaAmount)
-    {
-        dia+=diaAmount;
-        UIManager.Instance.UpdateDiaUI();
-    }
-    public void DecreaseDia(int diaAmount)
-    {
-        if (diaAmount > dia) return;
-        dia -= diaAmount;
-        UIManager.Instance.UpdateDiaUI();
-    }
+   
     public void ChangeScene(string scene){
         SceneManager.LoadScene(scene);
     }
@@ -113,12 +110,10 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
     }
     public void SetData(BusinessData data){
         money=data.currentStageMoney;
-        dia=data.currentDia;
     }
     public void AddDataToBusinessData(BusinessData data)
     {
         data.currentStageNumber=currentBusinessStage;
         data.currentStageMoney=money;
-        data.currentDia=dia;
     }
 }

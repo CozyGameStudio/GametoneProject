@@ -14,9 +14,10 @@ public class FoodBox : MonoBehaviour
     public Button foodUpgradeButton;
     public Image foodUpgradeCompleted;
     public GameObject lockPanel;
-
+    public GameObject alarm;
     private void Start(){
         DataLoadManager.Instance.OnDataChanged += UpdateUI;
+        BusinessGameManager.Instance.OnCurrencyChangeDelegate += SetAlarm;
     }
     private void HandleFoodUnlocked(Food unlockedFood)
     {
@@ -122,5 +123,20 @@ public class FoodBox : MonoBehaviour
     }
     private void PlayAnimationByName(Transform targetTransform,string aniName){
         SystemManager.Instance.PlayAnimationByName(targetTransform,aniName);
+    }
+    public void SetAlarm()
+    {
+        if (food.isUnlocked && CheckUpgradable())
+        {
+            alarm.SetActive(true);
+        }
+        else
+        {
+            alarm.SetActive(false);
+        }
+    }
+    private bool CheckUpgradable()
+    {
+        return food.currentUpgradeMoney <= BusinessGameManager.Instance.money;
     }
 }

@@ -15,12 +15,15 @@ public class DataManager : MonoBehaviour
     public List<Character> activeCharacters { get; private set; } = new List<Character>();
 
     public List<IBusinessManagerInterface> managerInterfaces;
-
+    public int jelly { get; private set; } = 0;
     //피버타임 보상 체크를 위한 이벤트 델리게이트
     public delegate void RewardTimeCheckDelegate(float timeLeft);
     public event RewardTimeCheckDelegate OnRewardTimeCheckDelegate;
     public delegate void RewardActivatedDelegate(bool isActivated);
     public event RewardActivatedDelegate OnRewardActivatedDelegate;
+    //업그레이드 가능 여부를 감지하기 위한 이벤트
+    public delegate void CurrencyChangeDelegate();
+    public event CurrencyChangeDelegate OnCurrencyChangeDelegate;
     public bool isRewardActivated { get; private set; }
     public bool isSpeedRewardActivated{get;private set;}
     private int offlineEarningCost=1;
@@ -47,6 +50,8 @@ public class DataManager : MonoBehaviour
     public void DataInitSetting(SystemData systemData)
     {
         Debug.Log("Data Init Start");
+        jelly=systemData.currentJelly;
+        
         BusinessData data = systemData.businessData;
         if (data!=null){
             Debug.Log("Data Ready");
@@ -85,7 +90,7 @@ public class DataManager : MonoBehaviour
             if(machineInterface is Machine machine&&!machine.isUnlocked)
             {
                 machine.transform.parent.gameObject.SetActive(false);
-                Debug.Log($"{machine}Create Data Set");
+                Debug.Log($"[DataManager] {machine}Create Data Set");
             }
         }
         addActiveFoods();
@@ -112,7 +117,7 @@ public class DataManager : MonoBehaviour
                 additionalMachine.transform.parent.gameObject.SetActive(false);
             }
         }
-        Debug.Log("Object Data loaded");
+        Debug.Log("[DataManager] Object Data loaded");
     }
     void addActiveFoods(){
         activeFoods = foods.Where(food => food.isUnlocked).ToList();
@@ -144,7 +149,7 @@ public class DataManager : MonoBehaviour
             Food selectedFood = activeFoods[index];
             return selectedFood;
         }
-        Debug.Log("no Activated Food");
+        Debug.Log("[DataManager] no Activated Food");
         return null;
     }
     public bool HasUnlockedFood(){
@@ -178,7 +183,7 @@ public class DataManager : MonoBehaviour
     {
         machine.AddAdditionalMachine();
         addActiveMachines();
-        Debug.Log("DataManager Machine Added");
+        Debug.Log("[DataManager] Machine Added");
     }
     public void SetData(BusinessData data){
         foreach (Food food in foods)
@@ -283,5 +288,55 @@ public class DataManager : MonoBehaviour
         OnRewardActivatedDelegate?.Invoke(false);
         isSpeedRewardActivated=false;
         isRewardActivated = false;
+    }
+    public void AddJelly(int jellyAmount)
+    {
+        int tmp=jelly;
+        jelly += jellyAmount;
+        UIManager.Instance.SetJellyAnimation(tmp,jelly);
+        OnCurrencyChangeDelegate?.Invoke();
+    }
+    public void DecreaseJelly(int jellyAmount)
+    {
+        if (jellyAmount > jelly) return;
+        int tmp=jelly;
+        jelly -= jellyAmount;
+        UIManager.Instance.SetJellyAnimation(tmp, jelly);
+        OnCurrencyChangeDelegate?.Invoke();
+    }
+    private bool IsCharacterAbleUpgrade(){
+        foreach(Character cha in activeCharacters){
+            if(!cha.currentUpgradeMoney.Equals(0)&&cha.currentUpgradeMoney<=jelly){
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool IsMachineAbleUpgrade(){
+        foreach (Machine ma in activeMachines)
+        {
+            if (!ma.currentUpgradeMoney.Equals(0)&&ma.currentUpgradeMoney <= BusinessGameManager.Instance.money)
+            {
+                return true;
+            }
+            if(!ma.isUnlocked&&ma.machineData.machineUnlockCost<=BusinessGameManager.Instance.money){
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool IsFoodAbleUpgrade()
+    {
+        foreach (Food fo in activeFoods)
+        {
+            if (!fo.currentUpgradeMoney.Equals(0)&&fo.currentUpgradeMoney <= BusinessGameManager.Instance.money)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool CheckAbleUpgrade(){
+        return IsFoodAbleUpgrade() || IsMachineAbleUpgrade() || IsCharacterAbleUpgrade();
     }
 }

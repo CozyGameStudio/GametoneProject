@@ -33,7 +33,7 @@ public class CharacterBox : MonoBehaviour
         // Init character name
         if (characterName != null)
         {
-            characterName.text = character.characterData.characterName;
+            characterName.text = character.characterData.characterNameInKorean;
         }
         else
         {
@@ -74,14 +74,14 @@ public class CharacterBox : MonoBehaviour
     }
     public void UpgradeButtonClick()
     {
-        if (BusinessGameManager.Instance.dia <= character.currentUpgradeMoney)
+        if (DataManager.Instance.jelly <= character.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
             SystemManager.Instance.PlayAnimationByName(characterUpgradeButton.transform,"buttonRefuse");
             return;
         }
         character.LevelUp();
-        BusinessGameManager.Instance.DecreaseDia(character.currentUpgradeMoney);
+        DataManager.Instance.DecreaseJelly(character.currentUpgradeMoney);
         UpdateUI();
         StartCoroutine(UpgradeAnimation());
     }
