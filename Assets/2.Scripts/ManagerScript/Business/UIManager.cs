@@ -72,10 +72,6 @@ public class UIManager : MonoBehaviour
     {
         jellyText.text =DataManager.Instance.jelly.ToString();
     }
-    public void UpdataComfortUI()
-    {
-        comfortText.text = InteriorSceneManager.Instance.comfort.ToString();
-    }
     public void UpdateMoneyMultiplierUI()
     {
         moneyMultiplierText.text = BusinessGameManager.Instance.moneyMultiplier.ToString();

@@ -101,14 +101,14 @@ public class InteriorManager : MonoBehaviour
 
     public void SetData(SystemData systemData)
     {
-        foreach(var preset in interiorDatas)
-        {
-            var presetData = systemData.interiorData.preestData.Find(data => data.name.Equals(preset.interiorData.presetName));
-            if(presetData != null)
-            {
-                preset.SetData(presetData);
-            }
-        }
+        // foreach(var preset in interiorDatas)
+        // {
+        //     var presetData = systemData.interiorData.preestData.Find(data => data.name.Equals(preset.interiorData.presetName));
+        //     if(presetData != null)
+        //     {
+        //         preset.SetData(presetData);
+        //     }
+        // }
     }
     public List<PresetData> GetData()
     {
