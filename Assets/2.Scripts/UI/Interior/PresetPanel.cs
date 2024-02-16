@@ -51,7 +51,7 @@ public class PresetPanel : MonoBehaviour
     {
         foreach (var preset in presetDatas)
         {
-            //preset.layout.SetActive(false);
+            preset.layout.SetActive(false);
         }
     }
 
