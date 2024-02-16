@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateJellyUI()
     {
-        jellyText.text =DataManager.Instance.jelly.ToString();
+        jellyText.text =DataManager.InsWtance.jelly.ToString();
     }
     public void UpdateMoneyMultiplierUI()
     {

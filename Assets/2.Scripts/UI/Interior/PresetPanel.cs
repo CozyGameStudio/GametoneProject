@@ -8,11 +8,11 @@ public class PresetPanel : MonoBehaviour
     public List<GameObject> PresetCommingSoonPrefab = new List<GameObject>();
 
     private List<PositionList> posList;
-
+    private List<Preset> presetDatas;
     public void SetData(List<Preset> presets)
     {
         posList = InteriorManager.Instance.interiorPositionObjects;
-
+        presetDatas = presets;
         for(int i = 0; i < 4; i++)
         {
             if(i < presets.Count)
@@ -44,6 +44,14 @@ public class PresetPanel : MonoBehaviour
         foreach (var interiorPositionObj in InteriorManager.Instance.interiorPositionObjects)
         {
             interiorPositionObj.isPreset = false;
+        }
+    }
+
+    public void LayoutReset()
+    {
+        foreach (var preset in presetDatas)
+        {
+            preset.layout.SetActive(false);
         }
     }
 

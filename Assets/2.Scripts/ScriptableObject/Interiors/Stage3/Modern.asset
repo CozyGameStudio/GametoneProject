@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b589db252d49c7d48922e980721df48d, type: 3}
+  m_Name: Modern
+  m_EditorClassIdentifier: 
+  presetName: Modern
+  presetNameInKorean: "\uBAA8\uB358"
+  stageToUse: 3
+  positionDataList:
+  - positionNumber: 1
+    InteriorDataList:
+    - index: 0
+      interiorName: window
+      interiorNameInKorean: "\uCC3D\uBB38"
+      positionNumber: 1
+      Comfort: 100
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 21300000, guid: efa8e538db988f743842f9ea9cc88808, type: 3}
+  - positionNumber: 2
+    InteriorDataList:
+    - index: 1
+      interiorName: board
+      interiorNameInKorean: "\uAC8C\uC2DC\uD310"
+      positionNumber: 2
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 21300000, guid: d8347adbda39614449d188111cae98a9, type: 3}
+  - positionNumber: 3
+    InteriorDataList:
+    - index: 2
+      interiorName: purpleStand
+      interiorNameInKorean: "\uBCF4\uB77C\uC870\uBA85"
+      positionNumber: 3
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 21300000, guid: 6e38f9dcddfb8d949b07cd13a5585a44, type: 3}
+  - positionNumber: 4
+    InteriorDataList:
+    - index: 3
+      interiorName: menuBoard
+      interiorNameInKorean: "\uBA54\uB274\uBCF4\uB4DC"
+      positionNumber: 4
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 21300000, guid: 66a966f14993f73458f7bce6c651b73a, type: 3}
+  - positionNumber: 5
+    InteriorDataList:
+    - index: 4
+      interiorName: flowerpot
+      interiorNameInKorean: "\uD654\uBD84"
+      positionNumber: 5
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 21300000, guid: 15490a36294da0c44ab8036a024310a7, type: 3}
+  - positionNumber: 6
+    InteriorDataList:
+    - index: 5
+      interiorName: whiteChair
+      interiorNameInKorean: "\uD770\uC758\uC790"
+      positionNumber: 6
+      Comfort: 10
+      InteriorCurrencyType: 1
+      interiorUnlockCost: 5
+      interiorImage: {fileID: 21300000, guid: 79f809e711af3fa41baea895fab22278, type: 3}
+  presetExampleImage: {fileID: 21300000, guid: a4778ab2e7b8ea049b18068fba4a47bd, type: 3}
+  presetInGameImage: {fileID: 21300000, guid: fea39a6139dac2d49b3385a01eb9b501, type: 3}
