@@ -313,14 +313,17 @@ public class DataManager : MonoBehaviour
         return false;
     }
     private bool IsMachineAbleUpgrade(){
-        foreach (Machine ma in activeMachines)
+        foreach (var machine in machines)
         {
-            if (!ma.currentUpgradeMoney.Equals(0)&&ma.currentUpgradeMoney <= BusinessGameManager.Instance.money)
-            {
-                return true;
-            }
-            if(!ma.isUnlocked&&ma.machineData.machineUnlockCost<=BusinessGameManager.Instance.money){
-                return true;
+            if(machine is Machine ma){
+                if (!ma.currentUpgradeMoney.Equals(0) && ma.currentUpgradeMoney <= BusinessGameManager.Instance.money)
+                {
+                    return true;
+                }
+                if (!ma.isUnlocked && ma.machineData.machineUnlockCost <= BusinessGameManager.Instance.money)
+                {
+                    return true;
+                }
             }
         }
         return false;
