@@ -9,7 +9,6 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
 
     // Define a delegate
     public delegate void OrderHandler(OrderBoard order);
-    public GameObject orderInBubble;
     // Create an event based on the delegate
     public event OrderHandler OnNewOrder;//Chef reference
     private Coroutine bubbleCoroutine;
@@ -59,7 +58,6 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
     {
         orderQueue.Enqueue(order);
         StartCoroutine(TryAssignOrder());
-        AppearBubble(2);
     }
     IEnumerator TryAssignOrder()
     {
@@ -121,20 +119,7 @@ public class OrderManager : MonoBehaviour,IBusinessManagerInterface
         // Attempt order allocation when the machine is available
         TryAssignOrder();
     }
-    public void AppearBubble(float duration){
-        if(orderInBubble!=null)orderInBubble.SetActive(true);
-        if (bubbleCoroutine != null)
-        {
-            StopCoroutine(bubbleCoroutine);
-        }
-        bubbleCoroutine = StartCoroutine(DisableBubbleAfterTime(duration));
-    }
-    private IEnumerator DisableBubbleAfterTime(float time)
-    {
-        yield return new WaitForSeconds(time);
-
-        if (orderInBubble != null) orderInBubble.SetActive(false);
-    }
+    
    
     public IEnumerator SetIsRewardActivated(float time)
     {
