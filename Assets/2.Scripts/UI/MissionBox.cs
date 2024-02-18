@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 
 using System.Linq;
+using PimDeWitte.UnityMainThreadDispatcher;
 
 
 public class MissionBox : MonoBehaviour
@@ -147,11 +148,13 @@ public class MissionBox : MonoBehaviour
         StageMissionManager.Instance.CalculateProgress();
         button.interactable=false;
         Transform tmp = button.transform;
+        int tmpMoney=missionData.cost;
+        Debug.Log($"[{name} mission Reward cost : {tmpMoney}");
         if (missionData.targetName.Equals("last")){
-            StartCoroutine(UIManager.Instance.PlayJellyAttraction(tmp, missionData.cost));
+            UnityMainThreadDispatcher.Instance().Enqueue(UIManager.Instance.PlayJellyAttraction(tmp, tmpMoney));
         }
         else{
-            StartCoroutine(UIManager.Instance.PlayCoinAttraction(tmp, missionData.cost));
+            UnityMainThreadDispatcher.Instance().Enqueue(UIManager.Instance.PlayCoinAttraction(tmp, tmpMoney));
         }
         StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);

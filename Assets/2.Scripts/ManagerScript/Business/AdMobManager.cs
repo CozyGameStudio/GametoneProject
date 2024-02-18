@@ -43,6 +43,8 @@ public class AdMobManager : MonoBehaviour
     private int tmpEarning;
     public delegate void RewardValidateDelegate(float rewardTime);
     public event RewardValidateDelegate OnRewardValidateDelegate;
+    private Transform coinReward;
+    private Transform jellyReward;
     public static AdMobManager Instance
     {
         get
@@ -62,7 +64,8 @@ public class AdMobManager : MonoBehaviour
             // This callback is called once the MobileAds SDK is initialized.
             Debug.Log("Ad Loaded Correctly");
         });
-        
+        coinReward=shopUI.coinRewardButton.transform;
+        jellyReward = shopUI.jellyRewardButton.transform;
     }
 
     public void LoadRewardedAdForCooktime()
@@ -192,13 +195,13 @@ public class AdMobManager : MonoBehaviour
                         break;
                     case RewardType.CoinBonus:
                         if (BusinessGameManager.Instance != null) UnityMainThreadDispatcher.Instance()
-                        .Enqueue(UIManager.Instance.PlayCoinAttraction(shopUI.coinRewardButton.transform, tmpEarning));
+                        .Enqueue(UIManager.Instance.PlayCoinAttraction(coinReward, tmpEarning));
                         UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         UnityMainThreadDispatcher.Instance().Enqueue(()=>shopUI.InitADUI());
                         break;
                     case RewardType.JellyBonus:
                         if (DataManager.Instance != null) UnityMainThreadDispatcher.Instance()
-                        .Enqueue(UIManager.Instance.PlayJellyAttraction(shopUI.jellyRewardButton.transform,tmpEarning));
+                        .Enqueue(UIManager.Instance.PlayJellyAttraction(jellyReward,tmpEarning));
                         UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         UnityMainThreadDispatcher.Instance().Enqueue(() => shopUI.InitADUI());
                         break;

@@ -38,11 +38,11 @@ public class CharacterCollection : MonoBehaviour
         if(BusinessGameManager.Instance.money>=scriptableCollection.storyDataList[i].storyUnlockCost){
             BusinessGameManager.Instance.DecreaseMoney(scriptableCollection.storyDataList[i].storyUnlockCost);
             isUnlock[i]=true;
-            UIManager.Instance.PlaySFXByName("pay");
+            SystemManager.Instance.PlaySFXByName("storySoft");
             //연출 추가
         }
         else{
-            UIManager.Instance.PlaySFXByName("buttonRefuse");
+            SystemManager.Instance.PlaySFXByName("buttonRefuse");
         }
     }
     public void BuyStoryByJelly(int i)
@@ -58,11 +58,11 @@ public class CharacterCollection : MonoBehaviour
             DataManager.Instance.DecreaseJelly(scriptableCollection.storyDataList[i].storyUnlockCost);
             isUnlock[i] = true;
             //연출 추가
-            UIManager.Instance.PlaySFXByName("pay");
+            SystemManager.Instance.PlaySFXByName("storyHard");
         }
         else
         {
-            UIManager.Instance.PlaySFXByName("buttonRefuse");
+            SystemManager.Instance.PlaySFXByName("buttonRefuse");
         }
     }
     public void SetData(CollectionData collectionData)

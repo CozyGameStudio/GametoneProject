@@ -23,12 +23,14 @@ public class OfflineRewardUI : MonoBehaviour
     }
     public void GetNormalReward(){
         if(BusinessGameManager.Instance!=null)BusinessGameManager.Instance.AddMoney(earnings);
+        SystemManager.Instance.PlaySFXByName("offlineReward");
         DataSaveNLoadManager.Instance.SaveThings();
         ExitAnimation();
     }
     public void GetAdReward(){
         adLoadingPanel.SetActive(true);
         if (AdMobManager.Instance != null) AdMobManager.Instance.LoadRewardedAdForOffline(earnings);
+        SystemManager.Instance.PlaySFXByName("offlineReward");
         ExitAnimation();
     }
     public IEnumerator EnterAnimation()

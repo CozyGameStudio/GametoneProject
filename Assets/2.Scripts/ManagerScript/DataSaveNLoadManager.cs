@@ -175,7 +175,8 @@ public class PresetData
 
 public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
-    public int businessStageNumber{get;private set;}=1;
+    [HideInInspector]
+    public int businessStageNumber=1;
     public string sceneName{get;private set;}="";
     private SystemData loadedData;
     public static Scene scene;
@@ -215,6 +216,8 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public BusinessData CreateBusinessData(int stageNum){
         BusinessData businessData = new BusinessData();
         businessData.currentStageNumber=stageNum;
+        loadedData.businessData=businessData;
+        SaveSystemData(loadedData);
         return businessData;
     }
     public void PrepareData()

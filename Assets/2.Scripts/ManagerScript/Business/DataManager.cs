@@ -6,7 +6,7 @@ using System.Linq;
 public class DataManager : MonoBehaviour
 {
     private static DataManager instance;
-    public List<Food> foods;
+    public List<Food> foods { get; private set; }=new List<Food>();
     public List<IMachineInterface> machines { get; private set; } = new List<IMachineInterface>();
     public List<Character> characters { get; private set; } = new List<Character>();
 
@@ -78,6 +78,7 @@ public class DataManager : MonoBehaviour
                 data.enabledTables=2;
                 data.chefSpeedMultiplier=1;
                 data.serverSpeedMultiplier = 1;
+                DataSaveNLoadManager.Instance.businessStageNumber=data.currentStageNumber;
             }
             foreach(var manager in managerInterfaces){
                 manager.SetData(data);
@@ -100,10 +101,14 @@ public class DataManager : MonoBehaviour
     }
     void LoadObjects()
     {
-        // foods = FindObjectsOfType<Food>().ToList();
-        machines = FindObjectsOfType<MonoBehaviour>().OfType<IMachineInterface>().ToList();
+        //foods = FindObjectsOfType<Food>().ToList();
+        var allMachines = FindObjectsOfType<MonoBehaviour>().OfType<IMachineInterface>().ToList();
+        var sortedMachines = allMachines
+            .OrderBy(machine => machine is Machine ? ((Machine)machine).machineData.machineUnlockCost : int.MaxValue)
+            .ToList();
+        machines = sortedMachines;
         characters = FindObjectsOfType<Character>().ToList();
-        machines.Sort((machine1, machine2) => string.Compare(machine1.unlockedFood.name, machine2.unlockedFood.name));
+        foods= SortFoodsBasedOnMachinesOrder();
         foreach (var machineInterface in machines)
         {
             // cast to Machine Type
@@ -118,6 +123,19 @@ public class DataManager : MonoBehaviour
             }
         }
         Debug.Log("[DataManager] Object Data loaded");
+    }
+    List<Food> SortFoodsBasedOnMachinesOrder()
+    {
+        List<Food> sortedFoods = new List<Food>();
+
+        foreach (var machineInterface in machines)
+        {
+            if (machineInterface is Machine machine && machine.unlockedFood != null && !sortedFoods.Contains(machine.unlockedFood))
+            {
+                sortedFoods.Add(machine.unlockedFood);
+            }
+        }
+        return sortedFoods;
     }
     void addActiveFoods(){
         activeFoods = foods.Where(food => food.isUnlocked).ToList();
@@ -276,6 +294,7 @@ public class DataManager : MonoBehaviour
     {
         isRewardActivated = true;
         float timeLeft = time;
+        SystemManager.Instance.PlaySFXByName("fever");
         isSpeedRewardActivated=true;
         OnRewardActivatedDelegate?.Invoke(true);
         while (timeLeft > 0)

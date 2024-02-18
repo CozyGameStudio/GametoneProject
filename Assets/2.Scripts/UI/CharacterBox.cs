@@ -78,12 +78,14 @@ public class CharacterBox : MonoBehaviour
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
             SystemManager.Instance.PlayAnimationByName(characterUpgradeButton.transform,"buttonRefuse");
+            SystemManager.Instance.PlaySFXByName("buttonRefuse");
             return;
         }
         character.LevelUp();
         DataManager.Instance.DecreaseJelly(character.currentUpgradeMoney);
         UpdateUI();
         StartCoroutine(UpgradeAnimation());
+        SystemManager.Instance.PlaySFXByName("buttonUpgrade");
     }
     IEnumerator UpgradeAnimation(){
         bool isUpgrade=true;

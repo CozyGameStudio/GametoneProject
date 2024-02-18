@@ -690,7 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3267370202917897358, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 126
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 3318742451218554394, guid: e332b8029fcd90c42b6eb55c7dcbde1d, type: 3}
       propertyPath: m_IsActive
@@ -6571,7 +6571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8534116187997713931, guid: c49ef652c55c7694db78464c42a2764f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17306,7 +17306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2933729109564030869, guid: ecc4acc0ae404c34f82ded0d366d5103, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3611158361342578020, guid: ecc4acc0ae404c34f82ded0d366d5103, type: 3}
       propertyPath: m_IsActive
@@ -18422,9 +18422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa51adafc1c016b45a92fb95db3615f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foods:
-  - {fileID: 1170281381}
-  - {fileID: 272081147}
 --- !u!4 &1730558615
 Transform:
   m_ObjectHideFlags: 0
@@ -22811,7 +22808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2354064416652185563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23297,10 +23294,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6679888023536037634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 220.5, y: -105}
+  m_SizeDelta: {x: 361, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &3986987861217487308
 RectTransform:
@@ -23892,7 +23889,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 441, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6800404210131523866
 GameObject:

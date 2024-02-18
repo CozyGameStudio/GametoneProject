@@ -8,6 +8,7 @@ public class TestFeautre : MonoBehaviour
     //In Build, it should be removed.
     public void AddMoney(int money){
         BusinessGameManager.Instance.AddMoney(money);
+        StageMissionManager.Instance.IncreaseAccumulatedSales(money);
     }
     public void AddJelly(int jelly)
     {

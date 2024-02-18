@@ -4275,7 +4275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7374523194032720226
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20438,7 +20438,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: buttonNormal
+          m_StringArgument: stageEntrance
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &3606458184999127389
@@ -21931,6 +21931,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7591160446734182049}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PlaySFXByName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: buttonNormal
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &5380261402467138390
@@ -28387,7 +28399,7 @@ MonoBehaviour:
   characterProfitGrowthRate: {fileID: 6007444432561795122}
   characterUpgrade: {fileID: 8253291847133438758}
   characterUpgradeComplete: {fileID: 1205574049909488544}
-  characterUpgradeButton: {fileID: 0}
+  characterUpgradeButton: {fileID: 6692407765534483960}
   animator: {fileID: 7936866905032460492}
 --- !u!1 &7472604355519080709
 GameObject:

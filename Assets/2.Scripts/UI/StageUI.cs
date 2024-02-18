@@ -9,18 +9,18 @@ public class StageUI : MonoBehaviour
     public List<StageButton> stageButtons;
     private int currentStageNumber;
 
-    void Start(){
-        currentStageNumber=DataSaveNLoadManager.Instance.businessStageNumber;
-        SetData();
-    }
     void OnEnable(){
+        Debug.Log("[StageUI] OnEnable");
         currentStageNumber = DataSaveNLoadManager.Instance.businessStageNumber;
-        if (String.IsNullOrEmpty(currentStageNumber.ToString())){
+        Debug.Log("[StageUI] "+currentStageNumber);
+        if (!String.IsNullOrEmpty(currentStageNumber.ToString())){
+            Debug.Log("[StageUI] Set Data");
             SetData();
         }
     }
     void SetData(){
-        for(int i=0;i<stageButtons.Count;i++){
+        
+        for (int i=0;i<stageButtons.Count;i++){
             int stageIndex = i + 1;
             if (i<currentStageNumber){
                 stageButtons[i].SetStageActive(true);

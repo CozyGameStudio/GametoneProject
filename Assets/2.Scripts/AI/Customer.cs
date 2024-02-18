@@ -116,6 +116,7 @@ public class Customer : MonoBehaviour
             BusinessGameManager.Instance.AddMoney(payMoney);
             StageMissionManager.Instance.IncreaseAccumulatedCustomer();
             StageMissionManager.Instance.IncreaseAccumulatedSales(payMoney);
+            SystemManager.Instance.PlaySFXByName("pay");
             Debug.Log(payMoney);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);

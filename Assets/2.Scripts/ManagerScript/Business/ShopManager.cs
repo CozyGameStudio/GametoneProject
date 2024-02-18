@@ -77,7 +77,6 @@ public class ShopManager : MonoBehaviour
         if(DataManager.Instance!=null)
             StartCoroutine(UIManager.Instance.PlayJellyAttraction(shopUI.coinToJellyButton.transform, jellyAmount));
         coinToJellyCount--;
-        SystemManager.Instance.PlaySFXByName("pay");
         shopUI.SetRemainTextForChange();
     }
     public void ChangeJellyToCoin(){
@@ -91,7 +90,6 @@ public class ShopManager : MonoBehaviour
         if (BusinessGameManager.Instance != null) 
         StartCoroutine(UIManager.Instance.PlayCoinAttraction(shopUI.jellyToCoinButton.transform, coinAmount));
         jellyToCoinCount--;
-        SystemManager.Instance.PlaySFXByName("pay");
         shopUI.SetRemainTextForChange();
     }
     public void SetData(SystemData systemData)
