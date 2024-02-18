@@ -21,8 +21,8 @@ public class ShopUI : MonoBehaviour
     public TMP_Text jellyToCoinRemaining;
 
     [Header("광고보상")]
-    public Button coinReward;
-    public Button jellyReward;
+    public Button coinRewardButton;
+    public Button jellyRewardButton;
     public TMP_Text coinRewardRemaining;
     public TMP_Text jellyRewardRemaining;
     private Dictionary<RewardType, TMP_Text> rewardCountTexts;
@@ -47,13 +47,14 @@ public class ShopUI : MonoBehaviour
         };
         rewardButtons = new Dictionary<RewardType, Button>
         {
-            { RewardType.CoinBonus,coinReward},
-            { RewardType.JellyBonus, jellyReward}
+            { RewardType.CoinBonus,coinRewardButton},
+            { RewardType.JellyBonus, jellyRewardButton}
         };
         foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
         {
             SetRemainTextForAd(rewardType);
         }
+
     }
     public void InitShopUI(int currentDayCount){
         //일일 보상 체크
@@ -80,7 +81,7 @@ public class ShopUI : MonoBehaviour
             dailyRewardButtons[7].activeImage.SetActive(true);
             dailyRewardButtons[7].button.interactable = true;
         }
-        
+        SetRemainTextForChange();
     }
     public void SetRemainTextForChange()
     {

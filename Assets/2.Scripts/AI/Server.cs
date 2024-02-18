@@ -27,12 +27,16 @@ public class Server : MonoBehaviour
     public event Action OnAvailable;
     private float initSpeed;
     private Animator animator;
+    private Transform initPosition;
 
     public bool isPickupForTutorial = false;
     public bool isServedForTutorial = false;
 
     void Awake()
     {
+        initPosition = new GameObject("InitPosition").transform;
+        initPosition.position = agent.transform.position;
+        initPosition.rotation = agent.transform.rotation;
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
     }
@@ -41,6 +45,7 @@ public class Server : MonoBehaviour
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         initSpeed=speed;
+        Debug.Log(initPosition.position+" "+initPosition.rotation);
         animator=GetComponent<Animator>();
     }
 
@@ -97,9 +102,12 @@ public class Server : MonoBehaviour
         else
             animator.SetFloat("YVelocity", -1);
     }
+    void Idle_Enter(){
+        placeToMove = initPosition;
+        agent.SetDestination(placeToMove.position);
+    }
     void Idle_Update()
     {
-        
         if (isThereMenuToServe)
         {
             placeToMove=menuToServe.transform;

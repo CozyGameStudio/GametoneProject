@@ -95,6 +95,9 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     public void CostCheck(){
         UpdateMissionStatus();
     }
+    public void CallUpdateMissionStatus(){
+        UpdateMissionStatus();
+    }
     private void UpdateMissionStatus()
     {
         int missionClearNumberForTutorial=0;
@@ -154,7 +157,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                     }
                     break;
                 default :
-                    if (BusinessGameManager.Instance.money > mission.missionData.cost)
+                    if (BusinessGameManager.Instance.money >= mission.missionData.cost&&mission.isUnlocked)
                     {
                         mission.button.interactable = true;
                         isRewardAble = true;

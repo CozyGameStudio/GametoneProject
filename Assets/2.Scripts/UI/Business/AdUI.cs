@@ -17,7 +17,7 @@ public class AdUI : MonoBehaviour
     public float animationDuration = 0.5f; 
 
     public GameObject adLoadingPanel;
-    private RectTransform uiElement;
+    public RectTransform uiElement{get;private set;}
     private Dictionary<RewardType, TMP_Text> rewardTexts;
     private Dictionary<RewardType, Button> rewardButtons;
     private float waitTime=6f;

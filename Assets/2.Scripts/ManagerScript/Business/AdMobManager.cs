@@ -82,18 +82,18 @@ public class AdMobManager : MonoBehaviour
 
     IEnumerator ShowLoadingPanelThenLoadAd(RewardType rewardType)
     {
-        adUI.adLoadingPanel.SetActive(true); // 로딩 패널 활성화
-        offlineRewardUI.adLoadingPanel.SetActive(true); // 로딩 패널 활성화
-        shopUI.adLoadingPanel.SetActive(true); // 로딩 패널 활성화
+        UnityMainThreadDispatcher.Instance().Enqueue(() => adUI.adLoadingPanel.SetActive(true));
+        UnityMainThreadDispatcher.Instance().Enqueue(() => offlineRewardUI.adLoadingPanel.SetActive(true));
+        UnityMainThreadDispatcher.Instance().Enqueue(() => shopUI.adLoadingPanel.SetActive(true));
         Debug.Log("Loading Panel Activated");
 
         yield return new WaitForSeconds(0.5f); // 필요한 경우 로딩 패널을 보여주기 위한 짧은 대기 시간
 
         LoadRewardedAd(rewardType, () =>
         {
-            adUI.adLoadingPanel.SetActive(false); // 로딩 패널 활성화
-            offlineRewardUI.adLoadingPanel.SetActive(false); // 로딩 패널 활성화
-            shopUI.adLoadingPanel.SetActive(false); // 로딩 패널 활성화
+            UnityMainThreadDispatcher.Instance().Enqueue(() => adUI.adLoadingPanel.SetActive(false));
+            UnityMainThreadDispatcher.Instance().Enqueue(() => offlineRewardUI.adLoadingPanel.SetActive(false));
+            UnityMainThreadDispatcher.Instance().Enqueue(() => shopUI.adLoadingPanel.SetActive(false));
             Debug.Log("Ad Loaded, Loading Panel Deactivated");
         });
     }
@@ -136,9 +136,9 @@ public class AdMobManager : MonoBehaviour
                 {
                     Debug.LogError("Rewarded ad failed to load an ad " +
                                    "with error : " + error);
-                    adUI.adLoadingPanel.SetActive(false);
-                    offlineRewardUI.adLoadingPanel.SetActive(false);
-                    shopUI.adLoadingPanel.SetActive(false);
+                    UnityMainThreadDispatcher.Instance().Enqueue(()=>adUI.adLoadingPanel.SetActive(false));
+                    UnityMainThreadDispatcher.Instance().Enqueue(()=>offlineRewardUI.adLoadingPanel.SetActive(false));
+                    UnityMainThreadDispatcher.Instance().Enqueue(()=>shopUI.adLoadingPanel.SetActive(false));
                     return;
                 }
                 onAdLoaded?.Invoke();
@@ -191,12 +191,14 @@ public class AdMobManager : MonoBehaviour
                         //사실상 오프라인 보상에 대해서는 Count 적용 X
                         break;
                     case RewardType.CoinBonus:
-                        if (BusinessGameManager.Instance != null) UnityMainThreadDispatcher.Instance().Enqueue(() => BusinessGameManager.Instance.AddMoney(tmpEarning));
+                        if (BusinessGameManager.Instance != null) UnityMainThreadDispatcher.Instance()
+                        .Enqueue(UIManager.Instance.PlayCoinAttraction(shopUI.coinRewardButton.transform, tmpEarning));
                         UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         UnityMainThreadDispatcher.Instance().Enqueue(()=>shopUI.InitADUI());
                         break;
                     case RewardType.JellyBonus:
-                        if (DataManager.Instance != null) UnityMainThreadDispatcher.Instance().Enqueue(() => DataManager.Instance.AddJelly(tmpEarning));
+                        if (DataManager.Instance != null) UnityMainThreadDispatcher.Instance()
+                        .Enqueue(UIManager.Instance.PlayJellyAttraction(shopUI.jellyRewardButton.transform,tmpEarning));
                         UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         UnityMainThreadDispatcher.Instance().Enqueue(() => shopUI.InitADUI());
                         break;

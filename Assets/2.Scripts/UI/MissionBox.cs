@@ -21,6 +21,7 @@ public class MissionBox : MonoBehaviour
     public Button rewardButton;
     public Sprite coinSprite;
     public Sprite jellySprite;
+    public GameObject alarm;
     public object obj{get;private set;}
     public bool isUnlocked{get;private set;}=false;
     public bool isCleared { get; private set; } = false;
@@ -104,7 +105,7 @@ public class MissionBox : MonoBehaviour
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
         DataManager.Instance.AddAdditionalMachine((Machine)obj);
-        
+        StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
     }
     public void SpeedUpgrade()
@@ -128,7 +129,7 @@ public class MissionBox : MonoBehaviour
                 server.SetSpeed(ServerManager.Instance.speedMultiplier);
             }
         }
-        
+        StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
     }
     public void TableUpgrade()
@@ -137,7 +138,7 @@ public class MissionBox : MonoBehaviour
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
         CustomerManager.Instance.AddOneTable();
-        
+        StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
     }
     public IEnumerator Reward()
@@ -145,13 +146,16 @@ public class MissionBox : MonoBehaviour
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
         button.interactable=false;
-        if(missionData.targetName.Equals("last")){
-            yield return StartCoroutine(UIManager.Instance.PlayJellyAttraction(button.transform, missionData.cost));
+        Transform tmp = button.transform;
+        if (missionData.targetName.Equals("last")){
+            StartCoroutine(UIManager.Instance.PlayJellyAttraction(tmp, missionData.cost));
         }
         else{
-            yield return StartCoroutine(UIManager.Instance.PlayCoinAttraction(button.transform, missionData.cost));
+            StartCoroutine(UIManager.Instance.PlayCoinAttraction(tmp, missionData.cost));
         }
+        StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
+        yield return null;
     }
     public void StartRewardCoroutine()
     {
@@ -174,19 +178,16 @@ public class MissionBox : MonoBehaviour
                 if (obj is Food parsedFood)
                 {
                     description = $"{parsedFood.foodData.foodNameInKorean} {missionData.criteria}LV 달성하기";
-                    Debug.Log("In");
                 }
                 else if (obj is Machine parsedMachine)
                 {
                     description = $"{parsedMachine.machineData.machineNameInKorean} {missionData.criteria}LV 달성하기";
-                    Debug.Log("In");
                 }
                 break;
             case MissionContent.ActivatedCheck:
                 if (obj is Machine machine)
                 {
                     description = $"{machine.machineData.machineNameInKorean} 설치하기";
-                    Debug.Log("In");
                 }
                 break;
             case MissionContent.MachineNumberCheck:
@@ -210,6 +211,9 @@ public class MissionBox : MonoBehaviour
                 break;
         }
         mission.text = description;
+        if(button.interactable){
+            alarm.SetActive(true);
+        }
     }
     public void SetActiveByStatus(){
         //when Mission is upgrade

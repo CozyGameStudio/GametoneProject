@@ -41,6 +41,7 @@ public class Chef : MonoBehaviour
     private OrderBoard currentMenu =default;
     private bool isCooking=false;
     private Animator animator;
+    private Transform initPosition;
     void OnEnable()
     {
         if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
@@ -59,7 +60,10 @@ public class Chef : MonoBehaviour
     }
     void Awake()
     {
-        fsm=new StateMachine<States, StateDriverUnity>(this);
+        initPosition = new GameObject("InitPosition").transform;
+        initPosition.position = agent.transform.position;
+        initPosition.rotation = agent.transform.rotation;
+        fsm =new StateMachine<States, StateDriverUnity>(this);
     }
     private void Start() {
         fsm.ChangeState(States.Idle);
@@ -109,8 +113,8 @@ public class Chef : MonoBehaviour
     }
     void Idle_Enter()
     {
-        //playanimation(idle)
-        
+        placeToMove = initPosition;
+        agent.SetDestination(placeToMove.position);
     }
     public void NewOrderAvailable(OrderBoard order)
     {
@@ -123,8 +127,6 @@ public class Chef : MonoBehaviour
 
     void Walk_Enter()
     {
-        //playanimation(walk)
-        
         agent.SetDestination(placeToMove.position);
     }
     void Walk_Update()

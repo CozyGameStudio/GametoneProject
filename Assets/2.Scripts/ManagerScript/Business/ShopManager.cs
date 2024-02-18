@@ -27,6 +27,7 @@ public class ShopManager : MonoBehaviour
     }
     void Start(){
         SetEventToButtons();
+        shopUI.InitShopUI(currentDayCount);
     }
     public void CheckDailyReward(SystemData systemData)
     {
@@ -73,7 +74,8 @@ public class ShopManager : MonoBehaviour
             return;
         }
         if(BusinessGameManager.Instance!=null)BusinessGameManager.Instance.DecreaseMoney(coinAmount);
-        if(DataManager.Instance!=null)DataManager.Instance.AddJelly(jellyAmount);
+        if(DataManager.Instance!=null)
+            StartCoroutine(UIManager.Instance.PlayJellyAttraction(shopUI.coinToJellyButton.transform, jellyAmount));
         coinToJellyCount--;
         SystemManager.Instance.PlaySFXByName("pay");
         shopUI.SetRemainTextForChange();
@@ -86,7 +88,8 @@ public class ShopManager : MonoBehaviour
             return;
         }
         if (DataManager.Instance != null) DataManager.Instance.DecreaseJelly(jellyAmount);
-        if (BusinessGameManager.Instance != null) BusinessGameManager.Instance.AddMoney(coinAmount);
+        if (BusinessGameManager.Instance != null) 
+        StartCoroutine(UIManager.Instance.PlayCoinAttraction(shopUI.jellyToCoinButton.transform, coinAmount));
         jellyToCoinCount--;
         SystemManager.Instance.PlaySFXByName("pay");
         shopUI.SetRemainTextForChange();

@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour
 
     public AdUI adUI;
     public OfflineRewardUI offlineRewardUI;
-    public StageUI stageUI;
     private static UIManager instance;
     public static UIManager Instance
     {
@@ -47,10 +46,25 @@ public class UIManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer("InteractiveObjects"));
-            if (hit.collider != null)
+            int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
+            RaycastHit2D hitUI = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, uiLayerMask);
+            if (hitUI.collider != null)
             {
-                adUI.EnterAnimation();
+                return;
+            }
+
+            int interactiveLayerMask = 1 << LayerMask.NameToLayer("InteractiveObjects");
+            RaycastHit2D hitInteractive = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, interactiveLayerMask);
+            if (hitInteractive.collider != null)
+            {
+                if (adUI.uiElement.anchoredPosition.Equals(adUI.exitPosition))
+                {
+                    adUI.EnterAnimation();
+                }
+                else
+                {
+                    adUI.ExitAnimation();
+                }
             }
         }
     }
