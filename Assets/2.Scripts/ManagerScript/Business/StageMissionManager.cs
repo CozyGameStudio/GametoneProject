@@ -57,14 +57,12 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
                 stageProgress += mission.missionData.progress;
             }
         }
+        Debug.Log($"{name} Stage Progress : {stageProgress}");
         Debug.Log(currentCompletedMission);
         if (stageProgress == 100)
         {
             Debug.Log("Stage Clear!!!!");
-            //도장 찍히는 연출 후 이벤트 호출
-
-            //튜토리얼 매니저가 없을때만, 스테이지 미션 
-            if(TutorialManager.Instance==null)OnStageCleared?.Invoke();
+            TimelineManager.Instance.PlayCutScene();
         }
         UIManager.Instance.UpdateProgress();
     }

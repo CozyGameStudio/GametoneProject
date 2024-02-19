@@ -36,10 +36,10 @@ public class StageUI : MonoBehaviour
     void CallStageChange(int i)
     {
         //디버깅때는 비활성화
-        // if(i.Equals(1)|| i.Equals(2)){
-        //     Debug.Log("Cleared Stage, But interior Stage doesnt exist");
-        //     return;
-        // }
+        if(i.Equals(1)|| i.Equals(2)){
+            Debug.Log("Cleared Stage, But interior Stage doesnt exist");
+            return;
+        }
         string sceneNameToMove;
         
         if (currentStageNumber>i&& !(i.Equals(1)||i.Equals(2)))

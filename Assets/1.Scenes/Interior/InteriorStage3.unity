@@ -21419,18 +21419,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139732082233150609}
   m_CullTransparentMesh: 1
---- !u!114 &335427367158102156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2693387242265432656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826d920bfdf9df9498fa56396f89b376, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &469328438240955968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22500,9 +22488,6 @@ GameObject:
   - component: {fileID: 4781173729873725714}
   - component: {fileID: 8522362806773692636}
   - component: {fileID: 1592841103664979764}
-  - component: {fileID: 7591160445606287664}
-  - component: {fileID: 335427367158102156}
-  - component: {fileID: 4413549481631122537}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -23057,18 +23042,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &4413549481631122537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2693387242265432656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a27d8a0f879584d9f59a207b76b4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4448625609096747106
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24075,28 +24048,6 @@ RectTransform:
   m_AnchoredPosition: {x: 636.49994, y: -301.00003}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7591160445606287664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2693387242265432656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72f23658f35bf3248ba57b535e5fe258, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 0}
-  jellyText: {fileID: 0}
-  moneyMultiplierText: {fileID: 0}
-  currentStageText: {fileID: 0}
-  slider: {fileID: 0}
-  coinAttraction: {fileID: 0}
-  jellyAttraction: {fileID: 0}
-  adUI: {fileID: 0}
-  offlineRewardUI: {fileID: 0}
-  stageUI: {fileID: 0}
 --- !u!1 &7599104997710424278
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class SystemData{
     public int currentJelly;
     public BusinessData businessData;
     public List<CollectionData> collectionDatas;
+    public List<InteriorSData> interiorDatas;
     public AdData adData;
     public ShopData shopData;
     public SystemSettingData systemSettingData;
@@ -151,12 +152,10 @@ public class ShopData{
 }[Serializable]
 public class InteriorSData
 {
-    public int currentStageNumber; //현재 플레이중인 경영스테이지 번호
-    public int currentStageMoney; //무료재화 정보
-    public int currentDia; //유료재화 정보
+    public int stageNumber;
+    public int stageMoney;
     public int currentComfort;
-    public int currentComfortLv;
-    public List<PresetData> preestData;
+    public List<PresetData> presetData;
 }
 
 public class PresetData 
@@ -183,7 +182,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     private void Awake() {
         PrepareData();
         //게임 입장시 시작 스테이지 분별을 위한 씬정보 저장
-        businessStageNumber= loadedData.businessData.currentStageNumber;
+        if(loadedData!=null)businessStageNumber= loadedData.businessData.currentStageNumber;
         sceneName = "BusinessStage" + businessStageNumber.ToString();
         Debug.Log($"{sceneName}Data Load Complete");
         scene = SceneManager.GetActiveScene();
@@ -204,9 +203,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         if(InteriorSceneManager.Instance!=null)InteriorSceneManager.Instance.SetData(loadedData);
         
     }
-    private void Start(){
-        //if(StageMissionManager.Instance!=null) StageMissionManager.Instance.OnStageCleared += SceneChange;
-    }
+    
     public void CreateSystemData(){
         SystemData systemData = new SystemData();
         systemData.businessData = CreateBusinessData(1);
@@ -216,8 +213,10 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     public BusinessData CreateBusinessData(int stageNum){
         BusinessData businessData = new BusinessData();
         businessData.currentStageNumber=stageNum;
-        loadedData.businessData=businessData;
-        SaveSystemData(loadedData);
+        if(loadedData!=null){
+            loadedData.businessData=businessData;
+            SaveSystemData(loadedData);
+            }
         return businessData;
     }
     public void PrepareData()
@@ -305,7 +304,11 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         if(InteriorSceneManager.Instance!=null){
             loadedData.currentJelly = InteriorSceneManager.Instance.jelly;
         }
-        SaveSystemData(loadedData);
+        if (InteriorManager.Instance != null)
+        {
+
+        }
+            SaveSystemData(loadedData);
     }
     private void SaveLastExitTime()
     {

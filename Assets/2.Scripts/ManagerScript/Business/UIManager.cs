@@ -78,21 +78,21 @@ public class UIManager : MonoBehaviour
     
     public void UpdateProgress()
     {
-       slider.value=StageMissionManager.Instance.stageProgress;
+       if(StageMissionManager.Instance!=null)slider.value=StageMissionManager.Instance.stageProgress;
     }
     public void UpdateMoneyUI(){
-        moneyText.text = BusinessGameManager.Instance.money.ToString();
+        if (BusinessGameManager.Instance != null) moneyText.text = BusinessGameManager.Instance.money.ToString();
     }
     public void UpdateJellyUI()
     {
-        jellyText.text =DataManager.Instance.jelly.ToString();
+        if (BusinessGameManager.Instance != null) jellyText.text =DataManager.Instance.jelly.ToString();
     }
     public void UpdateMoneyMultiplierUI()
     {
-        moneyMultiplierText.text = BusinessGameManager.Instance.moneyMultiplier.ToString();
+        if (BusinessGameManager.Instance != null) moneyMultiplierText.text = BusinessGameManager.Instance.moneyMultiplier.ToString();
     }
     public void UpdateCurrentStageText(){
-        currentStageText.text=BusinessGameManager.Instance.currentBusinessStage.ToString();
+        if (BusinessGameManager.Instance != null) currentStageText.text=BusinessGameManager.Instance.currentBusinessStage.ToString();
     }
     
     public void TriggerObj(GameObject obj)

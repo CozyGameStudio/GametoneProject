@@ -7,11 +7,22 @@ using UnityEngine.Timeline;
 public class TimelineManager : MonoBehaviour
 {
     public PlayableDirector playableDirector;
-
-    void Start()
+    private static TimelineManager instance;
+    public static TimelineManager Instance
     {
-        StageMissionManager.Instance.OnStageCleared+= PlayCutScene;
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<TimelineManager>();
+            }
+            return instance;
+        }
     }
+    // void Start()
+    // {
+    //     StageMissionManager.Instance.OnStageCleared+= PlayCutScene;
+    // }
 
     public void PlayCutScene()
     {

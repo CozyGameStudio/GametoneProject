@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 35542407}
   - component: {fileID: 35542408}
   m_Layer: 0
-  m_Name: StarBubble
+  m_Name: WooyoungBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,8 +228,8 @@ SpriteRenderer:
   m_SortingLayerID: -1140430013
   m_SortingLayer: 3
   m_SortingOrder: 103
-  m_Sprite: {fileID: -1379216280, guid: 9f2a9fc6c49d173448c39f8070614253, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -444727480, guid: 9f2a9fc6c49d173448c39f8070614253, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2474,7 +2474,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 103
   m_Sprite: {fileID: 21300000, guid: 735b9094d0bc9cb43844e5bfbc45af74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4237,12 +4237,12 @@ GameObject:
   - component: {fileID: 801475070}
   - component: {fileID: 801475071}
   m_Layer: 0
-  m_Name: StarPostionAnimation
+  m_Name: WooyoungPositionAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &801475070
 Transform:
   m_ObjectHideFlags: 0
@@ -10537,6 +10537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1c9e143ce0048897600ee9d5237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  businessStageNumber: 1
 --- !u!4 &1472331408
 Transform:
   m_ObjectHideFlags: 0
@@ -11722,10 +11723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa51adafc1c016b45a92fb95db3615f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foods:
-  - {fileID: 598202067}
-  - {fileID: 216615669}
-  - {fileID: 1159722465}
 --- !u!4 &1730558615
 Transform:
   m_ObjectHideFlags: 0
@@ -12047,7 +12044,7 @@ GameObject:
   - component: {fileID: 1751014734}
   - component: {fileID: 1751014733}
   m_Layer: 0
-  m_Name: StarCutScene
+  m_Name: WooyoungCutScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12110,7 +12107,7 @@ SpriteRenderer:
   m_SortingLayerID: -1140430013
   m_SortingLayer: 3
   m_SortingOrder: 102
-  m_Sprite: {fileID: 21300000, guid: 82a89e71a0a0be94f825bf59cda3ccf9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9a2e69f5d721cb40b7ea5d550c307e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12131,7 +12128,7 @@ Animator:
   m_GameObject: {fileID: 1751014731}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2d1d761a6f2c2aa49b3984d8b82de740, type: 2}
+  m_Controller: {fileID: 9100000, guid: 25a920a733221f14bba74a20cbfcbe7d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12498,7 +12495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1888753499
 Transform:
   m_ObjectHideFlags: 0

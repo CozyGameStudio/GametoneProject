@@ -103,6 +103,7 @@ public class DataManager : MonoBehaviour
     {
         //foods = FindObjectsOfType<Food>().ToList();
         var allMachines = FindObjectsOfType<MonoBehaviour>().OfType<IMachineInterface>().ToList();
+        //if(allMachines.Count<=0)return;
         var sortedMachines = allMachines
             .OrderBy(machine => machine is Machine ? ((Machine)machine).machineData.machineUnlockCost : int.MaxValue)
             .ToList();
@@ -142,6 +143,7 @@ public class DataManager : MonoBehaviour
     }
     void addActiveMachines()
     {
+        if(machines.Count<=0)return;
         activeMachines.Clear(); 
 
         foreach (IMachineInterface machineInterface in machines)
