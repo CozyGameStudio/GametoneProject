@@ -11,17 +11,6 @@ public class Preset : MonoBehaviour
     public ScriptableInterior interiorData;
     public GameObject layout;
     public Dictionary<int, bool> isUnlock = new Dictionary<int, bool>();
-    public void Awake()
-    {
-        foreach(var item in interiorData.positionDataList)
-        {
-            foreach (var i in item.InteriorDataList)
-            {
-                int key = i.index;
-                isUnlock[key] = false;
-            }
-        }
-    }
 
     public void BuyInteriorByJelly(int index)
     {
@@ -48,10 +37,34 @@ public class Preset : MonoBehaviour
 
     public void SetData(PresetData presetData)
     {
-        if(isUnlock.Count == presetData.unlocks.Count)
+
+        foreach (var item in interiorData.positionDataList)
         {
-            isUnlock = presetData.ToDictionary();
+            foreach (var i in item.InteriorDataList)
+            {
+                int key = i.index;
+                isUnlock[key] = false;
+            }
         }
+        if(presetData.unlocks.Count<=0){
+            return;
+        }
+        // 로그를 출력하여 전달받은 PresetData 객체의 상태를 확인
+        Debug.Log($"Updating isUnlock with PresetData: {presetData.name}");
+        foreach (var unlock in presetData.unlocks)
+        {
+            Debug.Log($"Unlock Item: {unlock.key}, State: {unlock.value}");
+        }
+
+        // PresetData로부터 isUnlock 정보를 업데이트
+        isUnlock = presetData.ToDictionary();
+
+        // 업데이트 후 isUnlock 상태를 로그로 출력
+        foreach (var pair in isUnlock)
+        {
+            Debug.Log($"Updated isUnlock: Key {pair.Key}, Value {pair.Value}");
+        }
+
     }
 
     public PresetData GetData()

@@ -156,13 +156,13 @@ public class InteriorStageData
 {
     public string stageName;
     public int presetNum;//활성화된 프리셋 번호
-    public List<int> furnitureByIndex;//각 위치의 활성화된 가구 인덱스
     public List<PresetData> presetData;
 }
 [Serializable]
 public class PresetData
 {
     public string name;
+    public List<int> furnitureByIndex;//각 위치의 활성화된 가구 인덱스
     public List<UnlockData> unlocks = new List<UnlockData>();
 
     public PresetData(string nam, Dictionary<int, bool> loc)

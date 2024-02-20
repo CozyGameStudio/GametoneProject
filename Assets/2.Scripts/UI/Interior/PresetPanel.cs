@@ -73,4 +73,20 @@ public class PresetPanel : MonoBehaviour
             }
         }
     }
+    public void SetpositionByindex(int i){
+        SpriteRenderer renderer;
+        for (int presetIndex = 0; presetIndex < posList.Count; presetIndex++)
+        {
+            foreach (var posObj in posList[presetIndex].list)
+            {
+                // SpriteRenderer 컴포넌트를 가져옵니다.
+                renderer = posObj.positionSprites;
+                if (renderer != null)
+                {
+                    // 인덱스 i에 해당하는 프리셋의 오브젝트만 활성화합니다.
+                    renderer.gameObject.SetActive(presetIndex == i);
+                }
+            }
+        }
+    }
 }
