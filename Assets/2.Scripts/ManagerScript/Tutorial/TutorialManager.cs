@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using DG.Tweening;
+using Unity.VisualScripting;
+
 public static class EventDispatcher
 {
     public static event Action<int> OnMoneyChanged;
@@ -27,6 +29,10 @@ public class TutorialManager : MonoBehaviour
 
     private Queue<int> tutorialQueue = new Queue<int>();
     private bool isTutorialActive = false;
+    public GameObject machinePanel;
+    public GameObject foodPanel;
+    public GameObject stageMissionPanel;
+
     public GameObject DarkFilter;
     public GameObject close;
     public GameObject open;
@@ -40,14 +46,19 @@ public class TutorialManager : MonoBehaviour
     public GameObject businessCloseFilter;
     public GameObject businessPanelFilter;
     public GameObject machineBoxUpgradeCostFilter;
-    public GameObject BoxUpgradeButtonFilter;
+    
+    private Transform machineBoxUpgradeButtonFilter;
+    private Transform foodBoxUpgradeButtonFilter;
+    
     public GameObject moneyFilter;
     public GameObject businessPanelFoodButtonFilter;
     public GameObject processBarFilter;
     public GameObject StageMissionScrollviewFilter;
     public GameObject machineFilter;
-    public GameObject StageMissionRewardFilter;
     
+    private Transform StageMissionRewardFilter;
+    private Transform stageMissionFilter;
+    private Transform stageMissionFilter2;
     public GameObject UIDarkFilter;
 
 
@@ -482,13 +493,15 @@ public class TutorialManager : MonoBehaviour
 
         // UIMachineBoxUpgradeButton focus
         machineBoxUpgradeCostFilter.SetActive(false);
-        BoxUpgradeButtonFilter.SetActive(true);
+        GameObject machineBox = machinePanel.transform.GetChild(0).gameObject;
+        machineBoxUpgradeButtonFilter = machineBox.transform.Find("BoxUpgradeButtonFilter");
+        machineBoxUpgradeButtonFilter.gameObject.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return new WaitUntil(() => isMachineUpgradeTouch);
 
         // UIBusinessBox focus
-        BoxUpgradeButtonFilter.SetActive(false);
+        machineBoxUpgradeButtonFilter.gameObject.SetActive(false);
         businessBoxFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
@@ -583,11 +596,13 @@ public class TutorialManager : MonoBehaviour
         // UIFoodBoxUpgradeButton focus
         businessPanelFilter.SetActive(false);
         businessBoxFilter.SetActive(false);
-        BoxUpgradeButtonFilter.SetActive(true);
+        GameObject foodBox = foodPanel.transform.GetChild(0).gameObject;
+        foodBoxUpgradeButtonFilter = foodBox.transform.Find("BoxUpgradeButtonFilter");
+        foodBoxUpgradeButtonFilter.gameObject.SetActive(true);
         yield return new WaitUntil(() =>isFoodUpgradeTouch);
 
         // UIMachineBox focus
-        BoxUpgradeButtonFilter.SetActive(false);
+        foodBoxUpgradeButtonFilter.gameObject.SetActive(false);
         businessBoxFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
@@ -637,13 +652,27 @@ public class TutorialManager : MonoBehaviour
 
         // UIMissionRewardButton Touch
         StageMissionScrollviewFilter.SetActive(false);
-        StageMissionRewardFilter.SetActive(true);
+        GameObject missionBox = stageMissionPanel.transform.GetChild(1).gameObject;
+        StageMissionRewardFilter = missionBox.transform.Find("StageMissionRewardFilter");
+        StageMissionRewardFilter.gameObject.SetActive(true);
+        
+        missionBox = stageMissionPanel.transform.GetChild(2).gameObject;
+        stageMissionFilter = missionBox.transform.Find("StageMissionFilter");
+        stageMissionFilter.gameObject.SetActive(true);
+
+        missionBox = stageMissionPanel.transform.GetChild(3).gameObject;
+        stageMissionFilter2 = missionBox.transform.Find("StageMissionFilter");
+        stageMissionFilter2.gameObject.SetActive(true);
+
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return new WaitUntil(() => isMissionBoxRewardTouch);
 
         // UIProcessBar Touch
-        StageMissionRewardFilter.SetActive(false);
+        StageMissionRewardFilter.gameObject.SetActive(false);
+        stageMissionFilter.gameObject.SetActive(false);
+        stageMissionFilter2.gameObject.SetActive(false);
+
         processBarFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
