@@ -10,8 +10,6 @@ public class TitleAnimation : MonoBehaviour
     public Image logo;
     public Image backImage;
     public Image startButton;
-    public TMP_Text title;
-    public TMP_Text title2;
     Sequence titleSequnce;
     void Start(){
         logo.color = new Color(logo.color.r, logo.color.g, logo.color.b, 0f);
@@ -26,8 +24,6 @@ public class TitleAnimation : MonoBehaviour
         titleSequnce = DOTween.Sequence()
                 .Append(logo.DOFade(0, 2))
                 .Append(backImage.DOFade(1, 2))
-                .Append(title.DOFade(1,1))
-                .Append(title2.DOFade(1, 1))
                 .Append(startButton.DOFade(1, 2))
                 .OnComplete(() => startButton.GetComponent<Button>().interactable = true);
     }

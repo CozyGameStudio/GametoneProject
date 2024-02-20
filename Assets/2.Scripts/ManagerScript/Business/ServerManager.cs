@@ -1,5 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ServerManager : MonoBehaviour,IBusinessManagerInterface
@@ -90,7 +91,19 @@ public class ServerManager : MonoBehaviour,IBusinessManagerInterface
     }
     private Server FindAvailableServer()
     {
-        return servers.Find(server => server.IsAvailable);
+        List<Server> availableServers = servers.Where(server => server.IsAvailable).ToList();
+        if (availableServers.Count == 0)
+        {
+            // 사용 가능한 서버가 없는 경우, null 반환
+            return null;
+        }
+
+        // 랜덤 객체 생성
+        System.Random random = new System.Random();
+
+        // 랜덤 인덱스를 사용하여 서버 선택
+        int randomIndex = random.Next(availableServers.Count);
+        return availableServers[randomIndex];
     }
     public bool isTableFull()
     {

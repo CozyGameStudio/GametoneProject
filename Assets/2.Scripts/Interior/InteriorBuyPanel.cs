@@ -48,6 +48,7 @@ public class InteriorBuyPanel : MonoBehaviour
         {
             positionObj.isPosition = true;
             positionObj.Comfort = interiorData.Comfort;
+            positionObj.fIndex=interiorData.index;
             renderer.gameObject.SetActive(true);
             renderer.sprite = interiorImage.sprite;
             renderer.color = new Color(1f, 1f, 1f);

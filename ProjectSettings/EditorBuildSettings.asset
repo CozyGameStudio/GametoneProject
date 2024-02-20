@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/1.Scenes/BusinessStages/BusinessStage4.unity
     guid: 7bf50a8c9d3798f4b91def5893ed6cb6
   - enabled: 1
+    path: Assets/1.Scenes/BusinessStages/BusinessStage5.unity
+    guid: 38d725136151a6b4c888f2db5e218a7f
+  - enabled: 1
     path: Assets/1.Scenes/Interior/InteriorStage3.unity
     guid: bfe073bd4027e3d4a961021a5e2c117d
   - enabled: 1

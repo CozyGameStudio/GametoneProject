@@ -54,7 +54,13 @@ public class PresetPanel : MonoBehaviour
             preset.layout.SetActive(false);
         }
     }
-
+    public void SetLayoutByIndex(int index){
+        foreach (var preset in presetDatas)
+        {
+            preset.layout.SetActive(false);
+        }
+        presetDatas[index].layout.SetActive(true);
+    }
     public void PositionReset()
     {
         SpriteRenderer renderer;
@@ -64,6 +70,22 @@ public class PresetPanel : MonoBehaviour
             {
                 renderer = obj.positionSprites;
                 renderer.gameObject.SetActive(false);
+            }
+        }
+    }
+    public void SetpositionByindex(int i){
+        SpriteRenderer renderer;
+        for (int presetIndex = 0; presetIndex < posList.Count; presetIndex++)
+        {
+            foreach (var posObj in posList[presetIndex].list)
+            {
+                // SpriteRenderer 컴포넌트를 가져옵니다.
+                renderer = posObj.positionSprites;
+                if (renderer != null)
+                {
+                    // 인덱스 i에 해당하는 프리셋의 오브젝트만 활성화합니다.
+                    renderer.gameObject.SetActive(presetIndex == i);
+                }
             }
         }
     }

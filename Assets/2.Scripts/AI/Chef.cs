@@ -42,6 +42,7 @@ public class Chef : MonoBehaviour
     private bool isCooking=false;
     private Animator animator;
     private Transform initPosition;
+    private GameObject foodObject;
     void OnEnable()
     {
         if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
@@ -93,15 +94,18 @@ public class Chef : MonoBehaviour
     {
         if (animator == null) {Debug.Log("animator is null");return;}
         if (currentVelocity.magnitude.Equals(0))
-        {//towards upside
+        {
             animator.SetFloat("YVelocity", 0);
         }
         else if (currentVelocity.y > 0)
-        {//towards downward
+        {
+            if(foodObject!=null)foodObject.SetActive(false);
             animator.SetFloat("YVelocity", 1);
         }
-        else
+        else{
+            if (foodObject != null) foodObject.SetActive(true);
             animator.SetFloat("YVelocity", -1);
+        }
     }
 
     void Update()
@@ -161,10 +165,10 @@ public class Chef : MonoBehaviour
         }
         loadingBarAnimator.gameObject.SetActive(false);
         
-        GameObject foodMade = Instantiate(Resources.Load<GameObject>("FoodToServe"), foodHolder.transform.position, Quaternion.identity);
-        foodMade.GetComponent<SpriteRenderer>().sprite= foodToMake.foodData.foodIcon;
-        foodMade.GetComponent<FoodToServe>().orderstatus=currentMenu;
-        foodMade.transform.parent = foodHolder.transform;
+        foodObject = Instantiate(Resources.Load<GameObject>("FoodToServe"), foodHolder.transform.position, Quaternion.identity);
+        foodObject.GetComponent<SpriteRenderer>().sprite= foodToMake.foodData.foodIcon;
+        foodObject.GetComponent<FoodToServe>().orderstatus=currentMenu;
+        foodObject.transform.parent = foodHolder.transform;
         isCooking=false;
         currentMenu=default;
     }
@@ -190,10 +194,10 @@ public class Chef : MonoBehaviour
     }
     void Serve_Enter()
     {
-        GameObject comFood= foodHolder.transform.GetChild(0).gameObject;
-        // comFood.transform.parent = serveHolder.transform;
-        comFood.transform.position= serveHolder.transform.position;
-        serveHolder.GetComponent<FoodPlace>().AddChild(comFood);
+        foodObject.SetActive(true);
+        foodObject.transform.position= serveHolder.transform.position;
+        serveHolder.GetComponent<FoodPlace>().AddChild(foodObject);
+        foodObject=null;
         fsm.ChangeState(States.Idle);
     }
     void Serve_Exit()

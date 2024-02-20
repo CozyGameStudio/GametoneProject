@@ -25,6 +25,7 @@ public class FoodBox : MonoBehaviour
         if (lockPanel != null)
         {
             lockPanel.SetActive(false);
+            SetAlarm();
         }
         if (food != null)
         {
@@ -115,6 +116,7 @@ public class FoodBox : MonoBehaviour
             foodUpgradeButton.gameObject.SetActive(false);
             foodUpgradeCompleted.gameObject.SetActive(true);
             PlayAnimationByName(foodUpgradeCompleted.transform, "buttonUpgrade");
+            alarm.SetActive(false);
         }
     }
     private void PlaySFXByName(string sfxName)

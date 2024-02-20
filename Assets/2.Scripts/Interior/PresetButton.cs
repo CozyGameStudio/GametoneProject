@@ -53,14 +53,14 @@ public class PresetButton : MonoBehaviour
         else
         {
             presetPanel.SetPresetBool();
-            presetPanel.LayoutReset();
             presetPanel.PositionReset();
-            SetLayout();
             SetPosition();
             InteriorWindow.SetActive(true);
             positionPanel.SetPosition(preset, posList);
             Debug.Log("PresetClick");
             posList.isPreset = true;
+            InteriorManager.Instance.activatedPresetNum = preset.presetIndex;
+            presetPanel.SetLayoutByIndex(InteriorManager.Instance.activatedPresetNum);
             InteriorManager.Instance.ComfortUpdate();
             SetExampleImage();
             PresetWindow.SetActive(false);

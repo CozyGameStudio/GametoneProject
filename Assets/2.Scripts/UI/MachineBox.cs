@@ -110,6 +110,7 @@ public class MachineBox : MonoBehaviour
             machineUpgradeButton.gameObject.SetActive(false);
             machineUpgradeComplete.gameObject.SetActive(true);
             PlayAnimationByName(machineUpgradeComplete.transform, "buttonUpgrade");
+            alarm.SetActive(false);
         }
         SetAlarm();
     }

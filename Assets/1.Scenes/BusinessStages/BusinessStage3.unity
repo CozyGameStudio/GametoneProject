@@ -960,6 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100d1c9e143ce0048897600ee9d5237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  businessStageNumber: 1
 --- !u!4 &166031077
 Transform:
   m_ObjectHideFlags: 0
@@ -1374,7 +1375,7 @@ GameObject:
   - component: {fileID: 265946300}
   - component: {fileID: 265946301}
   m_Layer: 0
-  m_Name: StarPostionAnimation
+  m_Name: ImjaPositionAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5064,7 +5065,7 @@ GameObject:
   - component: {fileID: 1096624556}
   - component: {fileID: 1096624557}
   m_Layer: 0
-  m_Name: StarBubble
+  m_Name: ImjaBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5126,8 +5127,8 @@ SpriteRenderer:
   m_SortingLayerID: -1140430013
   m_SortingLayer: 3
   m_SortingOrder: 103
-  m_Sprite: {fileID: -1379216280, guid: 9f2a9fc6c49d173448c39f8070614253, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 423385259, guid: 9f2a9fc6c49d173448c39f8070614253, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5932,7 +5933,7 @@ GameObject:
   - component: {fileID: 1332729757}
   - component: {fileID: 1332729756}
   m_Layer: 0
-  m_Name: StarCutScene
+  m_Name: ImjaCutScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5995,7 +5996,7 @@ SpriteRenderer:
   m_SortingLayerID: -1140430013
   m_SortingLayer: 3
   m_SortingOrder: 102
-  m_Sprite: {fileID: 21300000, guid: 82a89e71a0a0be94f825bf59cda3ccf9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd9905313f9a9c546a31f03c992d6b1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6016,7 +6017,7 @@ Animator:
   m_GameObject: {fileID: 1332729754}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2d1d761a6f2c2aa49b3984d8b82de740, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2f4926e05811f56439e1538741a008b4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12525,7 +12526,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 103
   m_Sprite: {fileID: 21300000, guid: 735b9094d0bc9cb43844e5bfbc45af74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 9
   machineName: madeleineMachine
-  machineNameInKorean: "\uB9C8\uB4E4\uB80C"
+  machineNameInKorean: "\uB9C8\uB4E4\uB80C\uAC00\uD310\uB300"
   machineUnlockCost: 30
   cookTime:
   - 10

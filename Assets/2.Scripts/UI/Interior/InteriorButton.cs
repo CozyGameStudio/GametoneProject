@@ -64,6 +64,7 @@ public class InteriorButton : MonoBehaviour
         {
             positionObj.isPosition = true;
             positionObj.Comfort = interior.Comfort;
+            positionObj.fIndex=interior.index;
             interiorBuyPanel.gameObject.SetActive(false);
             renderer.gameObject.SetActive(true);
             renderer.sprite = interior.interiorImage;
