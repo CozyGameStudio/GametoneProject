@@ -84,7 +84,7 @@ public class DataManager : MonoBehaviour
                 manager.SetData(data);
                 Debug.Log($"{manager} Data Set");
             }
-            SetData(data);
+            SetData(systemData);
         }
         foreach (IMachineInterface machineInterface in machines)
         {
@@ -205,7 +205,8 @@ public class DataManager : MonoBehaviour
         addActiveMachines();
         Debug.Log("[DataManager] Machine Added");
     }
-    public void SetData(BusinessData data){
+    public void SetData(SystemData systemData){
+        BusinessData data=systemData.businessData;
         foreach (Food food in foods)
         {
             var foodData = data.currentFoods.Find(f => f.name == food.foodData.name);
@@ -224,7 +225,7 @@ public class DataManager : MonoBehaviour
         }
         foreach (Character character in characters)
         {
-            var characterData = data.currentCharacters.Find(f => f.name == character.characterData.name);
+            var characterData = systemData.currentCharacters.Find(f => f.name == character.characterData.name);
             if (characterData != null)
             {
                 character.SetData(characterData.currentLevel, characterData.isUnlocked);
@@ -245,11 +246,18 @@ public class DataManager : MonoBehaviour
         {
             BusinessData.currentMachines.Add(machine.GetData());
         }
+        
+        return BusinessData;
+    }
+    public List<SaveData<Character>> GetCharacterData(){
+        List<SaveData<Character>> characterList=new List<SaveData<Character>>();
         foreach (Character character in characters)
         {
-            BusinessData.currentCharacters.Add(character.GetData());
+            SaveData<Character> tmp= character.GetData();
+            characterList.Add(tmp);
+            Debug.Log(tmp.name+" "+tmp.currentLevel+" ");
         }
-        return BusinessData;
+        return characterList;
     }
     private void CalculateOfflineEarnings(SystemData loadedData)
     {

@@ -54,7 +54,13 @@ public class PresetPanel : MonoBehaviour
             preset.layout.SetActive(false);
         }
     }
-
+    public void SetLayoutByIndex(int index){
+        foreach (var preset in presetDatas)
+        {
+            preset.layout.SetActive(false);
+        }
+        presetDatas[index].layout.SetActive(true);
+    }
     public void PositionReset()
     {
         SpriteRenderer renderer;

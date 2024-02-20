@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public Slider slider;
     public ParticleImage coinAttraction;
     public ParticleImage jellyAttraction;
-
+    public GameObject missionWindow;
 
     public AdUI adUI;
     public OfflineRewardUI offlineRewardUI;
@@ -68,7 +68,9 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
+    public void MissionWindowOff(){
+        missionWindow.SetActive(false);
+    }
     public void SetData(){
         UpdateCurrentStageText();
         UpdateMoneyUI();

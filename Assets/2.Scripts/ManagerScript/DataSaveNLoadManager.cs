@@ -11,7 +11,8 @@ public class SystemData{
     public int currentJelly;
     public BusinessData businessData;
     public List<CollectionData> collectionDatas;
-    public List<InteriorSData> interiorDatas;
+    public List<InteriorStageData> interiorDatas;
+    public List<SaveData<Character>> currentCharacters;
     public AdData adData;
     public ShopData shopData;
     public SystemSettingData systemSettingData;
@@ -20,7 +21,9 @@ public class SystemData{
         currentJelly=0;
         businessData =new BusinessData();
         collectionDatas=new List<CollectionData>();
-        adData=new AdData();
+        interiorDatas=new List<InteriorStageData>();
+        currentCharacters = new List<SaveData<Character>>();
+        adData =new AdData();
         shopData=new ShopData();
         systemSettingData=new SystemSettingData();
         lastTimeStamp="";
@@ -38,7 +41,7 @@ public class BusinessData
     public int accumulatedSales;
     public List<SaveData<Food>> currentFoods; //해당 스테이지 음식 데이터
     public List<SaveData<IMachineInterface>> currentMachines; //해당 스테이지 장비 데이터(원본 + 추가 장비)
-    public List<SaveData<Character>> currentCharacters; //해당 스테이지 캐릭터 데이터
+    
     public List<MissionData> currentMissions; // 해당스테이지 미션
 
     public BusinessData(){
@@ -51,7 +54,6 @@ public class BusinessData
         accumulatedSales=0;
         currentFoods = new List<SaveData<Food>>();
         currentMachines = new List<SaveData<IMachineInterface>>();
-        currentCharacters = new List<SaveData<Character>>();
         currentMissions = new List<MissionData>();
     }
 }
@@ -150,27 +152,47 @@ public class ShopData{
         coinToJellyCount=3;
     }
 }[Serializable]
-public class InteriorSData
+public class InteriorStageData
 {
-    public int stageNumber;
-    public int stageMoney;
-    public int currentComfort;
+    public string stageName;
+    public int presetNum;//활성화된 프리셋 번호
+    public List<int> furnitureByIndex;//각 위치의 활성화된 가구 인덱스
     public List<PresetData> presetData;
 }
-
-public class PresetData 
+[Serializable]
+public class PresetData
 {
     public string name;
-    public Dictionary<int, bool> isUnlock;
-    public PresetData(string nam,  Dictionary<int, bool> loc)
+    public List<UnlockData> unlocks = new List<UnlockData>();
+
+    public PresetData(string nam, Dictionary<int, bool> loc)
     {
-        name= nam;
-        isUnlock = loc;
+        name = nam;
+        // Dictionary를 List<UnlockData>로 변환합니다.
+        foreach (var pair in loc)
+        {
+            unlocks.Add(new UnlockData(pair.Key, pair.Value));
+        }
     }
 
+    // List<UnlockData>를 Dictionary<int, bool>로 변환하는 메서드
+    public Dictionary<int, bool> ToDictionary()
+    {
+        return unlocks.ToDictionary(item => item.key, item => item.value);
+    }
 }
+[Serializable]
+public class UnlockData
+{
+    public int key;
+    public bool value;
 
-
+    public UnlockData(int key, bool value)
+    {
+        this.key = key;
+        this.value = value;
+    }
+}
 
 public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
 {
@@ -195,13 +217,14 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             if(AdMobManager.Instance!=null)AdMobManager.Instance.SetData(loadedData);
             if(ShopManager.Instance!=null)ShopManager.Instance.SetData(loadedData);
         }
+        if(scene.name.Contains("Interior")){
+            if (InteriorSceneManager.Instance != null) InteriorSceneManager.Instance.SetData(loadedData);
+            if(InteriorManager.Instance!=null)InteriorManager.Instance.SetData(loadedData);
+        }
         if (SystemManager.Instance != null)
         {
             SystemManager.Instance.SetData(loadedData);
         }
-        Debug.Log(InteriorSceneManager.Instance);
-        if(InteriorSceneManager.Instance!=null)InteriorSceneManager.Instance.SetData(loadedData);
-        
     }
     
     public void CreateSystemData(){
@@ -285,6 +308,24 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         if(DataManager.Instance!=null){
             loadedData.currentJelly= DataManager.Instance.jelly;
             loadedData.businessData = DataManager.Instance.GetData();
+            List<SaveData<Character>> newData=DataManager.Instance.GetCharacterData();
+            var existingData=loadedData.currentCharacters;
+            // 새로운 데이터를 순회하며 처리
+            foreach (var newChar in newData)
+            {
+                var existingChar = existingData.FirstOrDefault(e => e.name == newChar.name);
+
+                if (existingChar != null)
+                {
+                    existingChar.name = newChar.name;
+                    existingChar.currentLevel=newChar.currentLevel;
+                }
+                else
+                {
+                    // 새로운 캐릭터가 기존 데이터에 없는 경우, 추가
+                    loadedData.currentCharacters.Add(newChar);
+                }
+            }
             Debug.Log("Data Set");
         }
         if (CollectionManager.Instance != null)
@@ -306,7 +347,25 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         }
         if (InteriorManager.Instance != null)
         {
+            // InteriorManager에서 현재 스테이지의 데이터를 가져옵니다.
+            InteriorStageData newData = InteriorManager.Instance.GetData();
 
+            // 현재 스테이지 이름을 기준으로 기존 데이터 리스트에서 해당 스테이지 데이터를 찾습니다.
+            var existingData = loadedData.interiorDatas.FirstOrDefault(stage => stage.stageName.Equals(newData.stageName));
+
+            if (existingData != null)
+            {
+                int index = loadedData.interiorDatas.IndexOf(existingData);
+                if (index != -1)
+                {
+                    loadedData.interiorDatas[index] = newData;
+                }
+            }
+            else
+            {
+                // 기존 데이터가 존재하지 않는다면, 새로운 데이터를 리스트에 추가합니다.
+                loadedData.interiorDatas.Add(newData);
+            }
         }
             SaveSystemData(loadedData);
     }

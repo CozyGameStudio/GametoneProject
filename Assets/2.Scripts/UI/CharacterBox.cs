@@ -40,37 +40,7 @@ public class CharacterBox : MonoBehaviour
             Debug.LogError("Cannot find Name");
         }
 
-        // Init character Level
-        if (characterLevel != null)
-        {
-            characterLevel.text = character.currentLevel.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find Level");
-        }
-
-
-        // Init cooking speed
-        if (characterProfitGrowthRate != null)
-        {
-            characterProfitGrowthRate.text = character.currentProfitGrowthRate.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find CookingSpeed");
-        }
-
-
-        // Init character upgrade
-        if (characterUpgrade != null)
-        {
-            characterUpgrade.text = character.currentUpgradeMoney.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find characterUpgrade");
-        }
+        UpdateUI();
     }
     public void UpgradeButtonClick()
     {
@@ -103,6 +73,10 @@ public class CharacterBox : MonoBehaviour
         if(character.currentUpgradeMoney==0){
             characterUpgradeButton.gameObject.SetActive(false);
             characterUpgradeComplete.gameObject.SetActive(true);
+        }
+        else{
+            characterUpgradeButton.gameObject.SetActive(true);
+            characterUpgradeComplete.gameObject.SetActive(false);
         }
     }
     

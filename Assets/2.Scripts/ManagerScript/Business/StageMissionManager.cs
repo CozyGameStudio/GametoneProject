@@ -62,6 +62,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
         if (stageProgress == 100)
         {
             Debug.Log("Stage Clear!!!!");
+            UIManager.Instance.MissionWindowOff();
             TimelineManager.Instance.PlayCutScene();
         }
         UIManager.Instance.UpdateProgress();

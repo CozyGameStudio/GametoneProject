@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Preset : MonoBehaviour
 {
+    public int presetIndex;
     [SerializeField]
     public ScriptableInterior interiorData;
     public GameObject layout;
@@ -19,9 +20,7 @@ public class Preset : MonoBehaviour
                 int key = i.index;
                 isUnlock[key] = false;
             }
-
         }
-        
     }
 
     public void BuyInteriorByJelly(int index)
@@ -49,9 +48,9 @@ public class Preset : MonoBehaviour
 
     public void SetData(PresetData presetData)
     {
-        if(isUnlock.Count == presetData.isUnlock.Count)
+        if(isUnlock.Count == presetData.unlocks.Count)
         {
-            isUnlock = presetData.isUnlock;
+            isUnlock = presetData.ToDictionary();
         }
     }
 

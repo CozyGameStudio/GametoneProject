@@ -8297,6 +8297,7 @@ MonoBehaviour:
   slider: {fileID: 1818497769259121259}
   coinAttraction: {fileID: 8082746390679972588}
   jellyAttraction: {fileID: 8189761029557263122}
+  missionWindow: {fileID: 7876415858327166804}
   adUI: {fileID: 1872831381306463554}
   offlineRewardUI: {fileID: 1309625830738201269}
 --- !u!114 &335427366139119389
