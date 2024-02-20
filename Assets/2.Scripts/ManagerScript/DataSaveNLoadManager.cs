@@ -217,9 +217,10 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             if(AdMobManager.Instance!=null)AdMobManager.Instance.SetData(loadedData);
             if(ShopManager.Instance!=null)ShopManager.Instance.SetData(loadedData);
         }
-        if(scene.name.Contains("Interior")){
+        else{
             if (InteriorSceneManager.Instance != null) InteriorSceneManager.Instance.SetData(loadedData);
             if(InteriorManager.Instance!=null)InteriorManager.Instance.SetData(loadedData);
+            Debug.Log("Data set to InteriorScene");
         }
         if (SystemManager.Instance != null)
         {
@@ -351,8 +352,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             InteriorStageData newData = InteriorManager.Instance.GetData();
 
             // 현재 스테이지 이름을 기준으로 기존 데이터 리스트에서 해당 스테이지 데이터를 찾습니다.
-            var existingData = loadedData.interiorDatas.FirstOrDefault(stage => stage.stageName.Equals(newData.stageName));
-
+            var existingData = loadedData.interiorDatas.FirstOrDefault(stage => stage.stageName != null && stage.stageName.Equals(newData.stageName));
             if (existingData != null)
             {
                 int index = loadedData.interiorDatas.IndexOf(existingData);
