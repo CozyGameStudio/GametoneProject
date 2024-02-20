@@ -108,6 +108,7 @@ public class MissionBox : MonoBehaviour
         DataManager.Instance.AddAdditionalMachine((Machine)obj);
         StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     public void SpeedUpgrade()
     {
@@ -132,6 +133,7 @@ public class MissionBox : MonoBehaviour
         }
         StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     public void TableUpgrade()
     {
@@ -141,6 +143,7 @@ public class MissionBox : MonoBehaviour
         CustomerManager.Instance.AddOneTable();
         StageMissionManager.Instance.CallUpdateMissionStatus();
         gameObject.SetActive(false);
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     public IEnumerator Reward()
     {
@@ -157,6 +160,7 @@ public class MissionBox : MonoBehaviour
             UnityMainThreadDispatcher.Instance().Enqueue(UIManager.Instance.PlayCoinAttraction(tmp, tmpMoney));
         }
         StageMissionManager.Instance.CallUpdateMissionStatus();
+        DataSaveNLoadManager.Instance.SaveThings();
         gameObject.SetActive(false);
         yield return null;
     }

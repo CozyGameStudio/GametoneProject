@@ -146,6 +146,7 @@ public class MachineBox : MonoBehaviour
             PlaySFXByName("buttonRefuse");
             PlayAnimationByName(transform, "buttonRefuse");
         }
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     private void PlaySFXByName(string sfxName){
         SystemManager.Instance.PlaySFXByName(sfxName);

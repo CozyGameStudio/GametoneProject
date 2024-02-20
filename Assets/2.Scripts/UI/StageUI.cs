@@ -35,6 +35,7 @@ public class StageUI : MonoBehaviour
     }
     void CallStageChange(int i)
     {
+        DataSaveNLoadManager.Instance.SaveThings();
         //디버깅때는 비활성화
         if(i.Equals(1)|| i.Equals(2)){
             Debug.Log("Cleared Stage, But interior Stage doesnt exist");

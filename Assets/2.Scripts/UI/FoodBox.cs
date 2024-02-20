@@ -106,6 +106,7 @@ public class FoodBox : MonoBehaviour
         PlaySFXByName("buttonUpgrade");
         food.LevelUp();
         UpdateUI();
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     public void UpdateUI(){
         foodUpgrade.text = food.currentUpgradeMoney.ToString();

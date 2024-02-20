@@ -19,7 +19,7 @@ public class LoadingSceneManager : MonoBehaviour
     }
     public static void LoadScene(string sceneName)
     {
-        
+        DataSaveNLoadManager.Instance.SaveThings();
         nextScene = sceneName;
         if(DataSaveNLoadManager.scene.name!=nextScene)
             SceneManager.LoadScene("LoadingScene");
