@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class StoryButton : MonoBehaviour
 {
+    public CharacterCollectionPanel characterCollectionPanel;
     public CharacterStoryPanel characterStoryPanel;
     public TMP_Text storyName;
     public Button storyButton;
@@ -38,6 +39,7 @@ public class StoryButton : MonoBehaviour
         {
             // 저장된 데이터를 사용하여 패널 설정
             characterStoryPanel.SetStory(currentSprite, currentData);
+            characterCollectionPanel.gameObject.SetActive(false);
         }
     }
 }

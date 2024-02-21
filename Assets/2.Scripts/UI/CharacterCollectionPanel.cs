@@ -16,9 +16,11 @@ public class CharacterCollectionPanel : MonoBehaviour
 
     public List<Sprite> currencySprite;
     //Set This to Character Collection Button
-    private void Start()
-    {
-        collectionSlider.maxValue = 100;
+    void OnEnable(){
+        if(currentCharacter!=null){
+            SetUI();
+            UpdateStoryList();
+        }
     }
     public void SetCharacter(CharacterCollection character)
     {
@@ -31,12 +33,58 @@ public class CharacterCollectionPanel : MonoBehaviour
         SetUI();
         UpdateStoryList();
     }
+    public void SetNextCharacter(){
+        if (CollectionManager.Instance.characterCollections.Count == 0)
+        {
+            Debug.LogError("캐릭터 목록이 비어있습니다.");
+            return;
+        }
+
+        // 현재 캐릭터의 인덱스를 찾음
+        int currentIndex = CollectionManager.Instance.characterCollections.IndexOf(currentCharacter);
+        if (currentIndex == -1)
+        {
+            Debug.LogError("현재 캐릭터가 목록에 없습니다.");
+            return;
+        }
+
+        // 다음 캐릭터의 인덱스 계산
+        int nextIndex = (currentIndex + 1) % CollectionManager.Instance.characterCollections.Count;
+
+        // 다음 캐릭터를 현재 캐릭터로 설정
+        SetCharacter(CollectionManager.Instance.characterCollections[nextIndex]);
+    }
+    public void SetPreviousCharacter()
+    {
+        if (CollectionManager.Instance.characterCollections.Count == 0)
+        {
+            Debug.LogError("캐릭터 목록이 비어있습니다.");
+            return;
+        }
+
+        // 현재 캐릭터의 인덱스를 찾음
+        int currentIndex = CollectionManager.Instance.characterCollections.IndexOf(currentCharacter);
+        if (currentIndex == -1)
+        {
+            Debug.LogError("현재 캐릭터가 목록에 없습니다.");
+            return;
+        }
+
+        // 다음 캐릭터의 인덱스 계산
+        int previousIndex=(currentIndex-1).Equals(-1)? CollectionManager.Instance.characterCollections.Count-1: currentIndex - 1;
+
+        // 다음 캐릭터를 현재 캐릭터로 설정
+        SetCharacter(CollectionManager.Instance.characterCollections[previousIndex]);
+    }
     public void SetUI()
     {
-        characterNameText.text = currentCharacter.scriptableCollection.characterNameInKorean;
-        characterIcon.sprite = currentCharacter.scriptableCollection.characterIcon;
-        characterStatus.sprite = currentCharacter.scriptableCollection.characterStatus;
-        SetProgressBar();
+        if(currentCharacter!=null){
+            characterNameText.text = currentCharacter.scriptableCollection.characterNameInKorean;
+            characterIcon.sprite = currentCharacter.scriptableCollection.characterIcon;
+            characterStatus.sprite = currentCharacter.scriptableCollection.characterStatus;
+            collectionSlider.maxValue = 100;
+            SetProgressBar();
+        }
     }
     public void SetProgressBar()
     {

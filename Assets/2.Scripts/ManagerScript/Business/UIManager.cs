@@ -18,8 +18,14 @@ public class UIManager : MonoBehaviour
     public ParticleImage jellyAttraction;
     public GameObject missionWindow;
 
+    public GameObject settingPanel;
+    public GameObject stageMissionPanel;
+    public GameObject businessPanel;
+    public GameObject collectionPanel;
     public AdUI adUI;
     public OfflineRewardUI offlineRewardUI;
+    public ShopUI shopUI;
+    public FeverTimeUI fevertimeUI;
     private static UIManager instance;
     public static UIManager Instance
     {
@@ -42,30 +48,48 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Start(){
+        DataManager.Instance.OnRewardActivatedDelegate+=PlayFeverTimeAnimation;
+    }
     private void Update() {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
-            RaycastHit2D hitUI = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, uiLayerMask);
-            if (hitUI.collider != null)
-            {
-                return;
-            }
-
-            int interactiveLayerMask = 1 << LayerMask.NameToLayer("InteractiveObjects");
-            RaycastHit2D hitInteractive = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, interactiveLayerMask);
-            if (hitInteractive.collider != null)
-            {
-                if (adUI.uiElement.anchoredPosition.Equals(adUI.exitPosition))
+            if (!EventSystem.current.IsPointerOverGameObject())
+            { // UI 위에 있지 않은 경우에만 처리
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer("InteractiveObjects"));
+                if (hit.collider != null)
                 {
-                    adUI.EnterAnimation();
+                    if (adUI.uiElement.anchoredPosition.Equals(adUI.exitPosition))
+                    {
+                        adUI.EnterAnimation();
+                    }
+                    else
+                    {
+                        adUI.ExitAnimation();
+                    }
                 }
                 else
-                {
-                    adUI.ExitAnimation();
+                { 
+                    OffAllUI();
                 }
             }
+
+            
+        }
+    }
+    void OffAllUI(){
+        settingPanel.SetActive(false);
+        stageMissionPanel.SetActive(false);
+        businessPanel.SetActive(false);
+        collectionPanel.SetActive(false);
+        adUI.ExitAnimation();
+        shopUI.ExitAnimation();
+    }
+    public void PlayFeverTimeAnimation(bool isActivated){
+        if(isActivated){
+            fevertimeUI.gameObject.SetActive(true);
+            fevertimeUI.PlayFeverTimeAnimation();
         }
     }
     public void MissionWindowOff(){

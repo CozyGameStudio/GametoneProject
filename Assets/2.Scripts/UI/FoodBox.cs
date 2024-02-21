@@ -89,6 +89,7 @@ public class FoodBox : MonoBehaviour
             Debug.LogError("Cannot find foodUpgrade");
         }
         UpdateUI();
+        SetAlarm();
     }
 
     public void UpgradeButtonClick()

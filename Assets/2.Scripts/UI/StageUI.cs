@@ -7,15 +7,26 @@ using System;
 public class StageUI : MonoBehaviour
 {
     public List<StageButton> stageButtons;
+    public Slider stageProgressSlider;
     private int currentStageNumber;
 
     void OnEnable(){
         Debug.Log("[StageUI] OnEnable");
         currentStageNumber = DataSaveNLoadManager.Instance.businessStageNumber;
+        stageProgressSlider.value= currentStageNumber;
         Debug.Log("[StageUI] "+currentStageNumber);
         if (!String.IsNullOrEmpty(currentStageNumber.ToString())){
             Debug.Log("[StageUI] Set Data");
             SetData();
+        }
+        if(SystemManager.Instance!=null){
+            SystemManager.Instance.PlayBGMByName("localmap");
+        }
+    }
+    private void OnDisable() {
+        if (SystemManager.Instance != null)
+        {
+            SystemManager.Instance.PlayBGMByName(SystemManager.Instance.currentStageName);
         }
     }
     void SetData(){

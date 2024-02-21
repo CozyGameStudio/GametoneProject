@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class SystemManager : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class SystemManager : MonoBehaviour
     
     [Header("오디오 관련")]
     public AudioMixer masterMixer;
-    public List<AudioClip> sfxs;
+    private List<AudioClip> bgms=new List<AudioClip>();
+    private List<AudioClip> sfxs = new List<AudioClip>();
     private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
     private bool isBGMOn=true;
     private AudioSource audioSource;
+    private AudioClip currentAudioClip;
+    public string currentStageName{get;private set;}
     void Awake(){
         if (Instance == null)
         {
@@ -30,16 +34,42 @@ public class SystemManager : MonoBehaviour
 #else
         QualitySettings.vSyncCount=1;
 #endif
+        //리소스 동적 추가
+        foreach (var bgm in Resources.LoadAll<AudioClip>("BGM"))
+        {
+            bgms.Add(bgm);
+        }
+        foreach (var sfx in Resources.LoadAll<AudioClip>("SFX"))
+        {
+            sfxs.Add(sfx);
+        }
         foreach (var sfx in sfxs)
         {
             sfxDictionary[sfx.name] = sfx;
         }
+        
     }
     
     private void Start()
     {
-        //SetResolution();
         audioSource=GetComponent<AudioSource>();
+        currentStageName=SceneManager.GetActiveScene().name;
+        //스테이지 이름을 받아서 해당 String을 포함하고 있는 BGM 을 찾는다
+        if(currentStageName.Contains("Business")){
+            PlayBGMByName(currentStageName);
+        }
+        else if(currentStageName.Contains("Interior"))
+        {
+            PlayBGMByName("interior");
+        }else if (currentStageName.Contains("Title"))
+        {
+            PlayBGMByName("intro");
+        } 
+    }
+    public void PlayBGMByName(string bgmName){
+        currentAudioClip = bgms.Find(data => bgmName.Contains(data.name));
+        audioSource.clip = currentAudioClip;
+        audioSource.Play();
     }
     public void PlaySFXByName(string sfxName)
     {
@@ -77,27 +107,7 @@ public class SystemManager : MonoBehaviour
         sequence.Play(); // 애니메이션 시퀀스 재생
     }
 
-    public void SetResolution()
-    {
-        int setWidth = 1920; 
-        int setHeight = 1080; 
-
-        int deviceWidth = Screen.width;
-        int deviceHeight = Screen.height; 
-
-        Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), true); 
-
-        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight)
-        {
-            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); 
-            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); 
-        }
-        else
-        {
-            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); 
-            Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); 
-        }
-    }
+    
     public void TriggerAudio_BGM(){
         isBGMOn=!isBGMOn;
         if(!isBGMOn)

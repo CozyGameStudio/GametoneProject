@@ -17,19 +17,19 @@ MonoBehaviour:
   storyDataList:
   - storyName: "\uBC29\uAD6C\uC11D \uC5EC\uD3EC"
     storyCurrencyType: 0
-    storyUnlockCost: 1000
-    storyContent: "\uD788\uD788"
+    storyUnlockCost: 99999
+    storyContent: 
   - storyName: "\uD55C\uC785\uCDA9"
     storyCurrencyType: 0
-    storyUnlockCost: 2000
-    storyContent: "\uC544\uC9C1"
+    storyUnlockCost: 99999
+    storyContent: 
   - storyName: What's in my bag
     storyCurrencyType: 0
-    storyUnlockCost: 3000
-    storyContent: "\uC2A4\uD1A0\uB9AC"
+    storyUnlockCost: 99999
+    storyContent: 
   - storyName: "\uD574\uD53C\uAC00 \uBAA8\uB974\uB294 \uC138\uACC4"
     storyCurrencyType: 1
-    storyUnlockCost: 25
-    storyContent: "\uBAB0\uB77C\uC789"
+    storyUnlockCost: 99999
+    storyContent: 
   characterIcon: {fileID: 21300000, guid: cd9905313f9a9c546a31f03c992d6b1b, type: 3}
   characterStatus: {fileID: 21300000, guid: ed9ff50b2ae1b7f4db465a570256a610, type: 2}

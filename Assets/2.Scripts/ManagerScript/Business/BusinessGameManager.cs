@@ -10,6 +10,7 @@ public class BusinessGameManager : MonoBehaviour,IBusinessManagerInterface
     public int startMoney=10;
     public int money{get;private set;}=0;
     
+    [HideInInspector]
     public float moneyMultiplier=1;
 
     public int currentBusinessStage=1;

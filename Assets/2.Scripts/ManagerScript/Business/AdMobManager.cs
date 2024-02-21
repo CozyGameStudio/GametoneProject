@@ -70,16 +70,19 @@ public class AdMobManager : MonoBehaviour
 
     public void LoadRewardedAdForCooktime()
     {
+        SystemManager.Instance.PlaySFXByName("buttonNormal");
         StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Cooktime));
     }
 
     public void LoadRewardedAdForProfit()
     {
+        SystemManager.Instance.PlaySFXByName("buttonNormal");
         StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Profit));
     }
 
     public void LoadRewardedAdForSpeed()
     {
+        SystemManager.Instance.PlaySFXByName("buttonNormal");
         StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Speed));
     }
 
@@ -103,16 +106,19 @@ public class AdMobManager : MonoBehaviour
 
     public void LoadRewardedAdForOffline(int earnings)
     {
-        tmpEarning=earnings*3;
+        SystemManager.Instance.PlaySFXByName("buttonNormal");
+        tmpEarning =earnings*3;
         StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.Offline));
     }
     public void LoadRewardedAdForCoinBonus(int earnings)
     {
-        tmpEarning= earnings;
+        SystemManager.Instance.PlaySFXByName("buttonNormal");
+        tmpEarning = earnings;
         StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.CoinBonus));
     }
     public void LoadRewardedAdForJellyBonus(int earnings)
     {
+        SystemManager.Instance.PlaySFXByName("buttonNormal");
         tmpEarning = earnings;
         StartCoroutine(ShowLoadingPanelThenLoadAd(RewardType.JellyBonus));
     }

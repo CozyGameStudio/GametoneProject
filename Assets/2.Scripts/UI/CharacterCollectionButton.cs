@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CharacterCollectionButton : MonoBehaviour
 {
+    public CharacterCollectionPage characterCollectionPage;
     public CharacterCollectionPanel characterCollectionPanel;
     public Image characterImage;
     public TMP_Text characterName;
@@ -17,7 +18,7 @@ public class CharacterCollectionButton : MonoBehaviour
 
     void Start()
     {
-        collectionSlider.maxValue = 100;
+       
         colButton.onClick.AddListener(OnCollectionButtonClick);
     }
 
@@ -38,6 +39,7 @@ public class CharacterCollectionButton : MonoBehaviour
         {
             characterCollectionPanel.SetCharacter(currentCharacter);
             PlaySFXByName("buttonNormal");
+            characterCollectionPage.gameObject.SetActive(false);
         }
     }
 
@@ -49,6 +51,7 @@ public class CharacterCollectionButton : MonoBehaviour
             characterName.text = currentCharacter.scriptableCollection.characterNameInKorean;
             int progress = currentCharacter.GetProgressData();
             progressText.text = progress.ToString() + "%";
+            collectionSlider.maxValue = 100;
             collectionSlider.value = progress;
         }
     }

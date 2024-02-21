@@ -221,6 +221,9 @@ public class MissionBox : MonoBehaviour
         if(button.interactable){
             alarm.SetActive(true);
         }
+        else{
+            alarm.SetActive(false);
+        }
     }
     public void SetActiveByStatus(){
         //when Mission is upgrade
