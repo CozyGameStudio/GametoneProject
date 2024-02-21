@@ -272,6 +272,7 @@ public class DataSaveNLoadManager : MonoBehaviour
         }
     }
     public void SceneChange(){
+        SaveThings();
         string currentStageName = SceneManager.GetActiveScene().name;
 
         

@@ -307,6 +307,7 @@ public class DataManager : MonoBehaviour
         SystemManager.Instance.PlaySFXByName("fever");
         isSpeedRewardActivated=true;
         OnRewardActivatedDelegate?.Invoke(true);
+        UIManager.Instance.PlayFeverTimeAnimation();
         while (timeLeft > 0)
         {
             OnRewardTimeCheckDelegate?.Invoke(timeLeft);
@@ -324,6 +325,7 @@ public class DataManager : MonoBehaviour
         jelly += jellyAmount;
         UIManager.Instance.SetJellyAnimation(tmp,jelly);
         OnCurrencyChangeDelegate?.Invoke();
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     public void DecreaseJelly(int jellyAmount)
     {
@@ -332,6 +334,7 @@ public class DataManager : MonoBehaviour
         jelly -= jellyAmount;
         UIManager.Instance.SetJellyAnimation(tmp, jelly);
         OnCurrencyChangeDelegate?.Invoke();
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     private bool IsCharacterAbleUpgrade(){
         foreach(Character cha in activeCharacters){
@@ -345,7 +348,7 @@ public class DataManager : MonoBehaviour
         foreach (var machine in machines)
         {
             if(machine is Machine ma){
-                if (!ma.currentUpgradeMoney.Equals(0) && ma.currentUpgradeMoney <= BusinessGameManager.Instance.money)
+                if (ma.isUnlocked&&!ma.currentUpgradeMoney.Equals(0) && ma.currentUpgradeMoney <= BusinessGameManager.Instance.money)
                 {
                     return true;
                 }
@@ -361,7 +364,7 @@ public class DataManager : MonoBehaviour
     {
         foreach (Food fo in activeFoods)
         {
-            if (!fo.currentUpgradeMoney.Equals(0)&&fo.currentUpgradeMoney <= BusinessGameManager.Instance.money)
+            if (fo.isUnlocked&&!fo.currentUpgradeMoney.Equals(0)&&fo.currentUpgradeMoney <= BusinessGameManager.Instance.money)
             {
                 return true;
             }
@@ -369,6 +372,6 @@ public class DataManager : MonoBehaviour
         return false;
     }
     public bool CheckAbleUpgrade(){
-        return IsFoodAbleUpgrade() || IsMachineAbleUpgrade() || IsCharacterAbleUpgrade();
+        return IsFoodAbleUpgrade() || IsMachineAbleUpgrade();
     }
 }

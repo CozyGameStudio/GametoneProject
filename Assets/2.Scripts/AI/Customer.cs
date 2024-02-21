@@ -24,8 +24,7 @@ public class Customer : MonoBehaviour
     [Header("Character")]
     public float speed = 1.5f;
     public NavMeshAgent agent;
-    public SpriteRenderer likeParticle;
-    public SpriteRenderer coinParticle;
+    public Animator fxAnimator;
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
     private int customerChairPlaceLength;
@@ -62,8 +61,6 @@ public class Customer : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        likeParticle.color=new Color(likeParticle.color.r, likeParticle.color.g, likeParticle.color.b,0);
-        coinParticle.color = new Color(coinParticle.color.r, coinParticle.color.g, coinParticle.color.b, 0);
         if (DataManager.Instance != null) FeverTime(DataManager.Instance.isSpeedRewardActivated);
     }
     private void Update()
@@ -118,6 +115,7 @@ public class Customer : MonoBehaviour
             StageMissionManager.Instance.IncreaseAccumulatedCustomer();
             StageMissionManager.Instance.IncreaseAccumulatedSales(payMoney);
             SystemManager.Instance.PlaySFXByName("pay");
+            fxAnimator.SetTrigger("FXTrigger");
             Debug.Log(payMoney);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
@@ -127,18 +125,7 @@ public class Customer : MonoBehaviour
     void Walk_Enter(){
         if (isOrdered){
             CustomerManager.Instance.customerChairPresent[tableNumber - 1] = false;
-            Sequence seq = DOTween.Sequence()
-            .Append(likeParticle.DOFade(1, .2f))
-            .Join(likeParticle.transform.DOScale(.8f, .5f).SetEase(Ease.InQuad))
-            .Join(likeParticle.transform.DOMoveY(likeParticle.transform.localPosition.y + .05f, 1f).SetEase(Ease.InQuad))
-            .Append(likeParticle.DOFade(0, .2f));
-            Sequence seq2 = DOTween.Sequence()
-            .Append(coinParticle.DOFade(1, .2f))
-            .Join(coinParticle.transform.DOScale(3f, .5f).SetEase(Ease.InQuad))
-            .Join(coinParticle.transform.DOMoveY(coinParticle.transform.localPosition.y + .05f, 1f).SetEase(Ease.InQuad))
-            .Append(coinParticle.DOFade(0, .2f));
-            seq.Play();
-            seq2.Play();
+            
         }
     }
     void Walk_Update()

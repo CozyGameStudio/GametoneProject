@@ -20,6 +20,7 @@ public class AdUI : MonoBehaviour
     public RectTransform uiElement{get;private set;}
     private Dictionary<RewardType, TMP_Text> rewardTexts;
     private Dictionary<RewardType, Button> rewardButtons;
+    private Dictionary<RewardType, DateTime> rewardCooldowns = new Dictionary<RewardType, DateTime>();
     private float waitTime=6f;
     // Start is called before the first frame update
     public void InitUI()
@@ -82,23 +83,23 @@ public class AdUI : MonoBehaviour
 
     IEnumerator RewardCooltime(RewardType rewardType, float time)
     {
-        float timeLeft = time;
-        while (timeLeft > 0)
+        rewardCooldowns[rewardType] = DateTime.Now.AddSeconds(time);
+
+        while (DateTime.Now < rewardCooldowns[rewardType])
         {
             if (rewardTexts.TryGetValue(rewardType, out TMP_Text textWait))
             {
-                TimeSpan timeSpan = TimeSpan.FromSeconds(timeLeft);
+                TimeSpan timeSpan = rewardCooldowns[rewardType] - DateTime.Now;
                 textWait.text = $"대기 시간\n{timeSpan:mm\\:ss}";
             }
             yield return new WaitForSeconds(1f);
-            timeLeft -= 1f;
         }
         SetRemainText(rewardType);
         if (rewardButtons.TryGetValue(rewardType, out Button button))
         {
             button.interactable = true;
         }
-        
+
     }
     void SetRemainText(RewardType rewardType)
     {
