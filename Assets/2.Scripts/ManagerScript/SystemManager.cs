@@ -34,6 +34,7 @@ public class SystemManager : MonoBehaviour
 #else
         QualitySettings.vSyncCount=1;
 #endif
+        audioSource = GetComponent<AudioSource>();
         //리소스 동적 추가
         foreach (var bgm in Resources.LoadAll<AudioClip>("BGM"))
         {
@@ -47,12 +48,12 @@ public class SystemManager : MonoBehaviour
         {
             sfxDictionary[sfx.name] = sfx;
         }
-        
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
     private void Start()
     {
-        audioSource=GetComponent<AudioSource>();
+        
         audioSource.loop=true;
         currentStageName=SceneManager.GetActiveScene().name;
         //스테이지 이름을 받아서 해당 String을 포함하고 있는 BGM 을 찾는다
@@ -67,9 +68,27 @@ public class SystemManager : MonoBehaviour
             PlayBGMByName("intro");
         } 
     }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        currentStageName = scene.name;
+        // 새 씬이 로드될 때마다 수행할 작업
+        // 예: BGM 재생
+        if (currentStageName.Contains("Business"))
+        {
+            PlayBGMByName(currentStageName);
+        }
+        else if (currentStageName.Contains("Interior"))
+        {
+            PlayBGMByName("interior");
+        }
+        else if (currentStageName.Contains("Title"))
+        {
+            PlayBGMByName("intro");
+        }
+    }
     public void PlayBGMByName(string bgmName){
         currentAudioClip = bgms.Find(data => bgmName.Contains(data.name));
-        audioSource.clip = currentAudioClip;
+        if(currentAudioClip!=null)audioSource.clip = currentAudioClip;
         audioSource.Play();
     }
     public void PlaySFXByName(string sfxName)

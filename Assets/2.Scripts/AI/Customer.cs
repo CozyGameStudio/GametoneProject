@@ -130,12 +130,12 @@ public class Customer : MonoBehaviour
             Sequence seq = DOTween.Sequence()
             .Append(likeParticle.DOFade(1, .2f))
             .Join(likeParticle.transform.DOScale(.8f, .5f).SetEase(Ease.InQuad))
-            .Join(likeParticle.transform.DOMoveY(likeParticle.transform.localPosition.y + .2f, .5f).SetEase(Ease.InQuad))
+            .Join(likeParticle.transform.DOMoveY(likeParticle.transform.localPosition.y + .05f, 1f).SetEase(Ease.InQuad))
             .Append(likeParticle.DOFade(0, .2f));
             Sequence seq2 = DOTween.Sequence()
             .Append(coinParticle.DOFade(1, .2f))
             .Join(coinParticle.transform.DOScale(3f, .5f).SetEase(Ease.InQuad))
-            .Join(coinParticle.transform.DOMoveY(coinParticle.transform.localPosition.y + .2f, .5f).SetEase(Ease.InQuad))
+            .Join(coinParticle.transform.DOMoveY(coinParticle.transform.localPosition.y + .05f, 1f).SetEase(Ease.InQuad))
             .Append(coinParticle.DOFade(0, .2f));
             seq.Play();
             seq2.Play();

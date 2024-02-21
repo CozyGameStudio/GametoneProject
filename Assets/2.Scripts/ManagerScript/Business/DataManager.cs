@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 public class DataManager : MonoBehaviour
 {
-    private static DataManager instance;
+    
     public List<Food> foods { get; private set; }=new List<Food>();
     public List<IMachineInterface> machines { get; private set; } = new List<IMachineInterface>();
     public List<Character> characters { get; private set; } = new List<Character>();
@@ -28,7 +28,7 @@ public class DataManager : MonoBehaviour
     public bool isSpeedRewardActivated{get;private set;}
     private int offlineEarningCost=1;
     //public List<Character> characters;
-
+    private static DataManager instance;
     public static DataManager Instance
     {
         get

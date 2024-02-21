@@ -19,13 +19,10 @@ public class TimelineManager : MonoBehaviour
             return instance;
         }
     }
-    // void Start()
-    // {
-    //     StageMissionManager.Instance.OnStageCleared+= PlayCutScene;
-    // }
 
     public void PlayCutScene()
     {
+        DataSaveNLoadManager.Instance.SaveThings();
         playableDirector.Play();
     }
     private void OnPlayableDirectorStopped(PlayableDirector aDirector)

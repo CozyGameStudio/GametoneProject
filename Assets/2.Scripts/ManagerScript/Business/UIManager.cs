@@ -52,10 +52,24 @@ public class UIManager : MonoBehaviour
         DataManager.Instance.OnRewardActivatedDelegate+=PlayFeverTimeAnimation;
     }
     private void Update() {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
-            { // UI 위에 있지 않은 경우에만 처리
+            bool isOverUI = false;
+
+            // 모바일 환경에서의 UI 터치 검사
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                isOverUI = EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+            }
+            // PC 환경에서의 UI 마우스 클릭 검사
+            else if (Input.GetMouseButtonDown(0))
+            {
+                isOverUI = EventSystem.current.IsPointerOverGameObject();
+            }
+
+            if (!isOverUI)
+            {
+                // UI 위에 있지 않은 경우에만 처리
                 Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer("InteractiveObjects"));
                 if (hit.collider != null)
@@ -70,13 +84,12 @@ public class UIManager : MonoBehaviour
                     }
                 }
                 else
-                { 
+                {
                     OffAllUI();
                 }
             }
-
-            
         }
+
     }
     public void OffAllUI(){
         settingPanel.SetActive(false);

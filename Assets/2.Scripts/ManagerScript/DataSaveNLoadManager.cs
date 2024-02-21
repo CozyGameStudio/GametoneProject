@@ -194,14 +194,30 @@ public class UnlockData
     }
 }
 
-public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
+public class DataSaveNLoadManager : MonoBehaviour
 {
+    private static DataSaveNLoadManager instance;
+    public static DataSaveNLoadManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<DataSaveNLoadManager>();
+            }
+            return instance;
+        }
+    }
     [HideInInspector]
     public int businessStageNumber=1;
     public string sceneName{get;private set;}="";
     private SystemData loadedData;
     public static Scene scene;
     private void Awake() {
+        if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
         PrepareData();
         //게임 입장시 시작 스테이지 분별을 위한 씬정보 저장
         if(loadedData!=null)businessStageNumber= loadedData.businessData.currentStageNumber;
@@ -217,15 +233,17 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             if(AdMobManager.Instance!=null)AdMobManager.Instance.SetData(loadedData);
             if(ShopManager.Instance!=null)ShopManager.Instance.SetData(loadedData);
         }
-        else{
+        else if(scene.name.Contains("Interior"))
+        {
             if (InteriorSceneManager.Instance != null) InteriorSceneManager.Instance.SetData(loadedData);
             if(InteriorManager.Instance!=null)InteriorManager.Instance.SetData(loadedData);
             Debug.Log("Data set to InteriorScene");
         }
-        if (SystemManager.Instance != null)
-        {
-            SystemManager.Instance.SetData(loadedData);
-        }
+        
+        // if (SystemManager.Instance != null)
+        // {
+        //     SystemManager.Instance.SetData(loadedData);
+        // }
     }
     
     public void CreateSystemData(){
@@ -301,6 +319,7 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         {
             return null;
         }
+        Debug.Log("Load Data");
         string json = System.IO.File.ReadAllText(filePath);
         return JsonUtility.FromJson<SystemData>(json);
     }
@@ -334,9 +353,9 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
             loadedData.collectionDatas=CollectionManager.Instance.GetData();
             Debug.Log("collection added to Data");
         }
-        if(SystemManager.Instance!=null){
-            loadedData.systemSettingData=SystemManager.Instance.GetData();
-        }
+        // if(SystemManager.Instance!=null){
+        //     loadedData.systemSettingData=SystemManager.Instance.GetData();
+        // }
         if (AdMobManager.Instance != null)
         {
             loadedData.adData = AdMobManager.Instance.GetData();
@@ -375,6 +394,9 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
         SaveSystemData(loadedData);
     }
     public void SaveThings(){
+        if(loadedData==null){
+            loadedData= LoadSystemData();
+        }
         SaveGameObjectsByCase();
         SaveLastExitTime();
     }
@@ -395,9 +417,27 @@ public class DataSaveNLoadManager : Singleton<DataSaveNLoadManager>
     }
     public void ResetData()
     {
-        StartCoroutine(ResetDataCoroutine());
+        DeleteSavedData();
+        LoadingSceneManager.LoadScene("Title");
     }
 
+    public void DeleteSavedData()
+    {
+        string folderPath = Path.Combine(Application.persistentDataPath, "SaveData");
+        string filePath = Path.Combine(folderPath, "SystemData.json");
+
+        // 파일이 존재하는지 확인
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath); // 파일 삭제
+            Debug.Log("Saved data deleted.");
+        }
+        else
+        {
+            Debug.LogWarning("No saved data file found to delete.");
+        }
+        loadedData=null;
+    }
     private IEnumerator ResetDataCoroutine()
     {
         // 비동기 데이터 저장 로직 호출
