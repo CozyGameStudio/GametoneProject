@@ -53,6 +53,7 @@ public class SystemManager : MonoBehaviour
     private void Start()
     {
         audioSource=GetComponent<AudioSource>();
+        audioSource.loop=true;
         currentStageName=SceneManager.GetActiveScene().name;
         //스테이지 이름을 받아서 해당 String을 포함하고 있는 BGM 을 찾는다
         if(currentStageName.Contains("Business")){

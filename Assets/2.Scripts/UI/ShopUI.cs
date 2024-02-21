@@ -27,6 +27,14 @@ public class ShopUI : MonoBehaviour
     public TMP_Text jellyRewardRemaining;
     private Dictionary<RewardType, TMP_Text> rewardCountTexts;
     private Dictionary<RewardType, Button> rewardButtons;
+    public void TriggerShopUI(){
+        if(uiElement.anchoredPosition.Equals(exitPosition)){
+            EnterAnimation();
+        }
+        else{
+            ExitAnimation();
+        }
+    }
     public void EnterAnimation()
     {
         uiElement.DOAnchorPos(enterPosition, animationDuration).SetEase(Ease.OutBack);

@@ -106,9 +106,13 @@ public class AdUI : MonoBehaviour
         {
             int remainingCount = AdMobManager.Instance.GetRemainingAdsCount(rewardType);
             int maxCount = AdMobManager.Instance.GetMaxAdsCount();
-            if (remainingCount.Equals(0))
+            if (remainingCount<=0)
             {
                 text.text = "주어진 광고를\n모두 봤어요!";
+                if (rewardButtons.TryGetValue(rewardType, out Button button))
+                {
+                    button.interactable = false;
+                }
             }
             else{
                 text.text = $"광고보기\n{remainingCount} / {maxCount}";

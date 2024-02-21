@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
             
         }
     }
-    void OffAllUI(){
+    public void OffAllUI(){
         settingPanel.SetActive(false);
         stageMissionPanel.SetActive(false);
         businessPanel.SetActive(false);
