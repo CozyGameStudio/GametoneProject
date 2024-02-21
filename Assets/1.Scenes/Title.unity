@@ -698,28 +698,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masterMixer: {fileID: 24100000, guid: 5c34a4f4cc0025a4a9b899fc36a2cf1c, type: 2}
-  bgms:
-  - {fileID: 8300000, guid: f7937262680f1424b9767c7975270caf, type: 3}
-  - {fileID: 8300000, guid: 239cc0f3bb499bb44b6d8b33026e7b6f, type: 3}
-  - {fileID: 8300000, guid: c85dfe2ab4563744eaca06d8925f83aa, type: 3}
-  - {fileID: 8300000, guid: 04ca91b28773c68498e36130e0abc62d, type: 3}
-  - {fileID: 8300000, guid: 9f28018206606c548bad0898b2933285, type: 3}
-  - {fileID: 8300000, guid: a8e5d97d306a5184aa8da48b047dad80, type: 3}
-  - {fileID: 8300000, guid: c0d041f629873ae41a629fed3e18e13d, type: 3}
-  sfxs:
-  - {fileID: 8300000, guid: c5e1c874dfe0a3e47a2d17abaa2af7cc, type: 3}
-  - {fileID: 8300000, guid: 36153fc17c3ff2b4182cac7f55b841e2, type: 3}
-  - {fileID: 8300000, guid: 3a19f65f05eb3f14c8c014d14cfc8e8c, type: 3}
-  - {fileID: 8300000, guid: e03dfe78440a5c643a14e511f18feb80, type: 3}
-  - {fileID: 8300000, guid: 5b2c13d780e32c44983a03c241546db6, type: 3}
-  - {fileID: 8300000, guid: caa43db66ba566b45812e18cda7cb779, type: 3}
-  - {fileID: 8300000, guid: 6d0894e0277d23843b0865520b469fa1, type: 3}
-  - {fileID: 8300000, guid: 2c8a63beafc4f7343af5297701bac252, type: 3}
-  - {fileID: 8300000, guid: e187b93c5a591824eacbf22b3423d311, type: 3}
-  - {fileID: 8300000, guid: ebae7f80acd3cc04d8a25c6acfe2620e, type: 3}
-  - {fileID: 8300000, guid: 2e7d4680fa0344a41b2791a9a8a4c8e0, type: 3}
-  - {fileID: 8300000, guid: 0f0824c43acad954fadccfcac775ae01, type: 3}
-  - {fileID: 8300000, guid: be2bbea21376ec247ae67575d83e4d32, type: 3}
 --- !u!82 &1249342068
 AudioSource:
   m_ObjectHideFlags: 0
