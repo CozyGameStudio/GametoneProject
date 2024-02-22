@@ -2974,7 +2974,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 760560321}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -10652,6 +10652,11 @@ PrefabInstance:
 --- !u!224 &760560320 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3874499490262191279, guid: 068967f49526ae14eb3d866f6c71303f, type: 3}
+  m_PrefabInstance: {fileID: 760560319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &760560321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4007703116402805769, guid: 068967f49526ae14eb3d866f6c71303f, type: 3}
   m_PrefabInstance: {fileID: 760560319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &779191631
@@ -32779,7 +32784,6 @@ RectTransform:
   m_Children:
   - {fileID: 848810235}
   - {fileID: 167997860}
-  - {fileID: 760560320}
   - {fileID: 1048014486}
   - {fileID: 2064579752}
   - {fileID: 1914781084}
@@ -32793,6 +32797,7 @@ RectTransform:
   - {fileID: 1609264954}
   - {fileID: 1740360908}
   - {fileID: 276422659}
+  - {fileID: 760560320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
