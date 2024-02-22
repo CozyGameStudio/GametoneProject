@@ -1437,6 +1437,10 @@ PrefabInstance:
       propertyPath: positionButton
       value: 
       objectReference: {fileID: 1913790896}
+    - target: {fileID: 4622834066525760039, guid: 995b691559b8cfb40a316d024430ceba, type: 3}
+      propertyPath: positionNumber
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5751040656304428269, guid: 995b691559b8cfb40a316d024430ceba, type: 3}
       propertyPath: m_Name
       value: PositionImage (8)
@@ -1521,8 +1525,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 4622834066525760039, guid: 995b691559b8cfb40a316d024430ceba, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 1414258224543260790, guid: 995b691559b8cfb40a316d024430ceba, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 995b691559b8cfb40a316d024430ceba, type: 3}
@@ -28106,7 +28112,7 @@ Transform:
   m_GameObject: {fileID: 1765991107}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30206,17 +30212,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1913790897 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4622834066525760039, guid: 995b691559b8cfb40a316d024430ceba, type: 3}
-  m_PrefabInstance: {fileID: 89862784}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19f63b9ec43983248b041f4307de2f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1914781083
@@ -34818,7 +34813,6 @@ MonoBehaviour:
   - {fileID: 1636747947}
   - {fileID: 740071889}
   - {fileID: 1841802204}
-  - {fileID: 1913790897}
 --- !u!224 &6288135362864958003
 RectTransform:
   m_ObjectHideFlags: 0
