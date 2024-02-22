@@ -184,6 +184,8 @@ public class TutorialManagerForInterior : MonoBehaviour
         }
         tutorialIndex = 1;
 
+        yield return new WaitForSeconds(0.5f);
+
         interiorButtonFilter.SetActive(true);
         dialogueBoxGameObject.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[currentDialogueIndex].position;
