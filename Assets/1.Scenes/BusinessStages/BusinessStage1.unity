@@ -6187,7 +6187,7 @@ PrefabInstance:
     - target: {fileID: 8447597221767296936, guid: c49ef652c55c7694db78464c42a2764f, type: 3}
       propertyPath: dialogueDataList.Array.data[9]
       value: "\uC5C5\uADF8\uB808\uC774\uB4DC \uBE44\uC6A9\uC740<br>\uC5EC\uAE30\uC5D0
-        \uD45C\uC2DC\uB418\uC694!"
+        \uD45C\uC2DC\uB3FC\uC694!"
       objectReference: {fileID: 0}
     - target: {fileID: 8447597221767296936, guid: c49ef652c55c7694db78464c42a2764f, type: 3}
       propertyPath: dialogueDataList.Array.data[10]
