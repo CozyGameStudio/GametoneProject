@@ -33,6 +33,7 @@ public class TutorialManagerForStageTwo : MonoBehaviour
     public GameObject characterCollectionFilter;
     public GameObject characterCollectionChoiceFilter;
     public GameObject characterStatFilter;
+    public GameObject characterStoryBuyFilter;
     public GameObject characterStoryButtonFilter;
 
     public List<string> dialogueDataList;
@@ -54,6 +55,8 @@ public class TutorialManagerForStageTwo : MonoBehaviour
     private bool isBusinessCloseTouch = false;
     private bool isCharacterCollectionButtonTouch = false;
     private bool isCharacterCollectionChoiceTouch = false;
+    private bool isCharacterStoryLockButtonTouch = false;
+    private bool isCharacterStoryBuyButtonTouch = false;
     private bool isCharacterStoryButtonTouch = false;
 
     // UI Position
@@ -105,6 +108,8 @@ public class TutorialManagerForStageTwo : MonoBehaviour
         if (characterCollectionChoiceFilter != null) characterCollectionChoiceFilter.SetActive(false);
         if (characterStoryButtonFilter != null) characterStoryButtonFilter.SetActive(false);
         if (characterStatFilter != null) characterStatFilter.SetActive(false);
+        if (characterStoryBuyFilter != null) characterStoryBuyFilter.SetActive(false);
+
         if (nextButton != null) nextButtonGameObject = nextButton.transform.gameObject;
         if (nextButtonGameObject != null)
         {
@@ -308,6 +313,18 @@ public class TutorialManagerForStageTwo : MonoBehaviour
         characterStoryButtonFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return new WaitUntil(() => isCharacterStoryLockButtonTouch);
+
+        characterStoryButtonFilter.SetActive(false);
+        characterStoryBuyFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
+        yield return new WaitUntil(() => isCharacterStoryBuyButtonTouch);
+
+        characterStoryBuyFilter.SetActive(false);
+        characterStoryButtonFilter.SetActive(true);
+        dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
+        dialogueText.text = dialogueDataList[currentDialogueIndex];
         yield return new WaitUntil(() => isCharacterStoryButtonTouch);
 
         characterStoryButtonFilter.SetActive(false);
@@ -396,6 +413,22 @@ public class TutorialManagerForStageTwo : MonoBehaviour
         }
     }
 
+    public void CharacterStoryLockButtonTouch()
+    {
+        if (tutorialIndex == 2)
+        {
+            isCharacterStoryLockButtonTouch = true;
+        }
+    }
+
+    public void CharacterStoryBuyButtonTouch()
+    {
+        if (tutorialIndex == 2)
+        {
+            isCharacterStoryBuyButtonTouch = true;
+        }
+    }
+
     public void CharacterStoryButtonTouch()
     {
         if (tutorialIndex == 2)
@@ -403,5 +436,7 @@ public class TutorialManagerForStageTwo : MonoBehaviour
             isCharacterStoryButtonTouch = true;
         }
     }
+
+
 
 }

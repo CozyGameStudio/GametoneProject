@@ -36,7 +36,6 @@ public class TutorialManager : MonoBehaviour
     public GameObject DarkFilter;
     public GameObject close;
     public GameObject open;
-    public GameObject touch;
     public GameObject businessButton;
     public GameObject ProcessBarButton;
     public GameObject money;
@@ -156,7 +155,6 @@ public class TutorialManager : MonoBehaviour
         if (DarkFilter != null) DarkFilter.SetActive(false);
         if(close!=null)close.SetActive(false);
         if (open != null) open.SetActive(false);
-        if (touch != null) touch.SetActive(false);
         if (businessButtonFilter != null) businessButtonFilter.SetActive(false);
         if (businessBoxFilter != null) businessBoxFilter.SetActive(false);
         if (businessCloseFilter != null) businessCloseFilter.SetActive(false);
@@ -342,9 +340,7 @@ public class TutorialManager : MonoBehaviour
         dialogueTextGameObject.SetActive(false);
         //DarkFilter.SetActive(false);
         close.SetActive(true);
-        touch.SetActive(true);
         yield return StartCoroutine(PushNextButton());
-        touch.SetActive(false);
         nextButton.transform.gameObject.SetActive(false);
         if (!isRotating)
         {
