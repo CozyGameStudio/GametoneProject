@@ -175,14 +175,13 @@ public class TutorialManagerForInterior : MonoBehaviour
 
     IEnumerator StartTutorialOne()
     {
-
-        //이미 해금된 장비가 있다면 1,2번 튜토리얼은 진행하지 않음
-        /*if (DataManager.Instance.activeMachines.Count != 0)
+        if (InteriorSceneManager.Instance.comfort != 0)
         {
+            comfortBar.SetActive(true);
             isEnqueueForTutorialOne = true;
             CompleteCurrentTutorial();
             yield break;
-        }*/
+        }
         tutorialIndex = 1;
 
         interiorButtonFilter.SetActive(true);

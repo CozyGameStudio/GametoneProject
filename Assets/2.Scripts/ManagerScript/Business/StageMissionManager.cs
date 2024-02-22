@@ -174,7 +174,7 @@ public class StageMissionManager : MonoBehaviour,IBusinessManagerInterface
     {
         missionDataList = Resources.Load<MissionDataList>("MissionDataList");
         missionBoxPrefab = Resources.Load<GameObject>("MissionBox");
-        WhenAllMissionCompleted.gameObject.SetActive(false);
+        //WhenAllMissionCompleted.gameObject.SetActive(false);
         
         Debug.Log("StageMission manager started");
         foreach (var currentStageMission in missionDataList.missionDataList)

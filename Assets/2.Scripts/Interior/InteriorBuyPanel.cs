@@ -59,9 +59,12 @@ public class InteriorBuyPanel : MonoBehaviour
 
             OnBuyButtonClick?.Invoke();
         }
-        if (preset.isUnlock[2] == true)
+        if(preset.isUnlock.ContainsKey(2))
         {
-            TutorialButtonClick();
+            if (preset.isUnlock[2] == true)
+            {
+                TutorialButtonClick();
+            }
         }
     }
 

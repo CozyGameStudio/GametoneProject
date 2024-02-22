@@ -17,7 +17,7 @@ MonoBehaviour:
   storyDataList:
   - storyName: "\uBA39\uD280 \uCCAB \uC2DC\uB3C4"
     storyCurrencyType: 0
-    storyUnlockCost: 1000
+    storyUnlockCost: 0
     storyContent: "\uD654\uC7AC\uB97C \uD53C\uD574 \uC815\uC2E0\uC5C6\uC774 \uB3C4\uB9DD\uCCD0
       \uB098\uC628 \uC9C0 \uC0BC\uC77C \uC9F8 \uB418\uB358 \uB0A0,<br>\uB2E4\uC2DC
       \uB9D0\uD558\uC790\uBA74 \uC6B0\uC601\uC758 \uBC43\uC18D\uC5D0 \uC74C\uC2DD\uC774\uB780

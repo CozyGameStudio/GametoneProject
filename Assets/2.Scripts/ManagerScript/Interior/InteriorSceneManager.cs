@@ -37,7 +37,7 @@ public class InteriorSceneManager : MonoBehaviour
     // ������ �ҷ����� ���� ������ ����
     private void StartAddJelly()
     {
-        if (jelly == 0)
+        if (jelly <= 10)
         {
             jelly = startJelly;
         }
