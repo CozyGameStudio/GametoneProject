@@ -21,7 +21,7 @@ public class AdUI : MonoBehaviour
     private Dictionary<RewardType, TMP_Text> rewardTexts;
     private Dictionary<RewardType, Button> rewardButtons;
     private Dictionary<RewardType, DateTime> rewardCooldowns = new Dictionary<RewardType, DateTime>();
-    private float waitTime=6f;
+    private float waitTime=300f;
     // Start is called before the first frame update
     public void InitUI()
     {

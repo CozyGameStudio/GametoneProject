@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 6
   machineName: porkcutletMachine
-  machineNameInKorean: "\uB3C8\uAE4C\uC2A4 \uB3C4\uB9C8"
+  machineNameInKorean: "\uB3C8\uAE4C\uC2A4 \uC2A4\uD1A0\uBE0C"
   machineUnlockCost: 30
   cookTime:
   - 15

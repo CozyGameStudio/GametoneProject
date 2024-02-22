@@ -33,7 +33,7 @@ public class AdMobManager : MonoBehaviour
     private RewardedAd rewardedAd;
     private RewardType currentRewardType= RewardType.Cooktime;//default
 
-    private float rewardMaintainTime=60f;
+    private float rewardMaintainTime=180f;
     private static AdMobManager instance;
     private AdData adData;
 
