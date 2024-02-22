@@ -16,7 +16,6 @@ public class BusinessButton : MonoBehaviour
     public void TutorialButtonClick()
     {
         if (TutorialManager.Instance != null) TutorialManager.Instance.BusinessButtonTouch();
-        if(TutorialManagerForStageTwo.Instance != null) TutorialManagerForStageTwo.Instance.BusinessButtonTouch();
         Debug.Log("Click");
     }
 

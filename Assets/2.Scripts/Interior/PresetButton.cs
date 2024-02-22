@@ -101,16 +101,4 @@ public class PresetButton : MonoBehaviour
     {
         preset.layout.SetActive(true);
     }
-
-    public void TutorialButtonClick()
-    {
-        if (InteriorSceneManager.Instance.currentInteriorStage == 3)
-        {
-            if (isClickedOnce)
-            {
-                if (TutorialManagerForInterior.Instance != null) TutorialManagerForInterior.Instance.PresetButtonTouch();
-            }
-            
-        }
-    }
 }

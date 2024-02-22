@@ -44,11 +44,6 @@ public class InteriorSceneManager : MonoBehaviour
         UIManager.Instance.UpdateMoneyUI();
     }
 
-    public void Start()
-    {
-        StartAddJelly();
-    }
-
     public void AddMoney(int moneyAmount)
     {
         int currentMoney = money;

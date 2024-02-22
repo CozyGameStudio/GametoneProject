@@ -12,13 +12,5 @@ public class StageButton : MonoBehaviour
         buttonImage.sprite=isActive?activeSprite:inActiveSprite;
         button.interactable=isActive;
     }
-
-
-    public void TutorialButtonClick()
-    {
-        if (BusinessGameManager.Instance.currentBusinessStage == 4)
-        {
-            if (TutorialManagerForStageFour.Instance != null) TutorialManagerForStageFour.Instance.InteriorEnterButtonTouch();
-        }
-    }
+    
 }

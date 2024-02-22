@@ -42,12 +42,4 @@ public class StoryButton : MonoBehaviour
             characterCollectionPanel.gameObject.SetActive(false);
         }
     }
-
-    public void TutorialButtonClick()
-    {
-        if (BusinessGameManager.Instance.currentBusinessStage == 2)
-        {
-            if (TutorialManagerForStageTwo.Instance != null) TutorialManagerForStageTwo.Instance.CharacterStoryButtonTouch();
-        }
-    }
 }

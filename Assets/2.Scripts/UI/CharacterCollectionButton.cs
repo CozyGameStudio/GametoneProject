@@ -63,12 +63,4 @@ public class CharacterCollectionButton : MonoBehaviour
     {
         SystemManager.Instance.PlayAnimationByName(targetTransform, aniName);
     }
-
-    public void TutorialButtonClick()
-    {
-        if (BusinessGameManager.Instance.currentBusinessStage == 2)
-        {
-            if (TutorialManagerForStageTwo.Instance != null) TutorialManagerForStageTwo.Instance.CharacterCollectionChoiceTouch();
-        }
-    }
 }

@@ -79,12 +79,4 @@ public class InteriorButton : MonoBehaviour
             }
         }
     }
-
-    public void TutorialButtonClick()
-    {
-        if (InteriorSceneManager.Instance.currentInteriorStage == 3)
-        {
-            if (TutorialManagerForInterior.Instance != null) TutorialManagerForInterior.Instance.InteriorChoiceTouch();
-        }
-    }
 }

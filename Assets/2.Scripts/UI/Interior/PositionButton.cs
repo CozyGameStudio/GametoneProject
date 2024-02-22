@@ -31,12 +31,4 @@ public class PositionButton : MonoBehaviour//, IBox<ScriptableInterior>
     {
         interiorPanel.SetInterior(position.InteriorDataList, preset, positionObj);
     }
-
-    public void TutorialButtonClick()
-    {
-        if (InteriorSceneManager.Instance.currentInteriorStage == 3)
-        {
-            if (TutorialManagerForInterior.Instance != null) TutorialManagerForInterior.Instance.InteriorPositionTouch();
-        }
-    }
 }
