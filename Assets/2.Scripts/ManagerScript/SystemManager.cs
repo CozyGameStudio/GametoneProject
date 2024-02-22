@@ -15,9 +15,14 @@ public class SystemManager : MonoBehaviour
     private List<AudioClip> bgms=new List<AudioClip>();
     private List<AudioClip> sfxs = new List<AudioClip>();
     private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
-    private bool isBGMOn=true;
+    public bool isBGMOn{get;private set;}=true;
+    public bool isSFXOn { get; private set; } = true;
+
+    private AudioMixerGroup bgmGroup;
+    private AudioMixerGroup sfxGroup;
     private AudioSource audioSource;
     private AudioClip currentAudioClip;
+    private AudioSource sfxAudioSource;
     public string currentStageName{get;private set;}
     void Awake(){
         if (Instance == null)
@@ -35,6 +40,9 @@ public class SystemManager : MonoBehaviour
         QualitySettings.vSyncCount=1;
 #endif
         audioSource = GetComponent<AudioSource>();
+        sfxAudioSource=gameObject.AddComponent<AudioSource>();
+        bgmGroup = masterMixer.FindMatchingGroups("BGM")[0];
+        sfxGroup = masterMixer.FindMatchingGroups("SFX")[0];
         //리소스 동적 추가
         foreach (var bgm in Resources.LoadAll<AudioClip>("BGM"))
         {
@@ -44,6 +52,7 @@ public class SystemManager : MonoBehaviour
         {
             sfxs.Add(sfx);
         }
+        
         foreach (var sfx in sfxs)
         {
             sfxDictionary[sfx.name] = sfx;
@@ -89,14 +98,24 @@ public class SystemManager : MonoBehaviour
     }
     public void PlayBGMByName(string bgmName){
         currentAudioClip = bgms.Find(data => bgmName.Contains(data.name));
-        if(currentAudioClip!=null)audioSource.clip = currentAudioClip;
+        if (currentAudioClip != null)
+        {
+            audioSource.clip = currentAudioClip;
+
+            audioSource.outputAudioMixerGroup = bgmGroup;
+
+            audioSource.Play();
+        }
         audioSource.Play();
     }
     public void PlaySFXByName(string sfxName)
     {
         if (sfxDictionary.TryGetValue(sfxName, out AudioClip clip))
         {
-            audioSource.PlayOneShot(clip);
+            sfxAudioSource.clip = clip;
+            sfxAudioSource.outputAudioMixerGroup = sfxGroup;
+
+            sfxAudioSource.PlayOneShot(clip);
         }
         else
         {
@@ -135,6 +154,15 @@ public class SystemManager : MonoBehaviour
             masterMixer.SetFloat("BGM", -80f);
         else
             masterMixer.SetFloat("BGM",0f);
+        Debug.Log("Audio set");
+    }
+    public void TriggerAudio_SFX()
+    {
+        isSFXOn = !isSFXOn;
+        if (!isSFXOn)
+            masterMixer.SetFloat("SFX", -80f);
+        else
+            masterMixer.SetFloat("SFX", 0f);
         Debug.Log("Audio set");
     }
     public void SetData(SystemData systemData){
