@@ -34,6 +34,11 @@ public class InteriorSceneManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartAddJelly();
+    }
+
     private void StartAddJelly()
     {
         if (jelly <= startJelly)
@@ -41,7 +46,7 @@ public class InteriorSceneManager : MonoBehaviour
         {
             jelly = startJelly;
         }
-        //UIManager.Instance.UpdateMoneyUI();
+        InteriorUIManager.Instance.UpdateDiaUI();
     }
 
 

@@ -352,7 +352,8 @@ public class TutorialManagerForInterior : MonoBehaviour
 
     public void InteriorBuySecond()
     {
-        EnqueueTutorial(2);
+        if(currentDialogueIndex == 11)
+            EnqueueTutorial(2);
     }
 
     public void ComfortButtonTouch()
