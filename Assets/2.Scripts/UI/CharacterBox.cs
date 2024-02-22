@@ -44,7 +44,7 @@ public class CharacterBox : MonoBehaviour
     }
     public void UpgradeButtonClick()
     {
-        if (DataManager.Instance.jelly <= character.currentUpgradeMoney)
+        if (DataManager.Instance.jelly < character.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
             SystemManager.Instance.PlayAnimationByName(characterUpgradeButton.transform,"buttonRefuse");
@@ -68,7 +68,7 @@ public class CharacterBox : MonoBehaviour
     public void UpdateUI()
     {
         characterUpgrade.text = character.currentUpgradeMoney.ToString();
-        characterProfitGrowthRate.text = character.currentProfitGrowthRate.ToString();
+        characterProfitGrowthRate.text = (character.currentProfitGrowthRate*100).ToString()+"%";
         characterLevel.text = character.currentLevel.ToString();
         if(character.currentUpgradeMoney==0){
             characterUpgradeButton.gameObject.SetActive(false);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 10
   machineName: croissantMachine
-  machineNameInKorean: "\uD06C\uB8E8\uC544\uC0C1\uC624\uBE10"
+  machineNameInKorean: "\uD06C\uB8E8\uC544\uC0C1 \uC624\uBE10"
   machineUnlockCost: 60
   cookTime:
   - 13

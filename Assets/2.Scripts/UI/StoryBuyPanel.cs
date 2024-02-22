@@ -9,7 +9,7 @@ public class StoryBuyPanel : MonoBehaviour{
     public Image currencyImage;
     public Button buyButton;
     public Button uiOffButton;
-
+    public CharacterCollectionPanel characterCollectionPanel;
     void Start(){
         uiOffButton.onClick.AddListener(() => gameObject.SetActive(false));
         uiOffButton.onClick.AddListener(()=> UIManager.Instance.PlaySFXByName("buttonNormal"));
@@ -29,5 +29,6 @@ public class StoryBuyPanel : MonoBehaviour{
                 buyButton.onClick.AddListener(() => currentCharacter.BuyStoryByJelly(i));
                 break;
         }
+        buyButton.onClick.AddListener(()=> characterCollectionPanel.UpdateStoryList());
     }
 }

@@ -93,7 +93,7 @@ public class CharacterCollectionPanel : MonoBehaviour
         progressText.text = progress.ToString() + "%";
         collectionSlider.value = progress;
     }
-    private void UpdateStoryList()
+    public void UpdateStoryList()
     {
         List<StoryData> srpColDataList = currentCharacter.scriptableCollection.storyDataList;
         int buttonCount = buttons.Length; // 버튼 배열의 크기

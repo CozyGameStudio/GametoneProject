@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 5
   machineName: pastaAMachine
-  machineNameInKorean: "\uD30C\uC2A4\uD0C0\uC6CD"
+  machineNameInKorean: "\uD30C\uC2A4\uD0C0 \uC6CD"
   machineUnlockCost: 10
   cookTime:
   - 10

@@ -73,6 +73,7 @@ public class UIManager : MonoBehaviour
                 {
                     if (adUI.uiElement.anchoredPosition.Equals(adUI.exitPosition))
                     {
+                        OffAllUI();
                         adUI.EnterAnimation();
                     }
                     else
