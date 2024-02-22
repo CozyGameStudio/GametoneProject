@@ -181,12 +181,13 @@ public class TutorialManagerForStageTwo : MonoBehaviour
         if (DataManager.Instance.activeMachines.Count != 0)
         {
             isEnqueueForTutorialOne = true;
+            characterCollectionButton.SetActive(true);
             CompleteCurrentTutorial();
             yield break;
         }
         tutorialIndex = 1;
 
-        characterCollectionButton.SetActive(true);
+
         DarkFilter.SetActive(true);
         dialogueBoxGameObject.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[currentDialogueIndex].position;
@@ -260,7 +261,7 @@ public class TutorialManagerForStageTwo : MonoBehaviour
         businessCloseFilter.SetActive(true);
         yield return new WaitUntil(() => isBusinessCloseTouch);
 
-        businessPanelFilter.SetActive(false);
+        businessCloseFilter.SetActive(false);
 
         CompleteCurrentTutorial();
         EnqueueTutorial(2);
@@ -270,6 +271,7 @@ public class TutorialManagerForStageTwo : MonoBehaviour
     {
         tutorialIndex = 2;
 
+        characterCollectionButton.SetActive(true);
         dialogueBoxGameObject.SetActive(true);
         dialogueTextGameObject.SetActive(true);
         characterCollectionButtonFilter.SetActive(true);
