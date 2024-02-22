@@ -53,6 +53,7 @@ public class AdUI : MonoBehaviour
 
     public void EnterAnimation()
     {
+        SystemManager.Instance.PlaySFXByName("storySoft");
         uiElement.DOAnchorPos(enterPosition, animationDuration).SetEase(Ease.OutBack);
     }
 
@@ -109,14 +110,14 @@ public class AdUI : MonoBehaviour
             int maxCount = AdMobManager.Instance.GetMaxAdsCount();
             if (remainingCount<=0)
             {
-                text.text = "주어진 광고를\n모두 봤어요!";
-                if (rewardButtons.TryGetValue(rewardType, out Button button))
-                {
-                    button.interactable = false;
-                }
+                // text.text = "주어진 광고를\n모두 봤어요!";
+                // if (rewardButtons.TryGetValue(rewardType, out Button button))
+                // {
+                //     button.interactable = false;
+                // }
             }
             else{
-                text.text = $"광고보기\n{remainingCount} / {maxCount}";
+                text.text = "광고보기";
             }
         }
     }

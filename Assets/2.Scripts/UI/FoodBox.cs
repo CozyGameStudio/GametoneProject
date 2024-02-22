@@ -121,8 +121,9 @@ public class FoodBox : MonoBehaviour
             foodUpgradeButton.gameObject.SetActive(false);
             foodUpgradeCompleted.gameObject.SetActive(true);
             PlayAnimationByName(foodUpgradeCompleted.transform, "buttonUpgrade");
-            alarm.SetActive(false);
+            
         }
+        SetAlarm();
     }
     private void PlaySFXByName(string sfxName)
     {

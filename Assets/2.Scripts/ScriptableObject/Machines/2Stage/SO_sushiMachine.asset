@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 2
   machineName: sushiMachine
-  machineNameInKorean: "\uB3C4\uB9C8"
+  machineNameInKorean: "\uCD08\uBC25 \uB3C4\uB9C8"
   machineUnlockCost: 10
   cookTime:
   - 10

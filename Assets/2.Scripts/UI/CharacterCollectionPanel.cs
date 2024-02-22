@@ -13,6 +13,7 @@ public class CharacterCollectionPanel : MonoBehaviour
     public StoryButton[] buttons;
     public Image characterIcon;
     public Image characterStatus;
+    public StoryBuyPanel storyBuyPanel;
 
     public List<Sprite> currencySprite;
     //Set This to Character Collection Button
@@ -105,24 +106,27 @@ public class CharacterCollectionPanel : MonoBehaviour
             }
             //Debug.Log(srpColDataList[i].ToString());
             int index = i;
-            buttons[i].storyValue.text = srpColDataList[i].storyUnlockCost.ToString();
-            buttons[i].lockPanel.GetComponent<Button>().onClick.RemoveAllListeners();
-            buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(SetProgressBar);
-            buttons[i].storyName.text = srpColDataList[i].storyName.ToString();
-            switch (srpColDataList[i].storyCurrencyType)
+            buttons[index].storyValue.text = srpColDataList[index].storyUnlockCost.ToString();
+            buttons[index].lockPanel.GetComponent<Button>().onClick.RemoveAllListeners();
+            buttons[index].lockPanel.GetComponent<Button>().onClick.AddListener(SetProgressBar);
+            buttons[index].storyName.text = srpColDataList[index].storyName.ToString();
+            Sprite tmpSprite;
+            switch (srpColDataList[index].storyCurrencyType)
             {
                 case CurrencyType.Money:
-                    buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(() => currentCharacter.BuyStoryByMoney(index));
-                    buttons[i].currencyImage.sprite = currencySprite[0];
+                    tmpSprite = currencySprite[0];
+                    buttons[index].lockPanel.GetComponent<Button>().onClick.AddListener(() => storyBuyPanel.SetStoryData(currentCharacter,srpColDataList[index],index, tmpSprite));
+                    buttons[index].currencyImage.sprite = tmpSprite;
                     break;
                 case CurrencyType.Jelly:
-                    buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(() => currentCharacter.BuyStoryByJelly(index));
-                    buttons[i].currencyImage.sprite = currencySprite[1];
+                    tmpSprite = currencySprite[1];
+                    buttons[index].lockPanel.GetComponent<Button>().onClick.AddListener(() => storyBuyPanel.SetStoryData(currentCharacter,srpColDataList[index],index, tmpSprite));
+                    buttons[index].currencyImage.sprite = currencySprite[1];
                     break;
             }
-            buttons[i].lockPanel.GetComponent<Button>().onClick.AddListener(UpdateStoryList);
-            buttons[i].SetStoryData(characterIcon.sprite, srpColDataList[i]);
-            buttons[i].lockPanel.SetActive(!currentCharacter.isUnlock[i]);
+            buttons[index].lockPanel.GetComponent<Button>().onClick.AddListener(UpdateStoryList);
+            buttons[index].SetStoryData(characterIcon.sprite, srpColDataList[index]);
+            buttons[index].lockPanel.SetActive(!currentCharacter.isUnlock[i]);
         }
     }
 }

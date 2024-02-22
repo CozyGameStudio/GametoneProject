@@ -95,12 +95,12 @@ public class Server : MonoBehaviour
         {//towards upside
             animator.SetFloat("YVelocity", 0);
         }
-        else if (currentVelocity.y >0)
+        else if (currentVelocity.y <0.1)
         {//towards downward
-            animator.SetFloat("YVelocity", 1);
+            animator.SetFloat("YVelocity", -1);
         }
         else
-            animator.SetFloat("YVelocity", -1);
+            animator.SetFloat("YVelocity", 1);
     }
     void Idle_Enter(){
         placeToMove = initPosition;
@@ -165,7 +165,7 @@ public class Server : MonoBehaviour
 
     void Serve_Update()
     {
-        if (agent.velocity.y > 0.01)
+        if (agent.velocity.y > 0.1)
         {//towards upside
             if (menuToServe != null) menuToServe.SetActive(false);
         }

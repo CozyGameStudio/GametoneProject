@@ -11,7 +11,6 @@ public class StageUI : MonoBehaviour
     private int currentStageNumber;
 
     void OnEnable(){
-        SystemManager.Instance.PlaySFXByName("stageEntrance");
         Debug.Log("[StageUI] OnEnable");
         currentStageNumber = DataSaveNLoadManager.Instance.businessStageNumber;
         stageProgressSlider.value= currentStageNumber;
@@ -48,6 +47,7 @@ public class StageUI : MonoBehaviour
     }
     void CallStageChange(int i)
     {
+        SystemManager.Instance.PlaySFXByName("stageEntrance");
         DataSaveNLoadManager.Instance.SaveThings();
         string sceneNameToMove;
         

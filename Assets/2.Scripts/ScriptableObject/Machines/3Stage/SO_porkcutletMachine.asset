@@ -26,4 +26,4 @@ MonoBehaviour:
   - 12
   upgradeMoney: 1e00000028000000370000004b000000640000009600000000000000
   stageToUse: 3
-  machineIcon: {fileID: 21300000, guid: 55fa12eed074ffe49989c2b12cef3916, type: 3}
+  machineIcon: {fileID: 21300000, guid: 283b2051153a0524fba27ceb6c38c45d, type: 3}

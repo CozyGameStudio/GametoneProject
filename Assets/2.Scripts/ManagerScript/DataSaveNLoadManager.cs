@@ -391,6 +391,7 @@ public class DataSaveNLoadManager : MonoBehaviour
     }
     private void SaveLastExitTime()
     {
+        if(scene.name.Equals("Title"))return;
         loadedData.lastTimeStamp = DateTime.UtcNow.ToString("o"); // ISO 8601 형식으로 저장
         SaveSystemData(loadedData);
     }

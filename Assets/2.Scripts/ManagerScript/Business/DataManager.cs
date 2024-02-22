@@ -261,7 +261,8 @@ public class DataManager : MonoBehaviour
     }
     private void CalculateOfflineEarnings(SystemData loadedData)
     {
-        if (!string.IsNullOrEmpty(loadedData.lastTimeStamp))
+        //1스테이지에서는 비활성화
+        if (!string.IsNullOrEmpty(loadedData.lastTimeStamp)&&!DataSaveNLoadManager.scene.name.Equals("BusinessStage1"))
         {
             DateTime lastExitTime = DateTime.Parse(loadedData.lastTimeStamp, null, System.Globalization.DateTimeStyles.RoundtripKind);
             TimeSpan offlineDuration = DateTime.UtcNow - lastExitTime;
