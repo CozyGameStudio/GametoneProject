@@ -2127,11 +2127,11 @@ MonoBehaviour:
   - "\uD574\uD53C\uC640 \uCE5C\uAD6C\uB4E4\uC758<br>\uC774\uC57C\uAE30\uB97C \uC218\uC9D1\uD560
     \uC218 \uC788\uC5B4\uC694!"
   - "\uC6B0\uC601\uC774\uC758 \uC774\uC57C\uAE30\uB97C<br>\uC0B4\uD3B4\uBCFC\uAE4C\uC694?"
-  - "\uC2A4\uD15F\uC744 \uD1B5\uD574<br>\uCE90\uB9AD\uD130\uC758 \uC131\uACA9\uC744<br>\uBCFC
+  - "\uC2A4\uD0EF\uC744 \uD1B5\uD574<br>\uCE90\uB9AD\uD130\uC758 \uC131\uACA9\uC744<br>\uBCFC
     \uC218 \uC788\uC5B4\uC694!"
-  - "\uC2A4\uD1A0\uB9AC\uB97C \uB4E4\uC5B4\uAC08\uBCFC\uAE4C\uC694?"
+  - "\uC2A4\uD1A0\uB9AC\uB85C \uB4E4\uC5B4\uAC00\uBCFC\uAE4C\uC694?"
   - "\uC2A4\uD1A0\uB9AC\uB97C \uAD6C\uC785\uD558\uC138\uC694!"
-  - "\uC774\uC81C \uC2A4\uD1A0\uB9AC\uB97C \uB4E4\uC5B4\uAC08\uAE4C\uC694?"
+  - "\uC774\uC81C \uC2A4\uD1A0\uB9AC\uB85C \uB4E4\uC5B4\uAC08\uAE4C\uC694?"
   - "\uC2A4\uD1A0\uB9AC\uCC3D\uC5D0\uC11C \uC6B0\uC601\uC774\uC758 \uC2A4\uD1A0\uB9AC\uB97C<br>
     \uC990\uAE38 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   dialogueBoxPositionDataList:
@@ -26786,7 +26786,6 @@ RectTransform:
   - {fileID: 6311057696796018453}
   - {fileID: 7374523192575153552}
   - {fileID: 6679745549232811137}
-  - {fileID: 8341681011463893462}
   - {fileID: 7125330601855432350}
   - {fileID: 1759358826}
   - {fileID: 574562855908421599}
@@ -26816,6 +26815,7 @@ RectTransform:
   - {fileID: 4329389365966773692}
   - {fileID: 7516514485493008435}
   - {fileID: 1457013897}
+  - {fileID: 8341681011463893462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -46810,7 +46810,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &6174900137056626640
