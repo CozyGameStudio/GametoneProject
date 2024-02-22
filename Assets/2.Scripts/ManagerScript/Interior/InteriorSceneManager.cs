@@ -34,20 +34,7 @@ public class InteriorSceneManager : MonoBehaviour
         }
     }
 
-    // ������ �ҷ����� ���� ������ ����
-    private void StartAddJelly()
-    {
-        if (jelly == 0)
-        {
-            jelly = startJelly;
-        }
-        UIManager.Instance.UpdateMoneyUI();
-    }
 
-    public void Start()
-    {
-        StartAddJelly();
-    }
 
     public void AddMoney(int moneyAmount)
     {
