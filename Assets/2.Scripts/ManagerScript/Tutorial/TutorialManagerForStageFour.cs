@@ -131,9 +131,9 @@ public class TutorialManagerForStageFour : MonoBehaviour
 
     IEnumerator StartTutorialOne()
     {
-
-        //ÀÌ¹Ì ÇØ±ÝµÈ Àåºñ°¡ ÀÖ´Ù¸é 1,2¹ø Æ©Åä¸®¾óÀº ÁøÇàÇÏÁö ¾ÊÀ½
-        if (DataManager.Instance.activeMachines.Count != 0)
+        yield return new WaitForSeconds(3f);
+        //ï¿½Ì¹ï¿½ ï¿½Ø±Ýµï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ 1,2ï¿½ï¿½ Æ©ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (DataSaveNLoadManager.Instance.LoadSystemData().interiorDatas.Count != 0)
         {
             isEnqueueForTutorialOne = true;
             CompleteCurrentTutorial();

@@ -8994,6 +8994,7 @@ MonoBehaviour:
   offlineRewardUI: {fileID: 1309625830738201269}
   shopUI: {fileID: 5291593539772276040}
   fevertimeUI: {fileID: 7382473161762533748}
+  storyBuyPanel: {fileID: 5597024104029343255}
 --- !u!114 &335427366139119389
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -39,6 +39,7 @@ public class CharacterCollection : MonoBehaviour
             BusinessGameManager.Instance.DecreaseMoney(scriptableCollection.storyDataList[i].storyUnlockCost);
             isUnlock[i]=true;
             SystemManager.Instance.PlaySFXByName("storySoft");
+            UIManager.Instance.storyBuyPanel.gameObject.SetActive(false);
             //연출 추가
         }
         else{
@@ -59,6 +60,7 @@ public class CharacterCollection : MonoBehaviour
             isUnlock[i] = true;
             //연출 추가
             SystemManager.Instance.PlaySFXByName("storyHard");
+            UIManager.Instance.storyBuyPanel.gameObject.SetActive(false);
             StartCoroutine(SoundByDelay());
         }
         else

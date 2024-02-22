@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     public OfflineRewardUI offlineRewardUI;
     public ShopUI shopUI;
     public FeverTimeUI fevertimeUI;
+    public StoryBuyPanel storyBuyPanel;
     private static UIManager instance;
     public static UIManager Instance
     {
