@@ -37,6 +37,7 @@ public class InteriorSceneManager : MonoBehaviour
     private void StartAddJelly()
     {
         if (jelly <= startJelly)
+
         {
             jelly = startJelly;
         }
