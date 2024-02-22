@@ -48,9 +48,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start(){
-        DataManager.Instance.OnRewardActivatedDelegate+=PlayFeverTimeAnimation;
-    }
     private void Update() {
         if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
@@ -99,12 +96,6 @@ public class UIManager : MonoBehaviour
         adUI.ExitAnimation();
         shopUI.ExitAnimation();
     }
-    public void PlayFeverTimeAnimation(bool isActivated){
-        if(isActivated){
-            fevertimeUI.gameObject.SetActive(true);
-            fevertimeUI.PlayFeverTimeAnimation();
-        }
-    }
     public void MissionWindowOff(){
         missionWindow.SetActive(false);
     }
@@ -114,7 +105,12 @@ public class UIManager : MonoBehaviour
         UpdateJellyUI();
         UpdateProgress();
     }
-    
+    public void PlayFeverTimeAnimation(){
+        fevertimeUI.gameObject.SetActive(true);
+        fevertimeUI.PlayFeverTimeAnimation();
+    }
+
+
     public void UpdateProgress()
     {
        if(StageMissionManager.Instance!=null)slider.value=StageMissionManager.Instance.stageProgress;

@@ -20,6 +20,7 @@ public class AdUI : MonoBehaviour
     public RectTransform uiElement{get;private set;}
     private Dictionary<RewardType, TMP_Text> rewardTexts;
     private Dictionary<RewardType, Button> rewardButtons;
+    private Dictionary<RewardType, DateTime> rewardCooldowns = new Dictionary<RewardType, DateTime>();
     private float waitTime=6f;
     // Start is called before the first frame update
     public void InitUI()
@@ -52,6 +53,7 @@ public class AdUI : MonoBehaviour
 
     public void EnterAnimation()
     {
+        SystemManager.Instance.PlaySFXByName("storySoft");
         uiElement.DOAnchorPos(enterPosition, animationDuration).SetEase(Ease.OutBack);
     }
 
@@ -82,23 +84,23 @@ public class AdUI : MonoBehaviour
 
     IEnumerator RewardCooltime(RewardType rewardType, float time)
     {
-        float timeLeft = time;
-        while (timeLeft > 0)
+        rewardCooldowns[rewardType] = DateTime.Now.AddSeconds(time);
+
+        while (DateTime.Now < rewardCooldowns[rewardType])
         {
             if (rewardTexts.TryGetValue(rewardType, out TMP_Text textWait))
             {
-                TimeSpan timeSpan = TimeSpan.FromSeconds(timeLeft);
+                TimeSpan timeSpan = rewardCooldowns[rewardType] - DateTime.Now;
                 textWait.text = $"대기 시간\n{timeSpan:mm\\:ss}";
             }
             yield return new WaitForSeconds(1f);
-            timeLeft -= 1f;
         }
         SetRemainText(rewardType);
         if (rewardButtons.TryGetValue(rewardType, out Button button))
         {
             button.interactable = true;
         }
-        
+
     }
     void SetRemainText(RewardType rewardType)
     {
@@ -108,14 +110,14 @@ public class AdUI : MonoBehaviour
             int maxCount = AdMobManager.Instance.GetMaxAdsCount();
             if (remainingCount<=0)
             {
-                text.text = "주어진 광고를\n모두 봤어요!";
-                if (rewardButtons.TryGetValue(rewardType, out Button button))
-                {
-                    button.interactable = false;
-                }
+                // text.text = "주어진 광고를\n모두 봤어요!";
+                // if (rewardButtons.TryGetValue(rewardType, out Button button))
+                // {
+                //     button.interactable = false;
+                // }
             }
             else{
-                text.text = $"광고보기\n{remainingCount} / {maxCount}";
+                text.text = "광고보기";
             }
         }
     }

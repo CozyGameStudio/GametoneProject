@@ -102,6 +102,7 @@ public class MissionBox : MonoBehaviour
         Debug.Log(obj.ToString());
     }
     public void MachineUpgrade(){
+        SystemManager.Instance.PlaySFXByName("buttonUpgrade");
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
@@ -112,6 +113,7 @@ public class MissionBox : MonoBehaviour
     }
     public void SpeedUpgrade()
     {
+        SystemManager.Instance.PlaySFXByName("buttonUpgrade");
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();
@@ -137,6 +139,7 @@ public class MissionBox : MonoBehaviour
     }
     public void TableUpgrade()
     {
+        SystemManager.Instance.PlaySFXByName("buttonUpgrade");
         BusinessGameManager.Instance.DecreaseMoney(missionData.cost);
         isCleared = true;
         StageMissionManager.Instance.CalculateProgress();

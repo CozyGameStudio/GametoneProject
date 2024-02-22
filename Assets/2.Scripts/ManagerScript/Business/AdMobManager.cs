@@ -177,7 +177,6 @@ public class AdMobManager : MonoBehaviour
                         if(OrderManager.Instance!=null&& !OrderManager.Instance.isRewardActivated)
                         {
                             UnityMainThreadDispatcher.Instance().Enqueue(OrderManager.Instance.SetIsRewardActivated(rewardMaintainTime));
-                            UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                             //OnRewardValidateDelegate?.Invoke(rewardMaintainTime);
                         }
                         break;
@@ -185,14 +184,12 @@ public class AdMobManager : MonoBehaviour
                         if (CustomerManager.Instance != null && !CustomerManager.Instance.isRewardActivated)
                         {
                             UnityMainThreadDispatcher.Instance().Enqueue(CustomerManager.Instance.SetIsRewardActivated(rewardMaintainTime));
-                            UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         }
                         break;
                     case RewardType.Speed:
                         if (DataManager.Instance != null && !DataManager.Instance.isRewardActivated)
                         {
                             UnityMainThreadDispatcher.Instance().Enqueue(DataManager.Instance.SetIsRewardActivated(rewardMaintainTime));
-                            UnityMainThreadDispatcher.Instance().Enqueue(DecreaseAdCount(currentRewardType));
                         }
                         break;
                     case RewardType.Offline:

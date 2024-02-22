@@ -59,11 +59,16 @@ public class CharacterCollection : MonoBehaviour
             isUnlock[i] = true;
             //연출 추가
             SystemManager.Instance.PlaySFXByName("storyHard");
+            StartCoroutine(SoundByDelay());
         }
         else
         {
             SystemManager.Instance.PlaySFXByName("buttonRefuse");
         }
+    }
+    public IEnumerator SoundByDelay(){
+        yield return new WaitForSeconds(1f);
+        SystemManager.Instance.PlaySFXByName("storySoft");
     }
     public void SetData(CollectionData collectionData)
     {

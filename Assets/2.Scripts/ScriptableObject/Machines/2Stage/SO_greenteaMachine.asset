@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 4
   machineName: greenteaMachine
-  machineNameInKorean: "\uD56D\uC544\uB9AC"
+  machineNameInKorean: "\uB179\uCC28 \uD56D\uC544\uB9AC"
   machineUnlockCost: 50
   cookTime:
   - 7

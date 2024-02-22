@@ -26,7 +26,8 @@ public class StageUI : MonoBehaviour
     private void OnDisable() {
         if (SystemManager.Instance != null)
         {
-            SystemManager.Instance.PlayBGMByName(SystemManager.Instance.currentStageName);
+            Debug.Log(SystemManager.Instance.currentStageName);
+            SystemManager.Instance.LoadBGMByCase();
         }
     }
     void SetData(){
@@ -46,21 +47,16 @@ public class StageUI : MonoBehaviour
     }
     void CallStageChange(int i)
     {
+        SystemManager.Instance.PlaySFXByName("stageEntrance");
         DataSaveNLoadManager.Instance.SaveThings();
-        //디버깅때는 비활성화
-        if(i.Equals(1)|| i.Equals(2)){
-            Debug.Log("Cleared Stage, But interior Stage doesnt exist");
-            return;
-        }
         string sceneNameToMove;
         
-        if (currentStageNumber>i&& !(i.Equals(1)||i.Equals(2)))
+        if (currentStageNumber>i)
         {
             sceneNameToMove = "InteriorStage" + i;
         }
         else{
             sceneNameToMove = "BusinessStage" + i;
-            //실제 빌드 출시때는, 앞스테이지로 가는 버튼은 비활성화가 되어야함.
         }
         string currentStageName = SceneManager.GetActiveScene().name;
         Debug.Log($"{name} scene {i} set to {sceneNameToMove}");

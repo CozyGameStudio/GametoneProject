@@ -71,8 +71,9 @@ public class SystemManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         currentStageName = scene.name;
-        // 새 씬이 로드될 때마다 수행할 작업
-        // 예: BGM 재생
+        LoadBGMByCase();
+    }
+    public void LoadBGMByCase(){
         if (currentStageName.Contains("Business"))
         {
             PlayBGMByName(currentStageName);

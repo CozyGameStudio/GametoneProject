@@ -32,6 +32,9 @@ public class FoodBox : MonoBehaviour
             food.OnFoodUnlocked -= HandleFoodUnlocked;
         }
     }
+    void OnEnable(){
+        SetAlarm();
+    }
     public void InitBox(Food foodFromDataManager)
     {
         food = foodFromDataManager;
@@ -118,8 +121,9 @@ public class FoodBox : MonoBehaviour
             foodUpgradeButton.gameObject.SetActive(false);
             foodUpgradeCompleted.gameObject.SetActive(true);
             PlayAnimationByName(foodUpgradeCompleted.transform, "buttonUpgrade");
-            alarm.SetActive(false);
+            
         }
+        SetAlarm();
     }
     private void PlaySFXByName(string sfxName)
     {
@@ -130,6 +134,9 @@ public class FoodBox : MonoBehaviour
     }
     public void SetAlarm()
     {
+        if(food==null){
+            return;
+        }
         if (food.isUnlocked && CheckUpgradable())
         {
             alarm.SetActive(true);
