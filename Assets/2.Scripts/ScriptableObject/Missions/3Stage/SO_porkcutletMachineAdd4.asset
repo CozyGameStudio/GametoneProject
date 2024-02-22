@@ -19,6 +19,6 @@ MonoBehaviour:
   criteria: 4
   cost: 50
   stageToAppear: 3
-  sprite: {fileID: 21300000, guid: 55fa12eed074ffe49989c2b12cef3916, type: 3}
+  sprite: {fileID: 21300000, guid: 283b2051153a0524fba27ceb6c38c45d, type: 3}
   description: "porkcutletMachineAdd \uB808\uBCA84 \uB2EC\uC131 \uC2DC \uAC1C\uBC29"
   progress: 5
