@@ -312,7 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114835208}
   m_Layer: 0
-  m_Name: '------------Map---------- '
+  m_Name: ------------Map-----------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5557,7 +5557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 957188881}
   m_Layer: 0
-  m_Name: ------------Manager----------
+  m_Name: ----------Manager----------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16917,7 +16917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1920714964}
   m_Layer: 0
-  m_Name: -------Characters----------
+  m_Name: -------Characters-----------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

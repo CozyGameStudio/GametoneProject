@@ -443,6 +443,7 @@ MonoBehaviour:
   presetName: {fileID: 8369629543252347564}
   PresetWindow: {fileID: 0}
   InteriorWindow: {fileID: 0}
+  presetPanel: {fileID: 0}
   positionPanel: {fileID: 0}
 --- !u!1 &5156429844967343284
 GameObject:
