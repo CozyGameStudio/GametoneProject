@@ -16,6 +16,7 @@ public class TutorialManagerForStageFour : MonoBehaviour
     public GameObject mainPanel;
 
     public GameObject DarkFilter;
+    public GameObject interiorEnterFilter;
     
 
     public List<string> dialogueDataList;
@@ -37,6 +38,8 @@ public class TutorialManagerForStageFour : MonoBehaviour
     private int currentDialogueIndex = 0;
 
     private bool buttonPressed = false;
+
+    private bool isInteriorEnterTouch = false;
 
     private bool isEnqueueForTutorialOne = false;
 
@@ -62,8 +65,10 @@ public class TutorialManagerForStageFour : MonoBehaviour
     private void Start()
     {
         if (mainPanel != null) mainPanel.SetActive(false);
+
         if (DarkFilter != null) DarkFilter.SetActive(false);
-        
+        if (interiorEnterFilter != null) interiorEnterFilter.SetActive(false);
+
         if (nextButton != null) nextButtonGameObject = nextButton.transform.gameObject;
         if (nextButtonGameObject != null)
         {
@@ -145,12 +150,13 @@ public class TutorialManagerForStageFour : MonoBehaviour
         yield return StartCoroutine(PushNextButton());
         DarkFilter.SetActive(false);
 
-        //businessButtonFilter.SetActive(true);
+        interiorEnterFilter.SetActive(true);
         dialogueBoxGameObject.transform.position = dialogueBoxPositionDataList[++currentDialogueIndex].position;
         dialogueText.text = dialogueDataList[currentDialogueIndex];
-        //yield return new WaitUntil(() => isBusinessButtonTouch);
+        yield return new WaitUntil(() => isInteriorEnterTouch);
+        dialogueBoxGameObject.SetActive(false);
+        interiorEnterFilter.SetActive(false);
 
-        
 
         CompleteCurrentTutorial();
     }
@@ -167,5 +173,10 @@ public class TutorialManagerForStageFour : MonoBehaviour
         nextButton.transform.gameObject.SetActive(false);
         buttonPressed = false;
         timer = 0;
+    }
+
+    public void InteriorEnterButtonTouch()
+    {
+        isInteriorEnterTouch = true;
     }
 }

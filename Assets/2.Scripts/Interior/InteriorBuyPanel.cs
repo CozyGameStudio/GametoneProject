@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,6 +59,17 @@ public class InteriorBuyPanel : MonoBehaviour
 
             OnBuyButtonClick?.Invoke();
         }
+        if (preset.isUnlock[2] == true)
+        {
+            TutorialButtonClick();
+        }
+    }
 
+    private void TutorialButtonClick()
+    {
+        if (InteriorSceneManager.Instance.currentInteriorStage == 3)
+        {
+            if (TutorialManagerForInterior.Instance != null) TutorialManagerForInterior.Instance.InteriorBuySecond();
+        }
     }
 }
