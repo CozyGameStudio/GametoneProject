@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 7
   machineName: coffeeAMachine
-  machineNameInKorean: "\uCEE4\uD53C\uBA38\uC2E0"
+  machineNameInKorean: "\uCEE4\uD53C \uBA38\uC2E0"
   machineUnlockCost: 60
   cookTime:
   - 8

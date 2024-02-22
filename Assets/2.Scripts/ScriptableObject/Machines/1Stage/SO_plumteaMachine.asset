@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 1
   machineName: plumteaMachine
-  machineNameInKorean: "\uD56D\uC544\uB9AC"
+  machineNameInKorean: "\uB9E4\uC2E4\uCC28 \uD56D\uC544\uB9AC"
   machineUnlockCost: 20
   cookTime:
   - 3

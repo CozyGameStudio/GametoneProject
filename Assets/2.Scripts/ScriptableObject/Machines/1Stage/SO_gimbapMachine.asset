@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   machineName: gimbapMachine
-  machineNameInKorean: "\uB3C4\uB9C8"
+  machineNameInKorean: "\uAE40\uBC25 \uB3C4\uB9C8"
   machineUnlockCost: 10
   cookTime:
   - 6

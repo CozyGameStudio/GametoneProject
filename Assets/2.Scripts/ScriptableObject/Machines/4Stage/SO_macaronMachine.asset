@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 11
   machineName: macaronMachine
-  machineNameInKorean: "\uB9C8\uCE74\uB871\uB0C9\uC7A5\uACE0"
-  machineUnlockCost: 100
+  machineNameInKorean: "\uB9C8\uCE74\uB871 \uB0C9\uC7A5\uACE0"
+  machineUnlockCost: 90
   cookTime:
   - 15
   - 14.5
