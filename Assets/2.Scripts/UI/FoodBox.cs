@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,12 @@ public class FoodBox : MonoBehaviour
     public TMP_Text foodPrice;
     public TMP_Text foodUpgrade;
     public Button foodUpgradeButton;
-    public TMP_Text foodUpgradeCompleted;
+    public Image foodUpgradeCompleted;
     public GameObject lockPanel;
-
+    public GameObject alarm;
     private void Start(){
         DataLoadManager.Instance.OnDataChanged += UpdateUI;
+        BusinessGameManager.Instance.OnCurrencyChangeDelegate += SetAlarm;
     }
     private void HandleFoodUnlocked(Food unlockedFood)
     {
@@ -23,16 +25,23 @@ public class FoodBox : MonoBehaviour
         if (lockPanel != null)
         {
             lockPanel.SetActive(false);
+            SetAlarm();
         }
         if (food != null)
         {
             food.OnFoodUnlocked -= HandleFoodUnlocked;
         }
     }
+    void OnEnable(){
+        SetAlarm();
+    }
     public void InitBox(Food foodFromDataManager)
     {
         food = foodFromDataManager;
-        food.OnFoodUnlocked += HandleFoodUnlocked;
+        if(food.isUnlocked)
+            lockPanel.SetActive(!food.isUnlocked);
+        else
+            food.OnFoodUnlocked += HandleFoodUnlocked;
         // Init food image
         if (foodImage != null)
         {
@@ -82,18 +91,26 @@ public class FoodBox : MonoBehaviour
         {
             Debug.LogError("Cannot find foodUpgrade");
         }
+        UpdateUI();
+        SetAlarm();
     }
 
     public void UpgradeButtonClick()
     {
-        if (BusinessGameManager.Instance.money <= food.currentUpgradeMoney)
+        
+        if (BusinessGameManager.Instance.money < food.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            PlaySFXByName("buttonRefuse");
+            PlayAnimationByName(foodUpgradeButton.transform,"buttonRefuse");
             return;
         }
         BusinessGameManager.Instance.DecreaseMoney(food.currentUpgradeMoney);
+        PlayAnimationByName(foodUpgradeButton.transform, "buttonUpgrade");
+        PlaySFXByName("buttonUpgrade");
         food.LevelUp();
         UpdateUI();
+        DataSaveNLoadManager.Instance.SaveThings();
     }
     public void UpdateUI(){
         foodUpgrade.text = food.currentUpgradeMoney.ToString();
@@ -103,7 +120,34 @@ public class FoodBox : MonoBehaviour
         {
             foodUpgradeButton.gameObject.SetActive(false);
             foodUpgradeCompleted.gameObject.SetActive(true);
+            PlayAnimationByName(foodUpgradeCompleted.transform, "buttonUpgrade");
+            
+        }
+        SetAlarm();
+    }
+    private void PlaySFXByName(string sfxName)
+    {
+        SystemManager.Instance.PlaySFXByName(sfxName);
+    }
+    private void PlayAnimationByName(Transform targetTransform,string aniName){
+        SystemManager.Instance.PlayAnimationByName(targetTransform,aniName);
+    }
+    public void SetAlarm()
+    {
+        if(food==null){
+            return;
+        }
+        if (food.isUnlocked && CheckUpgradable())
+        {
+            alarm.SetActive(true);
+        }
+        else
+        {
+            alarm.SetActive(false);
         }
     }
-    
+    private bool CheckUpgradable()
+    {
+        return food.currentUpgradeMoney <= BusinessGameManager.Instance.money&& !food.currentUpgradeMoney.Equals(0);
+    }
 }

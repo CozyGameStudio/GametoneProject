@@ -1,0 +1,524 @@
+fileFormatVersion: 2
+guid: cc6209dd0c57eea46b11056d53e6424c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: mirorr_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 947
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e0ff0d9342bac24491898fcc177970b
+      internalID: -104558306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_3
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 947
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e0bafdcaeec17b4e9cb5688390c0b2e
+      internalID: 334137061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_16
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 947
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4a0c1c43646a014aaf433b49ceefbc8
+      internalID: 124130188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_17
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 947
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd2d68c8a68ca54eac610ad1efa90d4
+      internalID: 246678818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_18
+      rect:
+        serializedVersion: 2
+        x: 1828
+        y: 947
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d377f06fab551941a4744557aed32d0
+      internalID: 1545973376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_26
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 471
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab582ce5c781c4244a412afce3954b95
+      internalID: -20469548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_40
+      rect:
+        serializedVersion: 2
+        x: 1828
+        y: 471
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb0a5e59f657854d9d0634dcb99b541
+      internalID: 2136136931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_46
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 471
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 817850abfd64b3448b40e22594fb4cdd
+      internalID: 1320010862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_47
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 471
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7513d03799a4b04eb5e13fa89f49ed2
+      internalID: 1212018234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_48
+      rect:
+        serializedVersion: 2
+        x: 1372
+        y: 471
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25ca3a0b4416fb74296ea7f58e25d495
+      internalID: 783829724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_73
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f7b8f87af0e2474fa10907d88eceedc
+      internalID: -1469345624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_74
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 0
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e5defc5324a3f04698b20a48db707c5
+      internalID: -1707537224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_75
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 0
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5804637804ec844197b2c1a051be973
+      internalID: -1535534997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mirorr_76
+      rect:
+        serializedVersion: 2
+        x: 1371
+        y: 0
+        width: 376
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a529620e02b150144958d3c2f1379e10
+      internalID: -971035879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      mirorr_0: -104558306
+      mirorr_1: 661830457
+      mirorr_10: -1153168652
+      mirorr_11: 686226945
+      mirorr_12: 943115694
+      mirorr_13: -907410102
+      mirorr_14: -366582519
+      mirorr_15: 102907924
+      mirorr_16: 124130188
+      mirorr_17: 246678818
+      mirorr_18: 1545973376
+      mirorr_19: 2112562662
+      mirorr_2: 458786274
+      mirorr_20: -136313527
+      mirorr_21: 1085389606
+      mirorr_22: 183366453
+      mirorr_23: -1352697066
+      mirorr_24: 1520392161
+      mirorr_25: 114716622
+      mirorr_26: -20469548
+      mirorr_27: -325431803
+      mirorr_28: 1243475896
+      mirorr_29: -1728921740
+      mirorr_3: 334137061
+      mirorr_30: 1232847687
+      mirorr_31: -1548977935
+      mirorr_32: -1730005038
+      mirorr_33: 1261277443
+      mirorr_34: -157949372
+      mirorr_35: 2012837117
+      mirorr_36: -1014245733
+      mirorr_37: -1726702316
+      mirorr_38: -1389121634
+      mirorr_39: -1207453490
+      mirorr_4: -2033541486
+      mirorr_40: 2136136931
+      mirorr_41: -324095676
+      mirorr_42: -1358589984
+      mirorr_43: -1211776560
+      mirorr_44: -1356565872
+      mirorr_45: 1654024747
+      mirorr_46: 1320010862
+      mirorr_47: 1212018234
+      mirorr_48: 783829724
+      mirorr_49: -1702024191
+      mirorr_5: -963833192
+      mirorr_50: -1902088784
+      mirorr_51: 801380021
+      mirorr_52: 1043058709
+      mirorr_53: 1252423845
+      mirorr_54: 2126763753
+      mirorr_55: 273947871
+      mirorr_56: 965706051
+      mirorr_57: 1877262904
+      mirorr_58: -988921057
+      mirorr_59: -1142812614
+      mirorr_6: 2075036481
+      mirorr_60: 148902139
+      mirorr_61: 674260669
+      mirorr_62: 1752652526
+      mirorr_63: -2121105953
+      mirorr_64: 1668961207
+      mirorr_65: 289928911
+      mirorr_66: 581632000
+      mirorr_67: 1227277567
+      mirorr_68: -574056670
+      mirorr_69: -2072159489
+      mirorr_7: 408305092
+      mirorr_70: 549935528
+      mirorr_71: -616129923
+      mirorr_72: 1980945991
+      mirorr_73: -1469345624
+      mirorr_74: -1707537224
+      mirorr_75: -1535534997
+      mirorr_76: -971035879
+      mirorr_8: 1960900210
+      mirorr_9: -1801933263
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

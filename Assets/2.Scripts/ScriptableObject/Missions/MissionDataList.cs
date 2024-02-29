@@ -14,4 +14,7 @@ public class MissionDataList : ScriptableObject
             missionDataList.Add(mission);
         }
     }
+    public void cleanList(){
+        missionDataList.Clear();
+    }
 }

@@ -11,11 +11,10 @@ public class CharacterBox : MonoBehaviour
     public TMP_Text characterName;
     public TMP_Text characterLevel;
     public TMP_Text characterProfitGrowthRate;
-    public TMP_Text characterPosition;
     public TMP_Text characterUpgrade;
     public TMP_Text characterUpgradeComplete;
     public Button characterUpgradeButton;
-
+    public Animator animator;
     void Start(){
         DataLoadManager.Instance.OnDataChanged+=UpdateUI;
     }
@@ -34,74 +33,50 @@ public class CharacterBox : MonoBehaviour
         // Init character name
         if (characterName != null)
         {
-            characterName.text = character.characterData.characterName;
+            characterName.text = character.characterData.characterNameInKorean;
         }
         else
         {
             Debug.LogError("Cannot find Name");
         }
 
-        // Init character Level
-        if (characterLevel != null)
-        {
-            characterLevel.text = character.currentLevel.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find Level");
-        }
-        // Init character Level
-        if (characterPosition != null)
-        {
-            characterPosition.text = character.position.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find Position");
-        }
-
-
-        // Init cooking speed
-        if (characterProfitGrowthRate != null)
-        {
-            characterProfitGrowthRate.text = character.currentProfitGrowthRate.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find CookingSpeed");
-        }
-
-
-        // Init character upgrade
-        if (characterUpgrade != null)
-        {
-            characterUpgrade.text = character.currentUpgradeMoney.ToString();
-        }
-        else
-        {
-            Debug.LogError("Cannot find characterUpgrade");
-        }
+        UpdateUI();
     }
     public void UpgradeButtonClick()
     {
-        if (BusinessGameManager.Instance.money <= character.currentUpgradeMoney)
+        if (DataManager.Instance.jelly < character.currentUpgradeMoney)
         {
             Debug.Log("돈이 읍써여 ㅠㅠㅠㅠ");
+            SystemManager.Instance.PlayAnimationByName(characterUpgradeButton.transform,"buttonRefuse");
+            SystemManager.Instance.PlaySFXByName("buttonRefuse");
             return;
         }
         character.LevelUp();
-        BusinessGameManager.Instance.DecreaseMoney(character.currentUpgradeMoney);
+        DataManager.Instance.DecreaseJelly(character.currentUpgradeMoney);
         UpdateUI();
+        StartCoroutine(UpgradeAnimation());
+        SystemManager.Instance.PlaySFXByName("buttonUpgrade");
     }
-    
+    IEnumerator UpgradeAnimation(){
+        bool isUpgrade=true;
+        animator.SetBool("IsUpgrade", isUpgrade);
+        characterUpgradeButton.interactable=false;
+        yield return new WaitForSeconds(1);
+        isUpgrade = false;
+        animator.SetBool("IsUpgrade", isUpgrade); characterUpgradeButton.interactable = true;
+    }
     public void UpdateUI()
     {
         characterUpgrade.text = character.currentUpgradeMoney.ToString();
-        characterProfitGrowthRate.text = character.currentProfitGrowthRate.ToString();
+        characterProfitGrowthRate.text = (character.currentProfitGrowthRate*100).ToString()+"%";
         characterLevel.text = character.currentLevel.ToString();
         if(character.currentUpgradeMoney==0){
             characterUpgradeButton.gameObject.SetActive(false);
             characterUpgradeComplete.gameObject.SetActive(true);
+        }
+        else{
+            characterUpgradeButton.gameObject.SetActive(true);
+            characterUpgradeComplete.gameObject.SetActive(false);
         }
     }
     

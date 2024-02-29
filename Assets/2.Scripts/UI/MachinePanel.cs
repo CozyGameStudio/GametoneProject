@@ -9,19 +9,22 @@ public class MachinePanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < DataManager.Instance.machines.Count; i++)
+        foreach (var machineInterface in DataManager.Instance.machines)
         {
-            GameObject imageObj = Instantiate(BoxPrefab);
-            imageObj.transform.SetParent(transform, false);
-            
-            MachineBox machineBox = imageObj.GetComponent<MachineBox>();
-            if(machineBox != null)
+            if (machineInterface is Machine machine)
             {
-                machineBox.InitBox(DataManager.Instance.machines[i]);
-            }
-            else
-            {
-                Debug.LogError("Cannot find machineBox");
+                GameObject imageObj = Instantiate(BoxPrefab);
+                imageObj.transform.SetParent(transform, false);
+
+                MachineBox machineBox = imageObj.GetComponent<MachineBox>();
+                if (machineBox != null)
+                {
+                    machineBox.InitBox(machine);
+                }
+                else
+                {
+                    Debug.LogError("Cannot find MachineBox component on the prefab.");
+                }
             }
         }
     }

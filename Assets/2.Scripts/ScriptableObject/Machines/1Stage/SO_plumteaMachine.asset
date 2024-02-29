@@ -14,19 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 1
   machineName: plumteaMachine
-  machineNameInKorean: "\uD56D\uC544\uB9AC"
-  machineUnlockCost: 200
+  machineNameInKorean: "\uB9E4\uC2E4\uCC28 \uD56D\uC544\uB9AC"
+  machineUnlockCost: 20
   cookTime:
-  - 5
-  - 4.8
-  - 4.6
-  - 4.4
-  - 4.2
-  - 4
-  - 3.8
-  - 3.6
-  - 3.4
-  - 3.2
-  upgradeMoney: 050000000f000000140000002c00000048000000730000001d0100003e020000b803000000000000
+  - 3
+  - 2
+  - 1
+  upgradeMoney: 050000000700000000000000
   stageToUse: 1
-  machineIcon: {fileID: 0}
+  machineIcon: {fileID: -1448181759, guid: a5f86ff2715603145a9d15faa7d25d4b, type: 3}

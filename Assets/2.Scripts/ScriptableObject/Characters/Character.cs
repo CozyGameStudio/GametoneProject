@@ -9,26 +9,26 @@ public class Character : MonoBehaviour
     public event ProfitChangedDelegate OnProfitChanged;
 
     public int currentLevel{get;private set;}=1;
-    public float currentProfitGrowthRate { get; private set; }
-    public int currentUpgradeMoney { get; private set; }
+    public float currentProfitGrowthRate { get{ return characterData.profitGrowthRate[currentLevel - 1]; } }
+    public int currentUpgradeMoney { get{return characterData.upgradeMoney[currentLevel - 1]; } }
     public string position;
     public bool isUnlocked{get;private set;}=false;
-    private void Start()
-    {
-        DataLoadManager.Instance.OnDataChanged += SetValue;
-        SetValue();
-    }
+
     public void LevelUp()
     {
         currentLevel++;
-        SetValue();
         StageMissionManager.Instance.LevelCheck();
         OnProfitChanged?.Invoke(this,currentProfitGrowthRate);
     }
-    void SetValue()
-    {
-        currentProfitGrowthRate = characterData.profitGrowthRate[currentLevel - 1];
-        currentUpgradeMoney = characterData.upgradeMoney[currentLevel - 1];
+    public void SetData(int level,bool unlock){
+        currentLevel=level;
+        isUnlocked= unlock;
     }
-    
+    public SaveData<Character> GetData()
+    {
+        SaveData<Character> characterData = new SaveData<Character>(this.characterData.name, currentLevel, isUnlocked);
+        return characterData;
+
+    }
+
 }

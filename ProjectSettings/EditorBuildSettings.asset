@@ -9,21 +9,36 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/1.Scenes/BusinessStages/Stage1.unity
+    path: Assets/1.Scenes/Title.unity
+    guid: 0e0c6e3925ef01e45878da81c7b92193
+  - enabled: 1
+    path: Assets/1.Scenes/LoadingScene.unity
+    guid: de060b109cf586d4f8da1b249cfe68d8
+  - enabled: 1
+    path: Assets/1.Scenes/BusinessStages/BusinessStage1.unity
     guid: d5e8823b2d5413a49ae796dcd2c4d619
   - enabled: 1
-    path: Assets/1.Scenes/Decorate.unity
-    guid: c43c308b70883d04bb1dfad07b7d543c
+    path: Assets/1.Scenes/BusinessStages/BusinessStage2.unity
+    guid: e7a35db60dad940429aa20848bf4152b
   - enabled: 1
-    path: Assets/1.Scenes/BusinessStages/Stage2.unity
-    guid: ef97930670f06a842afe5891100f5d77
+    path: Assets/1.Scenes/BusinessStages/BusinessStage3.unity
+    guid: c41d424872886c149800cd0e3b4b9b90
   - enabled: 1
-    path: Assets/1.Scenes/main.unity
-    guid: 094bc3bc7867fb944837508fe6f62a97
+    path: Assets/1.Scenes/BusinessStages/BusinessStage4.unity
+    guid: 7bf50a8c9d3798f4b91def5893ed6cb6
   - enabled: 1
-    path: Assets/1.Scenes/BusinessStages/Stage3.unity
-    guid: fca5426a89cb215439e032b807e6dce5
+    path: Assets/1.Scenes/BusinessStages/BusinessStage5.unity
+    guid: 38d725136151a6b4c888f2db5e218a7f
   - enabled: 1
-    path: Assets/1.Scenes/BusinessStages/Stage4.unity
-    guid: d6571075fa974754ca88c026aef6dcbf
+    path: Assets/1.Scenes/Interior/InteriorStage1.unity
+    guid: 637d6ae9c28235a43b82d65462dd4533
+  - enabled: 1
+    path: Assets/1.Scenes/Interior/InteriorStage2.unity
+    guid: 8bdc9462395cb40479d3ca82acdedd51
+  - enabled: 1
+    path: Assets/1.Scenes/Interior/InteriorStage3.unity
+    guid: bfe073bd4027e3d4a961021a5e2c117d
+  - enabled: 1
+    path: Assets/1.Scenes/Interior/InteriorStage4.unity
+    guid: 4fb2bfeb67e45934d859162ffa21de66
   m_configObjects: {}

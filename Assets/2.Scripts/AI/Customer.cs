@@ -1,6 +1,7 @@
 using UnityEngine;
 using MonsterLove.StateMachine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public struct OrderBoard{
     public Food foodData{get;private set;}
@@ -19,12 +20,11 @@ public class Customer : MonoBehaviour
     }
 
     StateMachine<States, StateDriverUnity> fsm;
-    public GameObject orderBubble;
-    public SpriteRenderer foodRenderer;
     public Transform foodHolder;
     [Header("Character")]
-    public float speed = 5f;
-
+    public float speed = 1.5f;
+    public NavMeshAgent agent;
+    public Animator fxAnimator;
     private GameObject customerTablePlace;
     private GameObject customerBackPlace;
     private int customerChairPlaceLength;
@@ -32,39 +32,57 @@ public class Customer : MonoBehaviour
     private bool isOrdered = false;
     public int tableNumber{get;private set;}
     private bool receiveOrder=false;
-    private NavMeshAgent agent;
-    private float initSpeed;
+    private float initSpeed=1.5f;
+    private Animator animator;
+    private GameObject foodToHold;
+    void OnEnable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate += FeverTime;
+    }
+    void OnDisable()
+    {
+        if (DataManager.Instance != null) DataManager.Instance.OnRewardActivatedDelegate -= FeverTime;
+    }
+    private void FeverTime(bool isActivated)
+    {
+        speed = isActivated ? initSpeed * 2 : initSpeed;
+        if(animator!=null)animator.speed=isActivated? 2:1;
+        agent.speed = speed;
+    }
     private void Awake()
     {
         fsm = new StateMachine<States, StateDriverUnity>(this);
         fsm.ChangeState(States.Idle);
-        orderBubble.SetActive(false);
     }
     void Start(){
         orderFood = DataManager.Instance.RandomFood();
         Debug.Log(orderFood.foodData.foodName);
-        agent = GetComponent<NavMeshAgent>();
+        animator=GetComponent<Animator>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        if (DataManager.Instance != null) FeverTime(DataManager.Instance.isSpeedRewardActivated);
     }
     private void Update()
     {
         fsm.Driver.Update.Invoke();
+        SetAnimation(agent.velocity);
     }
-    public void MultSpeed(float mult)
+    public void SetAnimation(Vector3 currentVelocity)
     {
-        speed *= mult;
-        agent.speed = speed;
-    }
-    public void BackToNormalSpeed()
-    {
-        speed = initSpeed;
-        agent.speed = speed;
-    }
-    void Idle_Enter()
-    {
-        
+        if (animator == null) { Debug.Log("animator is null"); return; }
+        if (currentVelocity.y > 0.1)
+        {//towards upside
+            animator.SetFloat("YVelocity", 1);
+            if(foodToHold!=null)foodToHold.SetActive(false);
+        }
+        else if (currentVelocity.y < -0.1)
+        {//towards downward
+            animator.SetFloat("YVelocity", -1);
+            if (foodToHold != null) foodToHold.SetActive(true);
+        }
+        else
+            animator.SetFloat("YVelocity", 0);
     }
     void Idle_Update() 
     {
@@ -92,15 +110,24 @@ public class Customer : MonoBehaviour
         // If an order is placed, add money and receive the return location for a move call 
         else
         {
-            BusinessGameManager.Instance.AddMoney(orderFood.currentValue);
+            int payMoney=CustomerManager.Instance.isRewardActivated? orderFood.currentValue*2 : orderFood.currentValue;
+            BusinessGameManager.Instance.AddMoney(payMoney);
             StageMissionManager.Instance.IncreaseAccumulatedCustomer();
-            StageMissionManager.Instance.IncreaseAccumulatedSales(orderFood.currentValue);
-            Debug.Log(orderFood.currentValue);
+            StageMissionManager.Instance.IncreaseAccumulatedSales(payMoney);
+            SystemManager.Instance.PlaySFXByName("pay");
+            fxAnimator.SetTrigger("FXTrigger");
+            Debug.Log(payMoney);
             customerBackPlace = CustomerManager.Instance.customerBackPlace;
             fsm.ChangeState(States.Walk);
         }
     }
 
+    void Walk_Enter(){
+        if (isOrdered){
+            CustomerManager.Instance.customerChairPresent[tableNumber - 1] = false;
+            
+        }
+    }
     void Walk_Update()
     {
         // Move to the table if no order is placed
@@ -124,11 +151,8 @@ public class Customer : MonoBehaviour
             }
             else
             {
-                CustomerManager.Instance.customerChairPresent[tableNumber-1] = false;
-                
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
-            //hey
         }
     }
     void Walk_Exit()
@@ -138,14 +162,13 @@ public class Customer : MonoBehaviour
 
     void Order_Enter()
     {
-        transform.SetParent(customerTablePlace.transform);
+        transform.parent.SetParent(customerTablePlace.transform);
         
         isOrdered = true;
         OrderBoard newOrder=new OrderBoard(orderFood,tableNumber);
         OrderManager.Instance.PutOrderInQueue(newOrder);
-        orderBubble.SetActive(true);
-        foodRenderer.sprite=orderFood.foodData.foodIcon;
-;    }
+        transform.GetComponentInParent<CustomerTable>().SetBubble(orderFood,2);
+    }
     void Order_Update()
     {
         if(receiveOrder)
@@ -156,16 +179,14 @@ public class Customer : MonoBehaviour
 
     void Order_Exit()
     {
-        transform.SetParent(null);
-        orderBubble.SetActive(false);
-        
+        transform.parent.SetParent(null);
     }
     public void GetMenu(GameObject menu)
     {
-        menu.transform.SetParent(foodHolder);
-        menu.transform.position=foodHolder.position;
+        foodToHold=menu;
+        foodToHold.transform.SetParent(foodHolder);
+        foodToHold.transform.position=foodHolder.position;
         receiveOrder = true;
-        
+       
     }
-
 }

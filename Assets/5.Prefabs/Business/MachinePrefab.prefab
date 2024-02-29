@@ -222,5 +222,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machineData: {fileID: 0}
-  unlockedFood: {fileID: 5136823783076471932}
-  isPurchased: 0
+  _unlockedFood: {fileID: 0}
+  additionalMachines: []

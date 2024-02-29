@@ -13,6 +13,7 @@ public enum MissionType
 public enum MissionContent
 {
     CustomerCheck,
+    MachineNumberCheck,
     SalesCheck,
     LevelCheck,
     ActivatedCheck,
@@ -24,6 +25,7 @@ public enum MissionContent
 [CreateAssetMenu(fileName = "NewMission", menuName = "GametoneProject/Mission", order = 4)]
 public class ScriptableMission : ScriptableObject
 {
+    public int index;
     public MissionType missionType;
     public MissionContent missionContent;
     public string targetName;
@@ -31,4 +33,6 @@ public class ScriptableMission : ScriptableObject
     public int cost;
     public int stageToAppear;
     public Sprite sprite;
+    public string description;
+    public int progress;
 }

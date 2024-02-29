@@ -2,30 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Machine : MonoBehaviour
+public class Machine : MonoBehaviour,IMachineInterface
 {
-    public bool IsAvailable { get { return !isTakenPlace; } }
+    
     public ScriptableMachine machineData;
-    public Food unlockedFood; 
-    public bool isPurchased=false; 
+    [SerializeField]
+    private Food _unlockedFood;
+    [Header("추가 장비")]
+    public List<AdditionalMachine> additionalMachines;
 
-    //public ScriptableFood foodData;
-    private bool isTakenPlace = false;
+    public bool IsAvailable { get { return !isTakenPlace; } }
+    public bool isUnlocked{get;private set;}=false;
+    public bool isTakenPlace{get;private set;}=false;
     public int currentLevel{get;private set;}=1;
-    public float currentCookTime { get; private set;}
-    public int currentUpgradeMoney { get; private set;}
-    // Start is called before the first frame update
-    void Start()
+    public float currentCookTime { get { return machineData.cookTime[currentLevel - 1];} }
+    public int currentUpgradeMoney { get {return machineData.upgradeMoney[currentLevel - 1];}}
+    public Food unlockedFood
     {
-        isTakenPlace = false;
-        DataLoadManager.Instance.OnDataChanged += SetValue;
-        SetValue();
+        get { return _unlockedFood; }
+        set { _unlockedFood = value; }
     }
-    void OnEnable(){
-        SetValue();
-    }
+    
     public void UnlockFood()
     {
+        isUnlocked=true;
         if (unlockedFood != null)
         {
             unlockedFood.Unlock();
@@ -45,13 +45,27 @@ public class Machine : MonoBehaviour
     public void LevelUp()
     {
         currentLevel++;
-        SetValue();
         StageMissionManager.Instance.LevelCheck();
     }
-    void SetValue()
-    {
-        currentCookTime = machineData.cookTime[currentLevel - 1];
-        currentUpgradeMoney = machineData.upgradeMoney[currentLevel - 1];
+    public void AddAdditionalMachine(){
+        foreach(var additionalMachine in additionalMachines)
+        {
+            if(!additionalMachine.gameObject.activeInHierarchy){
+                Debug.Log("AdditionalMachineAdd");
+                additionalMachine.transform.parent.gameObject.SetActive(true);
+                additionalMachine.BuyAdditionalMachine();
+                return;
+            }
+        }
     }
-    
+    public void SetData(int level,bool unlock)
+    {
+        currentLevel=level;
+        isUnlocked=unlock;
+    }
+    public SaveData<IMachineInterface> GetData()
+    {
+        return new SaveData<IMachineInterface>(
+            this.machineData.name, currentLevel, isUnlocked);
+    }
 }
